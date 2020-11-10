@@ -78,3 +78,5 @@ labyrinth.iml
 .idea/discord.xml
 .idea/codeStyles/Project.xml
 .idea/codeStyles/codeStyleConfig.xml
+*.xml
+labyrinth.iml

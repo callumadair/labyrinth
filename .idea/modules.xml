@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://A:/Program Files/RedHat/java-11-openjdk-11.0.8-2/javafx-sdk-11.0.2/javafx-sdk-11.0.2.iml" filepath="A:/Program Files/RedHat/java-11-openjdk-11.0.8-2/javafx-sdk-11.0.2/javafx-sdk-11.0.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/labyrinth.iml" filepath="$PROJECT_DIR$/labyrinth.iml" />
     </modules>
   </component>
