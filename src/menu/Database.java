@@ -16,7 +16,7 @@ public class Database {
      */
     public void createNewDatabase(String fileName) {
 
-        this.url = "jdbc:sqlite:" + fileName;
+        //this.url = "jdbc:<database type here>:" + fileName;
 
         try (Connection conn = DriverManager.getConnection(this.url)) {
             if (conn != null) {
