@@ -90,7 +90,7 @@ public class Main extends Application {
 }
 
         /*
-        stage.setTitle("Labirynth");
+        stage.setTitle("Labyrinth");
 
         FlowPane rootNode = new FlowPane(Orientation.VERTICAL,5, 5);
         rootNode.setAlignment(Pos.CENTER);
