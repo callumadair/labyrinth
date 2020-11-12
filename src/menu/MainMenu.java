@@ -7,6 +7,13 @@ public class MainMenu {
     private boolean isQuit = false;
 
     /**
+     * Instantiates a new Main menu.
+     */
+    public MainMenu() {
+
+    }
+
+    /**
      * Quit game.
      */
     public void quitGame() {

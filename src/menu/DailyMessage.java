@@ -7,6 +7,13 @@ public class DailyMessage {
     private String todaysRandomMessage;
 
     /**
+     * Instantiates a new Daily message.
+     */
+    public DailyMessage() {
+
+    }
+
+    /**
      * Gets todays random message.
      *
      * @return the todays random message
