@@ -32,4 +32,11 @@ public class DailyMessage {
     public void decryptString(String encryptedString) {
 
     }
+
+    /**
+     * Send message.
+     */
+    public void sendMessage() {
+
+    }
 }
