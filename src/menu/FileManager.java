@@ -10,6 +10,13 @@ public class FileManager {
     private String playerProfileDirectory;
 
     /**
+     * Instantiates a new File manager.
+     */
+    public FileManager() {
+
+    }
+
+    /**
      * Gets save file directory.
      *
      * @return the save file directory

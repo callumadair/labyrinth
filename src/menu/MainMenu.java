@@ -7,6 +7,13 @@ public class MainMenu {
     private boolean isQuit = false;
 
     /**
+     * Instantiates a new Main menu.
+     */
+    public MainMenu() {
+
+    }
+
+    /**
      * Quit game.
      */
     public void quitGame() {
@@ -27,5 +34,19 @@ public class MainMenu {
     }
 
     private void startGame() {
+    }
+
+    /**
+     * Sets game.
+     */
+    public void setupGame() {
+
+    }
+
+    /**
+     * Gets player profiles.
+     */
+    public void getPlayerProfiles() {
+
     }
 }
