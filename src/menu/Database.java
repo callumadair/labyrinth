@@ -20,7 +20,7 @@ public class Database {
 
         try (Connection conn = DriverManager.getConnection(this.url)) {
             if (conn != null) {
-                System.out.println("Successfully connected to the database");
+                System.out.println("Connection successful.");
             }
 
         } catch (SQLException e) {
