@@ -14,7 +14,7 @@ public class Board {
 
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
-
+//test 123
     public Board(String[][] data) {
         setup(data);
     }
