@@ -28,4 +28,18 @@ public class MainMenu {
 
     private void startGame() {
     }
+
+    /**
+     * Sets game.
+     */
+    public void setupGame() {
+
+    }
+
+    /**
+     * Gets player profiles.
+     */
+    public void getPlayerProfiles() {
+
+    }
 }
