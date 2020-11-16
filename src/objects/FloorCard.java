@@ -4,11 +4,11 @@ import javafx.scene.image.Image;
 
 public class FloorCard extends Card{
 
-    private TileType type;
+    private FloorType type;
     private boolean isMoveable;
     private boolean isOnFire;
 
-    public enum TileType {
+    public enum FloorType {
         STRAIGHT, CORNER, T_SHAPED, GOAL;
     }
 
@@ -32,5 +32,8 @@ public class FloorCard extends Card{
 
     public void setOnFire(boolean onFire) {
         isOnFire = onFire;
+    }
+
+    public FloorCard rotateShape(FloorCard floorTile) {
     }
 }
