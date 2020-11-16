@@ -48,7 +48,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        stage.setTitle("Labirynth");
+        stage.setTitle("Labyrinth");
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
         stage.setScene(scene);
@@ -90,7 +90,7 @@ public class Main extends Application {
 }
 
         /*
-        stage.setTitle("Labirynth");
+        stage.setTitle("Labyrinth");
 
         FlowPane rootNode = new FlowPane(Orientation.VERTICAL,5, 5);
         rootNode.setAlignment(Pos.CENTER);
