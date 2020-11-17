@@ -8,9 +8,9 @@ import java.sql.*;
 public class Database {
     private String url;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Database database = new Database();
-        database.createNewDatabase("Test");
+        database.start("Test");
     }
 
     /**
@@ -18,15 +18,21 @@ public class Database {
      *
      * @param fileName the file name
      */
-    public void createNewDatabase(String fileName) {
+    public void start(String fileName) throws SQLException {
         url = "jdbc:mysql://localhost:3306/" + fileName;
-        try (Connection conn = DriverManager.getConnection(url, "root", )) {
+        try (Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value)) {
             if (conn != null) {
                 System.out.println("Connection successful.");
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("Creating new database.");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/?user="
+                    + DatabaseAccess.USER.value + "&password=" + DatabaseAccess.PASSWORD.value);
+            Statement stmt = conn.createStatement();
+            String sql = "CREATE DATABASE " + fileName;
+            stmt.executeUpdate(sql);
         }
     }
 
