@@ -66,7 +66,15 @@ public class Database {
         Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value, DatabaseAccess.PASSWORD.value);
         Statement stmt = conn.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);
-        
+        int columnCount = resultSet.getMetaData().getColumnCount();
+        int rowCount = resultSet.last().
+        Object[] tableData = new Object[]
+        while (resultSet.next()) {
+            Object[] rowData = new Object[columnCount];
+            for (int i = 0; i < columnCount; i++) {
+                rowData[i] = resultSet.getString(i);
+            }
+        }
     }
 }
 
