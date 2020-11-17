@@ -8,7 +8,6 @@ import java.sql.*;
 public class Database {
     private String url;
 
-
     /**
      * Create new database.
      *

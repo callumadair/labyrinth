@@ -4,13 +4,15 @@ package menu;
  * The type Main menu.
  */
 public class MainMenu {
-
     private RunningState state = RunningState.IN_MENU;
-
     /**
      * Instantiates a new Main menu.
      */
     public MainMenu() {
+
+    }
+
+    public void start() {
 
     }
 
