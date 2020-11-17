@@ -18,17 +18,17 @@ public class Database {
     public static void main(String[] args) throws SQLException {
         Database database = new Database();
         database.start("test");
-        database.getData("test");
+        database.getAllData("test");
     }
 
     /**
      * Create new database.
      *
-     * @param fileName the file name
+     * @param databaseName the database name
      * @throws SQLException the sql exception
      */
-    public void start(String fileName) throws SQLException {
-        url = "jdbc:mysql://localhost:3306/" + fileName;
+    public void start(String databaseName) throws SQLException {
+        url = "jdbc:mysql://localhost:3306/" + databaseName;
         try (Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
                 DatabaseAccess.PASSWORD.value)) {
             if (conn != null) {
@@ -40,7 +40,7 @@ public class Database {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user="
                     + DatabaseAccess.USER.value + "&password=" + DatabaseAccess.PASSWORD.value);
             Statement stmt = conn.createStatement();
-            String sql = "CREATE DATABASE " + fileName;
+            String sql = "CREATE DATABASE " + databaseName;
             stmt.executeUpdate(sql);
         }
     }
@@ -60,21 +60,17 @@ public class Database {
     /**
      * Gets data.
      *
-     * @param sql the sql
      * @throws SQLException the sql exception
      */
-    public void getData(String sql) throws SQLException {
+    public void getAllData() throws SQLException {
         Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value, DatabaseAccess.PASSWORD.value);
         Statement stmt = conn.createStatement();
-        ResultSet resultSet = stmt.executeQuery(sql);
-        int columnCount = resultSet.getMetaData().getColumnCount();
-        ArrayList<Object[]> tableData = new ArrayList<>();
-        while (resultSet.next()) {
-            Object[] rowData = new Object[columnCount];
-            for (int i = 0; i < columnCount; i++) {
-                rowData[i] = resultSet.getString(i);
-            }
-            tableData.add(rowData);
+        String sql = "SELECT * FROM player;";
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            String name = rs.getString("PLAYER_NAME");
+            int victories = rs.getInt("VICTORIES");
+            int losses = rs.getInt("LOSSES");
         }
     }
 }
