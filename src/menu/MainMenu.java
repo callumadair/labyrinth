@@ -17,8 +17,8 @@ public class MainMenu {
     /**
      * Quit game.
      */
-    public void quitGame() {
-        isQuit = true;
+    public void exitApplication() {
+        state = RunningState.EXIT;
     }
 
     /**
