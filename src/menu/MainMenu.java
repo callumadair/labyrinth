@@ -12,8 +12,8 @@ public class MainMenu {
 
     }
 
-    public void start() {
-
+    public static void start() {
+         MainMenu menu = new MainMenu();
     }
 
     /**
