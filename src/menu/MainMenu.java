@@ -26,8 +26,8 @@ public class MainMenu {
      *
      * @return the high score
      */
-    public int getHighScore() {
-        return -1;
+    public String getHighScore() {
+        return null;
     }
 
     private boolean isInstructionsOpen() {
