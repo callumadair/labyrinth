@@ -4,7 +4,8 @@ package menu;
  * The type Main menu.
  */
 public class MainMenu {
-    private boolean isQuit = false;
+
+    private RunningState state = RunningState.IN_MENU;
 
     /**
      * Instantiates a new Main menu.
@@ -49,4 +50,9 @@ public class MainMenu {
     public void getPlayerProfiles() {
 
     }
+}
+enum RunningState {
+    IN_MENU,
+    IN_GAME,
+    EXIT;
 }
