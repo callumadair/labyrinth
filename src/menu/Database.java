@@ -8,15 +8,23 @@ import java.sql.*;
 public class Database {
     private String url;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws SQLException the sql exception
+     */
     public static void main(String[] args) throws SQLException {
         Database database = new Database();
-        database.start("Test");
+        database.start("test");
+        database.getData("test");
     }
 
     /**
      * Create new database.
      *
      * @param fileName the file name
+     * @throws SQLException the sql exception
      */
     public void start(String fileName) throws SQLException {
         url = "jdbc:mysql://localhost:3306/" + fileName;
@@ -28,7 +36,7 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println("Creating new database.");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/?user="
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user="
                     + DatabaseAccess.USER.value + "&password=" + DatabaseAccess.PASSWORD.value);
             Statement stmt = conn.createStatement();
             String sql = "CREATE DATABASE " + fileName;
@@ -37,27 +45,28 @@ public class Database {
     }
 
     /**
-     * Create new table.
+     * Execute sql operation.
      *
-     * @param sqlTableInfo the sql table info
+     * @param sql the sql
+     * @throws SQLException the sql exception
      */
-    public void createNewTable(String sqlTableInfo) {
-        try (Connection conn = DriverManager.getConnection(this.url);
-             Statement statement = conn.createStatement()) {
-            statement.execute(sqlTableInfo);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    public void executeSQLOperation(String sql) throws SQLException {
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value, DatabaseAccess.PASSWORD.value);
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(sql);
     }
 
-    private Connection connect() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(this.url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
+    /**
+     * Gets data.
+     *
+     * @param sql the sql
+     * @throws SQLException the sql exception
+     */
+    public void getData(String sql) throws SQLException {
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value, DatabaseAccess.PASSWORD.value);
+        Statement stmt = conn.createStatement();
+        ResultSet resultSet = stmt.executeQuery(sql);
+        
     }
 }
 
