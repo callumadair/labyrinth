@@ -30,10 +30,6 @@ public class MainMenu {
         return null;
     }
 
-    private boolean isInstructionsOpen() {
-        return false;
-    }
-
     private void startGame() {
     }
 
@@ -53,6 +49,7 @@ public class MainMenu {
 }
 enum RunningState {
     IN_MENU,
+    IN_INSTRUCTIONS,
     IN_GAME,
     EXIT;
 }
