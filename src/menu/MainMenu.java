@@ -26,7 +26,7 @@ public class MainMenu {
      *
      * @return the high score
      */
-    public String getHighScore() {
+    public String getScores() {
         return null;
     }
 
