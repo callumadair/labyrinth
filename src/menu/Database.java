@@ -8,16 +8,19 @@ import java.sql.*;
 public class Database {
     private String url;
 
+    public static void main(String[] args) {
+        Database database = new Database();
+        database.createNewDatabase("Test");
+    }
+
     /**
      * Create new database.
      *
      * @param fileName the file name
      */
     public void createNewDatabase(String fileName) {
-
-        //this.url = "jdbc:<database type here>:" + fileName;
-
-        try (Connection conn = DriverManager.getConnection(this.url)) {
+        url = "jdbc:mysql://localhost:3306/" + fileName;
+        try (Connection conn = DriverManager.getConnection(url, "root", )) {
             if (conn != null) {
                 System.out.println("Connection successful.");
             }
@@ -51,3 +54,5 @@ public class Database {
         return conn;
     }
 }
+
+
