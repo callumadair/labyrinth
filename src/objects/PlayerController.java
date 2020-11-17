@@ -17,7 +17,7 @@ public class PlayerController {
     PlayerController() {
 
     }
-    
+
     /**
      * Gets player x.
      *
