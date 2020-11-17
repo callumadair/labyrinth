@@ -1,6 +1,7 @@
 package menu;
 
 import java.sql.*;
+import java.util.*;
 
 /**
  * The type Database.
@@ -67,13 +68,13 @@ public class Database {
         Statement stmt = conn.createStatement();
         ResultSet resultSet = stmt.executeQuery(sql);
         int columnCount = resultSet.getMetaData().getColumnCount();
-        int rowCount = resultSet.last().
-        Object[] tableData = new Object[]
+        ArrayList<Object[]> tableData = new ArrayList<>();
         while (resultSet.next()) {
             Object[] rowData = new Object[columnCount];
             for (int i = 0; i < columnCount; i++) {
                 rowData[i] = resultSet.getString(i);
             }
+            tableData.add(rowData);
         }
     }
 }
