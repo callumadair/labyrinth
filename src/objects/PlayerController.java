@@ -17,25 +17,7 @@ public class PlayerController {
     PlayerController() {
 
     }
-
-    /**
-     * Gets high score.
-     *
-     * @return the high score
-     */
-    public int getHighScore() {
-        return highScore;
-    }
-
-    /**
-     * Sets high score.
-     *
-     * @param highScore the high score
-     */
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
-    }
-
+    
     /**
      * Gets player x.
      *
