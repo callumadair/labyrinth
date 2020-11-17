@@ -6,7 +6,6 @@ import java.util.*;
  * The type Player controller.
  */
 public class PlayerController {
-    private int highScore;
     private int playerX;
     private int playerY;
     private boolean isGoalReached;
