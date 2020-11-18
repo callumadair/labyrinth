@@ -77,6 +77,7 @@ public class Database {
      * Store player.
      *
      * @param playerProfile the player profile
+     * @throws SQLException the sql exception
      */
     public void storePlayer(PlayerProfile playerProfile) throws SQLException {
         String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
@@ -100,6 +101,17 @@ public class Database {
         executeSQL(sql);
     }
 
+    
+    /**
+     * Delete player.
+     *
+     * @param playerProfile the player profile
+     * @throws SQLException the sql exception
+     */
+    public void deletePlayer(PlayerProfile playerProfile) throws SQLException {
+        String sql = "DELETE FROM player WHERE id =" + playerProfile.getPlayerID() + ";";
+        executeSQL(sql);
+    }
     /**
      * Delete player.
      *
@@ -135,5 +147,3 @@ public class Database {
         return storedProfiles;
     }
 }
-
-
