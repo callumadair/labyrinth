@@ -13,7 +13,6 @@ public class FileManager {
      * Instantiates a new File manager.
      */
     public FileManager() {
-
     }
 
     /**

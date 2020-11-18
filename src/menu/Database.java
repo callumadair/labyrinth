@@ -1,6 +1,9 @@
 package menu;
 
+import objects.*;
+
 import java.sql.*;
+import java.util.*;
 
 /**
  * The type Database.
@@ -8,47 +11,121 @@ import java.sql.*;
 public class Database {
     private String url;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws SQLException the sql exception
+     */
+    public static void main(String[] args) throws SQLException {
+        Database database = new Database();
+        database.start("test");
+        /*String createTable = "CREATE TABLE PLAYER " +
+                "(player_name VARCHAR(255)," +
+                "victories INTEGER," +
+                "losses INTEGER," +
+                "id INTEGER," +
+                "PRIMARY KEY (id))";*/
+
+        //database.insertData("James", 6, 8, 94);
+        for (PlayerProfile profile : database.getAllData()) {
+            System.out.println(profile.toString());
+        }
+        database.deletePlayer(9998);
+        for (PlayerProfile profile : database.getAllData()) {
+            System.out.println(profile.toString());
+        }
+    }
 
     /**
      * Create new database.
      *
-     * @param fileName the file name
+     * @param databaseName the database name
+     * @throws SQLException the sql exception
      */
-    public void createNewDatabase(String fileName) {
-
-        //this.url = "jdbc:<database type here>:" + fileName;
-
-        try (Connection conn = DriverManager.getConnection(this.url)) {
+    public void start(String databaseName) throws SQLException {
+        url = "jdbc:mysql://localhost:3306/" + databaseName;
+        try (Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value)) {
             if (conn != null) {
                 System.out.println("Connection successful.");
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("Creating new database.");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user="
+                    + DatabaseAccess.USER.value + "&password=" + DatabaseAccess.PASSWORD.value);
+            Statement stmt = conn.createStatement();
+            String sql = "CREATE DATABASE " + databaseName;
+            stmt.executeUpdate(sql);
         }
     }
 
     /**
-     * Create new table.
+     * Execute sql operation.
      *
-     * @param sqlTableInfo the sql table info
+     * @param sql the sql
+     * @throws SQLException the sql exception
      */
-    public void createNewTable(String sqlTableInfo) {
-        try (Connection conn = DriverManager.getConnection(this.url);
-             Statement statement = conn.createStatement()) {
-            statement.execute(sqlTableInfo);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    public void executeSQL(String sql) throws SQLException {
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value);
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(sql);
     }
 
-    private Connection connect() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(this.url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+    /**
+     * Insert data.
+     *
+     * @param playerName the player name
+     * @param victories  the victories
+     * @param losses     the losses
+     * @param id         the id
+     * @throws SQLException the sql exception
+     */
+    public void insertData(String playerName, int victories, int losses, int id) throws SQLException {
+        String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
+                "values ('" + playerName + "', " + victories + ", " + losses + ", " + id + ")";
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value);
+        Statement preparedStatement = conn.createStatement();
+        preparedStatement.execute(sql);
+    }
+
+    /**
+     * Delete player.
+     *
+     * @param id the id
+     * @throws SQLException the sql exception
+     */
+    public void deletePlayer(int id) throws SQLException {
+        String sql = "DELETE FROM player WHERE id =" + id + ";";
+        executeSQL(sql);
+    }
+
+    /**
+     * Gets data.
+     *
+     * @return the all data
+     * @throws SQLException the sql exception
+     */
+    public ArrayList<PlayerProfile> getAllData() throws SQLException {
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value);
+        Statement stmt = conn.createStatement();
+        String sql = "SELECT * FROM player;";
+        ResultSet rs = stmt.executeQuery(sql);
+
+        ArrayList<PlayerProfile> storedProfiles = new ArrayList<>();
+        while (rs.next()) {
+            String name = rs.getString("PLAYER_NAME");
+            int victories = rs.getInt("VICTORIES");
+            int losses = rs.getInt("LOSSES");
+            int id = rs.getInt("ID");
+            storedProfiles.add(new PlayerProfile(name, victories, losses, id));
         }
-        return conn;
+        return storedProfiles;
     }
 }
+
+
