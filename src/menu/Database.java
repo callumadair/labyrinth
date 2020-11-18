@@ -7,7 +7,6 @@ import java.sql.*;
  */
 public class Database {
     private String url;
-    //private Connection conn;
 
     /**
      * The entry point of application.
@@ -36,7 +35,7 @@ public class Database {
      * @throws SQLException the sql exception
      */
     public void start(String databaseName) throws SQLException {
-        url = "jdbc:mysql://localhost:3306/" + databaseName;
+        url = "jdbc:mysql://localhost:3306/C:/" + databaseName;
         try (Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
                 DatabaseAccess.PASSWORD.value)) {
             if (conn != null) {
@@ -45,7 +44,7 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println("Creating new database.");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user="
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/c:/?user="
                     + DatabaseAccess.USER.value + "&password=" + DatabaseAccess.PASSWORD.value);
             Statement stmt = conn.createStatement();
             String sql = "CREATE DATABASE " + databaseName;
@@ -66,6 +65,15 @@ public class Database {
         stmt.executeUpdate(sql);
     }
 
+    /**
+     * Insert data.
+     *
+     * @param playerName the player name
+     * @param victories  the victories
+     * @param losses     the losses
+     * @param id         the id
+     * @throws SQLException the sql exception
+     */
     public void insertData(String playerName, int victories, int losses, int id) throws SQLException {
         String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
                 "values ('" + playerName + "', " + victories + ", " + losses + ", " + id + ")";
