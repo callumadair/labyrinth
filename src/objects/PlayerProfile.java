@@ -95,4 +95,12 @@ public class PlayerProfile {
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
     }
+
+    @Override
+    public String toString() {
+        return "Player name: '" + playerName + '\'' +
+                ", victories: " + victories +
+                ", losses: " + losses +
+                ", player ID: " + playerID + "\n";
+    }
 }
