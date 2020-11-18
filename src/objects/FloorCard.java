@@ -7,9 +7,14 @@ public class FloorCard extends Card{
     private FloorType type;
     private boolean isMoveable;
     private boolean isOnFire;
+    private FloorTileState state = FloorTileState.NORMAL;
 
     public enum FloorType {
         STRAIGHT, CORNER, T_SHAPED, GOAL;
+    }
+
+    public enum FloorTileState{
+        FIRE, FROZEN, NORMAL;
     }
 
     public void useCard() {
