@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * The type Database.
  */
-public class Database {
+public class PlayerDatabase {
     private String url;
 
     /**
@@ -18,7 +18,7 @@ public class Database {
      * @throws SQLException the sql exception
      */
     public static void main(String[] args) throws SQLException {
-        Database database = new Database();
+        PlayerDatabase database = new PlayerDatabase();
         database.start("test");
         /*String createTable = "CREATE TABLE PLAYER " +
                 "(player_name VARCHAR(255)," +
@@ -101,7 +101,7 @@ public class Database {
         executeSQL(sql);
     }
 
-    
+
     /**
      * Delete player.
      *
