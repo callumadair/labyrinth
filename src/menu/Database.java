@@ -27,7 +27,6 @@ public class Database {
                 "id INTEGER," +
                 "PRIMARY KEY (id))";*/
 
-        //database.insertData("James", 6, 8, 94);
         for (PlayerProfile profile : database.getAllData()) {
             System.out.println(profile.toString());
         }
@@ -75,6 +74,18 @@ public class Database {
     }
 
     /**
+     * Store player.
+     *
+     * @param playerProfile the player profile
+     */
+    public void storePlayer(PlayerProfile playerProfile) throws SQLException {
+        String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
+                "values ('" + playerProfile.getPlayerName() + "', " + playerProfile.getVictories() + ", "
+                + playerProfile.getLosses() + ", " + playerProfile.getPlayerID() + ")";
+        executeSQL(sql);
+    }
+
+    /**
      * Insert data.
      *
      * @param playerName the player name
@@ -83,13 +94,10 @@ public class Database {
      * @param id         the id
      * @throws SQLException the sql exception
      */
-    public void insertData(String playerName, int victories, int losses, int id) throws SQLException {
+    public void storePlayer(String playerName, int victories, int losses, int id) throws SQLException {
         String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
                 "values ('" + playerName + "', " + victories + ", " + losses + ", " + id + ")";
-        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
-                DatabaseAccess.PASSWORD.value);
-        Statement preparedStatement = conn.createStatement();
-        preparedStatement.execute(sql);
+        executeSQL(sql);
     }
 
     /**
