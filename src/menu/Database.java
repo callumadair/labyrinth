@@ -20,13 +20,12 @@ public class Database {
     public static void main(String[] args) throws SQLException {
         Database database = new Database();
         database.start("test");
-        String createTable = "CREATE TABLE PLAYER " +
+        /*String createTable = "CREATE TABLE PLAYER " +
                 "(player_name VARCHAR(255)," +
                 "victories INTEGER," +
                 "losses INTEGER," +
                 "id INTEGER," +
-                "PRIMARY KEY (id))";
-        //database.createTable(createTable);
+                "PRIMARY KEY (id))";*/
 
         //database.insertData("James", 6, 8, 94);
         for (PlayerProfile profile : database.getAllData()) {
