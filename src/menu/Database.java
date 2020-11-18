@@ -1,13 +1,13 @@
 package menu;
 
 import java.sql.*;
-import java.util.*;
 
 /**
  * The type Database.
  */
 public class Database {
     private String url;
+    //private Connection conn;
 
     /**
      * The entry point of application.
@@ -18,7 +18,16 @@ public class Database {
     public static void main(String[] args) throws SQLException {
         Database database = new Database();
         database.start("test");
-        database.getAllData("test");
+        String createTable = "CREATE TABLE PLAYER " +
+                "(player_name VARCHAR(255)," +
+                "victories INTEGER," +
+                "losses INTEGER," +
+                "id INTEGER," +
+                "PRIMARY KEY (id))";
+        //database.createTable(createTable);
+        String insertData = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) values ('James', 5, 7, 124)";
+        database.insertData(insertData);
+        database.getAllData();
     }
 
     /**
@@ -51,10 +60,18 @@ public class Database {
      * @param sql the sql
      * @throws SQLException the sql exception
      */
-    public void executeSQLOperation(String sql) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value, DatabaseAccess.PASSWORD.value);
+    public void createTable(String sql) throws SQLException {
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value);
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(sql);
+    }
+
+    public void insertData(String sql) throws SQLException {
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value);
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.execute();
     }
 
     /**
@@ -63,7 +80,8 @@ public class Database {
      * @throws SQLException the sql exception
      */
     public void getAllData() throws SQLException {
-        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value, DatabaseAccess.PASSWORD.value);
+        Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
+                DatabaseAccess.PASSWORD.value);
         Statement stmt = conn.createStatement();
         String sql = "SELECT * FROM player;";
         ResultSet rs = stmt.executeQuery(sql);
@@ -71,6 +89,8 @@ public class Database {
             String name = rs.getString("PLAYER_NAME");
             int victories = rs.getInt("VICTORIES");
             int losses = rs.getInt("LOSSES");
+            int id = rs.getInt("ID");
+            System.out.println(name + " " + victories + " " + losses + " " + id);
         }
     }
 }
