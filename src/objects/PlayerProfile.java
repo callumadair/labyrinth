@@ -7,6 +7,22 @@ public class PlayerProfile {
     private String playerName;
     private int victories;
     private int losses;
+    private int playerID;
+
+    /**
+     * Instantiates a new Player profile.
+     *
+     * @param playerName the player name
+     * @param victories  the victories
+     * @param losses     the losses
+     * @param playerID   the player id
+     */
+    public PlayerProfile(String playerName, int victories, int losses, int playerID) {
+        setPlayerName(playerName);
+        setVictories(victories);
+        setLosses(losses);
+        setPlayerID(playerID);
+    }
 
     /**
      * Gets player name.
@@ -60,5 +76,23 @@ public class PlayerProfile {
      */
     public void setLosses(int losses) {
         this.losses = losses;
+    }
+
+    /**
+     * Gets player id.
+     *
+     * @return the player id
+     */
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    /**
+     * Sets player id.
+     *
+     * @param playerID the player id
+     */
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
     }
 }
