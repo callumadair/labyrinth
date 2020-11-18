@@ -25,8 +25,7 @@ public class Database {
                 "id INTEGER," +
                 "PRIMARY KEY (id))";
         //database.createTable(createTable);
-        String insertData = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) values ('James', 5, 7, 123)";
-        database.insertData(insertData);
+        database.insertData("James", 6, 8, 999);
         database.getAllData();
     }
 
@@ -60,18 +59,20 @@ public class Database {
      * @param sql the sql
      * @throws SQLException the sql exception
      */
-    public void createTable(String sql) throws SQLException {
+    public void executeSQL(String sql) throws SQLException {
         Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
                 DatabaseAccess.PASSWORD.value);
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(sql);
     }
 
-    public void insertData(String sql) throws SQLException {
+    public void insertData(String playerName, int victories, int losses, int id) throws SQLException {
+        String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
+                "values ('" + playerName + "', " + victories + ", " + losses + ", " + id + ")";
         Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
                 DatabaseAccess.PASSWORD.value);
-        PreparedStatement preparedStatement = conn.prepareStatement(sql);
-        preparedStatement.execute();
+        Statement preparedStatement = conn.createStatement();
+        preparedStatement.execute(sql);
     }
 
     /**
