@@ -25,7 +25,7 @@ public class Database {
                 "id INTEGER," +
                 "PRIMARY KEY (id))";
         //database.createTable(createTable);
-        String insertData = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) values ('James', 5, 7, 124)";
+        String insertData = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) values ('James', 5, 7, 123)";
         database.insertData(insertData);
         database.getAllData();
     }
