@@ -87,7 +87,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Insert data.
+     * Stores a player profile.
      *
      * @param playerName the player name
      * @param victories  the victories
@@ -109,7 +109,7 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void deletePlayer(PlayerProfile playerProfile) throws SQLException {
-        String sql = "DELETE FROM player WHERE id =" + playerProfile.getPlayerID() + ";";
+        String sql = "delete from PLAYER where ID =" + playerProfile.getPlayerID() + ";";
         executeSQL(sql);
     }
     /**
@@ -119,12 +119,12 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void deletePlayer(int id) throws SQLException {
-        String sql = "DELETE FROM player WHERE id =" + id + ";";
+        String sql = "delete from PLAYER where ID =" + id + ";";
         executeSQL(sql);
     }
 
     /**
-     * Gets data.
+     * Gets all data in the table.
      *
      * @return the all data
      * @throws SQLException the sql exception
@@ -133,7 +133,7 @@ public class PlayerDatabase {
         Connection conn = DriverManager.getConnection(url, DatabaseAccess.USER.value,
                 DatabaseAccess.PASSWORD.value);
         Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM player;";
+        String sql = "select * from PLAYER;";
         ResultSet rs = stmt.executeQuery(sql);
 
         ArrayList<PlayerProfile> storedProfiles = new ArrayList<>();
