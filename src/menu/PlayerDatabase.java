@@ -7,6 +7,8 @@ import java.util.*;
 
 /**
  * The type Database.
+ *
+ * @author Cal
  */
 public class PlayerDatabase {
     private String url;
@@ -57,10 +59,8 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void storePlayer(PlayerProfile playerProfile) throws SQLException {
-        String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
-                "values ('" + playerProfile.getPlayerName() + "', " + playerProfile.getVictories() + ", "
-                + playerProfile.getLosses() + ", " + playerProfile.getPlayerID() + ")";
-        executeSQL(sql);
+        storePlayer(playerProfile.getPlayerName(), playerProfile.getVictories(), playerProfile.getLosses(),
+                playerProfile.getPlayerID());
     }
 
     /**
@@ -85,10 +85,8 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void updatePlayer(PlayerProfile playerProfile) throws SQLException {
-        String sql = "update PLAYER set PLAYER_NAME = " + playerProfile.getPlayerName() + ", VICTORIES = "
-                + playerProfile.getVictories() + ", LOSSES = " + playerProfile.getLosses() + " where ID = "
-                + playerProfile.getPlayerID();
-        executeSQL(sql);
+        updatePlayer(playerProfile.getPlayerName(), playerProfile.getVictories(), playerProfile.getLosses(),
+                playerProfile.getPlayerID());
     }
 
     /**
@@ -101,9 +99,17 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void updatePlayer(String playerName, int victories, int losses, int id) throws SQLException {
-        String sql = "update PLAYER set PLAYER_NAME = " + playerName + ", VICTORIES = " + victories + ", LOSSES = "
-                + losses + " where ID = " + id;
-        executeSQL(sql);
+        String sql = "update PLAYER set PLAYER_NAME = ? , VICTORIES = ? , LOSSES = ? where ID = ?";
+
+        Connection conn = this.connect();
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+        preparedStatement.setString(1, playerName);
+        preparedStatement.setInt(2, victories);
+        preparedStatement.setInt(3, losses);
+        preparedStatement.setInt(4, id);
+
+        preparedStatement.executeUpdate();
     }
 
     /**
@@ -113,8 +119,7 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void deletePlayer(PlayerProfile playerProfile) throws SQLException {
-        String sql = "delete from PLAYER where ID =" + playerProfile.getPlayerID() + ";";
-        executeSQL(sql);
+        deletePlayer(playerProfile.getPlayerID());
     }
 
     /**
