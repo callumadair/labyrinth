@@ -19,7 +19,7 @@ public class PlayerDatabase {
      */
     public static void main(String[] args) throws SQLException {
         PlayerDatabase database = new PlayerDatabase();
-        database.start("test.db");
+        database.start("profiles.db");
         String createTable = "CREATE TABLE PLAYER " +
                 "(player_name VARCHAR(255)," +
                 "victories INTEGER," +
@@ -44,7 +44,7 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void start(String databaseName) throws SQLException {
-        url = "jdbc:sqlite:" + databaseName;
+        url = "jdbc:sqlite:resources/" + databaseName;
         try (Connection conn = connect()) {
             if (conn != null) {
                 System.out.println("Connection successful.");
@@ -71,7 +71,7 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public void executeSQL(String sql) throws SQLException {
-        Connection conn = DriverManager.getConnection(url);
+        Connection conn = connect();
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(sql);
     }
@@ -134,7 +134,7 @@ public class PlayerDatabase {
      * @throws SQLException the sql exception
      */
     public ArrayList<PlayerProfile> getAllData() throws SQLException {
-        Connection conn = DriverManager.getConnection(url);
+        Connection conn = connect();
         Statement stmt = conn.createStatement();
         String sql = "select * from PLAYER;";
         ResultSet rs = stmt.executeQuery(sql);
