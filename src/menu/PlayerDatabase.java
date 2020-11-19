@@ -12,32 +12,6 @@ public class PlayerDatabase {
     private String url;
 
     /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     * @throws SQLException the sql exception
-     */
-    public static void main(String[] args) throws SQLException {
-        PlayerDatabase database = new PlayerDatabase();
-        database.start("profiles.db");
-        String createTable = "CREATE TABLE PLAYER " +
-                "(player_name VARCHAR(255)," +
-                "victories INTEGER," +
-                "losses INTEGER," +
-                "id INTEGER," +
-                "PRIMARY KEY (id))";
-
-        database.executeSQL(createTable);
-        for (PlayerProfile profile : database.getAllData()) {
-            System.out.println(profile.toString());
-        }
-        database.deletePlayer(9998);
-        for (PlayerProfile profile : database.getAllData()) {
-            System.out.println(profile.toString());
-        }
-    }
-
-    /**
      * Create new database.
      *
      * @param databaseName the database name
