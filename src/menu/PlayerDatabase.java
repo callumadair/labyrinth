@@ -78,6 +78,33 @@ public class PlayerDatabase {
         executeSQL(sql);
     }
 
+    /**
+     * Update player.
+     *
+     * @param playerProfile the player profile
+     * @throws SQLException the sql exception
+     */
+    public void updatePlayer(PlayerProfile playerProfile) throws SQLException {
+        String sql = "update PLAYER set PLAYER_NAME = " + playerProfile.getPlayerName() + ", VICTORIES = "
+                + playerProfile.getVictories() + ", LOSSES = " + playerProfile.getLosses() + " where ID = "
+                + playerProfile.getPlayerID();
+        executeSQL(sql);
+    }
+
+    /**
+     * Update player.
+     *
+     * @param playerName the player name
+     * @param victories  the victories
+     * @param losses     the losses
+     * @param id         the id
+     * @throws SQLException the sql exception
+     */
+    public void updatePlayer(String playerName, int victories, int losses, int id) throws SQLException {
+        String sql = "update PLAYER set PLAYER_NAME = " + playerName + ", VICTORIES = " + victories + ", LOSSES = "
+                + losses + " where ID = " + id;
+        executeSQL(sql);
+    }
 
     /**
      * Delete player.
