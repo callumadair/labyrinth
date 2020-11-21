@@ -78,6 +78,6 @@ public class Leaderboard {
         for (PlayerProfile playerProfile : playerProfiles) {
             losses.add(playerProfile.getVictories());
         }
-        this.profileLosses  = losses;
+        this.profileLosses = losses;
     }
 }
