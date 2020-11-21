@@ -132,15 +132,48 @@ public class PlayerDatabase {
     }
 
     /**
+     * Delete all player.
+     */
+    public void deleteAllPlayer() {
+        for (PlayerProfile playerProfile : getAllData()) {
+            deletePlayer(playerProfile.getPlayerID());
+        }
+    }
+
+    /**
+     * Gets player by id.
+     *
+     * @param id the id
+     * @return the player by id
+     */
+    public PlayerProfile getProfileByID(int id) {
+        PlayerProfile playerProfile = null;
+        try {
+            Statement statement = connect().createStatement();
+            String sql = "select * from PLAYER where ID =" + id;
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                String name = rs.getString("PLAYER_NAME");
+                int victories = rs.getInt("VICTORIES");
+                int losses = rs.getInt("LOSSES");
+                playerProfile = new PlayerProfile(name, victories, losses, id);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return playerProfile;
+    }
+
+    /**
      * Gets all data in the table.
      *
      * @return the all data
      */
     public ArrayList<PlayerProfile> getAllData() {
-        Connection conn = connect();
         ArrayList<PlayerProfile> storedProfiles = null;
         try {
-            Statement stmt = conn.createStatement();
+            Statement stmt = connect().createStatement();
             String sql = "select * from PLAYER;";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -158,6 +191,11 @@ public class PlayerDatabase {
         return storedProfiles;
     }
 
+    /**
+     * Gets all active profiles.
+     *
+     * @return the all active profiles
+     */
     public ArrayList<PlayerProfile> getAllActiveProfiles() {
         ArrayList<PlayerProfile> activePlayers = new ArrayList<>();
         for (PlayerProfile playerProfile : getAllData()) {
