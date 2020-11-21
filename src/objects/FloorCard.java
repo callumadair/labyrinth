@@ -4,8 +4,13 @@ import javafx.scene.image.Image;
 
 public class FloorCard extends Card{
 
+    public static final int TILE_SIZE = 61;
+
+    private int x, y;
     private FloorType type;
     private boolean isMoveable;
+    private Image image;
+
     private FloorTileState state = FloorTileState.NORMAL;
     private int[] openings = new int[4];
 
@@ -47,10 +52,22 @@ public class FloorCard extends Card{
         isMoveable = moveable;
     }
 
-    public FloorCard rotateShape(FloorCard floorTile) {
-        return floorTile;
+    public void rotateShape() {
+        //change rotation base on 0,90,180,270
     }
 
+    public Image getImage(){
+        return image;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+  
     public void setOpenings(int left, int top, int right, int bottom) {
         openings [0] = left;
         openings [1] = top;
