@@ -49,25 +49,11 @@ public class Main extends Application {
         }
 
 
-        canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                double x = event.getX();
-                double y = event.getY();
-                getTile(x, y);
-            }
-        });
+
 
         root.setCenter(canvas);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void getTile(double x, double y){
-        int cordX = (int)(x / FloorCard.TILE_SIZE);
-        int cordY = (int)(y / FloorCard.TILE_SIZE);
-
-        System.out.println("x: " + cordX + " y: " + cordY);
     }
 
     private void userInput(){

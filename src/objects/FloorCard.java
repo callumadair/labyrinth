@@ -6,6 +6,7 @@ public class FloorCard extends Card{
 
     public static final int TILE_SIZE = 61;
 
+    private int x, y;
     private FloorType type;
     private boolean isMoveable;
     private boolean isOnFire;
@@ -44,5 +45,17 @@ public class FloorCard extends Card{
 
     public FloorCard rotateShape(FloorCard floorTile) {
         return null;
+    }
+
+    public Image getImage(){
+        return image;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
     }
 }
