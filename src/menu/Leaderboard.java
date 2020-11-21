@@ -45,6 +45,11 @@ public class Leaderboard {
         setProfileLosses();
     }
 
+    /**
+     * Gets profile names.
+     *
+     * @return the profile names
+     */
     public ArrayList<String> getProfileNames() {
         return profileNames;
     }
@@ -57,6 +62,11 @@ public class Leaderboard {
         this.profileNames = names;
     }
 
+    /**
+     * Gets profile victories.
+     *
+     * @return the profile victories
+     */
     public ArrayList<Integer> getProfileVictories() {
         return profileVictories;
     }
@@ -69,6 +79,11 @@ public class Leaderboard {
         this.profileVictories = victories;
     }
 
+    /**
+     * Gets profile losses.
+     *
+     * @return the profile losses
+     */
     public ArrayList<Integer> getProfileLosses() {
         return profileLosses;
     }
