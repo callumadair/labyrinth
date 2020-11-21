@@ -1,3 +1,4 @@
+package menu;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -5,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
@@ -26,12 +26,13 @@ public class MainController extends Application {
         }
     }
     @FXML
-    private void quitButton(ActionEvent event){
-        Stage stage = (Stage) quitButton.getScene().getWindow();
-        stage.close();
+    private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent){
+        Stage primaryStage = (Stage) quitButton.getScene().getWindow();
+        primaryStage.close();
     }
 
     public static void main(String[] args){
         launch(args);
     }
+
 }
