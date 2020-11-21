@@ -14,6 +14,9 @@ public class MainController extends Application {
 
     @FXML
     public Button quitButton;
+    public Button playButton;
+    public Button instructionsButton;
+    public Button highScoreButton;
 
     public void start(Stage primaryStage) throws IOException {
         try {
@@ -29,6 +32,12 @@ public class MainController extends Application {
     private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent){
         Stage primaryStage = (Stage) quitButton.getScene().getWindow();
         primaryStage.close();
+    }
+    @FXML
+    private void handlePlayButtonAction(javafx.event.ActionEvent actionEvent){
+        Stage primaryStage = (Stage) quitButton.getScene().getWindow();
+        primaryStage.close();
+
     }
 
     public static void main(String[] args){

@@ -5,9 +5,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MainController">
    <children>
-      <Button layoutX="274.0" layoutY="63.0" mnemonicParsing="false" text="Play" />
-      <Button layoutX="255.0" layoutY="139.0" mnemonicParsing="false" text="Instructions" />
-      <Button layoutX="261.0" layoutY="212.0" mnemonicParsing="false" text="High Score" />
+      <Button fx:id="playButton" layoutX="274.0" layoutY="63.0" mnemonicParsing="false" onAction="#handlePlayButtonAction" text="Play" />
+      <Button fx:id="instructionsButton" layoutX="255.0" layoutY="139.0" mnemonicParsing="false" text="Instructions" />
+      <Button fx:id="highScoreButton" layoutX="261.0" layoutY="212.0" mnemonicParsing="false" text="High Score" />
       <Button fx:id="quitButton" layoutX="274.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleQuitButtonAction" text="Quit" />
    </children>
 </Pane>
