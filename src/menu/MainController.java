@@ -23,7 +23,8 @@ public class MainController extends Application {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
             Scene scene = new Scene(root, 400, 200);
             primaryStage.setScene(scene);
-            primaryStage.show(); }
+            primaryStage.show();
+        }
         catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,12 +34,14 @@ public class MainController extends Application {
         Stage primaryStage = (Stage) quitButton.getScene().getWindow();
         primaryStage.close();
     }
-    @FXML
+/*    @FXML
     private void handlePlayButtonAction(javafx.event.ActionEvent actionEvent){
-        Stage primaryStage = (Stage) quitButton.getScene().getWindow();
-        primaryStage.close();
+        Stage secondStage = (Stage) playButton.getScene().getWindow();
+        secondStage.show();
 
     }
+
+ */
 
     public static void main(String[] args){
         launch(args);
