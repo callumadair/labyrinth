@@ -19,7 +19,7 @@ public class Leaderboard {
      * @param database the database
      */
     public Leaderboard(PlayerDatabase database) {
-        setPlayerProfiles(database.getAllData());
+        setPlayerProfiles(database.getAllActiveProfiles());
     }
 
     /**
