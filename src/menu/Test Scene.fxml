@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MainController">
-   <center>
-      <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
-   </center>
+   <top>
+      <Label text="WOW THIS IS THE GAME HOW EXCITING!" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+   </top>
+   <bottom>
+      <Button mnemonicParsing="false" text="TAKE ME BACK" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

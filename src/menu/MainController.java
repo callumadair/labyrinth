@@ -1,12 +1,15 @@
 package menu;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
 
 
@@ -29,15 +32,34 @@ public class MainController extends Application {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Will close the window
+     * @param actionEvent
+     */
     @FXML
     private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent){
         Stage primaryStage = (Stage) quitButton.getScene().getWindow();
         primaryStage.close();
     }
+
+    /**
+     * This will create a second window that you will be taken to when you click the play button
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
-    private void handlePlayButtonAction(javafx.event.ActionEvent actionEvent){
-        Stage secondStage = (Stage) playButton.getScene().getWindow();
-        secondStage.show();
+    private void handlePlayButtonAction(ActionEvent actionEvent) throws IOException {
+        try {
+            Parent root1 = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
+            Scene secondScene = new Scene(root1);
+            Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(secondScene);
+            window.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

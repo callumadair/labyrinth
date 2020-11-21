@@ -1,4 +1,4 @@
-package menu;
+/*package menu;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -16,8 +16,8 @@ public class SceneTest extends Application
     public Button playButton;
     public void start(Stage secondStage) throws IOException {
         try {
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            Scene secondScene = new Scene(root, 200, 200);
+            Pane root1 = (Pane) FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
+            Scene secondScene = new Scene(root1, 200, 200);
             secondStage.setScene(secondScene);
             secondStage.show();
         }
@@ -34,3 +34,6 @@ public class SceneTest extends Application
 
     }
 }
+
+
+ */
