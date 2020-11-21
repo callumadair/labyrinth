@@ -6,8 +6,8 @@ public class FloorCard extends Card{
 
     private FloorType type;
     private boolean isMoveable;
-    private boolean isOnFire;
     private FloorTileState state = FloorTileState.NORMAL;
+    private int[] openings = new int[4];
 
     public enum FloorType {
         STRAIGHT, CORNER, T_SHAPED, GOAL;
@@ -16,11 +16,27 @@ public class FloorCard extends Card{
     public enum FloorTileState{
         FIRE, FROZEN, NORMAL;
     }
+    public FloorTileState state() {
+        return state;
+    }
+
+    public void setOnFire() {
+        this.state = FloorTileState.FIRE;
+    }
+
+    public void setOnIce() {
+        this.state = FloorTileState.FROZEN;
+    }
+
+    public void setNoState() {
+        this.state = FloorTileState.NORMAL;
+    }
 
     public void useCard() {
     }
 
     public boolean checkGoal() {
+        return type == FloorType.GOAL;
     }
 
     public boolean isMoveable() {
@@ -31,14 +47,14 @@ public class FloorCard extends Card{
         isMoveable = moveable;
     }
 
-    public boolean isOnFire() {
-        return isOnFire;
-    }
-
-    public void setOnFire(boolean onFire) {
-        isOnFire = onFire;
-    }
-
     public FloorCard rotateShape(FloorCard floorTile) {
+        return floorTile;
+    }
+
+    public void setOpenings(int left, int top, int right, int bottom) {
+        openings [0] = left;
+        openings [1] = top;
+        openings [2] = right;
+        openings [3] = bottom;
     }
 }
