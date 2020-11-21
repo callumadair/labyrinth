@@ -72,7 +72,7 @@ public class PlayerDatabase {
      * @param losses     the losses
      * @param id         the id
      */
-    public void storePlayer(String playerName, int victories, int losses, int id){
+    public void storePlayer(String playerName, int victories, int losses, int id) {
         String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
                 "values ('" + playerName + "', " + victories + ", " + losses + ", " + id + ")";
         executeSQL(sql);
@@ -144,7 +144,7 @@ public class PlayerDatabase {
             String sql = "select * from PLAYER;";
             ResultSet rs = stmt.executeQuery(sql);
 
-             storedProfiles = new ArrayList<>();
+            storedProfiles = new ArrayList<>();
             while (rs.next()) {
                 String name = rs.getString("PLAYER_NAME");
                 int victories = rs.getInt("VICTORIES");
@@ -156,5 +156,15 @@ public class PlayerDatabase {
             throwables.printStackTrace();
         }
         return storedProfiles;
+    }
+
+    public ArrayList<PlayerProfile> getAllActiveProfiles() {
+        ArrayList<PlayerProfile> activePlayers = new ArrayList<>();
+        for (PlayerProfile playerProfile : getAllData()) {
+            if (playerProfile.getVictories() + playerProfile.getLosses() > 0) {
+                activePlayers.add(playerProfile);
+            }
+        }
+        return activePlayers;
     }
 }
