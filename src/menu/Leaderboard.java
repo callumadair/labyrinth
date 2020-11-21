@@ -40,13 +40,16 @@ public class Leaderboard {
         this.playerProfiles = playerProfiles;
         this.playerProfiles.sort((PlayerProfile p1, PlayerProfile p2) ->
                 p2.getPlayerID().compareTo(p1.getVictories()));
+        setProfileNames();
+        setProfileVictories();
+        setProfileLosses();
     }
 
     public ArrayList<String> getProfileNames() {
         return profileNames;
     }
 
-    public void setProfileNames() {
+    private void setProfileNames() {
         ArrayList<String> names = new ArrayList<>();
         for (PlayerProfile playerProfile : playerProfiles) {
             names.add(playerProfile.getPlayerName());
@@ -58,7 +61,7 @@ public class Leaderboard {
         return profileVictories;
     }
 
-    public void setProfileVictories() {
+    private void setProfileVictories() {
         ArrayList<Integer> victories = new ArrayList<>();
         for (PlayerProfile playerProfile : playerProfiles) {
             victories.add(playerProfile.getVictories());
@@ -70,7 +73,7 @@ public class Leaderboard {
         return profileLosses;
     }
 
-    public void setProfileLosses(ArrayList<Integer> profileLosses) {
+    private void setProfileLosses() {
         ArrayList<Integer> losses = new ArrayList<>();
         for (PlayerProfile playerProfile : playerProfiles) {
             losses.add(playerProfile.getVictories());
