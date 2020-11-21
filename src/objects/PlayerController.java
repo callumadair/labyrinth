@@ -6,35 +6,16 @@ import java.util.*;
  * The type Player controller.
  */
 public class PlayerController {
-    private int highScore;
     private int playerX;
     private int playerY;
     private boolean isGoalReached;
-    private ArrayList<Card> cardHeld;
+    private ArrayList<Card> cardsHeld;
 
     /**
      * Instantiates a new Player controller.
      */
     PlayerController() {
 
-    }
-
-    /**
-     * Gets high score.
-     *
-     * @return the high score
-     */
-    public int getHighScore() {
-        return highScore;
-    }
-
-    /**
-     * Sets high score.
-     *
-     * @param highScore the high score
-     */
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
     }
 
     /**
