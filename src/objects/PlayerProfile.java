@@ -47,7 +47,7 @@ public class PlayerProfile {
      *
      * @return the victories
      */
-    public int getVictories() {
+    public Integer getVictories() {
         return victories;
     }
 
@@ -83,7 +83,7 @@ public class PlayerProfile {
      *
      * @return the player id
      */
-    public Integer getPlayerID() {
+    public int getPlayerID() {
         return playerID;
     }
 
