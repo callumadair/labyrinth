@@ -7,6 +7,8 @@ import java.util.*;
 
 /**
  * The type Database.
+ *
+ * @author Cal
  */
 public class PlayerDatabase {
     private String url;
@@ -15,9 +17,8 @@ public class PlayerDatabase {
      * Create new database.
      *
      * @param databaseName the database name
-     * @throws SQLException the sql exception
      */
-    public void start(String databaseName) throws SQLException {
+    public void start(String databaseName) {
         url = "jdbc:sqlite:resources/" + databaseName;
         try (Connection conn = connect()) {
             if (conn != null) {
@@ -42,25 +43,24 @@ public class PlayerDatabase {
      * Execute sql operation.
      *
      * @param sql the sql
-     * @throws SQLException the sql exception
      */
-    public void executeSQL(String sql) throws SQLException {
-        Connection conn = connect();
-        Statement stmt = conn.createStatement();
-        stmt.executeUpdate(sql);
+    public void executeSQL(String sql) {
+        try {
+            Statement stmt = connect().createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     /**
      * Store player.
      *
      * @param playerProfile the player profile
-     * @throws SQLException the sql exception
      */
-    public void storePlayer(PlayerProfile playerProfile) throws SQLException {
-        String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
-                "values ('" + playerProfile.getPlayerName() + "', " + playerProfile.getVictories() + ", "
-                + playerProfile.getLosses() + ", " + playerProfile.getPlayerID() + ")";
-        executeSQL(sql);
+    public void storePlayer(PlayerProfile playerProfile) {
+        storePlayer(playerProfile.getPlayerName(), playerProfile.getVictories(), playerProfile.getLosses(),
+                playerProfile.getPlayerID());
     }
 
     /**
@@ -70,57 +70,137 @@ public class PlayerDatabase {
      * @param victories  the victories
      * @param losses     the losses
      * @param id         the id
-     * @throws SQLException the sql exception
      */
-    public void storePlayer(String playerName, int victories, int losses, int id) throws SQLException {
+    public void storePlayer(String playerName, int victories, int losses, int id) {
         String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
                 "values ('" + playerName + "', " + victories + ", " + losses + ", " + id + ")";
         executeSQL(sql);
     }
 
+    /**
+     * Update player.
+     *
+     * @param playerProfile the player profile
+     */
+    public void updatePlayer(PlayerProfile playerProfile) {
+        updatePlayer(playerProfile.getPlayerName(), playerProfile.getVictories(), playerProfile.getLosses(),
+                playerProfile.getPlayerID());
+    }
+
+    /**
+     * Update player.
+     *
+     * @param playerName the player name
+     * @param victories  the victories
+     * @param losses     the losses
+     * @param id         the id
+     */
+    public void updatePlayer(String playerName, int victories, int losses, int id) {
+        String sql = "update PLAYER set PLAYER_NAME = ? , VICTORIES = ? , LOSSES = ? where ID = ?";
+        try {
+            PreparedStatement preparedStatement = connect().prepareStatement(sql);
+            preparedStatement.setString(1, playerName);
+            preparedStatement.setInt(2, victories);
+            preparedStatement.setInt(3, losses);
+            preparedStatement.setInt(4, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     /**
      * Delete player.
      *
      * @param playerProfile the player profile
-     * @throws SQLException the sql exception
      */
-    public void deletePlayer(PlayerProfile playerProfile) throws SQLException {
-        String sql = "delete from PLAYER where ID =" + playerProfile.getPlayerID() + ";";
-        executeSQL(sql);
+    public void deletePlayer(PlayerProfile playerProfile) {
+        deletePlayer(playerProfile.getPlayerID());
     }
 
     /**
      * Delete player.
      *
      * @param id the id
-     * @throws SQLException the sql exception
      */
-    public void deletePlayer(int id) throws SQLException {
+    public void deletePlayer(int id) {
         String sql = "delete from PLAYER where ID =" + id + ";";
         executeSQL(sql);
+    }
+
+    /**
+     * Delete all player.
+     */
+    public void deleteAllPlayer() {
+        for (PlayerProfile playerProfile : getAllData()) {
+            deletePlayer(playerProfile.getPlayerID());
+        }
+    }
+
+    /**
+     * Gets player by id.
+     *
+     * @param id the id
+     * @return the player by id
+     */
+    public PlayerProfile getProfileByID(int id) {
+        PlayerProfile playerProfile = null;
+        try {
+            Statement statement = connect().createStatement();
+            String sql = "select * from PLAYER where ID =" + id;
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                String name = rs.getString("PLAYER_NAME");
+                int victories = rs.getInt("VICTORIES");
+                int losses = rs.getInt("LOSSES");
+                playerProfile = new PlayerProfile(name, victories, losses, id);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return playerProfile;
     }
 
     /**
      * Gets all data in the table.
      *
      * @return the all data
-     * @throws SQLException the sql exception
      */
-    public ArrayList<PlayerProfile> getAllData() throws SQLException {
-        Connection conn = connect();
-        Statement stmt = conn.createStatement();
-        String sql = "select * from PLAYER;";
-        ResultSet rs = stmt.executeQuery(sql);
+    public ArrayList<PlayerProfile> getAllData() {
+        ArrayList<PlayerProfile> storedProfiles = null;
+        try {
+            Statement stmt = connect().createStatement();
+            String sql = "select * from PLAYER;";
+            ResultSet rs = stmt.executeQuery(sql);
 
-        ArrayList<PlayerProfile> storedProfiles = new ArrayList<>();
-        while (rs.next()) {
-            String name = rs.getString("PLAYER_NAME");
-            int victories = rs.getInt("VICTORIES");
-            int losses = rs.getInt("LOSSES");
-            int id = rs.getInt("ID");
-            storedProfiles.add(new PlayerProfile(name, victories, losses, id));
+            storedProfiles = new ArrayList<>();
+            while (rs.next()) {
+                String name = rs.getString("PLAYER_NAME");
+                int victories = rs.getInt("VICTORIES");
+                int losses = rs.getInt("LOSSES");
+                int id = rs.getInt("ID");
+                storedProfiles.add(new PlayerProfile(name, victories, losses, id));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return storedProfiles;
+    }
+
+    /**
+     * Gets all active profiles.
+     *
+     * @return the all active profiles
+     */
+    public ArrayList<PlayerProfile> getAllActiveProfiles() {
+        ArrayList<PlayerProfile> activePlayers = new ArrayList<>();
+        for (PlayerProfile playerProfile : getAllData()) {
+            if (playerProfile.getVictories() + playerProfile.getLosses() > 0) {
+                activePlayers.add(playerProfile);
+            }
+        }
+        return activePlayers;
     }
 }
