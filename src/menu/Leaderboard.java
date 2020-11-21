@@ -39,7 +39,7 @@ public class Leaderboard {
     public void setPlayerProfiles(ArrayList<PlayerProfile> playerProfiles) {
         this.playerProfiles = playerProfiles;
         this.playerProfiles.sort((PlayerProfile p1, PlayerProfile p2) ->
-                p2.getPlayerID().compareTo(p1.getVictories()));
+                p2.getVictories().compareTo(p1.getVictories()));
         setProfileNames();
         setProfileVictories();
         setProfileLosses();
