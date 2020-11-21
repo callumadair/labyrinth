@@ -20,6 +20,7 @@ public class MainController extends Application {
     public Button playButton;
     public Button instructionsButton;
     public Button highScoreButton;
+    public Button takeMeBackButton;
 
     public void start(Stage primaryStage) throws IOException {
         try {
@@ -53,17 +54,20 @@ public class MainController extends Application {
         try {
             Parent root1 = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
             Scene secondScene = new Scene(root1);
-            Stage window = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            window.setScene(secondScene);
-            window.show();
+            Stage secondaryStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            secondaryStage.setScene(secondScene);
+            secondaryStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
-
+    @FXML
+    private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent){
+        Stage secondaryStage = (Stage) takeMeBackButton.getScene().getWindow();
+        secondaryStage.close();
+    }
 
     public static void main(String[] args){
         launch(args);
