@@ -30,5 +30,7 @@ public class SceneTest extends Application
         Stage secondStage = (Stage) playButton.getScene().getWindow();
         secondStage.show();
 
+
+
     }
 }

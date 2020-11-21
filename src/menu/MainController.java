@@ -34,14 +34,14 @@ public class MainController extends Application {
         Stage primaryStage = (Stage) quitButton.getScene().getWindow();
         primaryStage.close();
     }
-/*    @FXML
+    @FXML
     private void handlePlayButtonAction(javafx.event.ActionEvent actionEvent){
         Stage secondStage = (Stage) playButton.getScene().getWindow();
         secondStage.show();
 
     }
 
- */
+
 
     public static void main(String[] args){
         launch(args);
