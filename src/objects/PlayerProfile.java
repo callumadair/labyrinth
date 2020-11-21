@@ -83,7 +83,7 @@ public class PlayerProfile {
      *
      * @return the player id
      */
-    public int getPlayerID() {
+    public Integer getPlayerID() {
         return playerID;
     }
 
