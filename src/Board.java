@@ -16,7 +16,16 @@ public class Board {
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
 
     public Board(String[][] data) {
-        setup(data);
+        setup();
+    }
+
+    //testing only
+    private void setup(){
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
+
+            }
+        }
     }
 
     private void setup(String[][] data) {
@@ -42,6 +51,7 @@ public class Board {
         }
     }
 
+    /*
     public boolean checkTileInsert(int x, int y) {
         boolean rightPlace = false;
 
@@ -63,4 +73,7 @@ public class Board {
 
         return rightPlace;
     }
+    */
+
+    
 }

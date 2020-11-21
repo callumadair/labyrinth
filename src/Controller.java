@@ -4,13 +4,6 @@ public class Controller {
 
     public static void startGame(){
         //Create board players etc
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                update();
-                render();
-            }
-        };
     }
 
     public static void update(){

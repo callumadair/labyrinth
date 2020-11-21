@@ -1,36 +1,21 @@
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.canvas.*;
+import objects.FloorCard;
 
-import java.util.ArrayList;
-import java.util.Observable;
 
 public class Main extends Application {
 
+
+    double orgSceneX, orgSceneY;
+    double orgTranslateX, orgTranslateY;
 
     //FlowPane for menu
     //BorderPane for game
@@ -49,27 +34,40 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("Labyrinth");
-        BorderPane root = new BorderPane();
+        BorderPane root = new BorderPane ();
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
-        stage.setScene(scene);
-
-        final Canvas canvas = new Canvas(640,480);
+        int width = 5;
+        int height = 5;
+        Canvas canvas = new Canvas(width * FloorCard.TILE_SIZE, height * FloorCard.TILE_SIZE);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        Image im = new Image("tile.png");
 
-        Image image = new Image("tile.png");
-        gc.setFill(Color.BLUE);
-        gc.fillRect(75,75,100,100);
-
-        for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 5; j++){
-                gc.drawImage(image, i * 61, j * 61);
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                gc.drawImage(im, j * FloorCard.TILE_SIZE, i * FloorCard.TILE_SIZE);
             }
         }
 
+
+        canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                double x = event.getX();
+                double y = event.getY();
+                getTile(x, y);
+            }
+        });
+
         root.setCenter(canvas);
-
+        stage.setScene(scene);
         stage.show();
+    }
 
+    public void getTile(double x, double y){
+        int cordX = (int)(x / FloorCard.TILE_SIZE);
+        int cordY = (int)(y / FloorCard.TILE_SIZE);
+
+        System.out.println("x: " + cordX + " y: " + cordY);
     }
 
     private void userInput(){

@@ -4,9 +4,16 @@ import javafx.scene.image.Image;
 
 public class FloorCard extends Card{
 
+    public static final int TILE_SIZE = 61;
+
     private FloorType type;
     private boolean isMoveable;
     private boolean isOnFire;
+    private Image image;
+
+    public FloorCard(Image image){
+        this.image = image;
+    }
 
     public enum FloorType {
         STRAIGHT, CORNER, T_SHAPED, GOAL;
@@ -16,6 +23,7 @@ public class FloorCard extends Card{
     }
 
     public boolean checkGoal() {
+        return false;
     }
 
     public boolean isMoveable() {
@@ -35,5 +43,6 @@ public class FloorCard extends Card{
     }
 
     public FloorCard rotateShape(FloorCard floorTile) {
+        return null;
     }
 }
