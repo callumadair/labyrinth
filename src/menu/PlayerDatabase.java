@@ -45,9 +45,8 @@ public class PlayerDatabase {
      * @param sql the sql
      */
     public void executeSQL(String sql) {
-        Connection conn = connect();
         try {
-            Statement stmt = conn.createStatement();
+            Statement stmt = connect().createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -98,9 +97,8 @@ public class PlayerDatabase {
      */
     public void updatePlayer(String playerName, int victories, int losses, int id) {
         String sql = "update PLAYER set PLAYER_NAME = ? , VICTORIES = ? , LOSSES = ? where ID = ?";
-        Connection conn = this.connect();
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = connect().prepareStatement(sql);
             preparedStatement.setString(1, playerName);
             preparedStatement.setInt(2, victories);
             preparedStatement.setInt(3, losses);
