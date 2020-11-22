@@ -6,6 +6,8 @@ import java.util.*;
 
 /**
  * The type Leaderboard.
+ *
+ * @author Cal
  */
 public class Leaderboard {
     private ArrayList<PlayerProfile> playerProfiles;
