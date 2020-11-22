@@ -30,8 +30,8 @@ public class LeaderboardApp extends Application {
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Leaderboard");
-        primaryStage.setWidth(300);
-        primaryStage.setHeight(500);
+        //primaryStage.setWidth(350);
+        //primaryStage.setHeight(500);
 
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start("profiles.db");
@@ -45,15 +45,15 @@ public class LeaderboardApp extends Application {
         tableView.setEditable(true);
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setMinWidth(100);
-        nameCol.setCellFactory(new PropertyValueFactory<PlayerProfile, String>("playerName"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<PlayerProfile, String>("playerName"));
 
         TableColumn vicCol = new TableColumn("Victories");
         vicCol.setMinWidth(100);
-        vicCol.setCellFactory(new PropertyValueFactory<PlayerProfile, Integer>("victories"));
+        vicCol.setCellValueFactory(new PropertyValueFactory<PlayerProfile, Integer>("victories"));
 
         TableColumn lossColumn = new TableColumn("Losses");
         lossColumn.setMinWidth(100);
-        lossColumn.setCellFactory(new PropertyValueFactory<PlayerProfile, Integer>("losses"));
+        lossColumn.setCellValueFactory(new PropertyValueFactory<PlayerProfile, Integer>("losses"));
 
         tableView.setItems(data);
         tableView.getColumns().addAll(nameCol, vicCol, lossColumn);
