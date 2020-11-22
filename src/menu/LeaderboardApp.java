@@ -2,6 +2,7 @@ package menu;
 
 import javafx.application.Application;
 import javafx.collections.*;
+import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -11,6 +12,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import objects.*;
+
+import java.io.*;
 
 /**
  * The type Leaderboard app.
@@ -25,7 +28,7 @@ public class LeaderboardApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Leaderboard");
         primaryStage.setWidth(350);
@@ -39,31 +42,27 @@ public class LeaderboardApp extends Application {
         final Label label = new Label("Leaderboard");
         label.setFont(new Font("Quicksand", 20));
 
-        tableView.setEditable(true);
         TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
-        nameCol.setMinWidth(100);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
-        nameCol.setStyle( "-fx-alignment: CENTER;");
 
         TableColumn<PlayerProfile, Integer> vicCol = new TableColumn<>("Victories");
-        vicCol.setMinWidth(100);
         vicCol.setCellValueFactory(new PropertyValueFactory<>("victories"));
-        vicCol.setStyle( "-fx-alignment: CENTER;");
 
         TableColumn<PlayerProfile, Integer> lossColumn = new TableColumn<>("Losses");
-        lossColumn.setMinWidth(100);
         lossColumn.setCellValueFactory(new PropertyValueFactory<>("losses"));
-        lossColumn.setStyle( "-fx-alignment: CENTER;");
 
         tableView.setItems(data);
         tableView.getColumns().addAll(nameCol, vicCol, lossColumn);
+        for(TableColumn<PlayerProfile, ?> column : tableView.getColumns()) {
+            column.setMinWidth(100);
+            column.setStyle( "-fx-alignment: CENTER;");
+        }
 
         final VBox vBox = new VBox();
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         vBox.getChildren().addAll(label, tableView);
         vBox.setAlignment(Pos.CENTER);
-
 
         ((Group) scene.getRoot()).getChildren().addAll(vBox);
 
