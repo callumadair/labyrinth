@@ -12,17 +12,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import objects.*;
 
-import java.awt.*;
-
 /**
  * The type Leaderboard app.
  *
  * @author Cal
  */
 public class LeaderboardApp extends Application {
-    private PlayerDatabase playerDatabase;
-    private TableView tableView = new TableView();
-    private ObservableList<PlayerProfile> data;
+    private final TableView<PlayerProfile> tableView = new TableView<PlayerProfile>();
 
     public static void main(String[] args) {
         launch(args);
@@ -35,26 +31,26 @@ public class LeaderboardApp extends Application {
         primaryStage.setWidth(340);
         primaryStage.setHeight(500);
 
-        playerDatabase = new PlayerDatabase();
+        PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start("profiles.db");
-        data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
+        ObservableList<PlayerProfile> data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
         System.out.println(data);
 
         final Label label = new Label("Leaderboard");
         label.setFont(new Font("Quicksand", 20));
 
         tableView.setEditable(true);
-        TableColumn nameCol = new TableColumn("Name");
+        TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
         nameCol.setMinWidth(100);
-        nameCol.setCellValueFactory(new PropertyValueFactory<PlayerProfile, String>("playerName"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
 
-        TableColumn vicCol = new TableColumn("Victories");
+        TableColumn<PlayerProfile, Integer> vicCol = new TableColumn<>("Victories");
         vicCol.setMinWidth(100);
-        vicCol.setCellValueFactory(new PropertyValueFactory<PlayerProfile, Integer>("victories"));
+        vicCol.setCellValueFactory(new PropertyValueFactory<>("victories"));
 
-        TableColumn lossColumn = new TableColumn("Losses");
+        TableColumn<PlayerProfile, Integer> lossColumn = new TableColumn<>("Losses");
         lossColumn.setMinWidth(100);
-        lossColumn.setCellValueFactory(new PropertyValueFactory<PlayerProfile, Integer>("losses"));
+        lossColumn.setCellValueFactory(new PropertyValueFactory<>("losses"));
 
         tableView.setItems(data);
         tableView.getColumns().addAll(nameCol, vicCol, lossColumn);
@@ -63,6 +59,7 @@ public class LeaderboardApp extends Application {
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         vBox.getChildren().addAll(label, tableView);
+
 
         ((Group) scene.getRoot()).getChildren().addAll(vBox);
 
