@@ -43,12 +43,17 @@ public class Controller {
     }
 
     private void changeState(GameState state){
+        currentState = state;
+        startState(currentState);
+    }
+
+    private void startState(GameState state){
         switch (state){
             case DRAWING:
                 drawCard();
                 break;
             case INSERTING:
-                insertTile();
+                getInsertionList();
                 break;
             case ACTION_CARD:
                 playingActionCard();
@@ -73,14 +78,8 @@ public class Controller {
         //change state based on that
     }
 
-    private void insertTile(){
+    private void getInsertionList(){
         ArrayList<FloorCard> possibleInsertions = board.getInsertionPoints();
-
-        if(possibleInsertions.contains(selectedTile)){
-            changeState(GameState.ACTION_CARD);
-            selectedTile = null;
-            possibleInsertions.clear();
-        }
     }
 
     private void playingActionCard(){
