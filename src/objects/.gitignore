@@ -5,3 +5,7 @@
 /FloorCard.class
 /Object.class
 /Player.class
+/FloorCard$FloorTileState.class
+/FloorCard$FloorType.class
+/PlayerController.class
+/PlayerProfile.class

@@ -47,7 +47,7 @@ public class PlayerProfile {
      *
      * @return the victories
      */
-    public int getVictories() {
+    public Integer getVictories() {
         return victories;
     }
 
