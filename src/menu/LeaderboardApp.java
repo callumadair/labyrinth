@@ -2,7 +2,7 @@ package menu;
 
 import javafx.application.Application;
 import javafx.collections.*;
-import javafx.geometry.Insets;
+import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -18,7 +18,7 @@ import objects.*;
  * @author Cal
  */
 public class LeaderboardApp extends Application {
-    private final TableView<PlayerProfile> tableView = new TableView<PlayerProfile>();
+    private final TableView<PlayerProfile> tableView = new TableView<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -28,7 +28,7 @@ public class LeaderboardApp extends Application {
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Leaderboard");
-        primaryStage.setWidth(340);
+        primaryStage.setWidth(350);
         primaryStage.setHeight(500);
 
         PlayerDatabase playerDatabase = new PlayerDatabase();
@@ -59,6 +59,7 @@ public class LeaderboardApp extends Application {
         vBox.setSpacing(5);
         vBox.setPadding(new Insets(10, 0, 0, 10));
         vBox.getChildren().addAll(label, tableView);
+        vBox.setAlignment(Pos.CENTER);
 
 
         ((Group) scene.getRoot()).getChildren().addAll(vBox);
