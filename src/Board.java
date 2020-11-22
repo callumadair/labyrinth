@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+
+import javafx.scene.canvas.GraphicsContext;
 import objects.*;
 
 public class Board {
@@ -12,11 +15,24 @@ public class Board {
     private SilkBag bag;
     private FloorCard[][] map;
 
+    private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
 
     public Board(String[][] data) {
         setup(data);
+    }
+
+    //Just for testing
+    public Board() { setup(); }
+
+    //testing only
+    private void setup(){
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                map[i][j] = new FloorCard();
+            }
+        }
     }
 
     private void setup(String[][] data) {
@@ -42,25 +58,85 @@ public class Board {
         }
     }
 
-    public boolean checkTileInsert(int x, int y) {
-        boolean rightPlace = false;
+    /**
+     *
+     * @return ArrayList
+     */
+    public ArrayList<FloorCard> getInsertionPoints() {
+        HashSet<FloorCard> insertionTiles = new HashSet<>();
 
-        if ((x == 0 || x == width - 1) && columnsToPlace.contains(y)){
-            for(int i = 0; i < width; i++){
-                if(map[i][y].getState() == FloorCard.TileState.FROZEN){
-                    return false;
-                }
-            }
-            rightPlace = true;
-        } else if((y == 0 || y == height - 1) && rowsToPlace.contains(x)){
-            for(int i = 0; i < width; i++){
-                if(map[x][i].getState() == FloorCard.TileState.FROZEN){
-                    return false;
-                }
-            }
-            rightPlace = true;
+        ArrayList<Integer> frozenRows = new ArrayList<>();
+        ArrayList<Integer> frozenColumns = new ArrayList<>();
+        for(FloorCard tile : frozenTiles){
+            frozenRows.add(tile.getX());
+            frozenColumns.add(tile.getY());
         }
 
-        return rightPlace;
+        for(int i = 0; i < height; i++){
+            if(!frozenRows.contains(rowsToPlace.get(i))){
+                insertionTiles.add(map[rowsToPlace.get(i)][0]);
+                insertionTiles.add(map[rowsToPlace.get(i)][width - 1]);
+            }
+        }
+
+        for(int i = 0; i < width; i++){
+            if(!frozenColumns.contains(columnsToPlace.get(i))){
+                insertionTiles.add(map[0][columnsToPlace.get(i)]);
+                insertionTiles.add(map[height - 1][columnsToPlace.get(i)]);
+            }
+        }
+
+        return getInsertionPoints();
+    }
+
+    public void insertTile(FloorCard tile, int x, int y){
+        if(x == 0 || x == height - 1){
+            if(x == 0){
+                for(int i = 0; i < width - 1; i++){
+                    map[i+1][y] = map[i][y];
+                }
+                map[0][y] = tile;
+            } else if(x == height - 1){
+                for(int i = width - 1; i > 1; i--){
+                    map[i-1][y] = map[i][y];
+                }
+                map[width - 1][y] = tile;
+            }
+        } else if(y == 0 || y == width - 1){
+            if(y == 0){
+                for(int i = 0; i < height - 1; i++){
+                    map[x][i+1] = map[x][i];
+                }
+                map[x][0] = tile;
+            } else if(y == width - 1){
+                for (int i = height - 1; i > 1; i--){
+                    map[x][i-1] = map[x][i];
+                }
+                map[x][height - 1] = tile;
+            }
+        }
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public void drawBoard(GraphicsContext gc){
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                gc.drawImage(map[i][j].getImage(), i * FloorCard.TILE_SIZE, j * FloorCard.TILE_SIZE);
+            }
+        }
+    }
+
+    public FloorCard getTile(double x, double y){
+        int cordX = (int)(x / FloorCard.TILE_SIZE);
+        int cordY = (int)(y / FloorCard.TILE_SIZE);
+
+        return map[cordX][cordY];
     }
 }
