@@ -43,14 +43,17 @@ public class LeaderboardApp extends Application {
         TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
         nameCol.setMinWidth(100);
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
+        nameCol.setStyle( "-fx-alignment: CENTER;");
 
         TableColumn<PlayerProfile, Integer> vicCol = new TableColumn<>("Victories");
         vicCol.setMinWidth(100);
         vicCol.setCellValueFactory(new PropertyValueFactory<>("victories"));
+        vicCol.setStyle( "-fx-alignment: CENTER;");
 
         TableColumn<PlayerProfile, Integer> lossColumn = new TableColumn<>("Losses");
         lossColumn.setMinWidth(100);
         lossColumn.setCellValueFactory(new PropertyValueFactory<>("losses"));
+        lossColumn.setStyle( "-fx-alignment: CENTER;");
 
         tableView.setItems(data);
         tableView.getColumns().addAll(nameCol, vicCol, lossColumn);
