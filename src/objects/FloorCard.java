@@ -4,10 +4,9 @@ package objects;
  * @author Maha Malik
  * @verson 1.8
  */
-
 import javafx.scene.image.Image;
 
-public class FloorCard extends Card{
+public class FloorCard extends Card{ //need to continue javadoc
 
     public static final int TILE_SIZE = 61;
 
@@ -84,11 +83,7 @@ public class FloorCard extends Card{
         isFixed = fixedTiles;
     }
 
-    public int getRotation (int rotation) {
-        return rotation;
-    }
-
-    public void setRotation () {
+    public void rotateShape () {
         switch (rotation) {
             case STRAIGHT:
                 if (rotation = 0 || 180) {
