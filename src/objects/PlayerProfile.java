@@ -2,6 +2,8 @@ package objects;
 
 /**
  * The type Player profile.
+ *
+ * @author Cal
  */
 public class PlayerProfile {
     private String playerName;
