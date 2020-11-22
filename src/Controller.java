@@ -5,13 +5,24 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import objects.FloorCard;
+import objects.PlayerController;
+
+import java.util.ArrayList;
 
 public class Controller {
 
+    enum GameState{
+        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
+    }
+
+    private ArrayList<PlayerController> players;
+    private SilkBag silkBag;
     private Board board;
     private Canvas canvas;
-    private Image image;
+
     private FloorCard selectedTile;
+    private GameState currentState;
+    private PlayerController currentPlayer;
 
     public Controller(){
         startGame();
@@ -27,6 +38,25 @@ public class Controller {
 
 
         board.drawBoard(gc);
+
+        //Choose first player can go to drawing state
+    }
+
+    private void changeState(GameState state){
+        switch (state){
+            case DRAWING:
+                break;
+            case INSERTING:
+                break;
+            case ACTION_CARD:
+                break;
+            case MOVING:
+                break;
+            case END_TURN:
+                break;
+            case VICTORY:
+                break;
+        }
     }
 
     private void enableRetrievingTilesFromCanvas(){
@@ -35,7 +65,7 @@ public class Controller {
             public void handle(MouseEvent event) {
                 double x = event.getX();
                 double y = event.getY();
-                selectedTile = board.getTile(x, y);
+                selectedTile = board.getTileFromCanvas(x, y);
             }
         });
     }
