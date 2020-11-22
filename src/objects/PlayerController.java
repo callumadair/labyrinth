@@ -14,7 +14,7 @@ public class PlayerController {
     /**
      * Instantiates a new Player controller.
      */
-    PlayerController() {
+    public PlayerController() {
 
     }
 
@@ -60,8 +60,11 @@ public class PlayerController {
      * @return the boolean
      */
     public boolean isGoalReached() {
-        if((Board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL))
-        return isGoalReached;
+        if((Board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
+            return isGoalReached;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -77,17 +80,18 @@ public class PlayerController {
      * Move player.
      */
     public void movePlayer() {
-        if((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
+        if ((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
             this.playerX += 1;
         }
-        if((Board.getTile((playerX - 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) {
+        if ((Board.getTile((playerX - 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) {
             this.playerX -= 1;
         }
-        if((Board.getTile((playerX), playerY + 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+        if ((Board.getTile((playerX), playerY + 1)).equals(FloorCard.FloorTileState.NORMAL)) {
             this.playerY += 1;
         }
-        if((Board.getTile((playerX), playerY - 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+        if ((Board.getTile((playerX), playerY - 1)).equals(FloorCard.FloorTileState.NORMAL)) {
             this.playerY -= 1;
+        }
     }
 
     /**
@@ -126,17 +130,21 @@ public class PlayerController {
     /**
      * Use card.
      */
-    public void useCard(Card card) {
-        if (card.equals(ActionCard.ActionType.IceCard)){
-            //chooses a tile on board
-        FloorCard.setOnIce();
-        }if (card.equals(ActionCard.ActionType.FireCard)){
-            //chooses a tile on board
-            FloorCard.setOnFire();
-        }if(card.equals(ActionCard.ActionType.DoubleMoveCard)){
-            movePlayer();
-            movePlayer();
-        }if(card.equals(ActionCard.ActionType.BackTrackCard)){
+    public void useCard(Card card){
+            if (card.equals(ActionCard.ActionType.IceCard)) {
+                //chooses a tile on board
+                FloorCard.setOnIce();
+            }
+            if (card.equals(ActionCard.ActionType.FireCard)) {
+                //chooses a tile on board
+                FloorCard.setOnFire();
+            }
+            if (card.equals(ActionCard.ActionType.DoubleMoveCard)) {
+                movePlayer();
+                movePlayer();
+            }
+            if (card.equals(ActionCard.ActionType.BackTrackCard)) {
 
+            }
         }
 }
