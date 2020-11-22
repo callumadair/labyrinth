@@ -20,7 +20,7 @@ import java.io.*;
  *
  * @author Cal
  */
-public class LeaderboardApp extends Application {
+public class LeaderboardController extends Application {
     private final TableView<PlayerProfile> tableView = new TableView<>();
     private ObservableList<PlayerProfile> data;
 
