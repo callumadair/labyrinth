@@ -20,7 +20,7 @@ import java.awt.*;
  * @author Cal
  */
 public class LeaderboardApp extends Application {
-    private Leaderboard leaderboard;
+    private PlayerDatabase playerDatabase;
     private TableView tableView = new TableView();
     private ObservableList<PlayerProfile> data;
 
@@ -35,10 +35,9 @@ public class LeaderboardApp extends Application {
         primaryStage.setWidth(340);
         primaryStage.setHeight(500);
 
-        PlayerDatabase playerDatabase = new PlayerDatabase();
+        playerDatabase = new PlayerDatabase();
         playerDatabase.start("profiles.db");
-        leaderboard = new Leaderboard(playerDatabase);
-        data = FXCollections.observableArrayList(leaderboard.getPlayerProfiles());
+        data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
         System.out.println(data);
 
         final Label label = new Label("Leaderboard");
