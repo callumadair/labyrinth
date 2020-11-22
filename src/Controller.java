@@ -1,9 +1,8 @@
-import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import objects.Card;
 import objects.FloorCard;
 import objects.PlayerController;
 
@@ -21,6 +20,7 @@ public class Controller {
     private Canvas canvas;
 
     private FloorCard selectedTile;
+    private Card playingCard;
     private GameState currentState;
     private PlayerController currentPlayer;
 
@@ -45,18 +45,58 @@ public class Controller {
     private void changeState(GameState state){
         switch (state){
             case DRAWING:
+                drawCard();
                 break;
             case INSERTING:
+                insertTile();
                 break;
             case ACTION_CARD:
+                playingActionCard();
                 break;
             case MOVING:
+                moving();
                 break;
             case END_TURN:
+                endTurn();
                 break;
             case VICTORY:
+                endGame();
                 break;
         }
+    }
+
+    private void drawCard(){
+        playingCard = silkBag.drawACard();
+
+        //do all the checks what state is the game going to be in
+        //either inserting tile or action card playing
+        //change state based on that
+    }
+
+    private void insertTile(){
+        ArrayList<FloorCard> possibleInsertions = board.getInsertionPoints();
+
+        if(possibleInsertions.contains(selectedTile)){
+            changeState(GameState.ACTION_CARD);
+            selectedTile = null;
+            possibleInsertions.clear();
+        }
+    }
+
+    private void playingActionCard(){
+
+    }
+
+    private void moving() {
+
+    }
+
+    private void endTurn(){
+
+    }
+
+    private void endGame(){
+
     }
 
     private void enableRetrievingTilesFromCanvas(){
