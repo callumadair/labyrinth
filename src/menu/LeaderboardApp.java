@@ -22,7 +22,13 @@ import java.io.*;
  */
 public class LeaderboardApp extends Application {
     private final TableView<PlayerProfile> tableView = new TableView<>();
+    private ObservableList<PlayerProfile> data;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -41,22 +47,7 @@ public class LeaderboardApp extends Application {
 
         final Label label = new Label("Leaderboard");
         label.setFont(new Font("Quicksand", 20));
-
-        TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
-
-        TableColumn<PlayerProfile, Integer> vicCol = new TableColumn<>("Victories");
-        vicCol.setCellValueFactory(new PropertyValueFactory<>("victories"));
-
-        TableColumn<PlayerProfile, Integer> lossColumn = new TableColumn<>("Losses");
-        lossColumn.setCellValueFactory(new PropertyValueFactory<>("losses"));
-
-        tableView.setItems(data);
-        tableView.getColumns().addAll(nameCol, vicCol, lossColumn);
-        for(TableColumn<PlayerProfile, ?> column : tableView.getColumns()) {
-            column.setMinWidth(100);
-            column.setStyle( "-fx-alignment: CENTER;");
-        }
+        addColumns();
 
         final VBox vBox = new VBox();
         vBox.setSpacing(5);
@@ -68,5 +59,23 @@ public class LeaderboardApp extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void addColumns() {
+        TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
+
+        TableColumn<PlayerProfile, Integer> vicCol = new TableColumn<>("Victories");
+        vicCol.setCellValueFactory(new PropertyValueFactory<>("victories"));
+
+        TableColumn<PlayerProfile, Integer> lossColumn = new TableColumn<>("Losses");
+        lossColumn.setCellValueFactory(new PropertyValueFactory<>("losses"));
+
+        tableView.setItems(data);
+        tableView.getColumns().addAll(nameCol, vicCol, lossColumn);
+        for (TableColumn<PlayerProfile, ?> column : tableView.getColumns()) {
+            column.setMinWidth(100);
+            column.setStyle("-fx-alignment: CENTER;");
+        }
     }
 }
