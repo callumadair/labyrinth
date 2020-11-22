@@ -9,13 +9,14 @@ import javafx.scene.image.Image;
 
 public class FloorCard extends Card{
 
+    public static final int TILE_SIZE = 61;
+
+    private int x, y;
     private FloorType type;
     private boolean isFixed;
     private FloorTileState state = FloorTileState.NORMAL;
     private int[] openings = new int[4];
     private int rotation;
-    private int x;
-    private int y;
 
     public enum FloorType {
         STRAIGHT, CORNER, T_SHAPED, GOAL;
@@ -119,6 +120,18 @@ public class FloorCard extends Card{
                 }
                 break;
         }
+    }
+
+    public Image getImage(){
+        return image;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
     }
 
     public void setOpenings(int left, int top, int right, int bottom) {
