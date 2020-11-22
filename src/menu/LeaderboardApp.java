@@ -16,6 +16,8 @@ import java.awt.*;
 
 /**
  * The type Leaderboard app.
+ *
+ * @author Cal
  */
 public class LeaderboardApp extends Application {
     private Leaderboard leaderboard;
@@ -30,8 +32,8 @@ public class LeaderboardApp extends Application {
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Leaderboard");
-        //primaryStage.setWidth(350);
-        //primaryStage.setHeight(500);
+        primaryStage.setWidth(340);
+        primaryStage.setHeight(500);
 
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start("profiles.db");
