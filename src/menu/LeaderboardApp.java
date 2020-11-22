@@ -42,20 +42,14 @@ public class LeaderboardApp extends Application {
 
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start("profiles.db");
-        ObservableList<PlayerProfile> data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
+        data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
         System.out.println(data);
 
         final Label label = new Label("Leaderboard");
         label.setFont(new Font("Quicksand", 20));
         addColumns();
 
-        final VBox vBox = new VBox();
-        vBox.setSpacing(5);
-        vBox.setPadding(new Insets(10, 0, 0, 10));
-        vBox.getChildren().addAll(label, tableView);
-        vBox.setAlignment(Pos.CENTER);
-
-        ((Group) scene.getRoot()).getChildren().addAll(vBox);
+        ((Group) scene.getRoot()).getChildren().addAll(createVBox(label));
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -77,5 +71,15 @@ public class LeaderboardApp extends Application {
             column.setMinWidth(100);
             column.setStyle("-fx-alignment: CENTER;");
         }
+    }
+
+    private VBox createVBox(Label label) {
+        final VBox vBox = new VBox();
+        vBox.setSpacing(5);
+        vBox.setPadding(new Insets(10, 0, 0, 10));
+        vBox.getChildren().addAll(label, tableView);
+        vBox.setAlignment(Pos.CENTER);
+
+        return vBox;
     }
 }
