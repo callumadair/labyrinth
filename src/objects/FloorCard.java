@@ -1,16 +1,15 @@
 package objects;
 import javafx.scene.image.Image;
-
-
 /**
  * This class represents the different floor tiles of the game.
+ *
  * @author Maha Malik
  * @verson 1.8
  */
 public class FloorCard extends Card{
-
-
-
+    /**
+     * The constant TILE_SIZE.
+     */
     public static final int TILE_SIZE = 61;
 
     private int x, y;
@@ -150,9 +149,9 @@ public class FloorCard extends Card{
 
     /**
      * Sets rotation.
+     *
      * @param rotation - the rotation of the tile
      */
-    
     public void rotateShape (int rotation) {
 
         switch (rotation) {
@@ -205,6 +204,7 @@ public class FloorCard extends Card{
 
     /**
      * Get image image.
+     *
      * @return the image
      */
     public Image getImage(){
@@ -212,16 +212,18 @@ public class FloorCard extends Card{
     }
 
     /**
-     * Get x int.
-     * @return the int
+     * Get x coordinate.
+     *
+     * @return the X coordinate
      */
     public int getX(){
         return x;
     }
 
     /**
-     * Get y int.
-     * @return the int
+     * Get y coordinate.
+     *
+     * @return the Y coordinate
      */
     public int getY(){
         return y;
@@ -230,9 +232,9 @@ public class FloorCard extends Card{
     /**
      * Sets openings from which the player can access the path for the game
      *
-     * @param left - opening from the left
-     * @param top -  opening from the top
-     * @param right - opening from the right
+     * @param left   - opening from the left
+     * @param top    -  opening from the top
+     * @param right  - opening from the right
      * @param bottom - opening from the bottom
      */
     public void setOpenings(int left, int top, int right, int bottom) {
