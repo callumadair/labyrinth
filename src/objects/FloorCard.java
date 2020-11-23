@@ -25,7 +25,7 @@ public class FloorCard extends Card{ //need to continue javadoc
         FIRE, FROZEN, NORMAL;
     }
 
-    public FloorCard (String type, int rotation) {
+    /*public FloorCard (String type, int rotation) {
         switch (type) {
             case "STRAIGHT" :
                 this.type = FloorCard.STRAIGHT;
@@ -46,7 +46,7 @@ public class FloorCard extends Card{ //need to continue javadoc
         }
 
         this.rotation = rotation;
-    }
+    }*/
 
     public FloorCard () {
         isFixed = true;
@@ -82,7 +82,7 @@ public class FloorCard extends Card{ //need to continue javadoc
     public void setFixed(boolean fixedTiles) {
         isFixed = fixedTiles;
     }
-
+/*
     public void rotateShape () {
         switch (rotation) {
             case STRAIGHT:
@@ -115,12 +115,12 @@ public class FloorCard extends Card{ //need to continue javadoc
                 }
                 break;
         }
-    }
-
+    }*/
+/*
     public Image getImage(){
         return image;
     }
-
+*/
     public int getX(){
         return x;
     }
