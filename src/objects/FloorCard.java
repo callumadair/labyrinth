@@ -45,19 +45,19 @@ public class FloorCard extends Card {
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
-                //Image straight = new Image(StraightPath);
+                //image = new Image(StraightPath);
                 break;
             case "CORNER":
                 this.type = FloorType.CORNER;
-                //Image corner = new Image(CornerPath);
+                //image = new Image(CornerPath);
                 break;
             case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
-                //Image tshaped = new Image(TShapedPath);
+                //image = new Image(TShapedPath);
                 break;
             case "GOAL":
                 this.type = FloorType.GOAL;
-                //Image goal = new Image(GoalPath);
+                //image = new Image(GoalPath);
                 break;
         }
     }
