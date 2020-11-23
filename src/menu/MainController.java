@@ -14,9 +14,12 @@ import java.io.IOException;
 
 
 public class MainController extends Application {
+
     /**
      * Declaring the variables
      */
+
+
     @FXML
     public Button quitButton;
     public Button playButton;
@@ -24,11 +27,14 @@ public class MainController extends Application {
     public Button highScoreButton;
     public Button takeMeBackButton;
 
+
     /**
      * Creates the stage (Main menu screen)
      * @param primaryStage
      * @throws IOException
      */
+
+
     public void start(Stage primaryStage) throws IOException {
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
@@ -71,15 +77,19 @@ public class MainController extends Application {
 
     }
 
+
     /**
      * Will be used to go back to main menu
      * @param actionEvent
      */
+
     @FXML
     private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent){
         Stage secondaryStage = (Stage) takeMeBackButton.getScene().getWindow();
         secondaryStage.close();
+
        // primaryStage.show();
+
     }
 
     public static void main(String[] args){

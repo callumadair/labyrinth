@@ -4,72 +4,74 @@ import javafx.scene.image.Image;
 
 public class FloorCard extends Card{
 
-    //needs to be defined here
-    private String straightImagePath;
-    private String cornerImagePath;
-    private String tshapedImagePath;
-    private String goalImagePath;
+    public static final int TILE_SIZE = 61;
 
+    private int x, y;
+    private FloorType type;
+    private boolean isMoveable;
     private Image image;
-    private TileState state = TileState.NORMAL;
-    private TileType type;
-    private int rotation; //90, 180, 270,
-    private int x;
-    private int y;
 
-    public FloorCard(String type, int rotation){
-        switch(type){
-            case "STRAIGHT":
-                this.type = TileType.STRAIGHT;
-                break;
-            case "CORNER":
-                this.type = TileType.CORNER;
-                break;
-            case "T_SHAPED":
-                this.type = TileType.T_SHAPED;
-                break;
-            case "GOAL":
-                this.type = TileType.GOAL;
-                break;
-        }
+    private FloorTileState state = FloorTileState.NORMAL;
+    private int[] openings = new int[4];
 
-        this.rotation = rotation;
-
-        switch (this.type){
-            case STRAIGHT:
-                image = new Image(straightImagePath);
-                break;
-            case CORNER:
-                image = new Image(cornerImagePath);
-                break;
-            case T_SHAPED:
-                image = new Image(tshapedImagePath);
-                break;
-            case GOAL:
-                image = new Image(goalImagePath);
-                break;
-        }
+    public enum FloorType {
+        STRAIGHT, CORNER, T_SHAPED, GOAL;
     }
 
-    public void setRotation(int rotation){
-        //if(rotation == 0 | 90 | 180 | 270) {
-        //    this.rotation = rotation;
-        //}
+    public enum FloorTileState{
+        FIRE, FROZEN, NORMAL;
     }
-
-    public int getRotation(){
-        return this.rotation;
-    }
-
-    public TileState getState(){
+    public FloorTileState state() {
         return state;
     }
 
-    public enum TileState{
-        FROZEN, INFLAMED, NORMAL;
+    public void setOnFire() {
+        this.state = FloorTileState.FIRE;
     }
 
-    public enum TileType{
-        STRAIGHT, CORNER, T_SHAPED, GOAL;
+    public void setOnIce() {
+        this.state = FloorTileState.FROZEN;
+    }
+
+    public void setNoState() {
+        this.state = FloorTileState.NORMAL;
+    }
+
+    public void useCard() {
+    }
+
+    public boolean checkGoal() {
+        return type == FloorType.GOAL;
+    }
+
+    public boolean isMoveable() {
+        return isMoveable;
+    }
+
+    public void setMoveable(boolean moveable) {
+        isMoveable = moveable;
+    }
+
+    public void rotateShape() {
+        //change rotation base on 0,90,180,270
+    }
+
+    public Image getImage(){
+        return image;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+  
+    public void setOpenings(int left, int top, int right, int bottom) {
+        openings [0] = left;
+        openings [1] = top;
+        openings [2] = right;
+        openings [3] = bottom;
     }
 }

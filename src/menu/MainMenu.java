@@ -4,8 +4,7 @@ package menu;
  * The type Main menu.
  */
 public class MainMenu {
-    private boolean isQuit = false;
-
+    private RunningState state = RunningState.IN_MENU;
     /**
      * Instantiates a new Main menu.
      */
@@ -13,11 +12,15 @@ public class MainMenu {
 
     }
 
+    public static void start() {
+         MainMenu menu = new MainMenu();
+    }
+
     /**
      * Quit game.
      */
-    public void quitGame() {
-        isQuit = true;
+    public void exitApplication() {
+        state = RunningState.EXIT;
     }
 
     /**
@@ -25,12 +28,8 @@ public class MainMenu {
      *
      * @return the high score
      */
-    public int getHighScore() {
-        return -1;
-    }
-
-    private boolean isInstructionsOpen() {
-        return false;
+    public String getScores() {
+        return null;
     }
 
     private void startGame() {
@@ -49,4 +48,10 @@ public class MainMenu {
     public void getPlayerProfiles() {
 
     }
+}
+enum RunningState {
+    IN_MENU,
+    IN_INSTRUCTIONS,
+    IN_GAME,
+    EXIT;
 }
