@@ -1,14 +1,11 @@
 package objects;
-/**
- * This class represents the different floor tiles of the game.
- * @author Maha Malik
- * @verson 1.8
- */
 import javafx.scene.image.Image;
 
 
 /**
- * The type Floor card.
+ * This class represents the different floor tiles of the game.
+ * @author Maha Malik
+ * @verson 1.8
  */
 public class FloorCard extends Card{
 
