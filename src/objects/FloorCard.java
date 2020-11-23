@@ -45,7 +45,7 @@ public class FloorCard extends Card {
      *
      * @param type - the floor tile type
      */
-    public FloorCard(String type, int rotation) {
+    public FloorCard(String type) {
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
@@ -74,7 +74,8 @@ public class FloorCard extends Card {
      * @param isFixed  - the is fixed
      */
     public FloorCard(String type, int rotation, boolean isFixed) {
-        this(type, rotation);
+        FloorCard(type);
+        this.rotation = rotation;
         this.isFixed = isFixed;
     }
 
