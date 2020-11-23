@@ -20,6 +20,10 @@ public class FloorCard extends Card {
     private int rotation;
     private Image image;
 
+    private String straightTileImagePath;
+    private String cornerTileImagePath;
+    private String tshapedTileImagePath;
+    private String goalTileImagePath;
 
     /**
      * The enum Floor type.
