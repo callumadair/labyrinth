@@ -201,6 +201,8 @@ public class PlayerDatabase {
                 activePlayers.add(playerProfile);
             }
         }
+        activePlayers.sort((PlayerProfile p1, PlayerProfile p2) ->
+                p2.getVictories().compareTo(p1.getVictories()));
         return activePlayers;
     }
 }

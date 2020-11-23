@@ -2,11 +2,14 @@ package objects;
 
 /**
  * The type Player profile.
+ *
+ * @author Cal
  */
 public class PlayerProfile {
     private String playerName;
     private int victories;
     private int losses;
+    private int gamesPlayed;
     private int playerID;
 
     /**
@@ -78,6 +81,14 @@ public class PlayerProfile {
         this.losses = losses;
     }
 
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    private void setGamesPlayed() {
+        this.gamesPlayed = victories + losses;
+    }
+
     /**
      * Gets player id.
      *
@@ -103,4 +114,5 @@ public class PlayerProfile {
                 ", losses: " + losses +
                 ", player ID: " + playerID + "\n";
     }
+
 }
