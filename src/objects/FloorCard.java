@@ -49,19 +49,19 @@ public class FloorCard extends Card {
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
-                //image = new Image(straightTileImagePath);
+                image = new Image(straightTileImagePath);
                 break;
             case "CORNER":
                 this.type = FloorType.CORNER;
-                //image = new Image(cornerTileImagePath);
+                image = new Image(cornerTileImagePath);
                 break;
             case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
-                //image = new Image(tshapedTileImagePath);
+                image = new Image(tshapedTileImagePath);
                 break;
             case "GOAL":
                 this.type = FloorType.GOAL;
-                //image = new Image(goalTileImagePath);
+                image = new Image(goalTileImagePath);
                 break;
         }
     }
@@ -74,7 +74,7 @@ public class FloorCard extends Card {
      * @param isFixed  - the is fixed
      */
     public FloorCard(String type, int rotation, boolean isFixed) {
-        FloorCard(type);
+        this(type);
         this.rotation = rotation;
         this.isFixed = isFixed;
     }
@@ -198,16 +198,20 @@ public class FloorCard extends Card {
      */
     public void nextRotation() {
         if (rotation == 0) {
-            this.setRotation(90);
+            this.rotateShape(90);
         } else if (rotation == 90) {
-            this.setRotation(180);
+            this.rotateShape(180);
         } else if (rotation == 180) {
-            this.setRotation(270);
+            this.rotateShape(270);
         } else if (rotation == 270) {
-            this.setRotation(0);
+            this.rotateShape(0);
         }
     }
 
+    /**
+     * set rotation for tiles
+     * @param rotation
+     */
     private void setRotation(int rotation) {
         this.rotation = rotation;
     }
