@@ -1,14 +1,15 @@
 package objects;
+
 import javafx.scene.image.Image;
 
 
 /**
  * This class represents the different floor tiles of the game.
+ *
  * @author Maha Malik
  * @version 1.8
  */
-public class FloorCard extends Card{
-
+public class FloorCard extends Card {
 
 
     public static final int TILE_SIZE = 61;
@@ -19,6 +20,7 @@ public class FloorCard extends Card{
     private FloorTileState state = FloorTileState.NORMAL;
     private int[] openings = new int[4];
     private int rotation;
+    private Image image;
 
 
     /**
@@ -32,7 +34,7 @@ public class FloorCard extends Card{
     /**
      * The enum Floor tile state.
      */
-    public enum FloorTileState{
+    public enum FloorTileState {
         FIRE, FROZEN, NORMAL;
     }
 
@@ -41,21 +43,21 @@ public class FloorCard extends Card{
      *
      * @param type - the floor tile type
      */
-    public FloorCard (String type, int rotation) {
+    public FloorCard(String type, int rotation) {
         switch (type) {
-            case "STRAIGHT" :
+            case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
                 //Image straight = new Image(StraightPath);
                 break;
-            case "CORNER" :
+            case "CORNER":
                 this.type = FloorType.CORNER;
                 //Image corner = new Image(CornerPath);
                 break;
-            case "T_SHAPED" :
+            case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
                 //Image tshaped = new Image(TShapedPath);
                 break;
-            case "GOAL" :
+            case "GOAL":
                 this.type = FloorType.GOAL;
                 //Image goal = new Image(GoalPath);
                 break;
@@ -69,7 +71,7 @@ public class FloorCard extends Card{
      * @param rotation - the rotation of the tile
      * @param isFixed  - the is fixed
      */
-    public FloorCard (String type, int rotation, boolean isFixed) {
+    public FloorCard(String type, int rotation, boolean isFixed) {
         this(type, rotation);
         this.isFixed = isFixed;
     }
@@ -144,47 +146,47 @@ public class FloorCard extends Card{
      * @param rotation - the rotation of the tile
      * @return the rotation
      */
-    public int getRotation (int rotation) {
+    public int getRotation(int rotation) {
         return rotation;
     }
 
     /**
      * Sets rotation.
+     *
      * @param rotation - the rotation of the tile
      */
-    
-    public void rotateShape (int rotation) {
 
-        switch (rotation) {
+    public void rotateShape(int rotation) {
+        switch (type) {
             case STRAIGHT:
                 if (rotation == 0 || rotation == 180) {
-                    setOpenings(1,0,1,0);
+                    setOpenings(1, 0, 1, 0);
                 } else if (rotation == 90 || rotation == 270) {
-                    setOpenings(0,1,0,1);
+                    setOpenings(0, 1, 0, 1);
                 }
                 break;
             case CORNER:
                 if (rotation == 0) {
-                    setOpenings(0,1,1,0);
+                    setOpenings(0, 1, 1, 0);
                 } else if (rotation == 90) {
-                    setOpenings(0,0,1,1);
+                    setOpenings(0, 0, 1, 1);
                 } else if (rotation == 180) {
-                    setOpenings(1,0,0,1);
-                } else (rotation == 270) {
-                    setOpenings(1, 1, 0, 0);
-                }
-                break;
+                    setOpenings(1, 0, 0, 1);
+                } else if (rotation == 270) {
+                setOpenings(1, 1, 0, 0);
+            }
+            break;
             case T_SHAPED:
                 if (rotation == 0) {
-                    setOpenings(1,0,1,1);
+                    setOpenings(1, 0, 1, 1);
                 } else if (rotation == 90) {
-                    setOpenings(1,1,0,1);
+                    setOpenings(1, 1, 0, 1);
                 } else if (rotation == 180) {
-                    setOpenings(1,1,1,0);
-                } else (rotation == 270) {
-                    setOpenings(0, 1, 1, 1);
-                }
-                break;
+                    setOpenings(1, 1, 1, 0);
+                } else if (rotation == 270) {
+                setOpenings(0, 1, 1, 1);
+            }
+            break;
         }
     }
 
@@ -192,53 +194,60 @@ public class FloorCard extends Card{
      * Next rotation of each tile.
      */
     public void nextRotation() {
-        if (this.rotation == 0) {
+        if (rotation == 0) {
             this.setRotation(90);
-        } else if (this.rotation == 90) {
+        } else if (rotation == 90) {
             this.setRotation(180);
-        } else if (this.rotation == 180) {
+        } else if (rotation == 180) {
             this.setRotation(270);
-        } else (this.rotation == 270) {
+        } else if (rotation == 270) {
             this.setRotation(0);
         }
     }
 
+    private void setRotation(int rotation) {
+        this.rotation = rotation;
+    }
+
     /**
      * Get image image.
+     *
      * @return the image
      */
-    public Image getImage(){
+    public Image getImage() {
         return image;
     }
 
     /**
      * Get x int.
+     *
      * @return the int
      */
-    public int getX(){
+    public int getX() {
         return x;
     }
 
     /**
      * Get y int.
+     *
      * @return the int
      */
-    public int getY(){
+    public int getY() {
         return y;
     }
 
     /**
      * Sets openings from which the player can access the path for the game
      *
-     * @param left - opening from the left
-     * @param top -  opening from the top
-     * @param right - opening from the right
+     * @param left   - opening from the left
+     * @param top    -  opening from the top
+     * @param right  - opening from the right
      * @param bottom - opening from the bottom
      */
     public void setOpenings(int left, int top, int right, int bottom) {
-        openings [0] = left;
-        openings [1] = top;
-        openings [2] = right;
-        openings [3] = bottom;
+        openings[0] = left;
+        openings[1] = top;
+        openings[2] = right;
+        openings[3] = bottom;
     }
 }
