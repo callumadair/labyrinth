@@ -1,8 +1,6 @@
 package objects;
 
 import javafx.scene.image.Image;
-
-
 /**
  * This class represents the different floor tiles of the game.
  *
@@ -219,18 +217,18 @@ public class FloorCard extends Card {
     }
 
     /**
-     * Get x int.
+     * Get x coordinate.
      *
-     * @return the int
+     * @return the X coordinate
      */
     public int getX() {
         return x;
     }
 
     /**
-     * Get y int.
+     * Get y coordinate.
      *
-     * @return the int
+     * @return the Y coordinate
      */
     public int getY() {
         return y;
