@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 /**
  * This class represents the different floor tiles of the game.
  * @author Maha Malik
- * @verson 1.8
+ * @version 1.8
  */
 public class FloorCard extends Card{
 
@@ -41,23 +41,23 @@ public class FloorCard extends Card{
      *
      * @param type - the floor tile type
      */
-    public FloorCard (String type) {
+    public FloorCard (String type, int rotation) {
         switch (type) {
             case "STRAIGHT" :
-                type = FloorType.STRAIGHT;
-                image straight = new image(StraightPath);
+                this.type = FloorType.STRAIGHT;
+                //Image straight = new Image(StraightPath);
                 break;
             case "CORNER" :
-                type = FloorType.CORNER;
-                image corner = new image(CornerPath);
+                this.type = FloorType.CORNER;
+                //Image corner = new Image(CornerPath);
                 break;
             case "T_SHAPED" :
-                type = FloorType.T_SHAPED;
-                image tshaped = new image(TShapedPath);
+                this.type = FloorType.T_SHAPED;
+                //Image tshaped = new Image(TShapedPath);
                 break;
             case "GOAL" :
-                type = FloorType.GOAL;
-                image goal = new image(GoalPath);
+                this.type = FloorType.GOAL;
+                //Image goal = new Image(GoalPath);
                 break;
         }
     }
@@ -70,8 +70,8 @@ public class FloorCard extends Card{
      * @param isFixed  - the is fixed
      */
     public FloorCard (String type, int rotation, boolean isFixed) {
+        this(type, rotation);
         this.isFixed = isFixed;
-        FloorCard(type, rotation);
     }
 
     /**
