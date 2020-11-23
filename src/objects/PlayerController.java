@@ -2,7 +2,7 @@ package objects;
 
 import java.util.*;
 
-/*
+
 public class PlayerController {
     private int playerX;
     private int playerY;
@@ -33,8 +33,8 @@ public class PlayerController {
     public void setPlayerY(int playerY) {
         this.playerY = playerY;
     }
-
-
+}
+/*
     public boolean isGoalReached() {
         if((Board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
             return isGoalReached;
