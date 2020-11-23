@@ -133,10 +133,14 @@ public class Board {
         }
     }
 
-    public FloorCard getTile(double x, double y){
+    public FloorCard getTileFromCanvas(double x, double y){
         int cordX = (int)(x / FloorCard.TILE_SIZE);
         int cordY = (int)(y / FloorCard.TILE_SIZE);
 
         return map[cordX][cordY];
+    }
+
+    public FloorCard getTile(int x, int y){
+        return map[x][y];
     }
 }
