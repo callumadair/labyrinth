@@ -20,6 +20,10 @@ public class FloorCard extends Card {
     private int rotation;
     private Image image;
 
+    private String straightTileImagePath;
+    private String cornerTileImagePath;
+    private String tshapedTileImagePath;
+    private String goalTileImagePath;
 
     /**
      * The enum Floor type.
@@ -45,19 +49,19 @@ public class FloorCard extends Card {
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
-                //Image straight = new Image(StraightPath);
+                image = new Image(straightTileImagePath);
                 break;
             case "CORNER":
                 this.type = FloorType.CORNER;
-                //Image corner = new Image(CornerPath);
+                image = new Image(cornerTileImagePath);
                 break;
             case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
-                //Image tshaped = new Image(TShapedPath);
+                image= new Image(tshapedTileImagePath);
                 break;
             case "GOAL":
                 this.type = FloorType.GOAL;
-                //Image goal = new Image(GoalPath);
+                image = new Image(goalTileImagePath);
                 break;
         }
     }
