@@ -18,14 +18,6 @@ public class MenuController extends Application {
 
     @FXML
     private Button quitButton;
-    @FXML
-    private Button playButton;
-    @FXML
-    private Button instructionsButton;
-    @FXML
-    private Button leaderboardButton;
-    @FXML
-    private Button menuButton;
     private Stage stage;
     private LeaderboardController leaderboardController;
 
@@ -48,7 +40,7 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent) {
-        stage = (Stage) quitButton.getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         if (leaderboardController != null) {
             leaderboardController.exit();
         }
