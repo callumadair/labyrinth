@@ -26,13 +26,16 @@ public class MenuController extends Application {
     private Button leaderboardButton;
     @FXML
     private Button menuButton;
+    private Stage stage;
+    private LeaderboardController leaderboardController;
 
     public void start(Stage primaryStage) throws IOException {
         try {
+            stage = primaryStage;
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
             Scene scene = new Scene(root, 700, 450);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            stage.setScene(scene);
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,8 +48,11 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent) {
-        Stage primaryStage = (Stage) quitButton.getScene().getWindow();
-        primaryStage.close();
+        stage = (Stage) quitButton.getScene().getWindow();
+        if (leaderboardController != null) {
+            leaderboardController.exit();
+        }
+        stage.close();
     }
 
     /**
@@ -60,9 +66,9 @@ public class MenuController extends Application {
         try {
             Parent root1 = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
             Scene secondScene = new Scene(root1);
-            Stage secondaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            secondaryStage.setScene(secondScene);
-            secondaryStage.show();
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(secondScene);
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,13 +78,13 @@ public class MenuController extends Application {
 
     @FXML
     private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent) {
-        Stage secondaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        secondaryStage.close();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void handleLeaderboardAction(javafx.event.ActionEvent actionEvent) {
-        LeaderboardController leaderboardController = new LeaderboardController();
+        leaderboardController = new LeaderboardController();
         try {
             leaderboardController.start(new Stage());
         } catch (IOException e) {

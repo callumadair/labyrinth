@@ -24,6 +24,7 @@ public class LeaderboardController extends Application {
     @FXML
     private final TableView<PlayerProfile> tableView = new TableView<>();
     private ObservableList<PlayerProfile> data;
+    private Stage stage;
 
     /**
      * The entry point of application.
@@ -37,9 +38,10 @@ public class LeaderboardController extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Scene scene = new Scene(new Group());
-        primaryStage.setTitle("Leaderboard");
-        primaryStage.setWidth(350);
-        primaryStage.setHeight(500);
+        stage = primaryStage;
+        stage.setTitle("Leaderboard");
+        stage.setWidth(350);
+        stage.setHeight(500);
 
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start("profiles.db");
@@ -52,8 +54,8 @@ public class LeaderboardController extends Application {
 
         ((Group) scene.getRoot()).getChildren().addAll(createVBox(label));
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void addColumns() {
@@ -82,5 +84,11 @@ public class LeaderboardController extends Application {
         vBox.setAlignment(Pos.CENTER);
 
         return vBox;
+    }
+
+    public void exit() {
+        if (stage != null) {
+            stage.close();
+        }
     }
 }
