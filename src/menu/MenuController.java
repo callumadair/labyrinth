@@ -25,7 +25,7 @@ public class MenuController extends Application {
     @FXML
     private Button leaderboardButton;
     @FXML
-    private Button takeMeBackButton;
+    private Button menuButton;
 
     public void start(Stage primaryStage) throws IOException {
         try {
@@ -72,7 +72,7 @@ public class MenuController extends Application {
 
     @FXML
     private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent) {
-        Stage secondaryStage = (Stage) takeMeBackButton.getScene().getWindow();
+        Stage secondaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         secondaryStage.close();
     }
 
