@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Board {
 
+//
     private int width;
     private int height;
     private int fixedTilesNum;

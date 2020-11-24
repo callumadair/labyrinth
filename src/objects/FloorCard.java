@@ -78,6 +78,7 @@ public class FloorCard extends Card {
         this.rotation = rotation;
         this.isFixed = isFixed;
     }
+//
 
     /**
      * State of the floor tile.
