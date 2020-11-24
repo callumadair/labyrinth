@@ -55,7 +55,6 @@ public class LeaderboardController extends Application {
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start("profiles.db");
         data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
-        System.out.println(data);
 
         final Label label = new Label("Leaderboard");
         label.setFont(new Font("Quicksand", 20));
