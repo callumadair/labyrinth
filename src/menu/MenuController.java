@@ -17,9 +17,13 @@ public class MenuController extends Application {
 
     @FXML
     private Button quitButton;
+    @FXML
     private Button playButton;
+    @FXML
     private Button instructionsButton;
-    private Button highScoreButton;
+    @FXML
+    private Button leaderboardButton;
+    @FXML
     private Button takeMeBackButton;
 
     public void start(Stage primaryStage) throws IOException {
