@@ -1,4 +1,5 @@
 package menu;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,27 +30,28 @@ public class MenuController extends Application {
     public void start(Stage primaryStage) throws IOException {
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 750, 450);
+            Scene scene = new Scene(root, 700, 450);
             primaryStage.setScene(scene);
             primaryStage.show();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Will close the window
+     *
      * @param actionEvent
      */
     @FXML
-    private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent){
+    private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent) {
         Stage primaryStage = (Stage) quitButton.getScene().getWindow();
         primaryStage.close();
     }
 
     /**
      * This will create a second window that you will be taken to when you click the play button
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -58,7 +60,7 @@ public class MenuController extends Application {
         try {
             Parent root1 = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
             Scene secondScene = new Scene(root1);
-            Stage secondaryStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage secondaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             secondaryStage.setScene(secondScene);
             secondaryStage.show();
 
@@ -67,13 +69,24 @@ public class MenuController extends Application {
         }
 
     }
+
     @FXML
-    private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent){
+    private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent) {
         Stage secondaryStage = (Stage) takeMeBackButton.getScene().getWindow();
         secondaryStage.close();
     }
 
-    public static void main(String[] args){
+    @FXML
+    private void handleLeaderboardAction(javafx.event.ActionEvent actionEvent) {
+        LeaderboardController leaderboardController = new LeaderboardController();
+        try {
+            leaderboardController.start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
         launch(args);
     }
 
