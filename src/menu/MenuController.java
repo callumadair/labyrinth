@@ -52,7 +52,7 @@ public class MenuController extends Application {
      * @throws IOException
      */
     @FXML
-    private void handlePlayButtonAction(ActionEvent actionEvent) throws IOException {
+    private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
             Parent root1 = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
             Scene secondScene = new Scene(root1);
@@ -69,9 +69,8 @@ public class MenuController extends Application {
     @FXML
     private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Pane root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
             Scene scene = new Scene(root, 700, 450);
             stage.setScene(scene);
         } catch (IOException e) {
