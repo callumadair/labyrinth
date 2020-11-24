@@ -1,5 +1,7 @@
 package objects;
 
+import game.*;
+
 import java.util.*;
 
 /**
@@ -10,6 +12,7 @@ public class PlayerController {
     private int playerY;
     private boolean isGoalReached;
     private ArrayList<Card> cardsHeld;
+    private Board board;
 
     /**
      * Instantiates a new Player controller.
@@ -60,7 +63,7 @@ public class PlayerController {
      * @return the boolean
      */
     public boolean isGoalReached() {
-        if((Board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
+        if((getBoard().getTile((playerX), playerY)).get(FloorCard.FloorType.GOAL)){
             return isGoalReached;
         } else {
             return false;
@@ -147,4 +150,12 @@ public class PlayerController {
 
             }
         }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 }
