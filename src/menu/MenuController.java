@@ -14,11 +14,25 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
+/**
+ * The type Menu controller.
+ */
 public class MenuController extends Application {
 
+    /**
+     * The Stage.
+     */
     private Stage stage;
+    /**
+     * The Leaderboard controller.
+     */
     private LeaderboardController leaderboardController;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -38,7 +52,7 @@ public class MenuController extends Application {
     /**
      * Will close the window
      *
-     * @param actionEvent
+     * @param actionEvent the action event
      */
     @FXML
     private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent) {
@@ -52,7 +66,7 @@ public class MenuController extends Application {
     /**
      * This will create a second window that you will be taken to when you click the play button
      *
-     * @param actionEvent
+     * @param actionEvent the action event
      * @throws IOException
      */
     @FXML
@@ -69,6 +83,11 @@ public class MenuController extends Application {
 
     }
 
+    /**
+     * Handle take me back button action.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -81,6 +100,11 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * Handle leaderboard action.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void handleLeaderboardAction(javafx.event.ActionEvent actionEvent) {
         if (leaderboardController == null) {

@@ -21,9 +21,18 @@ import java.io.*;
  * @author Cal
  */
 public class LeaderboardController extends Application {
+    /**
+     * The Table view.
+     */
     @FXML
     private final TableView<PlayerProfile> tableView = new TableView<>();
+    /**
+     * The Data.
+     */
     private ObservableList<PlayerProfile> data;
+    /**
+     * The Stage.
+     */
     private Stage stage;
 
     /**
@@ -58,6 +67,9 @@ public class LeaderboardController extends Application {
         stage.show();
     }
 
+    /**
+     * Add columns.
+     */
     private void addColumns() {
         TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
@@ -76,6 +88,12 @@ public class LeaderboardController extends Application {
         }
     }
 
+    /**
+     * Create v box v box.
+     *
+     * @param label the label
+     * @return the v box
+     */
     private VBox createVBox(Label label) {
         final VBox vBox = new VBox();
         vBox.setSpacing(5);
@@ -86,6 +104,9 @@ public class LeaderboardController extends Application {
         return vBox;
     }
 
+    /**
+     * Exit.
+     */
     public void exit() {
         if (stage != null) {
             stage.close();
