@@ -1,11 +1,10 @@
-package game;
+package objects;
 
-import objects.Card;
 import java.util.Random;
 import java.util.ArrayList;
 
 public class SilkBag {
-
+//
     private int numOfCards;
     private ArrayList<Card> listOfCards;
     private Random randomGenerator = new Random();
@@ -37,4 +36,5 @@ public class SilkBag {
         Card randomCard =  listOfCards.get(card);
         return randomCard;
     }
+
 }

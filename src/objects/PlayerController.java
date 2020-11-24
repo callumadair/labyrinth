@@ -1,8 +1,8 @@
 package objects;
 
-import game.*;
 
-import java.util.*;
+import java.util.ArrayList;
+//
 
 /**
  * The type Player controller.
@@ -57,18 +57,15 @@ public class PlayerController {
         this.playerY = playerY;
     }
 
-    /**
-     * Is goal reached boolean.
-     *
-     * @return the boolean
-     */
+
+    /*
     public boolean isGoalReached() {
         if((getBoard().getTile((playerX), playerY)).get(FloorCard.FloorType.GOAL)){
             return isGoalReached;
         } else {
             return false;
         }
-    }
+    }*/
 
     /**
      * Sets goal reached.
@@ -79,9 +76,7 @@ public class PlayerController {
         isGoalReached = goalReached;
     }
 
-    /**
-     * Move player.
-     */
+    /*
     public void movePlayer() {
         if ((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
             this.playerX += 1;
@@ -96,21 +91,18 @@ public class PlayerController {
             this.playerY -= 1;
         }
     }
+    */
 
     /**
      * Determine legal moves floor card [ ].
      *
      * @return the floor card [ ]
      */
-    public FloorCard[] determineLegalMoves() {
+    public ArrayList<FloorCard> determineLegalMoves() {
         return null;
     }
 
-    /**
-     * Draw card card.
-     *
-     * @return the card
-     */
+    /*
     public Card drawCard() {
         Card card = SilkBag.drawACard();
 
@@ -128,34 +120,6 @@ public class PlayerController {
                 movePlayer();
                 }
         }
-    }
+    } */
 
-    /**
-     * Use card.
-     */
-    public void useCard(Card card){
-            if (card.equals(ActionCard.ActionType.IceCard)) {
-                //chooses a tile on board
-                FloorCard.setOnIce();
-            }
-            if (card.equals(ActionCard.ActionType.FireCard)) {
-                //chooses a tile on board
-                FloorCard.setOnFire();
-            }
-            if (card.equals(ActionCard.ActionType.DoubleMoveCard)) {
-                movePlayer();
-                movePlayer();
-            }
-            if (card.equals(ActionCard.ActionType.BackTrackCard)) {
-
-            }
-        }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
 }
