@@ -112,9 +112,7 @@ public class FloorCard extends Card {
     /**
      * Use card.
      */
-    @Override
-    public void useCard(Board board, int x, int y) {
-        board.insertTile(this, x, y);
+    public void useCard() {
     }
 
     /**

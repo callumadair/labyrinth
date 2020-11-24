@@ -1,5 +1,6 @@
 package objects;
 
+import objects.Card;
 import java.util.Random;
 import java.util.ArrayList;
 
