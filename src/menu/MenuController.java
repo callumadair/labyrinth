@@ -16,15 +16,13 @@ import java.io.IOException;
 
 public class MenuController extends Application {
 
-    @FXML
-    private Button quitButton;
     private Stage stage;
     private LeaderboardController leaderboardController;
 
     public void start(Stage primaryStage) throws IOException {
         try {
             stage = primaryStage;
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
             Scene scene = new Scene(root, 700, 450);
             stage.setScene(scene);
             stage.show();
@@ -71,7 +69,14 @@ public class MenuController extends Application {
     @FXML
     private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
+        Pane root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Scene scene = new Scene(root, 700, 450);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
