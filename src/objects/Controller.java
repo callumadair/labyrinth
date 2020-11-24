@@ -24,6 +24,11 @@ public class Controller {
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
+    /**
+     * 
+     * @param boardData
+     * @param players
+     */
     public Controller(String[][] boardData, ArrayList<PlayerController> players) {
         this.players = players;
         board = new Board(boardData);
