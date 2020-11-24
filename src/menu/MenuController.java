@@ -19,7 +19,11 @@ public class MenuController extends Application {
     private Stage stage;
     private LeaderboardController leaderboardController;
 
-    public void start(Stage primaryStage) throws IOException {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    public void start(Stage primaryStage) {
         try {
             stage = primaryStage;
             Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
@@ -54,12 +58,11 @@ public class MenuController extends Application {
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
-            Parent root1 = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            Scene secondScene = new Scene(root1);
+            Pane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
+            Scene secondScene = new Scene(root);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(secondScene);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,16 +83,15 @@ public class MenuController extends Application {
 
     @FXML
     private void handleLeaderboardAction(javafx.event.ActionEvent actionEvent) {
-        leaderboardController = new LeaderboardController();
-        try {
-            leaderboardController.start(new Stage());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (leaderboardController == null) {
+            leaderboardController = new LeaderboardController();
+            try {
+                leaderboardController.start(new Stage());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
 }
