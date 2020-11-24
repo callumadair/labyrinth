@@ -16,11 +16,11 @@ import java.io.IOException;
 public class MenuController extends Application {
 
     @FXML
-    public Button quitButton;
-    public Button playButton;
-    public Button instructionsButton;
-    public Button highScoreButton;
-    public Button takeMeBackButton;
+    private Button quitButton;
+    private Button playButton;
+    private Button instructionsButton;
+    private Button highScoreButton;
+    private Button takeMeBackButton;
 
     public void start(Stage primaryStage) throws IOException {
         try {
