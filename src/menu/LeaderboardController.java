@@ -45,7 +45,7 @@ public class LeaderboardController extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         Scene scene = new Scene(new Group());
         stage = primaryStage;
         stage.setTitle("Leaderboard");

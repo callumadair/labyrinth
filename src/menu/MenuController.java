@@ -17,13 +17,7 @@ import java.io.IOException;
  */
 public class MenuController extends Application {
 
-    /**
-     * The Stage.
-     */
     private Stage stage;
-    /**
-     * The Leaderboard controller.
-     */
     private LeaderboardController leaderboardController;
 
     /**
@@ -53,7 +47,7 @@ public class MenuController extends Application {
      * @param actionEvent the action event
      */
     @FXML
-    private void handleQuitButtonAction(javafx.event.ActionEvent actionEvent) {
+    private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         if (leaderboardController != null) {
             leaderboardController.exit();
@@ -87,7 +81,7 @@ public class MenuController extends Application {
      * @param actionEvent the action event
      */
     @FXML
-    private void handleTakeMeBackButtonAction(javafx.event.ActionEvent actionEvent) {
+    private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
@@ -104,16 +98,27 @@ public class MenuController extends Application {
      * @param actionEvent the action event
      */
     @FXML
-    private void handleLeaderboardAction(javafx.event.ActionEvent actionEvent) {
-        if (leaderboardController == null) {
-            leaderboardController = new LeaderboardController();
-            try {
-                leaderboardController.start(new Stage());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private void leaderboardTransition(ActionEvent actionEvent) {
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        try {
+            Pane root = FXMLLoader.load(getClass().getResource("LeaderboardScreen.fxml"));
+            Scene scene = new Scene(root, 700, 450);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    @FXML
+    private void openLeaderboard(ActionEvent actionEvent) {
+        if (leaderboardController == null) {
+            leaderboardController = new LeaderboardController();
+        }
+        try {
+            leaderboardController.start(new Stage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
