@@ -1,10 +1,9 @@
-package game;
+package objects;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import javafx.scene.canvas.GraphicsContext;
-import objects.*;
 
 public class Board {
 

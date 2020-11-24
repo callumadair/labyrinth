@@ -1,12 +1,9 @@
-package game;
+package objects;
 
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import objects.Card;
-import objects.FloorCard;
-import objects.PlayerController;
 
 import java.util.ArrayList;
 
