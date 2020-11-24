@@ -29,7 +29,7 @@ public class MenuController extends Application {
     public void start(Stage primaryStage) throws IOException {
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 400, 200);
+            Scene scene = new Scene(root, 750, 450);
             primaryStage.setScene(scene);
             primaryStage.show();
         }
