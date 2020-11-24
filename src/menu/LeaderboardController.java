@@ -21,19 +21,15 @@ import java.io.*;
  * @author Cal
  */
 public class LeaderboardController extends Application {
-    /**
-     * The Table view.
-     */
     @FXML
     private final TableView<PlayerProfile> tableView = new TableView<>();
-    /**
-     * The Data.
-     */
     private ObservableList<PlayerProfile> data;
-    /**
-     * The Stage.
-     */
     private Stage stage;
+    private String databaseName;
+
+    public LeaderboardController(String databaseName) {
+        this.databaseName = databaseName;
+    }
 
     /**
      * The entry point of application.
@@ -53,7 +49,7 @@ public class LeaderboardController extends Application {
         stage.setHeight(500);
 
         PlayerDatabase playerDatabase = new PlayerDatabase();
-        playerDatabase.start("profiles.db");
+        playerDatabase.start(getDatabaseName());
         data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
 
         final Label label = new Label("Leaderboard");
@@ -110,5 +106,9 @@ public class LeaderboardController extends Application {
         if (stage != null) {
             stage.close();
         }
+    }
+
+    public String getDatabaseName() {
+        return databaseName;
     }
 }

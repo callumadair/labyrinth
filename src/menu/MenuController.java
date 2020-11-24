@@ -112,13 +112,10 @@ public class MenuController extends Application {
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
         if (leaderboardController == null) {
-            leaderboardController = new LeaderboardController();
-        }
-        try {
+            leaderboardController = new LeaderboardController("profiles.db");
             leaderboardController.start(new Stage());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
     }
 
 }
