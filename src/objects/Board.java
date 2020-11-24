@@ -2,18 +2,16 @@ package objects;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import javafx.scene.canvas.GraphicsContext;
 
 public class Board {
 
     private int width;
     private int height;
-    private FloorCard goal;
     private int fixedTilesNum;
     private int[][] spawnPoints = new int[4][2];
     private int[][] fixedTiles; //[fixedTileNum][2];
-    private SilkBag bag;
+    private SilkBag silkBag;
     private FloorCard[][] map;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
@@ -31,7 +29,7 @@ public class Board {
     private void setup(){
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                map[i][j] = new FloorCard();
+                map[i][j] = new FloorCard("type");
             }
         }
     }
@@ -143,5 +141,9 @@ public class Board {
 
     public FloorCard getTile(int x, int y){
         return map[x][y];
+    }
+
+    public SilkBag getSilkBag(){
+        return silkBag;
     }
 }
