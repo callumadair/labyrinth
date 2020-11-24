@@ -1,3 +1,4 @@
+import objects.Board;
 import objects.PlayerController;
 
 import java.io.File;
@@ -10,7 +11,7 @@ public class GameState {
 
     public GameState(File board, ArrayList<PlayerController> players){
         //extract data about a board using file manager
-        //this.board = new Board(board);
+        //this.board = new objects.Board(board);
         this.players = players;
     }
 

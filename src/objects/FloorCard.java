@@ -74,7 +74,7 @@ public class FloorCard extends Card {
      * @param isFixed  - the is fixed
      */
     public FloorCard(String type, int rotation, boolean isFixed) {
-        FloorCard(type);
+        this(type);
         this.rotation = rotation;
         this.isFixed = isFixed;
     }
@@ -112,7 +112,9 @@ public class FloorCard extends Card {
     /**
      * Use card.
      */
-    public void useCard() {
+    @Override
+    public void useCard(Board board, int x, int y) {
+        board.insertTile(this, x, y);
     }
 
     /**
