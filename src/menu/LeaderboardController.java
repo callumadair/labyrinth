@@ -21,6 +21,7 @@ import java.io.*;
  * @author Cal
  */
 public class LeaderboardController extends Application {
+    @FXML
     private final TableView<PlayerProfile> tableView = new TableView<>();
     private ObservableList<PlayerProfile> data;
 
