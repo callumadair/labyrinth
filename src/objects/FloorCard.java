@@ -1,16 +1,20 @@
 package objects;
+import java.util.ArrayList;
 
 import javafx.scene.image.Image;
+
 /**
  * This class represents the different floor tiles of the game.
  *
  * @author Maha Malik
  * @version 1.8
  */
-public class FloorCard extends Card {
 
 
-    public static final int TILE_SIZE = 61;
+public class FloorCard extends Card{ //need to continue javadoc
+
+
+    public static final int TILE_SIZE = 62;
 
     private int x, y;
     private FloorType type;
@@ -20,8 +24,8 @@ public class FloorCard extends Card {
     private int rotation;
     private Image image;
 
-    private String straightTileImagePath;
-    private String cornerTileImagePath;
+    private String straightTileImagePath = "tile.png";
+    private String cornerTileImagePath = "tile1.png";
     private String tshapedTileImagePath;
     private String goalTileImagePath;
 
@@ -49,19 +53,19 @@ public class FloorCard extends Card {
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
-                //image = new Image(straightTileImagePath);
+                image = new Image(straightTileImagePath);
                 break;
             case "CORNER":
                 this.type = FloorType.CORNER;
-                //image = new Image(cornerTileImagePath);
+                image = new Image(cornerTileImagePath);
                 break;
             case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
-                //image = new Image(tshapedTileImagePath);
+                image = new Image(tshapedTileImagePath);
                 break;
             case "GOAL":
                 this.type = FloorType.GOAL;
-                //image = new Image(goalTileImagePath);
+                image = new Image(goalTileImagePath);
                 break;
         }
     }
@@ -71,14 +75,12 @@ public class FloorCard extends Card {
      *
      * @param type     - the floor tile type
      * @param rotation - the rotation of the tile
-     * @param isFixed  - the is fixed
      */
-    public FloorCard(String type, int rotation, boolean isFixed) {
+    public FloorCard(String type, int x, int y, int rotation) {
         this(type);
         this.rotation = rotation;
-        this.isFixed = isFixed;
+        this.isFixed = true;
     }
-//
 
     /**
      * State of the floor tile.
@@ -87,6 +89,10 @@ public class FloorCard extends Card {
      */
     public FloorTileState state() {
         return state;
+    }
+
+    public FloorType getType(){
+        return type;
     }
 
     /**
@@ -110,12 +116,23 @@ public class FloorCard extends Card {
         this.state = FloorTileState.NORMAL;
     }
 
+    public void setX(int x){
+        this.x = x;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
     /**
      * Use card.
      */
     @Override
-    public void useCard(Board board, int x, int y) {
+    public boolean useCard(Board board, int x, int y) {
+        this.x = x;
+        this.y = y;
         board.insertTile(this, x, y);
+        return true;
     }
 
     /**
@@ -149,10 +166,10 @@ public class FloorCard extends Card {
     /**
      * Gets rotation.
      *
-     * @param rotation - the rotation of the tile
+     * @param - the rotation of the tile
      * @return the rotation
      */
-    public int getRotation(int rotation) {
+    public int getRotation() {
         return rotation;
     }
 
@@ -179,9 +196,9 @@ public class FloorCard extends Card {
                 } else if (rotation == 180) {
                     setOpenings(1, 0, 0, 1);
                 } else if (rotation == 270) {
-                setOpenings(1, 1, 0, 0);
-            }
-            break;
+                    setOpenings(1, 1, 0, 0);
+                }
+                break;
             case T_SHAPED:
                 if (rotation == 0) {
                     setOpenings(1, 0, 1, 1);
@@ -190,9 +207,9 @@ public class FloorCard extends Card {
                 } else if (rotation == 180) {
                     setOpenings(1, 1, 1, 0);
                 } else if (rotation == 270) {
-                setOpenings(0, 1, 1, 1);
-            }
-            break;
+                    setOpenings(0, 1, 1, 1);
+                }
+                break;
         }
     }
 
@@ -201,16 +218,20 @@ public class FloorCard extends Card {
      */
     public void nextRotation() {
         if (rotation == 0) {
-            this.setRotation(90);
+            rotateShape(90);
         } else if (rotation == 90) {
-            this.setRotation(180);
+            rotateShape(180);
         } else if (rotation == 180) {
-            this.setRotation(270);
+            rotateShape(270);
         } else if (rotation == 270) {
-            this.setRotation(0);
+            rotateShape(0);
         }
     }
 
+    /**
+     * set rotation for tiles
+     * @param rotation
+     */
     private void setRotation(int rotation) {
         this.rotation = rotation;
     }
@@ -256,4 +277,14 @@ public class FloorCard extends Card {
         openings[2] = right;
         openings[3] = bottom;
     }
+
+
+    /**
+     * gets openings
+     * @return openings
+     */
+    public int[] getOpenings() {
+        return openings;
+    }
+
 }

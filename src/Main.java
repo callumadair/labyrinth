@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import objects.Controller;
 import objects.FloorCard;
 
 
@@ -37,11 +38,9 @@ public class Main extends Application {
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
         int width = 5;
         int height = 5;
-        Canvas canvas = new Canvas(width * FloorCard.TILE_SIZE, height * FloorCard.TILE_SIZE);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        Image im = new Image("tile.png");
+        Controller c = new Controller(null, null);
 
-        root.setCenter(canvas);
+        root.setCenter(c.getCanvas());
         stage.setScene(scene);
         stage.show();
     }
