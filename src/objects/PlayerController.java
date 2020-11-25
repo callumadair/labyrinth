@@ -102,7 +102,7 @@ public class PlayerController {
     }
 
    
-    }
+
     public ArrayList<Card> getCardsHeld(){
         return this.cardsHeld;
     }
@@ -117,22 +117,6 @@ public class PlayerController {
     public void useCard(Card card){
 
         }
-        Card card = SilkBag.drawACard();
 
-        if (card.equals(FloorCard.FloorType.CORNER) || card.equals(FloorCard.FloorType.STRAIGHT)
-            || card.equals(FloorCard.FloorType.T_SHAPED)) {
-            Board.insertTile(card, x , y);// the player picks an available edge
-        } else if(card.equals(ActionCard) {
-                cardsHeld.add(card);
-                //if player decides to use another card
-                     if(cardsHeld.contains(ActionCard)) {
-                    //player chooses a card to use
-                    useCard();
-                    movePlayer();
-                }else{
-                movePlayer();
-                }
-        }
-    } */
 
 }
