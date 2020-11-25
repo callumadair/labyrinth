@@ -259,7 +259,12 @@ public class FloorCard extends Card {
         openings[2] = right;
         openings[3] = bottom;
     }
-   
+
+
+    /**
+     * gets openings
+     * @return openings
+     */
     public int[] getOpenings() {
         return openings;
     }
