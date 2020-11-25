@@ -10,6 +10,7 @@ public class PlayerController {
     private int playerY;
     private boolean isGoalReached;
     private ArrayList<Card> cardsHeld;
+    private Board board;
 
     /**
      * Instantiates a new Player controller.
