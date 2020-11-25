@@ -112,7 +112,9 @@ public class FloorCard extends Card {
     /**
      * Use card.
      */
-    public void useCard() {
+    @Override
+    public void useCard(Board board, int x, int y) {
+        board.insertTile(this, x, y);
     }
 
     /**
@@ -149,7 +151,7 @@ public class FloorCard extends Card {
      * @param rotation - the rotation of the tile
      * @return the rotation
      */
-    public int getRotation(int rotation) {
+    public int getRotation() {
         return rotation;
     }
 
@@ -258,6 +260,7 @@ public class FloorCard extends Card {
         openings[3] = bottom;
     }
 
+
     /**
      * gets openings
      * @return openings
@@ -265,4 +268,5 @@ public class FloorCard extends Card {
     public int[] getOpenings() {
         return openings;
     }
+
 }

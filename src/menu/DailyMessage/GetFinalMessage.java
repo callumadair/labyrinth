@@ -1,3 +1,5 @@
+package menu.DailyMessage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
