@@ -22,7 +22,6 @@ public class MenuController extends Application {
 
     private Stage stage;
     private Scene primaryScene;
-    private Scene secondaryScene;
     private LeaderboardController leaderboardController;
 
     /**
@@ -70,7 +69,7 @@ public class MenuController extends Application {
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            secondaryScene = new Scene(root);
+            Scene secondaryScene = new Scene(root);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(secondaryScene);
             stage.show();
@@ -87,7 +86,7 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
-        //stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
             primaryScene = new Scene(root, 700, 450);

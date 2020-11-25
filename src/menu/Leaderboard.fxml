@@ -21,9 +21,9 @@
     <center>
         <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="225.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="nameCol" prefWidth="75.0" resizable="false" text="Name" />
-                <TableColumn fx:id="vicCol" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Victories" />
-                <TableColumn fx:id="lossCol" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Losses" />
+                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" text="Name" />
+                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Victories" />
+                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Losses" />
             </columns>
         </TableView>
     </center>
