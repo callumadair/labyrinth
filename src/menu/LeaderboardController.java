@@ -3,13 +3,10 @@ package menu;
 import javafx.application.Application;
 import javafx.collections.*;
 import javafx.fxml.*;
-import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import objects.*;
 
@@ -22,7 +19,9 @@ import java.io.*;
  */
 public class LeaderboardController extends Application {
     @FXML
-    private final TableView<PlayerProfile> tableView = new TableView<>();
+    private TableView<PlayerProfile> tableView;
+    @FXML
+    private TableColumn<PlayerProfile, String> nameCol;
     private ObservableList<PlayerProfile> data;
     private Stage stage;
     private String databaseName;
@@ -43,14 +42,18 @@ public class LeaderboardController extends Application {
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
+        stage.setTitle("Leaderboard");
         Pane root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
+            tableView = (TableView<PlayerProfile>) root.getChildren().get(1);
             Scene scene = new Scene(root, 350, 500);
+            stage.setScene(scene);
+
             PlayerDatabase playerDatabase = new PlayerDatabase();
             playerDatabase.start(getDatabaseName());
             data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
-            stage.setScene(scene);
+
             addColumns();
             stage.show();
         } catch (IOException e) {
@@ -63,15 +66,9 @@ public class LeaderboardController extends Application {
      */
     @FXML
     private void addColumns() {
-        TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
-
-        TableColumn<PlayerProfile, Integer> vicCol = new TableColumn<>("Victories");
-        vicCol.setCellValueFactory(new PropertyValueFactory<>("victories"));
-
-        TableColumn<PlayerProfile, Integer> lossColumn = new TableColumn<>("Losses");
-        lossColumn.setCellValueFactory(new PropertyValueFactory<>("losses"));
-
+        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
+        tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("victories"));
+        tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("losses"));
         tableView.setItems(data);
     }
 

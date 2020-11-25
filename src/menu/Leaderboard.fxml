@@ -8,23 +8,23 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <Label text="Leaderboard" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Quicksand Medium" size="18.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="5.0" top="10.0" />
-         </BorderPane.margin>
-      </Label>
-   </top>
-   <center>
-      <TableView fx:id="tableView" maxWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Name" />
-          <TableColumn prefWidth="75.0" text="Victories" />
-            <TableColumn prefWidth="75.0" text="Losses" />
-        </columns>
-      </TableView>
-   </center>
+    <top>
+        <Label text="Leaderboard" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="Quicksand Medium" size="18.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets bottom="5.0" top="10.0" />
+            </BorderPane.margin>
+        </Label>
+    </top>
+    <center>
+        <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="225.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="nameCol" prefWidth="75.0" resizable="false" text="Name" />
+                <TableColumn fx:id="vicCol" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Victories" />
+                <TableColumn fx:id="lossCol" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Losses" />
+            </columns>
+        </TableView>
+    </center>
 </BorderPane>
