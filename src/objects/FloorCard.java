@@ -117,8 +117,9 @@ public class FloorCard extends Card{ //need to continue javadoc
      * Use card.
      */
     @Override
-    public void useCard(Board board, int x, int y) {
+    public boolean useCard(Board board, int x, int y) {
         board.insertTile(this, x, y);
+        return true;
     }
 
     /**
@@ -152,7 +153,7 @@ public class FloorCard extends Card{ //need to continue javadoc
     /**
      * Gets rotation.
      *
-     * @param rotation - the rotation of the tile
+     * @param - the rotation of the tile
      * @return the rotation
      */
     public int getRotation() {
