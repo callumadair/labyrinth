@@ -31,7 +31,8 @@ public class Controller {
      */
     public Controller(String[][] boardData, ArrayList<PlayerController> players) {
         this.players = players;
-        board = new Board(boardData);
+        board = new Board();
+        players.add(new PlayerController());
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
@@ -189,4 +190,7 @@ public class Controller {
         });
     }
 
+    public Canvas getCanvas(){
+        return canvas;
+    }
 }

@@ -3,6 +3,7 @@ package objects;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Board {
@@ -30,9 +31,14 @@ public class Board {
 
     //testing only
     private void setup() {
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                map[i][j] = new FloorCard("type");
+        map = new FloorCard[5][5];
+        width = 5;
+        height = 5;
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
+                map[j][i] = new FloorCard("STRAIGHT");
+                map[j][i].setX(j);
+                map[j][i].setY(j);
             }
         }
     }
