@@ -24,8 +24,8 @@ public class FloorCard extends Card{ //need to continue javadoc
     private int rotation;
     private Image image;
 
-    private String straightTileImagePath;
-    private String cornerTileImagePath;
+    private String straightTileImagePath = "tile.png";
+    private String cornerTileImagePath = "tile1.png";
     private String tshapedTileImagePath;
     private String goalTileImagePath;
 
@@ -75,12 +75,11 @@ public class FloorCard extends Card{ //need to continue javadoc
      *
      * @param type     - the floor tile type
      * @param rotation - the rotation of the tile
-     * @param isFixed  - the is fixed
      */
-    public FloorCard(String type, int rotation, boolean isFixed) {
+    public FloorCard(String type, int x, int y, int rotation) {
         this(type);
         this.rotation = rotation;
-        this.isFixed = isFixed;
+        this.isFixed = true;
     }
 
     /**
@@ -90,6 +89,10 @@ public class FloorCard extends Card{ //need to continue javadoc
      */
     public FloorTileState state() {
         return state;
+    }
+
+    public FloorType getType(){
+        return type;
     }
 
     /**
@@ -113,11 +116,21 @@ public class FloorCard extends Card{ //need to continue javadoc
         this.state = FloorTileState.NORMAL;
     }
 
+    public void setX(int x){
+        this.x = x;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
     /**
      * Use card.
      */
     @Override
     public boolean useCard(Board board, int x, int y) {
+        this.x = x;
+        this.y = y;
         board.insertTile(this, x, y);
         return true;
     }

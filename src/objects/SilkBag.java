@@ -11,6 +11,7 @@ public class SilkBag {
 
     public SilkBag(int numOfCards) {
         this.numOfCards = numOfCards;
+        listOfCards = new ArrayList<>();
     }
 
     public int getNumOfCards() {
@@ -30,7 +31,7 @@ public class SilkBag {
     }
 
     public void addACard(Card card) {
-        //  listOfCards.add()
+        listOfCards.add(card);
     }
 
     public Card drawACard() {
