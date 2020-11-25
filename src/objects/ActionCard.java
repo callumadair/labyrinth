@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
+/**
+ * The type Action card.
+ */
 public class ActionCard extends Card{
 
     private ActionCardType type;
@@ -16,10 +19,34 @@ public class ActionCard extends Card{
     private String doubleMoveImagePath;
 
 
+    /**
+     * The enum Action card type.
+     */
     enum ActionCardType {
-    FIRE , ICE , BACKTRACK , DOUBLE_MOVE;
+        /**
+         * Fire action card type.
+         */
+        FIRE ,
+        /**
+         * Ice action card type.
+         */
+        ICE ,
+        /**
+         * Backtrack action card type.
+         */
+        BACKTRACK ,
+        /**
+         * Double move action card type.
+         */
+        DOUBLE_MOVE;
 }
- public ActionCard(String type){
+
+    /**
+     * Instantiates a new Action card.
+     *
+     * @param type the type
+     */
+    public ActionCard(String type){
         switch(type) {
             case "FIRE" :
                 this.type = ActionCardType.FIRE;
@@ -155,3 +182,4 @@ public class ActionCard extends Card{
     }
 
 }
+
