@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+
 import java.util.ArrayList;
 
 public class Controller {
@@ -25,7 +26,6 @@ public class Controller {
     private ArrayList<FloorCard> tilesToCompare;
 
     /**
-     * 
      * @param boardData
      * @param players
      */
@@ -110,8 +110,8 @@ public class Controller {
         //enable rotating the card
     }
 
-    private void insert(){
-        if(tilesToCompare.contains(selectedTile)){
+    private void insert() {
+        if (tilesToCompare.contains(selectedTile)) {
             playingCard.useCard(board, selectedTile.getX(), selectedTile.getY());
             tilesToCompare.clear();
             selectedTile = null;
@@ -122,7 +122,7 @@ public class Controller {
         }
     }
 
-    private void playActionCard(){
+    private void playActionCard() {
         //player needs to choose action card
         //player needs to select a tile and it needs to be validated
     }
@@ -138,9 +138,9 @@ public class Controller {
         //highlight tiles on which player can move
     }
 
-    private void movePlayer(){
-        if(tilesToCompare.contains(selectedTile)){
-            if(selectedTile.checkGoal()){
+    private void movePlayer() {
+        if (tilesToCompare.contains(selectedTile)) {
+            if (selectedTile.checkGoal()) {
                 changeState(GameState.VICTORY);
             } else {
                 //move player on the board
@@ -153,7 +153,7 @@ public class Controller {
         }
     }
 
-    private void highlightTiles(){
+    private void highlightTiles() {
         //use it to highlight tiles from the list tilesToCompare
     }
 
@@ -161,7 +161,7 @@ public class Controller {
         selectedTile = null;
         tilesToCompare = null;
         playingCard = null;
-        if(playerIndex == numOfPlayers){
+        if (playerIndex == numOfPlayers) {
             playerIndex = 0;
         } else {
             playerIndex++;
@@ -188,6 +188,5 @@ public class Controller {
             }
         });
     }
-
 
 }
