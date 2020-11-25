@@ -1,4 +1,4 @@
 .root {
-    -fx-background-image: url("demo-background.jpg");
+    -fx-background-color: rgba(84, 5, 5, 0.8);
     -fx-background-size: 100%;
 }

@@ -14,6 +14,9 @@ import java.io.IOException;
 
 /**
  * The type Menu controller.
+ *
+ * @author Luke
+ * @author Cal
  */
 public class MenuController extends Application {
 
@@ -30,9 +33,10 @@ public class MenuController extends Application {
     }
 
     public void start(Stage primaryStage) {
+        Pane root = null;
+        stage = primaryStage;
         try {
-            stage = primaryStage;
-            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
             Scene scene = new Scene(root, 700, 450);
             stage.setScene(scene);
             stage.show();
