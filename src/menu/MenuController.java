@@ -58,6 +58,11 @@ public class MenuController extends Application {
         }
         stage.close();
     }
+
+    /**
+     * This will take a window that you will be taken to when you click the instructions button
+     * @param actionEvent
+     */
     @FXML
     private void handleInstructionsButtonAction(ActionEvent actionEvent) {
         try {
@@ -108,6 +113,17 @@ public class MenuController extends Application {
         }
     }
 
+    @FXML
+    private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        try {
+            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Scene scene = new Scene(root, 700, 450);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Handle leaderboard action.
      *
