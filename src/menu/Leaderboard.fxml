@@ -19,7 +19,7 @@
       </Label>
    </top>
    <center>
-      <TableView maxWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView" maxWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn prefWidth="75.0" text="Name" />
           <TableColumn prefWidth="75.0" text="Victories" />
