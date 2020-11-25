@@ -66,7 +66,7 @@ public class ActionCard extends Card{
                 break;
         }
  }
- public void useCard(Board board, int x, int y){
+ public boolean useCard(Board board, int x, int y){
         switch(type){
             case FIRE:
                 useFireCard(board, x , y);
@@ -81,6 +81,7 @@ public class ActionCard extends Card{
                 useDoubleMove(board, x , y);
                 break;
         }
+        return true;
  }
 
 

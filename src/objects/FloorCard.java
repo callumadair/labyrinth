@@ -25,7 +25,7 @@ public class FloorCard extends Card{ //need to continue javadoc
     private Image image;
 
     private String straightTileImagePath = "tile.png";
-    private String cornerTileImagePath;
+    private String cornerTileImagePath = "tile1.png";
     private String tshapedTileImagePath;
     private String goalTileImagePath;
 
@@ -91,6 +91,10 @@ public class FloorCard extends Card{ //need to continue javadoc
         return state;
     }
 
+    public FloorType getType(){
+        return type;
+    }
+
     /**
      * Sets on fire.
      */
@@ -125,6 +129,8 @@ public class FloorCard extends Card{ //need to continue javadoc
      */
     @Override
     public boolean useCard(Board board, int x, int y) {
+        this.x = x;
+        this.y = y;
         board.insertTile(this, x, y);
         return true;
     }
