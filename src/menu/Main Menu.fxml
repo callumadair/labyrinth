@@ -5,13 +5,27 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
-   <children>
-      <FlowPane layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="700.0">
+<BorderPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../resources/menucontrollerstyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
+   <top>
+      <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="115.0" prefWidth="700.0" text="Labyrinth" textFill="#ebe9e9">
+               <font>
+                  <Font name="Quicksand Medium" size="20.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </Label>
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <FlowPane alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="700.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="playButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handlePlayButtonAction" text="Play">
                <font>
@@ -19,24 +33,21 @@
                </font>
                <FlowPane.margin>
                   <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
-               </FlowPane.margin></Button>
+               </FlowPane.margin>
+            </Button>
             <Button fx:id="instructionsButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Instructions">
                <font>
                   <Font name="Quicksand Medium" size="12.0" />
                </font>
                <FlowPane.margin>
                   <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
-               </FlowPane.margin></Button>
-            <MenuButton minWidth="-Infinity" mnemonicParsing="false" onAction="#openLeaderboard" prefWidth="105.0" text="Leaderboards">
+               </FlowPane.margin>
+            </Button>
+            <MenuButton mnemonicParsing="false" onAction="#openLeaderboard" text="Leaderboards">
               <items>
                 <MenuItem mnemonicParsing="false">
                      <graphic>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#openLeaderboard" prefWidth="105.0" text="Map 1" />
-                     </graphic>
-                  </MenuItem>
-                <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="105.0" text="Map 2" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" text="Map 1" textAlignment="CENTER" />
                      </graphic>
                   </MenuItem>
               </items>
@@ -50,19 +61,9 @@
                </font>
                <FlowPane.margin>
                   <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
-               </FlowPane.margin></Button>
+               </FlowPane.margin>
+            </Button>
          </children>
       </FlowPane>
-      <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="700.0">
-         <children>
-            <Label alignment="CENTER" prefHeight="115.0" prefWidth="700.0" text="Labyrinth">
-               <font>
-                  <Font name="Quicksand Medium" size="20.0" />
-               </font>
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
-            </Label>
-         </children></FlowPane>
-   </children>
-</Pane>
+   </center>
+</BorderPane>
