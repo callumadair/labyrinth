@@ -58,7 +58,19 @@ public class MenuController extends Application {
         }
         stage.close();
     }
+    @FXML
+    private void handleInstructionsButtonAction(ActionEvent actionEvent) {
+        try {
+            Pane root = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
+            Scene instructionsScene = new Scene(root);
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(instructionsScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+    }
     /**
      * This will create a second window that you will be taken to when you click the play button
      *

@@ -35,7 +35,7 @@
                   <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
                </FlowPane.margin>
             </Button>
-            <Button fx:id="instructionsButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Instructions">
+            <Button fx:id="instructionsButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleInstructionsButtonAction" text="Instructions">
                <font>
                   <Font name="Quicksand Medium" size="12.0" />
                </font>
