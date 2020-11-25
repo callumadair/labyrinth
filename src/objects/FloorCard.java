@@ -23,6 +23,10 @@ public class FloorCard extends Card{ //need to continue javadoc
     private int rotation;
     private Image image;
 
+    private String straightTileImagePath;
+    private String cornerTileImagePath;
+    private String tshapedTileImagePath;
+    private String goalTileImagePath;
 
     /**
      * The enum Floor type.
@@ -44,23 +48,23 @@ public class FloorCard extends Card{ //need to continue javadoc
      *
      * @param type - the floor tile type
      */
-    public FloorCard(String type, int rotation) {
+    public FloorCard(String type) {
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
-                //Image straight = new Image(StraightPath);
+                image = new Image(straightTileImagePath);
                 break;
             case "CORNER":
                 this.type = FloorType.CORNER;
-                //Image corner = new Image(CornerPath);
+                image = new Image(cornerTileImagePath);
                 break;
             case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
-                //Image tshaped = new Image(TShapedPath);
+                image = new Image(tshapedTileImagePath);
                 break;
             case "GOAL":
                 this.type = FloorType.GOAL;
-                //Image goal = new Image(GoalPath);
+                image = new Image(goalTileImagePath);
                 break;
         }
     }
@@ -73,7 +77,8 @@ public class FloorCard extends Card{ //need to continue javadoc
      * @param isFixed  - the is fixed
      */
     public FloorCard(String type, int rotation, boolean isFixed) {
-        this(type, rotation);
+        this(type);
+        this.rotation = rotation;
         this.isFixed = isFixed;
     }
 
@@ -110,7 +115,9 @@ public class FloorCard extends Card{ //need to continue javadoc
     /**
      * Use card.
      */
-    public void useCard() {
+    @Override
+    public void useCard(Board board, int x, int y) {
+        board.insertTile(this, x, y);
     }
 
     /**
@@ -147,7 +154,7 @@ public class FloorCard extends Card{ //need to continue javadoc
      * @param rotation - the rotation of the tile
      * @return the rotation
      */
-    public int getRotation(int rotation) {
+    public int getRotation() {
         return rotation;
     }
 
@@ -196,16 +203,20 @@ public class FloorCard extends Card{ //need to continue javadoc
      */
     public void nextRotation() {
         if (rotation == 0) {
-            this.setRotation(90);
+            rotateShape(90);
         } else if (rotation == 90) {
-            this.setRotation(180);
+            rotateShape(180);
         } else if (rotation == 180) {
-            this.setRotation(270);
+            rotateShape(270);
         } else if (rotation == 270) {
-            this.setRotation(0);
+            rotateShape(0);
         }
     }
 
+    /**
+     * set rotation for tiles
+     * @param rotation
+     */
     private void setRotation(int rotation) {
         this.rotation = rotation;
     }
@@ -251,4 +262,14 @@ public class FloorCard extends Card{ //need to continue javadoc
         openings[2] = right;
         openings[3] = bottom;
     }
+
+
+    /**
+     * gets openings
+     * @return openings
+     */
+    public int[] getOpenings() {
+        return openings;
+    }
+
 }

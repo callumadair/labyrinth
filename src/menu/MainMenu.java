@@ -1,12 +1,12 @@
 package menu;
 
 /**
- * The type Main menu.
+ * The type game.Main menu.
  */
 public class MainMenu {
     private RunningState state = RunningState.IN_MENU;
     /**
-     * Instantiates a new Main menu.
+     * Instantiates a new game.Main menu.
      */
     public MainMenu() {
 

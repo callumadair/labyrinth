@@ -1,6 +1,8 @@
 package objects;
 
-import java.util.*;
+
+import java.util.ArrayList;
+//
 
 /**
  * The type Player controller.
@@ -54,18 +56,15 @@ public class PlayerController {
         this.playerY = playerY;
     }
 
-    /**
-     * Is goal reached boolean.
-     *
-     * @return the boolean
-     */
+
+    /*
     public boolean isGoalReached() {
         if((board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
             return isGoalReached;
         } else {
             return false;
         }
-    }
+    }*/
 
     /**
      * Sets goal reached.
@@ -76,9 +75,7 @@ public class PlayerController {
         isGoalReached = goalReached;
     }
 
-    /**
-     * Move player.
-     */
+    /*
     public void movePlayer() {
         if ((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
             this.playerX += 1;
@@ -93,23 +90,18 @@ public class PlayerController {
             this.playerY -= 1;
         }
     }
+    */
 
     /**
      * Determine legal moves floor card [ ].
      *
      * @return the floor card [ ]
      */
-    public FloorCard[] determineLegalMoves() {
+    public ArrayList<FloorCard> determineLegalMoves() {
         return null;
     }
 
-    /**
-     * Draw card card.
-     *
-     * @return the card
-     */
-    public Card drawCard() {
-
+   
     }
     public ArrayList<Card> getCardsHeld(){
         return this.cardsHeld;
@@ -125,4 +117,22 @@ public class PlayerController {
     public void useCard(Card card){
 
         }
+        Card card = SilkBag.drawACard();
+
+        if (card.equals(FloorCard.FloorType.CORNER) || card.equals(FloorCard.FloorType.STRAIGHT)
+            || card.equals(FloorCard.FloorType.T_SHAPED)) {
+            Board.insertTile(card, x , y);// the player picks an available edge
+        } else if(card.equals(ActionCard) {
+                cardsHeld.add(card);
+                //if player decides to use another card
+                     if(cardsHeld.contains(ActionCard)) {
+                    //player chooses a card to use
+                    useCard();
+                    movePlayer();
+                }else{
+                movePlayer();
+                }
+        }
+    } */
+
 }
