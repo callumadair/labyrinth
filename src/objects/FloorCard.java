@@ -198,13 +198,13 @@ public class FloorCard extends Card {
      */
     public void nextRotation() {
         if (rotation == 0) {
-            this.rotateShape(90);
+            rotateShape(90);
         } else if (rotation == 90) {
-            this.rotateShape(180);
+            rotateShape(180);
         } else if (rotation == 180) {
-            this.rotateShape(270);
+            rotateShape(270);
         } else if (rotation == 270) {
-            this.rotateShape(0);
+            rotateShape(0);
         }
     }
 
@@ -256,5 +256,9 @@ public class FloorCard extends Card {
         openings[1] = top;
         openings[2] = right;
         openings[3] = bottom;
+    }
+
+    public int[] getOpenings() {
+        return openings;
     }
 }
