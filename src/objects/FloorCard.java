@@ -49,19 +49,19 @@ public class FloorCard extends Card {
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
-                //image = new Image(straightTileImagePath);
+                image = new Image(straightTileImagePath);
                 break;
             case "CORNER":
                 this.type = FloorType.CORNER;
-                //image = new Image(cornerTileImagePath);
+                image = new Image(cornerTileImagePath);
                 break;
             case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
-                //image = new Image(tshapedTileImagePath);
+                image = new Image(tshapedTileImagePath);
                 break;
             case "GOAL":
                 this.type = FloorType.GOAL;
-                //image = new Image(goalTileImagePath);
+                image = new Image(goalTileImagePath);
                 break;
         }
     }
@@ -78,7 +78,6 @@ public class FloorCard extends Card {
         this.rotation = rotation;
         this.isFixed = isFixed;
     }
-//
 
     /**
      * State of the floor tile.
@@ -152,7 +151,7 @@ public class FloorCard extends Card {
      * @param rotation - the rotation of the tile
      * @return the rotation
      */
-    public int getRotation(int rotation) {
+    public int getRotation() {
         return rotation;
     }
 
@@ -201,16 +200,20 @@ public class FloorCard extends Card {
      */
     public void nextRotation() {
         if (rotation == 0) {
-            this.setRotation(90);
+            rotateShape(90);
         } else if (rotation == 90) {
-            this.setRotation(180);
+            rotateShape(180);
         } else if (rotation == 180) {
-            this.setRotation(270);
+            rotateShape(270);
         } else if (rotation == 270) {
-            this.setRotation(0);
+            rotateShape(0);
         }
     }
 
+    /**
+     * set rotation for tiles
+     * @param rotation
+     */
     private void setRotation(int rotation) {
         this.rotation = rotation;
     }
@@ -256,4 +259,9 @@ public class FloorCard extends Card {
         openings[2] = right;
         openings[3] = bottom;
     }
+   
+    public int[] getOpenings() {
+        return openings;
+    }
+
 }
