@@ -20,11 +20,8 @@ import java.io.*;
 public class LeaderboardController extends Application {
     @FXML
     private TableView<PlayerProfile> tableView;
-    @FXML
-    private TableColumn<PlayerProfile, String> nameCol;
-    private ObservableList<PlayerProfile> data;
     private Stage stage;
-    private String databaseName;
+    private final String databaseName;
 
     public LeaderboardController(String databaseName) {
         this.databaseName = databaseName;
@@ -48,6 +45,7 @@ public class LeaderboardController extends Application {
             root = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
         tableView = (TableView<PlayerProfile>) root.getChildren().get(1);
         Scene scene = new Scene(root, 350, 500);
@@ -64,7 +62,7 @@ public class LeaderboardController extends Application {
     private void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start(getDatabaseName());
-        data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
+        ObservableList<PlayerProfile> data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
 
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("victories"));

@@ -21,6 +21,8 @@ import java.io.IOException;
 public class MenuController extends Application {
 
     private Stage stage;
+    private Scene primaryScene;
+    private Scene secondaryScene;
     private LeaderboardController leaderboardController;
 
     /**
@@ -37,8 +39,8 @@ public class MenuController extends Application {
         stage = primaryStage;
         try {
             root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
+            primaryScene = new Scene(root, 700, 450);
+            stage.setScene(primaryScene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,15 +65,14 @@ public class MenuController extends Application {
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
-     * @throws IOException
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            Scene secondScene = new Scene(root);
+            secondaryScene = new Scene(root);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(secondScene);
+            stage.setScene(secondaryScene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,11 +87,12 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        //stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
+            primaryScene = new Scene(root, 700, 450);
+            stage.setScene(primaryScene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -114,11 +116,13 @@ public class MenuController extends Application {
     }
 
     @FXML
-    private void openLeaderboard(ActionEvent actionEvent) {
+    private void openLeaderboard() {
         if (leaderboardController == null) {
             leaderboardController = new LeaderboardController("profiles.db");
-            leaderboardController.start(new Stage());
+        } else {
+            leaderboardController.exit();
         }
+        leaderboardController.start(new Stage());
 
     }
 
