@@ -1,3 +1,5 @@
+package menu.DailyMessage;
+
 import java.io.IOException;
 
 public class Encode {
