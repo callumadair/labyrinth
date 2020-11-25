@@ -46,7 +46,6 @@ public class LeaderboardController extends Application {
         Pane root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
