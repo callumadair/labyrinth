@@ -1,6 +1,7 @@
 package objects;
 
 import javafx.scene.image.Image;
+
 /**
  * This class represents the different floor tiles of the game.
  *
@@ -78,7 +79,6 @@ public class FloorCard extends Card {
         this.rotation = rotation;
         this.isFixed = isFixed;
     }
-//
 
     /**
      * State of the floor tile.
@@ -179,9 +179,9 @@ public class FloorCard extends Card {
                 } else if (rotation == 180) {
                     setOpenings(1, 0, 0, 1);
                 } else if (rotation == 270) {
-                setOpenings(1, 1, 0, 0);
-            }
-            break;
+                    setOpenings(1, 1, 0, 0);
+                }
+                break;
             case T_SHAPED:
                 if (rotation == 0) {
                     setOpenings(1, 0, 1, 1);
@@ -190,9 +190,9 @@ public class FloorCard extends Card {
                 } else if (rotation == 180) {
                     setOpenings(1, 1, 1, 0);
                 } else if (rotation == 270) {
-                setOpenings(0, 1, 1, 1);
-            }
-            break;
+                    setOpenings(0, 1, 1, 1);
+                }
+                break;
         }
     }
 
