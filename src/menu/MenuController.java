@@ -113,6 +113,10 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * handles take me back button from the instructions screen
+     * @param actionEvent
+     */
     @FXML
     private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

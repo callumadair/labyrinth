@@ -66,4 +66,11 @@
          </children>
       </FlowPane>
    </center>
+   <bottom>
+      <Label text="Daily Message Placeholder" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Quicksand Medium" size="16.0" />
+         </font>
+      </Label>
+   </bottom>
 </BorderPane>
