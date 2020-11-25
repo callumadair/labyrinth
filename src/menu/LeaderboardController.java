@@ -46,19 +46,16 @@ public class LeaderboardController extends Application {
         Pane root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
-            tableView = (TableView<PlayerProfile>) root.getChildren().get(1);
-            Scene scene = new Scene(root, 350, 500);
-            stage.setScene(scene);
 
-            PlayerDatabase playerDatabase = new PlayerDatabase();
-            playerDatabase.start(getDatabaseName());
-            data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
-
-            addColumns();
-            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        tableView = (TableView<PlayerProfile>) root.getChildren().get(1);
+        Scene scene = new Scene(root, 350, 500);
+        stage.setScene(scene);
+
+        addColumns();
+        stage.show();
     }
 
     /**
@@ -66,6 +63,10 @@ public class LeaderboardController extends Application {
      */
     @FXML
     private void addColumns() {
+        PlayerDatabase playerDatabase = new PlayerDatabase();
+        playerDatabase.start(getDatabaseName());
+        data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
+
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("victories"));
         tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("losses"));
