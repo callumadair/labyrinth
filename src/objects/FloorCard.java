@@ -1,4 +1,5 @@
 package objects;
+import java.util.ArrayList;
 
 import javafx.scene.image.Image;
 
@@ -8,7 +9,9 @@ import javafx.scene.image.Image;
  * @author Maha Malik
  * @version 1.8
  */
-public class FloorCard extends Card {
+
+
+public class FloorCard extends Card{ //need to continue javadoc
 
 
     public static final int TILE_SIZE = 61;
