@@ -21,13 +21,10 @@ import java.io.IOException;
 public class MenuController extends Application {
 
     private Stage stage;
+    private Scene primaryScene;
+    private Scene secondaryScene;
     private LeaderboardController leaderboardController;
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -37,19 +34,14 @@ public class MenuController extends Application {
         stage = primaryStage;
         try {
             root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
+            primaryScene = new Scene(root, 700, 450);
+            stage.setScene(primaryScene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Will close the window
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -59,18 +51,20 @@ public class MenuController extends Application {
         stage.close();
     }
 
+
     /**
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
      */
+
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            Scene secondScene = new Scene(root);
+            secondaryScene = new Scene(root);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(secondScene);
+            stage.setScene(secondaryScene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,41 +72,19 @@ public class MenuController extends Application {
 
     }
 
-    /**
-     * Handle take me back button action.
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
+            primaryScene = new Scene(root, 700, 450);
+            stage.setScene(primaryScene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * handles take me back button from the instructions screen
-     * @param actionEvent
-     */
-    @FXML
-    private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        try {
-            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
->>>>>>> parent of 698cf2d... Merge branch 'menu' of https://github.com/CS230-Group-07/labyrinth into menu
     /**
      * Handle leaderboard action.
      *
@@ -131,7 +103,6 @@ public class MenuController extends Application {
     }
 
     @FXML
-<<<<<<< HEAD
     private void openLeaderboard() {
         if (leaderboardController == null) {
             leaderboardController = new LeaderboardController("profiles.db");
@@ -139,13 +110,6 @@ public class MenuController extends Application {
             leaderboardController.exit();
         }
         leaderboardController.start(new Stage());
-=======
-    private void openLeaderboard(ActionEvent actionEvent) {
-        if (leaderboardController == null) {
-            leaderboardController = new LeaderboardController("profiles.db");
-            leaderboardController.start(new Stage());
-        }
->>>>>>> parent of 698cf2d... Merge branch 'menu' of https://github.com/CS230-Group-07/labyrinth into menu
 
     }
 
