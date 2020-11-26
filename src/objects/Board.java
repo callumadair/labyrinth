@@ -3,6 +3,7 @@ package objects;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Board {
@@ -30,11 +31,23 @@ public class Board {
 
     //testing only
     private void setup() {
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                map[i][j] = new FloorCard("type");
+        map = new FloorCard[5][5];
+        width = 5;
+        height = 5;
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
+                map[j][i] = new FloorCard("STRAIGHT");
+                map[j][i].setX(j);
+                map[j][i].setY(i);
             }
         }
+        assignInsertPositions();
+        silkBag = new SilkBag(4);
+
+        silkBag.addACard(new FloorCard("CORNER"));
+        silkBag.addACard(new FloorCard("CORNER"));
+        silkBag.addACard(new FloorCard("CORNER"));
+        silkBag.addACard(new FloorCard("CORNER"));
     }
 
     private void setup(String[][] data) {
@@ -64,7 +77,7 @@ public class Board {
      * @return ArrayList
      */
     public ArrayList<FloorCard> getInsertionPoints() {
-        HashSet<FloorCard> insertionTiles = new HashSet<>();
+        ArrayList<FloorCard> insertionTiles = new ArrayList<>();
 
         ArrayList<Integer> frozenRows = new ArrayList<>();
         ArrayList<Integer> frozenColumns = new ArrayList<>();
@@ -82,36 +95,44 @@ public class Board {
 
         for (int i = 0; i < width; i++) {
             if (!frozenColumns.contains(columnsToPlace.get(i))) {
-                insertionTiles.add(map[0][columnsToPlace.get(i)]);
-                insertionTiles.add(map[height - 1][columnsToPlace.get(i)]);
+                if(!insertionTiles.contains(map[0][columnsToPlace.get(i)])){
+                    insertionTiles.add(map[0][columnsToPlace.get(i)]);
+                }
+                if(!insertionTiles.contains(map[height - 1][columnsToPlace.get(i)])){
+                    insertionTiles.add(map[height - 1][columnsToPlace.get(i)]);
+                }
             }
         }
 
-        return getInsertionPoints();
+        return insertionTiles;
     }
 
     public void insertTile(FloorCard tile, int x, int y) {
-        if (x == 0 || x == height - 1) {
+        if (x == 0 || x == width - 1) {
             if (x == 0) {
-                for (int i = 0; i < width - 1; i++) {
-                    map[i + 1][y] = map[i][y];
+                for (int i = width - 1; i > 0; i--) {
+                    map[i][y] = map[i - 1][y];
+                    map[i - 1][y].setX(i);
                 }
                 map[0][y] = tile;
-            } else if (x == height - 1) {
-                for (int i = width - 1; i > 1; i--) {
-                    map[i - 1][y] = map[i][y];
+            } else if (x == width - 1) {
+                for (int i = 0; i < width - 1; i++) {
+                    map[i][y] = map[i + 1][y];
+                    map[i + 1][y].setX(i);
                 }
                 map[width - 1][y] = tile;
             }
-        } else if (y == 0 || y == width - 1) {
+        } else if (y == 0 || y == height - 1) {
             if (y == 0) {
-                for (int i = 0; i < height - 1; i++) {
-                    map[x][i + 1] = map[x][i];
+                for (int i = height - 1; i > 0; i--) {
+                    map[x][i] = map[x][i - 1];
+                    map[x][i - 1].setY(i);
                 }
                 map[x][0] = tile;
-            } else if (y == width - 1) {
-                for (int i = height - 1; i > 1; i--) {
-                    map[x][i - 1] = map[x][i];
+            } else if (y == height - 1) {
+                for (int i = 0; i < height - 1; i++) {
+                    map[x][i] = map[x][i + 1];
+                    map[x][i + 1].setY(i);
                 }
                 map[x][height - 1] = tile;
             }

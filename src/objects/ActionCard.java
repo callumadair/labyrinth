@@ -67,6 +67,7 @@ public class ActionCard extends Card{
                return useDoubleMove(board, x , y);
 
         }
+        return true;
  }
 
 

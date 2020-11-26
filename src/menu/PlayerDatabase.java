@@ -19,7 +19,7 @@ public class PlayerDatabase {
      * @param databaseName the database name
      */
     public void start(String databaseName) {
-        url = "jdbc:sqlite:resources/" + databaseName;
+        url = "jdbc:sqlite:src/resources/" + databaseName;
         try (Connection conn = connect()) {
             if (conn != null) {
                 System.out.println("Connection successful.");
