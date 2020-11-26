@@ -3,7 +3,10 @@ package objects;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.*;
+
 import java.util.ArrayList;
 
 public class Controller {
