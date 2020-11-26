@@ -12,6 +12,7 @@ public class ActionCard extends Card{
     private ActionCardType type;
     private Image image;
     private FloorCard floor;
+    private PlayerController player;
 
     private String fireImagePath;
     private String iceImagePath;
@@ -23,21 +24,9 @@ public class ActionCard extends Card{
      * The enum Action card type.
      */
     enum ActionCardType {
-        /**
-         * Fire action card type.
-         */
         FIRE ,
-        /**
-         * Ice action card type.
-         */
         ICE ,
-        /**
-         * Backtrack action card type.
-         */
         BACKTRACK ,
-        /**
-         * Double move action card type.
-         */
         DOUBLE_MOVE;
 }
 
@@ -69,43 +58,51 @@ public class ActionCard extends Card{
  public boolean useCard(Board board, int x, int y){
         switch(type){
             case FIRE:
-                useFireCard(board, x , y);
-                break;
+                return useFireCard(board, x , y);
             case ICE:
-                useIceCard(board, x , y);
-                break;
+                return useIceCard(board, x , y);
             case BACKTRACK:
-                useBackTrackCard(board, x , y);
-                break;
+                return useBackTrackCard(board, x , y);
             case DOUBLE_MOVE:
-                useDoubleMove(board, x , y);
-                break;
+               return useDoubleMove(board, x , y);
+
         }
         return true;
  }
 
 
-    private void useFireCard(Board board, int x, int y) {
-        ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
+    private boolean useFireCard(Board board, int x, int y) {
+        if(getAreaOfEffect(board, x, y).contains(player.currentLocation)){ //need player current location added
+            return false;
+        }
+        else {
+            ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
-        for(FloorCard tile : tiles){
+            for (FloorCard tile : tiles) {
                 tile.setOnFire();
+            }
+            return true;
         }
 
     }
 
-    private void useIceCard(Board board, int x, int y) {
-        ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
+    private boolean useIceCard(Board board, int x, int y) {
+        if (getAreaOfEffect(board, x, y).contains(player.currentLocation)) { //need player current location added
+            return false;
+        } else {
+            ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
-        for(FloorCard tile : tiles){
-            tile.setOnIce();
+            for (FloorCard tile : tiles) {
+                tile.setOnIce();
+            }
+            return true;
         }
     }
-    private void useBackTrackCard(Board board, int x, int y) {
+    private boolean useBackTrackCard(Board board, int x, int y) {
 
     }
 
-    private void useDoubleMove(Board board, int x, int y) {
+    private boolean useDoubleMove(Board board, int x, int y) {
 
     }
 
