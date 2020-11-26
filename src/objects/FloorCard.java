@@ -165,8 +165,6 @@ public class FloorCard extends Card{ //need to continue javadoc
 
     /**
      * Gets rotation.
-     *
-     * @param - the rotation of the tile
      * @return the rotation
      */
     public int getRotation() {
@@ -285,6 +283,15 @@ public class FloorCard extends Card{ //need to continue javadoc
      */
     public int[] getOpenings() {
         return openings;
+    }
+
+    /**
+     * gets opening at certain index
+     * @param index
+     * @return
+     */
+    public int getOpeningAt(int index) {
+        return openings[index];
     }
 
 }
