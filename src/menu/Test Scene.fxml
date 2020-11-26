@@ -5,18 +5,22 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane blendMode="DARKEN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
-   <top>
-      <Label text="WOW THIS IS THE GAME HOW EXCITING!" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="27.0" />
-         </font>
-      </Label>
-   </top>
-   <bottom>
-      <Button blendMode="DARKEN" mnemonicParsing="false" onAction="#handleTakeMeBackButtonAction" text="Menu" textAlignment="CENTER" textFill="#1f3380" BorderPane.alignment="TOP_CENTER">
-         <font>
-            <Font name="Quicksand Medium" size="12.0" />
-         </font></Button>
-   </bottom>
+<BorderPane blendMode="DARKEN" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
+    <top>
+        <Label text="WOW THIS IS THE GAME HOW EXCITING!" textAlignment="CENTER" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="27.0"/>
+            </font>
+        </Label>
+    </top>
+    <bottom>
+        <Button blendMode="DARKEN" mnemonicParsing="false" onAction="#handleTakeMeBackButtonAction" text="Menu"
+                textAlignment="CENTER" textFill="#1f3380" BorderPane.alignment="TOP_CENTER">
+            <font>
+                <Font name="Quicksand Medium" size="12.0"/>
+            </font>
+        </Button>
+    </bottom>
 </BorderPane>
