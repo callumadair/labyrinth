@@ -88,25 +88,8 @@
             </font>
         </Label>
     </bottom>
-</items>
-<FlowPane.margin>
-<Insets bottom="20.0" left="70.0" right="30.0" top="30.0"/>
-</FlowPane.margin>
-        </MenuButton>
-<Button fx:id="quitButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleQuitButtonAction"
-        text="Quit">
-<font>
-    <Font name="Quicksand Medium" size="12.0"/>
-</font>
-<FlowPane.margin>
-    <Insets bottom="20.0" left="70.0" right="30.0" top="30.0"/>
-</FlowPane.margin>
-</Button>
-        </children>
-        </FlowPane>
-        </center>
-<stylesheets>
-<URL value="@../resources/menucontrollerstyle.css"/>
-<URL value="@../resources/leaderboardstyle.css"/>
-</stylesheets>
-        </BorderPane>
+    <stylesheets>
+        <URL value="@../resources/menucontrollerstyle.css"/>
+        <URL value="@../resources/leaderboardstyle.css"/>
+    </stylesheets>
+</BorderPane>
