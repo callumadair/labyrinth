@@ -138,7 +138,7 @@ public class Controller {
     }
 
     private void getLegalMoves() {
-        tilesToCompare = currentPlayer.determineLegalMoves();
+        tilesToCompare = currentPlayer.determineLegalMoves(board);
         //highlight tiles on which player can move
     }
 
