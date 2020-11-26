@@ -8,12 +8,9 @@ import java.util.ArrayList;
 public class PlayerController {
     private int playerX;
     private int playerY;
-    private int x, y;
     private boolean isGoalReached;
     private ArrayList<Card> cardsHeld;
-    private FloorCard currentPosition;
     private Board board;
-
 
     /**
      * Instantiates a new Player controller.
@@ -77,6 +74,7 @@ public class PlayerController {
         isGoalReached = goalReached;
     }
 
+<<<<<<< HEAD
     /**
      * stores position of the player
      *
@@ -98,15 +96,32 @@ public class PlayerController {
         this.y = y;
 
         storePosition(playerX, playerY);
+=======
+    /*
+    public void movePlayer() {
+        if ((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
+            this.playerX += 1;
+        }
+        if ((Board.getTile((playerX - 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerX -= 1;
+        }
+        if ((Board.getTile((playerX), playerY + 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerY += 1;
+        }
+        if ((Board.getTile((playerX), playerY - 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerY -= 1;
+        }
+>>>>>>> parent of 6ab65d1... Merge branch 'main' into menu
     }
-
+    */
 
     /**
-     * Determine legal moves floor card [].
+     * Determine legal moves floor card [ ].
      *
-     * @return the floor card []
+     * @return the floor card [ ]
      */
     public ArrayList<FloorCard> determineLegalMoves() {
+<<<<<<< HEAD
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
 
         if (currentPosition.getX() > 0 && currentPosition.getY() > 0) {
@@ -210,6 +225,18 @@ public class PlayerController {
      * @param card
      */
     public void addInCardsHeld(Card card) {
+=======
+        return null;
+    }
+
+   
+
+    public ArrayList<Card> getCardsHeld(){
+        return this.cardsHeld;
+    }
+
+    public void addInCardsHeld(Card card){
+>>>>>>> parent of 6ab65d1... Merge branch 'main' into menu
         cardsHeld.add(card);
     }
 
@@ -218,5 +245,7 @@ public class PlayerController {
      */
     public void useCard(Card card) {
 
-    }
+        }
+
+
 }
