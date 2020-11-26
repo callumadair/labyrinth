@@ -55,7 +55,7 @@ public class LeaderboardController extends Application {
         addColumns();
         stage.show();
     }
-
+    
     @FXML
     private void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase();
