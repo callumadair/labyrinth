@@ -66,6 +66,7 @@ public class MenuController extends Application {
     }
 
     /**
+<<<<<<< HEAD
      * This will take a window that you will be taken to when you click the instructions button
      *
      * @param actionEvent the action event
@@ -87,6 +88,8 @@ public class MenuController extends Application {
 
     /**
      * Handle play button action.
+=======
+>>>>>>> parent of 87c9e37... Update MenuController.java
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
