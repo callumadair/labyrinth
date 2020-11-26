@@ -2,5 +2,6 @@ package objects;
 
 public abstract class Card {
 
-    public abstract boolean useCard(Board board, int x, int y);
+    public abstract void useCard(Board board, int x, int y);
+//
 }

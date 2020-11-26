@@ -1,6 +1,8 @@
 package objects;
 
+
 import java.util.ArrayList;
+//
 
 /**
  * The type Player controller.
@@ -8,12 +10,9 @@ import java.util.ArrayList;
 public class PlayerController {
     private int playerX;
     private int playerY;
-    private int x, y;
     private boolean isGoalReached;
     private ArrayList<Card> cardsHeld;
-    private FloorCard currentPosition;
     private Board board;
-
 
     /**
      * Instantiates a new Player controller.
@@ -61,7 +60,7 @@ public class PlayerController {
 
     /*
     public boolean isGoalReached() {
-        if((board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
+        if((getBoard().getTile((playerX), playerY)).get(FloorCard.FloorType.GOAL)){
             return isGoalReached;
         } else {
             return false;
@@ -77,178 +76,50 @@ public class PlayerController {
         isGoalReached = goalReached;
     }
 
-    /**
-     * checks whether the player is allowed to move to the next tile or not
-     * @param currentPosition
-     * @param moveToPosition
-     * @return
-     */
-    public boolean isMovePossible(FloorCard currentPosition, FloorCard moveToPosition) {
-       return determineLegalMoves().contains(board.getTile(x, y));
-    }
-
-    /**
-     * stores position of the player
-     * @param playerX
-     * @param playerY
-     */
-    public void storePosition(int playerX, int playerY) {
-        //int[][] position = new int[][];
-
-        int[][] store = new int[board.getWidth()][board.getHeight()];
-        int position = store[playerX][playerY];
-
-    }
-
-    /**
-     * moves the player across the board
-     * @param currentPosition
-     * @param moveToPosition
-     */
-    public void movePlayer(FloorCard currentPosition, FloorCard moveToPosition) {
-        if (isMovePossible(currentPosition, moveToPosition)) {
-            playerX = moveToPosition.getX();
-            playerY = moveToPosition.getY();
-        } else {
-            playerX = playerX;
-            playerY = playerY;
+    /*
+    public void movePlayer() {
+        if ((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
+            this.playerX += 1;
         }
-
-        storePosition(playerX, playerY);
-        determineLegalMoves();
+        if ((Board.getTile((playerX - 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerX -= 1;
+        }
+        if ((Board.getTile((playerX), playerY + 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerY += 1;
+        }
+        if ((Board.getTile((playerX), playerY - 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerY -= 1;
+        }
     }
-
+    */
 
     /**
-     * Determine legal moves floor card [].
+     * Determine legal moves floor card [ ].
      *
-     * @return the floor card []
+     * @return the floor card [ ]
      */
     public ArrayList<FloorCard> determineLegalMoves() {
-        ArrayList<FloorCard> legalMoves = null;
+        return null;
+    }
 
+    /*
+    public Card drawCard() {
+        Card card = SilkBag.drawACard();
 
-        if (!board.getTile(playerX, playerY).state().equals(FloorCard.FloorTileState.FIRE)) {
-            if (currentPosition.getX()==0 && currentPosition.getY()==0) {
-                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)){
-                    legalMoves.add(board.getTile(x, y));
+        if (card.equals(FloorCard.FloorType.CORNER) || card.equals(FloorCard.FloorType.STRAIGHT)
+            || card.equals(FloorCard.FloorType.T_SHAPED)) {
+            Board.insertTile(card, x , y);// the player picks an available edge
+        } else if(card.equals(ActionCard) {
+                cardsHeld.add(card);
+                //if player decides to use another card
+                     if(cardsHeld.contains(ActionCard)) {
+                    //player chooses a card to use
+                    useCard();
+                    movePlayer();
+                }else{
+                movePlayer();
                 }
-                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)){
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if (currentPosition.getX()==board.getWidth() - 1 && currentPosition.getY()== 0) {
-                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)){
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)){
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if (currentPosition.getX()==0 && currentPosition.getY()== 1 - board.getHeight()) {
-                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)){
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)){
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if (currentPosition.getX()== board.getWidth() + 1 && currentPosition.getY()== 1 - board.getHeight()) {
-                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)){
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)){
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if (currentPosition.getX()==0) {
-                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if (currentPosition.getX()==board.getHeight()) {
-                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if (currentPosition.getY()==0) {
-                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if (currentPosition.getY()==board.getWidth()) {
-                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-            else if  (currentPosition.getX() > 0 && currentPosition.getY() > 0) {
-                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                    legalMoves.add(board.getTile(x, y));
-                }
-            }
-
-        } else {
-            //throw new java.lang.Error("Sorry you can not move here");
-            playerX = playerX;
-            playerY = playerY;
         }
-        return legalMoves;
+    } */
 
-    }
-
-    /**
-     * getter for cards held
-     * @return list of cards held
-     */
-    public ArrayList<Card> getCardsHeld(){
-        return this.cardsHeld;
-    }
-
-    /**
-     * add cards
-     * @param card
-     */
-    public void addInCardsHeld(Card card){
-        cardsHeld.add(card);
-    }
-
-    /**
-     * Use card.
-     */
-    public void useCard(Card card){
-
-    }
 }
