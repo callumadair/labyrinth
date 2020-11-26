@@ -15,7 +15,6 @@ public class PlayerController {
     private Board board;
 
     private int x, y;
-    private ArrayList<Card> cardsHeld;
 
     /**
      * Instantiates a new Player controller.

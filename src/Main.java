@@ -1,12 +1,11 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-import objects.FloorCard;
-
-import objects.Controller;
+import javafx.application.*;
+import javafx.scene.*;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.stage.*;
+import objects.*;
 
 
 
