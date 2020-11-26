@@ -22,14 +22,11 @@ import java.util.*;
 public class MenuController extends Application {
 
     private Stage stage;
+    private Scene primaryScene;
+    private Scene secondaryScene;
     private LeaderboardController leaderboardController;
-    private ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
+    private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -40,27 +37,25 @@ public class MenuController extends Application {
         stage = primaryStage;
         try {
             root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
+            primaryScene = new Scene(root, 700, 450);
+            stage.setScene(primaryScene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Will close the window
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        if (leaderboardController != null) {
-            leaderboardController.exit();
+        if (!leaderboardControllers.isEmpty()) {
+            for (LeaderboardController leaderboardController : leaderboardControllers) {
+                leaderboardController.exit();
+            }
         }
         stage.close();
     }
+
 
     /**
      * This will take a window that you will be taken to when you click the instructions button
@@ -86,13 +81,14 @@ public class MenuController extends Application {
      * @param actionEvent the action event
      * @throws IOException
      */
+
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            Scene secondScene = new Scene(root);
+            secondaryScene = new Scene(root);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(secondScene);
+            stage.setScene(secondaryScene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,23 +96,18 @@ public class MenuController extends Application {
 
     }
 
-    /**
-     * Handle take me back button action.
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
             Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
+            primaryScene = new Scene(root, 700, 450);
+            stage.setScene(primaryScene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     /**
@@ -155,7 +146,7 @@ public class MenuController extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
         /**
