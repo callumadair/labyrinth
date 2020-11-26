@@ -88,6 +88,7 @@ public class MenuController extends Application {
      * @param actionEvent the action event
      * @throws IOException
      */
+
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
