@@ -1,6 +1,7 @@
 package objects;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * The type Player controller.
@@ -9,7 +10,9 @@ public class PlayerController {
     private int playerX;
     private int playerY;
     private boolean isGoalReached;
+
     private ArrayList<Card> cardsHeld;
+    private LinkedList<FloorCard> threePositions;
 
     /**
      * Instantiates a new Player controller.
@@ -73,22 +76,11 @@ public class PlayerController {
         isGoalReached = goalReached;
     }
 
-    /*
+
     public void movePlayer() {
-        if ((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
-            this.playerX += 1;
-        }
-        if ((Board.getTile((playerX - 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) {
-            this.playerX -= 1;
-        }
-        if ((Board.getTile((playerX), playerY + 1)).equals(FloorCard.FloorTileState.NORMAL)) {
-            this.playerY += 1;
-        }
-        if ((Board.getTile((playerX), playerY - 1)).equals(FloorCard.FloorTileState.NORMAL)) {
-            this.playerY -= 1;
-        }
+
     }
-    */
+
 
     /**
      * Determine legal moves floor card [ ].
@@ -114,6 +106,11 @@ public class PlayerController {
      */
     public void useCard(Card card){
 
+    }
+
+    public void addLastPositions(int x, int y){
+
+        threePositions.add(currentPos);
         }
 
 
