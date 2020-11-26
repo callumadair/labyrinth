@@ -10,8 +10,6 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-
-
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
     <top>
         <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="700.0" BorderPane.alignment="CENTER">
@@ -53,35 +51,6 @@
                                 <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" text="Map 1" textAlignment="CENTER" />
                             </graphic>
                         </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action">
-                     <graphic>
-                        <Button mnemonicParsing="false" text="Map 2" />
-                     </graphic>
-                  </MenuItem>
-
-              </items>
-               <FlowPane.margin>
-                  <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
-               </FlowPane.margin>
-            </MenuButton>
-            <Button fx:id="quitButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleQuitButtonAction" text="Quit">
-               <font>
-                  <Font name="Quicksand Medium" size="12.0" />
-               </font>
-               <FlowPane.margin>
-                  <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
-               </FlowPane.margin>
-            </Button>
-         </children>
-      </FlowPane>
-   </center>
-   <bottom>
-      <Label text="Daily Message Placeholder" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Quicksand Medium" size="16.0" />
-         </font>
-      </Label>
-   </bottom>
                     </items>
                     <FlowPane.margin>
                         <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
