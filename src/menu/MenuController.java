@@ -34,6 +34,7 @@ public class MenuController extends Application {
         launch(args);
     }
 
+    @FXML
     public void start(Stage primaryStage) {
         Pane root = null;
         stage = primaryStage;
