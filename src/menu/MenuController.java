@@ -126,7 +126,7 @@ public class MenuController extends Application {
         String boardStr = "board" + boardNum + ".db";
         LeaderboardController curLeaderboard = new LeaderboardController(boardStr);
 
-        if (leaderboardControllers.contains(curLeaderboard)) {
+        if (!leaderboardControllers.isEmpty() && leaderboardControllers.get(index) != null) {
             curLeaderboard = leaderboardControllers.get(index);
             curLeaderboard.exit();
         } else {
