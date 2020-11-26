@@ -23,7 +23,7 @@ public class MenuController extends Application {
 
     private Stage stage;
     private LeaderboardController leaderboardController;
-    private ArrayList<LeaderboardController> leaderboardControllers;
+    private ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
 
     /**
      * The entry point of application.
@@ -61,7 +61,6 @@ public class MenuController extends Application {
         stage.close();
     }
 
-
     /**
      * This will take a window that you will be taken to when you click the instructions button
      *
@@ -78,7 +77,6 @@ public class MenuController extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
