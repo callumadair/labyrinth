@@ -1,18 +1,12 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import objects.Controller;
-import objects.FloorCard;
 
 
 public class Main extends Application {
-
-    //
 
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
