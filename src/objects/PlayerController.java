@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class PlayerController {
 
+    public FloorCard currentLocation;
     private int x, y;
     private ArrayList<Card> cardsHeld;
 
