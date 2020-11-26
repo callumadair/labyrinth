@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
 
 
 /**
@@ -25,7 +24,6 @@ public class MenuController extends Application {
     private Scene primaryScene;
     private Scene secondaryScene;
     private LeaderboardController leaderboardController;
-    private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -47,10 +45,8 @@ public class MenuController extends Application {
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        if (!leaderboardControllers.isEmpty()) {
-            for (LeaderboardController leaderboardController : leaderboardControllers) {
-                leaderboardController.exit();
-            }
+        if (leaderboardController != null) {
+            leaderboardController.exit();
         }
         stage.close();
     }
@@ -79,7 +75,7 @@ public class MenuController extends Application {
          * @param actionEvent
          */
         @FXML
-        private void handleInstructionsButtonAction (ActionEvent actionEvent){
+        private void handleInstructionsButtonAction (ActionEvent actionEvent) {
             try {
                 Pane root = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
                 Scene instructionsScene = new Scene(root);
@@ -159,7 +155,7 @@ public class MenuController extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
         /**
          *
