@@ -68,14 +68,13 @@ public class MenuController extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    }
 
     /**
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
      */
-
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
