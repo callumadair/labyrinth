@@ -67,7 +67,8 @@ public class MenuController extends Application {
 
     /**
      * This will take a window that you will be taken to when you click the instructions button
-     * @param actionEvent
+     *
+     * @param actionEvent the action event
      */
     @FXML
     private void handleInstructionsButtonAction(ActionEvent actionEvent) {
@@ -83,6 +84,12 @@ public class MenuController extends Application {
 
     }
 
+
+    /**
+     * Handle play button action.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
@@ -118,7 +125,8 @@ public class MenuController extends Application {
 
     /**
      * handles take me back button from the instructions screen
-     * @param actionEvent
+     *
+     * @param actionEvent the action event
      */
     @FXML
     private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
@@ -152,8 +160,9 @@ public class MenuController extends Application {
     }*/
 
     /**
+     * Open leaderboard.
      *
-     * @param actionEvent
+     * @param actionEvent the action event
      */
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
