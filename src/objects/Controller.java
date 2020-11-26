@@ -153,8 +153,24 @@ public class Controller {
         }
     }
 
-    private void highlightTiles(){
-        //use it to highlight tiles from the list tilesToCompare
+
+    private void highlightTiles() {
+
+        canvas.getGraphicsContext2D().setStroke(Color.GREEN);
+        canvas.getGraphicsContext2D().setFill(Color.GREEN);
+        canvas.getGraphicsContext2D().setLineWidth(5);
+
+        for(FloorCard f : tilesToCompare){
+            canvas.getGraphicsContext2D().strokeRect(f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE,
+                    FloorCard.TILE_SIZE, FloorCard.TILE_SIZE);
+        }
+
+
+        for(FloorCard f : tilesToCompare){
+            canvas.getGraphicsContext2D().drawImage(new Image("markup.png"),
+                    f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE);
+        }
+
     }
 
     private void endTurn() {
