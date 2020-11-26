@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.animation.TranslateTransition;
 
 import java.io.IOException;
 import java.util.*;
@@ -19,13 +20,17 @@ import java.util.*;
  * @author Luke
  * @author Cal
  */
-public class MenuController extends Application {
+public class MenuController extends Application implements Initializable{
 
     private Stage stage;
     private Scene primaryScene;
     private Scene secondaryScene;
     private LeaderboardController leaderboardController;
     private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private BorderPane borderPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -85,11 +90,10 @@ public class MenuController extends Application {
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            secondaryScene = new Scene(root);
-            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(secondaryScene);
-            stage.show();
+            BorderPane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
+            stackPane.getChildren().add(root);
+            stackPane.getChildren().remove(borderPane);
+            makeFadeOut(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -173,4 +177,18 @@ public class MenuController extends Application {
         curLeaderboard.start(new Stage());
         System.out.println(leaderboardControllers.size());
     }
+
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    private void makeFadeOut(Pane fadeOut) {
+    	TranslateTransition windowTransition =new TranslateTransition();
+    	windowTransition.setDuration(Duration.millis(500));
+		windowTransition.setNode(fadeOut);
+		windowTransition.setFromX(700);
+		windowTransition.setToX(0);
+		windowTransition.play();
+    }
+
 }
