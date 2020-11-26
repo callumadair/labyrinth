@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.*;
 
 
 /**
@@ -24,6 +25,7 @@ public class MenuController extends Application {
     private Scene primaryScene;
     private Scene secondaryScene;
     private LeaderboardController leaderboardController;
+    private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
 
     /**
      * The entry point of application.
@@ -55,8 +57,10 @@ public class MenuController extends Application {
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        if (leaderboardController != null) {
-            leaderboardController.exit();
+        if (!leaderboardControllers.isEmpty()) {
+            for (LeaderboardController leaderboardController : leaderboardControllers) {
+                leaderboardController.exit();
+            }
         }
         stage.close();
     }
@@ -98,11 +102,7 @@ public class MenuController extends Application {
         }
     }
 
-    /**
-     * Handle leaderboard action.
-     *
-     * @param actionEvent the action event
-     */
+    /*
     @FXML
     private void leaderboardTransition(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -113,17 +113,26 @@ public class MenuController extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @FXML
-    private void openLeaderboard() {
-        if (leaderboardController == null) {
-            leaderboardController = new LeaderboardController("profiles.db");
+    private void openLeaderboard(ActionEvent actionEvent) {
+        String val = actionEvent.getSource().toString();
+        int boardNum = Integer.parseInt(String.valueOf(val.charAt(val.length() - 2)));
+        int index = boardNum - 1;
+
+        leaderboardControllers.ensureCapacity(boardNum);
+
+        String boardStr = "board" + boardNum + ".db";
+        LeaderboardController curLeaderboard = new LeaderboardController(boardStr);
+
+        if (leaderboardControllers.contains(curLeaderboard)) {
+            curLeaderboard = leaderboardControllers.get(index);
+            curLeaderboard.exit();
         } else {
-            leaderboardController.exit();
+            leaderboardControllers.add(index, curLeaderboard);
         }
-        leaderboardController.start(new Stage());
-
+        curLeaderboard.start(new Stage());
+        System.out.println(leaderboardControllers.size());
     }
-
 }
