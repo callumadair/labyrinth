@@ -3,9 +3,9 @@ package objects;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class Controller {
 
     private ArrayList<PlayerController> players;
     private int playerIndex = 0;
-    private int numOfPlayers;
+    private int numOfPlayers = 0;
     private Board board;
     private Canvas canvas;
 
@@ -28,20 +28,20 @@ public class Controller {
     private ArrayList<FloorCard> tilesToCompare;
 
     /**
-     * 
      * @param boardData
      * @param players
      */
     public Controller(String[][] boardData, ArrayList<PlayerController> players) {
         this.players = players;
-        board = new Board(boardData);
+        board = new Board(); //testing only
+        this.players = new ArrayList<PlayerController>(); //testing only
+        this.players.add(new PlayerController()); //testing only
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
         enableRetrievingTilesFromCanvas();
 
-        board.drawBoard(gc);
+        board.drawBoard(canvas.getGraphicsContext2D());
         startGame();
     }
 
@@ -98,34 +98,35 @@ public class Controller {
 
         //show the card to the player
         //? maybe animate as well
-        /*
-        if (playingCard.equals( instanceof.FloorCard)){
+
+        if (playingCard instanceof FloorCard){
             changeState(GameState.INSERTING);
-        } else if (playingCard. instanceof (ActionCard)){
+        } else if (playingCard instanceof ActionCard){
             changeState(GameState.ACTION_CARD);
         }
-         */
     }
 
     private void getInsertionList() {
         tilesToCompare = board.getInsertionPoints();
+        highlightTiles();
         //highlight tiles where to insert
         //enable rotating the card
     }
 
-    private void insert(){
-        if(tilesToCompare.contains(selectedTile)){
+    private void insert() {
+        if (tilesToCompare.contains(selectedTile)) {
             playingCard.useCard(board, selectedTile.getX(), selectedTile.getY());
             tilesToCompare.clear();
             selectedTile = null;
             playingCard = null;
+            board.drawBoard(canvas.getGraphicsContext2D());
             changeState(GameState.ACTION_CARD);
         } else {
             selectedTile = null;
         }
     }
 
-    private void playActionCard(){
+    private void playActionCard() {
         //player needs to choose action card
         //player needs to select a tile and it needs to be validated
     }
@@ -141,9 +142,9 @@ public class Controller {
         //highlight tiles on which player can move
     }
 
-    private void movePlayer(){
-        if(tilesToCompare.contains(selectedTile)){
-            if(selectedTile.checkGoal()){
+    private void movePlayer() {
+        if (tilesToCompare.contains(selectedTile)) {
+            if (selectedTile.checkGoal()) {
                 changeState(GameState.VICTORY);
             } else {
                 //move player on the board
@@ -156,9 +157,8 @@ public class Controller {
         }
     }
 
-
     private void highlightTiles() {
-
+        /*
         canvas.getGraphicsContext2D().setStroke(Color.GREEN);
         canvas.getGraphicsContext2D().setFill(Color.GREEN);
         canvas.getGraphicsContext2D().setLineWidth(5);
@@ -167,20 +167,18 @@ public class Controller {
             canvas.getGraphicsContext2D().strokeRect(f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE,
                     FloorCard.TILE_SIZE, FloorCard.TILE_SIZE);
         }
-
-
+        */
         for(FloorCard f : tilesToCompare){
             canvas.getGraphicsContext2D().drawImage(new Image("markup.png"),
                     f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE);
         }
-
     }
 
     private void endTurn() {
         selectedTile = null;
         tilesToCompare = null;
         playingCard = null;
-        if(playerIndex == numOfPlayers){
+        if (playerIndex == numOfPlayers) {
             playerIndex = 0;
         } else {
             playerIndex++;
@@ -203,10 +201,14 @@ public class Controller {
                 double x = event.getX();
                 double y = event.getY();
                 selectedTile = board.getTileFromCanvas(x, y);
+                System.out.println("x: " + selectedTile.getX() + " y: " + selectedTile.getY() + "| " + currentState);
+                System.out.println(selectedTile.getType());
                 playState();
             }
         });
     }
 
-
+    public Canvas getCanvas(){
+        return canvas;
+    }
 }
