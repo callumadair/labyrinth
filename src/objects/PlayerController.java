@@ -1,6 +1,8 @@
 package objects;
 
+
 import java.util.ArrayList;
+//
 
 /**
  * The type Player controller.
@@ -8,12 +10,9 @@ import java.util.ArrayList;
 public class PlayerController {
     private int playerX;
     private int playerY;
-    private int x, y;
     private boolean isGoalReached;
     private ArrayList<Card> cardsHeld;
-    private FloorCard currentPosition;
     private Board board;
-
 
     /**
      * Instantiates a new Player controller.
@@ -61,7 +60,7 @@ public class PlayerController {
 
     /*
     public boolean isGoalReached() {
-        if((board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
+        if((getBoard().getTile((playerX), playerY)).get(FloorCard.FloorType.GOAL)){
             return isGoalReached;
         } else {
             return false;
@@ -77,6 +76,7 @@ public class PlayerController {
         isGoalReached = goalReached;
     }
 
+<<<<<<< HEAD
     /**
      * stores position of the player
      *
@@ -98,15 +98,32 @@ public class PlayerController {
         this.y = y;
 
         storePosition(playerX, playerY);
+=======
+    /*
+    public void movePlayer() {
+        if ((Board.getTile((playerX + 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) { //determine legal moves
+            this.playerX += 1;
+        }
+        if ((Board.getTile((playerX - 1), playerY)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerX -= 1;
+        }
+        if ((Board.getTile((playerX), playerY + 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerY += 1;
+        }
+        if ((Board.getTile((playerX), playerY - 1)).equals(FloorCard.FloorTileState.NORMAL)) {
+            this.playerY -= 1;
+        }
+>>>>>>> parent of 698cf2d... Merge branch 'menu' of https://github.com/CS230-Group-07/labyrinth into menu
     }
-
+    */
 
     /**
-     * Determine legal moves floor card [].
+     * Determine legal moves floor card [ ].
      *
-     * @return the floor card []
+     * @return the floor card [ ]
      */
     public ArrayList<FloorCard> determineLegalMoves() {
+<<<<<<< HEAD
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
 
         if (currentPosition.getX() > 0 && currentPosition.getY() > 0) {
@@ -219,4 +236,29 @@ public class PlayerController {
     public void useCard(Card card) {
 
     }
+=======
+        return null;
+    }
+
+    /*
+    public Card drawCard() {
+        Card card = SilkBag.drawACard();
+
+        if (card.equals(FloorCard.FloorType.CORNER) || card.equals(FloorCard.FloorType.STRAIGHT)
+            || card.equals(FloorCard.FloorType.T_SHAPED)) {
+            Board.insertTile(card, x , y);// the player picks an available edge
+        } else if(card.equals(ActionCard) {
+                cardsHeld.add(card);
+                //if player decides to use another card
+                     if(cardsHeld.contains(ActionCard)) {
+                    //player chooses a card to use
+                    useCard();
+                    movePlayer();
+                }else{
+                movePlayer();
+                }
+        }
+    } */
+
+>>>>>>> parent of 698cf2d... Merge branch 'menu' of https://github.com/CS230-Group-07/labyrinth into menu
 }
