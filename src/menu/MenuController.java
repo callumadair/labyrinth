@@ -25,11 +25,6 @@ public class MenuController extends Application {
     private Scene secondaryScene;
     private LeaderboardController leaderboardController;
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -47,11 +42,6 @@ public class MenuController extends Application {
         }
     }
 
-    /**
-     * Will close the window
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -61,11 +51,31 @@ public class MenuController extends Application {
         stage.close();
     }
 
+
+
+    /**
+     * This will take a window that you will be taken to when you click the instructions button
+     * @param actionEvent
+     */
+    @FXML
+    private void handleInstructionsButtonAction(ActionEvent actionEvent) {
+        try {
+            Pane root = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
+            Scene instructionsScene = new Scene(root);
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(instructionsScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     /**
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
      */
+
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
@@ -80,11 +90,6 @@ public class MenuController extends Application {
 
     }
 
-    /**
-     * Handle take me back button action.
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

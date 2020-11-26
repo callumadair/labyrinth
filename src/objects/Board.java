@@ -15,7 +15,6 @@ public class Board {
     private int[][] fixedTiles; //[fixedTileNum][2];
     private SilkBag silkBag;
     private FloorCard[][] map;
-    private int[][] playersMap;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
