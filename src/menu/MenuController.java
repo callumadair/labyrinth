@@ -82,7 +82,12 @@ public class MenuController extends Application {
         }
 
     }
-
+    /**
+     * This will create a second window that you will be taken to when you click the play button
+     *
+     * @param actionEvent the action event
+     * @throws IOException
+     */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
