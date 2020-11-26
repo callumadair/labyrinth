@@ -251,23 +251,4 @@ public class PlayerController {
     public void useCard(Card card){
 
     }
-
-   
-
-    public ArrayList<Card> getCardsHeld(){
-        return this.cardsHeld;
-    }
-
-    public void addInCardsHeld(Card card){
-        cardsHeld.add(card);
-    }
-
-    /**
-     * Use card.
-     */
-    public void useCard(Card card){
-
-        }
-
-
 }
