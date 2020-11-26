@@ -27,11 +27,6 @@ public class MenuController extends Application {
     private LeaderboardController leaderboardController;
     private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -49,11 +44,6 @@ public class MenuController extends Application {
         }
     }
 
-    /**
-     * Will close the window
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -64,6 +54,7 @@ public class MenuController extends Application {
         }
         stage.close();
     }
+
 
     /**
      * This will take a window that you will be taken to when you click the instructions button
@@ -103,11 +94,6 @@ public class MenuController extends Application {
 
     }
 
-    /**
-     * Handle take me back button action.
-     *
-     * @param actionEvent the action event
-     */
     @FXML
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
