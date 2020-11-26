@@ -175,4 +175,9 @@ public class Board {
         player.movePlayer(x, y);
         playersMap[x][y] = playerIndex;
     }
+
+    public boolean checkPlayerPosition(int x, int y){
+        return playersMap[x][y] == 0 || playersMap[x][y] == 1 ||
+                playersMap[x][y] ==  2 || playersMap[x][y] ==  3;
+    }
 }
