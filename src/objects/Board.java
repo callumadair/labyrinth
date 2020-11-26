@@ -15,7 +15,6 @@ public class Board {
     private int[][] fixedTiles; //[fixedTileNum][2];
     private SilkBag silkBag;
     private FloorCard[][] map;
-    private int[][] playersMap;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
@@ -169,10 +168,5 @@ public class Board {
 
     public SilkBag getSilkBag() {
         return silkBag;
-    }
-
-    public void changePlayerPosition(PlayerController player, int x, int y, int playerIndex){
-        player.movePlayer(x, y);
-        playersMap[x][y] = playerIndex;
     }
 }
