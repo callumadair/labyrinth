@@ -53,7 +53,6 @@ public class MenuController extends Application {
         stage.close();
     }
 
-
     /**
      * This will take a window that you will be taken to when you click the instructions button
      *
