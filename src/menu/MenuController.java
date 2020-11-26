@@ -59,6 +59,7 @@ public class MenuController extends Application {
         stage.close();
     }
 
+
     /**
      * This will take a window that you will be taken to when you click the instructions button
      * @param actionEvent
@@ -75,12 +76,11 @@ public class MenuController extends Application {
             e.printStackTrace();
         }
 
-    }
+
     /**
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
-     * @throws IOException
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
@@ -113,21 +113,8 @@ public class MenuController extends Application {
         }
     }
 
-    /**
-     * handles take me back button from the instructions screen
-     * @param actionEvent
-     */
-    @FXML
-    private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        try {
-            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+
     /**
      * Handle leaderboard action.
      *
@@ -145,17 +132,8 @@ public class MenuController extends Application {
         }
     }
 
-    /**
-     *
-     * @param actionEvent
-     */
-    @FXML
-    private void openLeaderboard(ActionEvent actionEvent) {
-        if (leaderboardController == null) {
-            leaderboardController = new LeaderboardController("profiles.db");
-            leaderboardController.start(new Stage());
-        }
+ 
 
-    }
+
 
 }

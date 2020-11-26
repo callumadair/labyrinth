@@ -65,6 +65,7 @@ public class LeaderboardController extends Application {
     /**
      * Add columns.
      */
+
     private void addColumns() {
         TableColumn<PlayerProfile, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
