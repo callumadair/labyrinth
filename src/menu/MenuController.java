@@ -25,7 +25,7 @@ public class MenuController extends Application {
     private Scene primaryScene;
     private Scene secondaryScene;
     private LeaderboardController leaderboardController;
-    private ArrayList<LeaderboardController> leaderboardControllers;
+    private ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
