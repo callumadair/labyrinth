@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import objects.*;
 
 import java.io.*;
+import java.util.*;
 
 /**
  * The type Leaderboard app.
@@ -55,9 +56,6 @@ public class LeaderboardController extends Application {
         stage.show();
     }
 
-    /**
-     * Add columns.
-     */
     @FXML
     private void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase();
@@ -70,9 +68,6 @@ public class LeaderboardController extends Application {
         tableView.setItems(data);
     }
 
-    /**
-     * Exit.
-     */
     public void exit() {
         if (stage != null) {
             stage.close();

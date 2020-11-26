@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.*;
 
 
 /**
@@ -24,6 +25,7 @@ public class MenuController extends Application {
     private Scene primaryScene;
     private Scene secondaryScene;
     private LeaderboardController leaderboardController;
+    private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -45,8 +47,10 @@ public class MenuController extends Application {
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        if (leaderboardController != null) {
-            leaderboardController.exit();
+        if (!leaderboardControllers.isEmpty()) {
+            for (LeaderboardController leaderboardController : leaderboardControllers) {
+                leaderboardController.exit();
+            }
         }
         stage.close();
     }
@@ -71,9 +75,27 @@ public class MenuController extends Application {
 
 
     /**
+     * This will take a window that you will be taken to when you click the instructions button
+     * @param actionEvent
+     */
+    @FXML
+    private void handleInstructionsButtonAction(ActionEvent actionEvent) {
+        try {
+            Pane root = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
+            Scene instructionsScene = new Scene(root);
+            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(instructionsScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    /**
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
+     * @throws IOException
      */
 
     @FXML
@@ -103,11 +125,30 @@ public class MenuController extends Application {
         }
     }
 
+
+    /**
+     * handles take me back button from the instructions screen
+     * @param actionEvent
+     */
+    @FXML
+    private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        try {
+            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Scene scene = new Scene(root, 700, 450);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Handle leaderboard action.
      *
      * @param actionEvent the action event
      */
+
+    /*
+
     @FXML
     private void leaderboardTransition(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -118,17 +159,30 @@ public class MenuController extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
+    /**
+     *
+     * @param actionEvent
+     */
     @FXML
-    private void openLeaderboard() {
-        if (leaderboardController == null) {
-            leaderboardController = new LeaderboardController("profiles.db");
+    private void openLeaderboard(ActionEvent actionEvent) {
+        String val = actionEvent.getSource().toString();
+        int boardNum = Integer.parseInt(String.valueOf(val.charAt(val.length() - 2)));
+        int index = boardNum - 1;
+
+        leaderboardControllers.ensureCapacity(boardNum);
+
+        String boardStr = "board" + boardNum + ".db";
+        LeaderboardController curLeaderboard = new LeaderboardController(boardStr);
+
+        if (!leaderboardControllers.isEmpty() && leaderboardControllers.get(index) != null) {
+            curLeaderboard = leaderboardControllers.get(index);
+            curLeaderboard.exit();
         } else {
-            leaderboardController.exit();
+            leaderboardControllers.add(index, curLeaderboard);
         }
-        leaderboardController.start(new Stage());
-
+        curLeaderboard.start(new Stage());
+        System.out.println(leaderboardControllers.size());
     }
-
 }
