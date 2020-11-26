@@ -55,10 +55,7 @@ public class LeaderboardController extends Application {
         addColumns();
         stage.show();
     }
-
-    /**
-     * Add columns.
-     */
+    
     @FXML
     private void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase();
@@ -71,9 +68,6 @@ public class LeaderboardController extends Application {
         tableView.setItems(data);
     }
 
-    /**
-     * Exit.
-     */
     public void exit() {
         if (stage != null) {
             stage.close();
