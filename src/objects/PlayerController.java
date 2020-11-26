@@ -1,14 +1,12 @@
 package objects;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * The type Player controller.
  */
 public class PlayerController {
-    private int playerX;
-    private int playerY;
+
     private int x, y;
     private boolean isGoalReached;
 
@@ -26,41 +24,6 @@ public class PlayerController {
 
     }
 
-    /**
-     * Gets player x.
-     *
-     * @return the player x
-     */
-    public int getPlayerX() {
-        return playerX;
-    }
-
-    /**
-     * Sets player x.
-     *
-     * @param playerX the player x
-     */
-    public void setPlayerX(int playerX) {
-        this.playerX = playerX;
-    }
-
-    /**
-     * Gets player y.
-     *
-     * @return the player y
-     */
-    public int getPlayerY() {
-        return playerY;
-    }
-
-    /**
-     * Sets player y.
-     *
-     * @param playerY the player y
-     */
-    public void setPlayerY(int playerY) {
-        this.playerY = playerY;
-    }
 
 
     /*
@@ -81,15 +44,6 @@ public class PlayerController {
         isGoalReached = goalReached;
     }
 
-
-    public void movePlayer() {
-
-
-    public boolean isMovePossible(FloorCard currentPosition, FloorCard moveToPosition) {
-       return determineLegalMoves().contains(moveToPosition);
-    }
-
-
     /**
      * stores position of the player
      *
@@ -99,8 +53,6 @@ public class PlayerController {
 
     public void storePosition(int playerX, int playerY) {
 
-        int[][] store = new int[board.getWidth()][board.getHeight()];
-        int position = store[playerX][playerY];
     }
 
     /**
@@ -108,10 +60,9 @@ public class PlayerController {
      *
      */
     public void movePlayer(int x, int y) {
+        storePosition(this.x, this.y);
         this.x = x;
         this.y = y;
-
-        storePosition(playerX, playerY);
 
     }
 
@@ -228,21 +179,4 @@ public class PlayerController {
         cardsHeld.add(card);
     }
 
-    /**
-     * Use card.
-     */
-
-    public void useCard(Card card){
-
-    }
-
-    public void addLastPositions(int x, int y){
-
-        threePositions.add(currentPos);
-        }
-
-
-    public void useCard(Card card) {
-
-    }
 }
