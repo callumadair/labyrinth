@@ -145,6 +145,10 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     *
+     * @param actionEvent
+     */
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
         if (leaderboardController == null) {
