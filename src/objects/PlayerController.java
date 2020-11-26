@@ -1,8 +1,6 @@
 package objects;
 
-
 import java.util.ArrayList;
-//
 
 /**
  * The type Player controller.
@@ -15,7 +13,7 @@ public class PlayerController {
     private FloorCard currentPosition;
     private FloorCard moveToPosition;
     private Board board;
-    //private ArrayList<FloorCard> legalMoves;
+    
 
     /**
      * Instantiates a new Player controller.
@@ -63,7 +61,7 @@ public class PlayerController {
 
     /*
     public boolean isGoalReached() {
-        if((Board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
+        if((board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
             return isGoalReached;
         } else {
             return false;
@@ -207,24 +205,22 @@ public class PlayerController {
 
     }
 
-    /*
-    public Card drawCard() {
-        Card card = SilkBag.drawACard();
+   
 
-        if (card.equals(FloorCard.FloorType.CORNER) || card.equals(FloorCard.FloorType.STRAIGHT)
-            || card.equals(FloorCard.FloorType.T_SHAPED)) {
-            Board.insertTile(card, x , y);// the player picks an available edge
-        } else if(card.equals(ActionCard) {
-                cardsHeld.add(card);
-                //if player decides to use another card
-                     if(cardsHeld.contains(ActionCard)) {
-                    //player chooses a card to use
-                    useCard();
-                    movePlayer();
-                }else{
-                movePlayer();
-                }
+    public ArrayList<Card> getCardsHeld(){
+        return this.cardsHeld;
+    }
+
+    public void addInCardsHeld(Card card){
+        cardsHeld.add(card);
+    }
+
+    /**
+     * Use card.
+     */
+    public void useCard(Card card){
+
         }
-    } */
+
 
 }
