@@ -51,6 +51,11 @@
                                 <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" text="Map 1" textAlignment="CENTER" />
                             </graphic>
                         </MenuItem>
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action">
+                     <graphic>
+                        <Button mnemonicParsing="false" text="Map 2" />
+                     </graphic>
+                  </MenuItem>
                     </items>
                     <FlowPane.margin>
                         <Insets bottom="20.0" left="70.0" right="30.0" top="30.0" />
