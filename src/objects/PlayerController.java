@@ -14,6 +14,9 @@ public class PlayerController {
     private ArrayList<Card> cardsHeld;
     private Board board;
 
+    private int x, y;
+    private ArrayList<Card> cardsHeld;
+
     /**
      * Instantiates a new Player controller.
      */
@@ -106,9 +109,9 @@ public class PlayerController {
      *
      * @return the floor card [ ]
      */
-    public ArrayList<FloorCard> determineLegalMoves() {
-
+    public ArrayList<FloorCard> determineLegalMoves(Board board) {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
+        FloorCard currentPosition = board.getTile(x, y);
 
         if (currentPosition.getX() > 0 && currentPosition.getY() > 0) {
             if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
@@ -212,12 +215,5 @@ public class PlayerController {
      */
     public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
-    }
-
-    /**
-     * Use card.
-     */
-    public void useCard(Card card) {
-
     }
 }
