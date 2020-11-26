@@ -6,13 +6,15 @@ import java.util.ArrayList;
  * The type Player controller.
  */
 public class PlayerController {
-    private int playerX;
-    private int playerY;
+
     private int x, y;
     private boolean isGoalReached;
+
     private ArrayList<Card> cardsHeld;
+
     private FloorCard currentPosition;
     private Board board;
+
 
 
     /**
@@ -22,41 +24,6 @@ public class PlayerController {
 
     }
 
-    /**
-     * Gets player x.
-     *
-     * @return the player x
-     */
-    public int getPlayerX() {
-        return playerX;
-    }
-
-    /**
-     * Sets player x.
-     *
-     * @param playerX the player x
-     */
-    public void setPlayerX(int playerX) {
-        this.playerX = playerX;
-    }
-
-    /**
-     * Gets player y.
-     *
-     * @return the player y
-     */
-    public int getPlayerY() {
-        return playerY;
-    }
-
-    /**
-     * Sets player y.
-     *
-     * @param playerY the player y
-     */
-    public void setPlayerY(int playerY) {
-        this.playerY = playerY;
-    }
 
 
     /*
@@ -92,12 +59,8 @@ public class PlayerController {
      * @param playerX
      * @param playerY
      */
+
     public void storePosition(int playerX, int playerY) {
-        //int[][] position = new int[][];
-
-        int[][] store = new int[board.getWidth()][board.getHeight()];
-        int position = store[playerX][playerY];
-
     }
 
     /**
@@ -105,17 +68,10 @@ public class PlayerController {
      * @param currentPosition
      * @param moveToPosition
      */
-    public void movePlayer(FloorCard currentPosition, FloorCard moveToPosition) {
-        if (isMovePossible(currentPosition, moveToPosition)) {
-            playerX = moveToPosition.getX();
-            playerY = moveToPosition.getY();
-        } else {
-            playerX = playerX;
-            playerY = playerY;
-        }
-
-        storePosition(playerX, playerY);
-        determineLegalMoves();
+    public void movePlayer(int x, int y) {
+        storePosition(this.x, this.y);
+        this.x = x;
+        this.y = y;
     }
 
 
@@ -243,12 +199,5 @@ public class PlayerController {
      */
     public void addInCardsHeld(Card card){
         cardsHeld.add(card);
-    }
-
-    /**
-     * Use card.
-     */
-    public void useCard(Card card){
-
     }
 }
