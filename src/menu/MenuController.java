@@ -4,13 +4,18 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.animation.TranslateTransition;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 
@@ -41,7 +46,7 @@ public class MenuController extends Application implements Initializable{
         Pane root = null;
         stage = primaryStage;
         try {
-            root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();
