@@ -199,4 +199,8 @@ public class Board {
     public PlayerController getPlayer(int x, int y){
         return players.get(playersMap[x][y]);
     }
+
+    public int[][] getSpawnPoints() {
+        return spawnPoints;
+    }
 }
