@@ -28,6 +28,7 @@ public class PlayerController {
     /**
      * Instantiates a new Player controller.
      */
+
     public PlayerController(PlayerProfile profile, int playerIndex) {
         this.profile = profile;
         this.playerIndex = playerIndex;
@@ -69,6 +70,7 @@ public class PlayerController {
 
     public void setLastThree(LinkedList<FloorCard> cards) {
         this.lastThree = lastThree;
+
     }
 
     /**
@@ -77,6 +79,7 @@ public class PlayerController {
      * @param x
      * @param y
      */
+
 
     public void storePosition(int x, int y) {
         //last el = current pos, first el 2 pos back
@@ -89,6 +92,7 @@ public class PlayerController {
         }
          */
     }
+
 
 
     public void movePlayer(int x, int y) {
@@ -113,92 +117,93 @@ public class PlayerController {
     public ArrayList<FloorCard> determineLegalMoves(Board board) {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
         FloorCard currentPosition = board.getTile(x, y);
+        //split method into sub-methods?
+        //add statement to check if on fire
 
-        if (currentPosition.getX() > 0 && currentPosition.getY() > 0) {
-            if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getX() == 0 && currentPosition.getY() == 0) {
-            if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getX() == board.getWidth() - 1 && currentPosition.getY() == 0) {
-            if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getX() == 0 && currentPosition.getY() == 1 - board.getHeight()) {
-            if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getX() == board.getWidth() + 1 && currentPosition.getY() == 1 - board.getHeight()) {
-            if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getX() == 0) {
-            if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getX() == board.getHeight()) {
-            if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getY() == 0) {
-            if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-        } else if (currentPosition.getY() == board.getWidth()) {
-            if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
-                legalMoves.add(board.getTile(x, y));
-            }
-            if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
-                legalMoves.add(board.getTile(x, y));
-            }
+            if (currentPosition.getX() > 0 && currentPosition.getY() > 0) {
+                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getX() == 0 && currentPosition.getY() == 0) {
+                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getX() == board.getWidth() - 1 && currentPosition.getY() == 0) {
+                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getX() == 0 && currentPosition.getY() == 1 - board.getHeight()) {
+                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getX() == board.getWidth() + 1 && currentPosition.getY() == 1 - board.getHeight()) {
+                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getX() == 0) {
+                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getX() == board.getHeight()) {
+                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getY() == 0) {
+                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(1) == currentPosition.getOpeningAt(3)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            } else if (currentPosition.getY() == board.getWidth()) {
+                if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(3) == currentPosition.getOpeningAt(1)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+                if (currentPosition.getOpeningAt(2) == currentPosition.getOpeningAt(0)) {
+                    legalMoves.add(board.getTile(x, y));
+                }
+            }return legalMoves;
         }
 
-        return legalMoves;
-    }
 
     /**
      * getter for cards held
