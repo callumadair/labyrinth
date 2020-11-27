@@ -32,16 +32,33 @@ public class Controller {
      * @param players
      */
     public Controller(String[][] boardData, ArrayList<PlayerController> players) {
-        this.players = players;
-        board = new Board(); //testing only
-        this.players = new ArrayList<PlayerController>(); //testing only
-        this.players.add(new PlayerController()); //testing only
+        board = new Board(boardData);
+        players = players;
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
         enableRetrievingTilesFromCanvas();
 
-        board.drawBoard(canvas.getGraphicsContext2D());
+        draw();
+        startGame();
+    }
+
+    //testing only
+    public Controller(){
+        board = new Board();
+        this.players = new ArrayList<PlayerController>(); //testing only
+        this.players.add(new PlayerController(null, 0)); //testing only
+        this.players.add(new PlayerController(null, 1)); //testing only
+        this.players.add(new PlayerController(null, 2)); //testing only
+        board.changePlayerPosition(players.get(0), 0, 0); //testing only
+        board.changePlayerPosition(players.get(1), 4, 4); //testing only
+        board.changePlayerPosition(players.get(2), 2, 2); //testing only
+
+        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
+                board.getHeight() * FloorCard.TILE_SIZE);
+        enableRetrievingTilesFromCanvas();
+
+        draw();
         startGame();
     }
 
@@ -109,7 +126,6 @@ public class Controller {
     private void getInsertionList() {
         tilesToCompare = board.getInsertionPoints();
         highlightTiles();
-        //highlight tiles where to insert
         //enable rotating the card
     }
 
@@ -119,7 +135,7 @@ public class Controller {
             tilesToCompare.clear();
             selectedTile = null;
             playingCard = null;
-            board.drawBoard(canvas.getGraphicsContext2D());
+            draw();
             changeState(GameState.ACTION_CARD);
         } else {
             selectedTile = null;
@@ -137,11 +153,12 @@ public class Controller {
         //add playingCard to players action cards
         //show players action cards if none go to moving
         //give player the ability to skip this state
+        changeState(GameState.MOVING);
     }
 
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
-        //highlight tiles on which player can move
+        highlightTiles();
     }
 
     private void movePlayer() {
@@ -149,7 +166,8 @@ public class Controller {
             if (selectedTile.checkGoal()) {
                 changeState(GameState.VICTORY);
             } else {
-                //move player on the board
+                board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
+                draw();
                 tilesToCompare.clear();
                 selectedTile = null;
                 changeState(GameState.END_TURN);
@@ -178,7 +196,7 @@ public class Controller {
 
     private void endTurn() {
         selectedTile = null;
-        tilesToCompare = null;
+        tilesToCompare.clear();
         playingCard = null;
         if (playerIndex == numOfPlayers) {
             playerIndex = 0;
@@ -212,5 +230,12 @@ public class Controller {
 
     public Canvas getCanvas(){
         return canvas;
+    }
+
+    public void draw(){
+        board.drawBoard(canvas.getGraphicsContext2D());
+        for(PlayerController player : players){
+            player.drawPlayer(canvas.getGraphicsContext2D());
+        }
     }
 }

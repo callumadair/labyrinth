@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 public class FloorCard extends Card{ //need to continue javadoc
 
 
-    public static final int TILE_SIZE = 62;
+    public static final int TILE_SIZE = 54;
 
     private int x, y;
     private FloorType type;

@@ -33,6 +33,7 @@ public class Board {
     //testing only
     private void setup() {
         map = new FloorCard[5][5];
+        playersMap = new int[5][5];
         width = 5;
         height = 5;
         for(int i = 0; i < 5; i++){

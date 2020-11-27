@@ -1,5 +1,6 @@
 package objects;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -18,11 +19,10 @@ public class PlayerController {
     private Image image;
     private int x, y;
     private ArrayList<Card> cardsHeld;
-
-    private LinkedList<FloorCard> lastThree;
-
     private PlayerProfile profile;
     private int playerIndex;
+
+    private LinkedList<FloorCard> lastThree;
 
 
     /**
@@ -72,15 +72,6 @@ public class PlayerController {
     }
 
     /**
-     * Sets goal reached.
-     *
-     * @param goalReached the goal reached
-     */
-    public void setGoalReached(boolean goalReached) {
-        isGoalReached = goalReached;
-    }
-
-    /**
      * stores position of the player
      *
      * @param x
@@ -89,12 +80,15 @@ public class PlayerController {
 
     public void storePosition(int x, int y) {
         //last el = current pos, first el 2 pos back
-        if(lastThree.size() == 3){
+        /*
+        if (lastThree.size() == 3) {
             lastThree.add(board.getTile(x, y));
             lastThree.removeFirst();
-        }else {
+        } else {
             lastThree.add(board.getTile(x, y));
         }
+         */
+    }
 
 
     public void movePlayer(int x, int y) {
@@ -222,5 +216,9 @@ public class PlayerController {
      */
     public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
+    }
+
+    public void drawPlayer(GraphicsContext gc){
+        gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 }
