@@ -140,7 +140,7 @@ public class Controller {
     }
 
     private void getLegalMoves() {
-        tilesToCompare = currentPlayer.determineLegalMoves();
+        tilesToCompare = currentPlayer.determineLegalMoves(board);
         //highlight tiles on which player can move
     }
 
@@ -160,7 +160,7 @@ public class Controller {
     }
 
     private void highlightTiles() {
-
+        /*
         canvas.getGraphicsContext2D().setStroke(Color.GREEN);
         canvas.getGraphicsContext2D().setFill(Color.GREEN);
         canvas.getGraphicsContext2D().setLineWidth(5);
@@ -169,8 +169,7 @@ public class Controller {
             canvas.getGraphicsContext2D().strokeRect(f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE,
                     FloorCard.TILE_SIZE, FloorCard.TILE_SIZE);
         }
-
-
+        */
         for(FloorCard f : tilesToCompare){
             canvas.getGraphicsContext2D().drawImage(new Image("markup.png"),
                     f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE);

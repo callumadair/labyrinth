@@ -9,15 +9,8 @@ import java.util.LinkedList;
 public class PlayerController {
 
     private int x, y;
-    private boolean isGoalReached;
-
     private ArrayList<Card> cardsHeld;
     private LinkedList<FloorCard> lastThree;
-
-    private FloorCard currentPosition;
-    private Board board;
-
-
 
     /**
      * Instantiates a new Player controller.
@@ -74,17 +67,15 @@ public class PlayerController {
         }else {
             lastThree.add(board.getTile(x, y));
         }
+
+    public void storePosition(int playerX, int playerY) {
+
     }
 
-    /**
-     * moves the player across the board
-     *
-     */
     public void movePlayer(int x, int y) {
         storePosition(this.x, this.y);
         this.x = x;
         this.y = y;
-
     }
 
 
@@ -93,8 +84,9 @@ public class PlayerController {
      *
      * @return the floor card []
      */
-    public ArrayList<FloorCard> determineLegalMoves() {
+    public ArrayList<FloorCard> determineLegalMoves(Board board) {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
+        FloorCard currentPosition = board.getTile(x, y);
 
         if (currentPosition.getX() > 0 && currentPosition.getY() > 0) {
             if (currentPosition.getOpeningAt(0) == currentPosition.getOpeningAt(2)) {
@@ -199,5 +191,4 @@ public class PlayerController {
     public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
     }
-
 }

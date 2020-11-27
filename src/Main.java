@@ -8,12 +8,6 @@ import objects.Controller;
 
 public class Main extends Application {
 
-    double orgSceneX, orgSceneY;
-    double orgTranslateX, orgTranslateY;
-
-    //FlowPane for menu
-    //BorderPane for game
-    //TilePane for the board
     public static void main(String[] args){
         System.out.println("Starting app");
 
