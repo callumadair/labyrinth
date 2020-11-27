@@ -72,47 +72,38 @@ public class ActionCard extends Card{
 
 
     private boolean useFireCard(Board board, int x, int y) {
-        ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
-
-        boolean playerIsInRange = false;
-
-        for(FloorCard tile: tiles){
-            if (board.checkPlayerPosition(tile.getX(), tile.getY())){
-                playerIsInRange = true;
-            }
-        }
-
-        if (playerIsInRange = true){
+        if(getAreaOfEffect(board, x, y).contains(player.currentLocation)){ //need player current location added
             return false;
-        }else{
-            for(FloorCard tile: tiles){
+        }
+        else {
+            ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
+
+            for (FloorCard tile : tiles) {
                 tile.setOnFire();
             }
+            return true;
         }
-        return true;
-        }
-
     }
 
     private boolean useIceCard(Board board, int x, int y) {
-        ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
+        if (getAreaOfEffect(board, x, y).contains(player.currentLocation)) { //need player current location added
+            return false;
+        } else {
+            ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
             for (FloorCard tile : tiles) {
                 tile.setOnIce();
             }
             return true;
+        }
+
     }
-
-
     private boolean useBackTrackCard(Board board, int x, int y) {
-        board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY(), index);
-        return false;
+
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        board.changePlayerPosition(player, x, y, index);
-        board.changePlayerPosition(player, x, y, index);
-        return true;
+
     }
 
     private ArrayList<FloorCard> getAreaOfEffect(Board board, int x, int y){
