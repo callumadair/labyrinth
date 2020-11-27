@@ -112,12 +112,14 @@ public class Board {
     public void insertTile(FloorCard tile, int x, int y) {
         if (x == 0 || x == width - 1) {
             if (x == 0) {
+                silkBag.addACard(map[width - 1][y]);
                 for (int i = width - 1; i > 0; i--) {
                     map[i][y] = map[i - 1][y];
                     map[i - 1][y].setX(i);
                 }
                 map[0][y] = tile;
             } else if (x == width - 1) {
+                silkBag.addACard(map[0][y]);
                 for (int i = 0; i < width - 1; i++) {
                     map[i][y] = map[i + 1][y];
                     map[i + 1][y].setX(i);
@@ -126,12 +128,14 @@ public class Board {
             }
         } else if (y == 0 || y == height - 1) {
             if (y == 0) {
+                silkBag.addACard(map[x][height - 1]);
                 for (int i = height - 1; i > 0; i--) {
                     map[x][i] = map[x][i - 1];
                     map[x][i - 1].setY(i);
                 }
                 map[x][0] = tile;
             } else if (y == height - 1) {
+                silkBag.addACard(map[x][0]);
                 for (int i = 0; i < height - 1; i++) {
                     map[x][i] = map[x][i + 1];
                     map[x][i + 1].setY(i);
