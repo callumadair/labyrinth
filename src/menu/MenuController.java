@@ -59,7 +59,8 @@ public class MenuController extends Application implements Initializable{
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        playMusiclevanPolkaa("src\\resources\\music.wav");
+        //playMusiclevanPolkaa("src\\resources\\music.wav");
+        playMusicNyanCat("src\\resources\\NyanCat.wav");
         launch(args);
 
     }
@@ -122,8 +123,8 @@ public class MenuController extends Application implements Initializable{
 
         //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
         try {
-            playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
-            playMusicMegalovania("src\\resources\\megalovania.wav");
+          //  playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
+          //  playMusicMegalovania("src\\resources\\megalovania.wav");
             BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
             stackPane.getChildren().remove(borderPane);
@@ -283,6 +284,19 @@ public class MenuController extends Application implements Initializable{
             HEYYEYAAEYAAAEYAEYAAMusic = new FileInputStream(new File(filepath));
             AudioStream HEYYEYAAEYAAAEYAEYAAAudio = new AudioStream(HEYYEYAAEYAAAEYAEYAAMusic);
             AudioPlayer.player.start(HEYYEYAAEYAAAEYAEYAAAudio);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    public static void playMusicNyanCat(String filepath){
+        InputStream nyanCatMusic;
+        try
+        {
+            nyanCatMusic = new FileInputStream(new File(filepath));
+            AudioStream nyanCatAudio = new AudioStream(nyanCatMusic);
+            AudioPlayer.player.start(nyanCatAudio);
         }
         catch(IOException e){
             e.printStackTrace();
