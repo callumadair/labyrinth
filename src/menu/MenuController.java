@@ -4,12 +4,22 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import menu.DailyMessage.GetFinalMessage;
+import javafx.animation.Animation;
+import javafx.animation.TranslateTransition;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 
@@ -19,13 +29,21 @@ import java.util.*;
  * @author Luke
  * @author Cal
  */
-public class MenuController extends Application {
+public class MenuController extends Application implements Initializable{
 
     private Stage stage;
     private Scene primaryScene;
     private Scene secondaryScene;
     private LeaderboardController leaderboardController;
     private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private Label textLabelID;
+    @FXML
+    private ImageView imageView; 
 
     public static void main(String[] args) {
         launch(args);
@@ -36,7 +54,7 @@ public class MenuController extends Application {
         Pane root = null;
         stage = primaryStage;
         try {
-            root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();
@@ -85,11 +103,10 @@ public class MenuController extends Application {
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
-            secondaryScene = new Scene(root);
-            stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(secondaryScene);
-            stage.show();
+            BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
+            stackPane.getChildren().add(root);
+            stackPane.getChildren().remove(borderPane);
+            makeFadeOut(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -173,4 +190,32 @@ public class MenuController extends Application {
         curLeaderboard.start(new Stage());
         System.out.println(leaderboardControllers.size());
     }
+
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+    	try {
+			textLabelID.setText(GetFinalMessage.finalMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	TranslateTransition backgroundMove = new TranslateTransition();
+    	backgroundMove.setDuration(Duration.millis(5000));
+    	backgroundMove.setNode(imageView);
+    	backgroundMove.setFromX(0);
+    	backgroundMove.setToX(30);
+		backgroundMove.setAutoReverse(true);	
+		backgroundMove.setCycleCount(Animation.INDEFINITE);
+		backgroundMove.play();
+    }
+
+    private void makeFadeOut(Pane fadeOut) {
+    	TranslateTransition windowTransition =new TranslateTransition();
+    	windowTransition.setDuration(Duration.millis(500));
+		windowTransition.setNode(fadeOut);
+		windowTransition.setFromX(700);
+		windowTransition.setToX(0);
+		windowTransition.play();
+    }
+
 }
