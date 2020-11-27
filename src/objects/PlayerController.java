@@ -20,10 +20,14 @@ public class PlayerController {
     private int x, y;
     private ArrayList<Card> cardsHeld;
 
+
     private LinkedList<FloorCard> lastThree;
 
     private PlayerProfile profile;
     private int playerIndex;
+	/**
+     * Instantiates a new Player controller.
+     */
 
     public PlayerController(PlayerProfile profile, int playerIndex) {
         this.profile = profile;
@@ -84,7 +88,10 @@ public class PlayerController {
             lastThree.add(board.getTile(x, y));
         }
 
+
     }
+
+    
 
 
     public void movePlayer(Board board, int x, int y) {
