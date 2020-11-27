@@ -26,8 +26,9 @@ import java.util.*;
 /**
  * The type Menu controller.
  *
- * @author Luke
- * @author Cal
+ * @author Luke Young
+ * @author Callum Adair
+ * @author Jeffrey
  */
 public class MenuController extends Application implements Initializable{
 
@@ -209,13 +210,13 @@ public class MenuController extends Application implements Initializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
+
     	TranslateTransition backgroundMove = new TranslateTransition();
     	backgroundMove.setDuration(Duration.millis(5000));
     	backgroundMove.setNode(imageView);
     	backgroundMove.setFromX(0);
     	backgroundMove.setToX(30);
-		backgroundMove.setAutoReverse(true);	
+		backgroundMove.setAutoReverse(true);
 		backgroundMove.setCycleCount(Animation.INDEFINITE);
 		backgroundMove.play();
     }
