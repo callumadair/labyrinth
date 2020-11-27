@@ -24,6 +24,7 @@ public class PlayerController {
 
     private LinkedList<FloorCard> lastThree;
 
+
     /**
      * Instantiates a new Player controller.
      */
@@ -88,6 +89,7 @@ public class PlayerController {
         }
          */
     }
+
 
     public void movePlayer(int x, int y) {
         storePosition(this.x, this.y);
