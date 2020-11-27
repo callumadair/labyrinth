@@ -1,5 +1,7 @@
 package objects;
 
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 
 /**
@@ -7,14 +9,37 @@ import java.util.ArrayList;
  */
 public class PlayerController {
 
+    private String playerImage1 = "resources/ROAD-player1.png";
+    private String playerImage2 = "resources/ROAD-player2.png";
+    private String playerImage3 = "resources/ROAD-player3.png";
+    private String playerImage4 = "resources/ROAD-player4.png";
+
+    private Image image;
     private int x, y;
     private ArrayList<Card> cardsHeld;
+    private PlayerProfile profile;
+    private int playerIndex;
 
     /**
      * Instantiates a new Player controller.
      */
-    public PlayerController() {
-
+    public PlayerController(PlayerProfile profile, int playerIndex) {
+        this.profile = profile;
+        this.playerIndex = playerIndex;
+        switch (playerIndex){
+            case 0:
+                image = new Image(playerImage1);
+                break;
+            case 1:
+                image = new Image(playerImage2);
+                break;
+            case 2:
+                image = new Image(playerImage3);
+                break;
+            case 3:
+                image = new Image(playerImage4);
+                break;
+        }
     }
 
     /**
@@ -33,6 +58,13 @@ public class PlayerController {
         this.y = y;
     }
 
+    public int getPlayerIndex(){
+        return playerIndex;
+    }
+
+    public PlayerProfile getProfile(){
+        return profile;
+    }
 
     /**
      * Determine legal moves floor card [].
