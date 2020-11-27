@@ -32,8 +32,7 @@ public class Controller {
      * @param players
      */
     public Controller(String[][] boardData, ArrayList<PlayerController> players) {
-        board = new Board(boardData);
-        players = players;
+        board = new Board(boardData, players);
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);

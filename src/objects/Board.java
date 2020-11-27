@@ -16,12 +16,14 @@ public class Board {
     private SilkBag silkBag;
     private FloorCard[][] map;
     private int[][] playersMap;
+    private ArrayList<PlayerController> players;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
 
-    public Board(String[][] data) {
+    public Board(String[][] data, ArrayList<PlayerController> players) {
+        this.players = players;
         setup(data);
     }
 
@@ -184,5 +186,13 @@ public class Board {
     public boolean checkPlayerPosition(int x, int y){
         return playersMap[x][y] == 0 || playersMap[x][y] == 1 ||
                 playersMap[x][y] ==  2 || playersMap[x][y] ==  3;
+    }
+
+    public ArrayList<PlayerController> getPlayers(){
+        return players;
+    }
+
+    public PlayerController getPlayer(int x, int y){
+        return players.get(playersMap[x][y]);
     }
 }
