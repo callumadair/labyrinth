@@ -191,7 +191,7 @@ public class Board {
 
     public int[][] getFixedTiles() {
         return fixedTiles;
-
+    }
     public ArrayList<PlayerController> getPlayers(){
         return players;
     }
