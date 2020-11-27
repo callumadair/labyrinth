@@ -1,6 +1,7 @@
 package objects;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * The type Player controller.
@@ -11,6 +12,7 @@ public class PlayerController {
     private boolean isGoalReached;
 
     private ArrayList<Card> cardsHeld;
+    private LinkedList<FloorCard> lastThree;
 
     private FloorCard currentPosition;
     private Board board;
@@ -24,16 +26,29 @@ public class PlayerController {
 
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public void setX(int x) {
+        this.x = x;
+    }
 
-    /*
-    public boolean isGoalReached() {
-        if((board.getTile((playerX), playerY)).equals(FloorCard.FloorType.GOAL)){
-            return isGoalReached;
-        } else {
-            return false;
-        }
-    }*/
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public LinkedList<FloorCard> getLastThree() {
+        return lastThree;
+    }
+
+    public void setLastThree(LinkedList<FloorCard> cards) {
+        this.lastThree = lastThree;
+    }
 
     /**
      * Sets goal reached.
@@ -47,12 +62,18 @@ public class PlayerController {
     /**
      * stores position of the player
      *
-     * @param playerX
-     * @param playerY
+     * @param x
+     * @param y
      */
 
-    public void storePosition(int playerX, int playerY) {
-
+    public void storePosition(int x, int y) {
+        //last el = current pos, first el 2 pos back
+        if(lastThree.size() == 3){
+            lastThree.add(board.getTile(x, y));
+            lastThree.removeFirst();
+        }else {
+            lastThree.add(board.getTile(x, y));
+        }
     }
 
     /**
