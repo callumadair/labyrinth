@@ -111,7 +111,6 @@ public class ActionCard extends Card {
 
     private boolean useDoubleMove(Board board, int x, int y) {
         board.changePlayerPosition(player, x, y);
-        board.changePlayerPosition(player, x, y);
         return true;
     }
 
