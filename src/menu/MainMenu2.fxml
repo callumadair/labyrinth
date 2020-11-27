@@ -53,12 +53,12 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="313.0" prefWidth="625.0" spacing="20.0">
                      <children>
-                            <Button fx:id="playButton" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handlePlayButtonAction" prefHeight="15.0" prefWidth="143.0" text="Play">
+                            <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handlePlayButtonAction" prefWidth="200.0" text="Play" textFill="#191640">
                                 <font>
-                                    <Font name="Quicksand Medium" size="12.0" />
+                                    <Font name="Quicksand Medium" size="14.0" />
                                 </font>
                             </Button>
-                            <MenuButton mnemonicParsing="false" onAction="#openLeaderboard" text="Leaderboards">
+                            <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#openLeaderboard" prefWidth="200.0" text="Leaderboards" textFill="#191640">
                                 <items>
                                     <MenuItem mnemonicParsing="false">
                                         <graphic>
@@ -66,15 +66,18 @@
                                         </graphic>
                                     </MenuItem>
                                 </items>
+                           <font>
+                              <Font name="Quicksand Medium" size="14.0" />
+                           </font>
                             </MenuButton>
-                            <Button fx:id="instructionsButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Instructions">
+                            <Button fx:id="instructionsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" text="Instructions" textFill="#191640">
                                 <font>
-                                    <Font name="Quicksand Medium" size="12.0" />
+                                    <Font name="Quicksand Medium" size="14.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="quitButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleQuitButtonAction" text="Quit">
+                            <Button fx:id="quitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleQuitButtonAction" prefWidth="200.0" text="Quit" textFill="#191640">
                                 <font>
-                                    <Font name="Quicksand Medium" size="12.0" />
+                                    <Font name="Quicksand Medium" size="14.0" />
                                 </font>
                             </Button>
                      </children>
