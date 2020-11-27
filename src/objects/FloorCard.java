@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 public class FloorCard extends Card{ //need to continue javadoc
 
 
-    public static final int TILE_SIZE = 62;
+    public static final int TILE_SIZE = 54;
 
     private int x, y;
     private FloorType type;
@@ -24,10 +24,10 @@ public class FloorCard extends Card{ //need to continue javadoc
     private int rotation;
     private Image image;
 
-    private String straightTileImagePath = "tile.png";
-    private String cornerTileImagePath = "tile1.png";
-    private String tshapedTileImagePath;
-    private String goalTileImagePath;
+    private String straightTileImagePath = "resources/ROAD_straight.png";
+    private String cornerTileImagePath = "resources/ROAD_curved.png";
+    private String tshapedTileImagePath = "resources/ROAD_Tshaped.png";
+    private String goalTileImagePath = "resources/ROAD_goal.png";
 
     /**
      * The enum Floor type.
