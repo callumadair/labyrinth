@@ -79,15 +79,6 @@ public class PlayerController {
     }
 
     /**
-     * Sets goal reached.
-     *
-     * @param goalReached the goal reached
-     */
-    public void setGoalReached(boolean goalReached) {
-        isGoalReached = goalReached;
-    }
-
-    /**
      * stores position of the player
      *
      * @param x
@@ -96,12 +87,15 @@ public class PlayerController {
 
     public void storePosition(int x, int y) {
         //last el = current pos, first el 2 pos back
-        if(lastThree.size() == 3){
+       
+        if (lastThree.size() == 3) {
             lastThree.add(board.getTile(x, y));
             lastThree.removeFirst();
-        }else {
+        } else {
             lastThree.add(board.getTile(x, y));
         }
+
+    }
 
 
     public void movePlayer(int x, int y) {
