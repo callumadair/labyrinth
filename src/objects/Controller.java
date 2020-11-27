@@ -143,6 +143,8 @@ public class Controller {
     }
 
     private void playActionCard() {
+            playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
+
         //player needs to choose action card
         //player needs to select a tile and it needs to be validated
     }

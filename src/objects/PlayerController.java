@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * The type Player controller.
@@ -20,6 +21,8 @@ public class PlayerController {
     private ArrayList<Card> cardsHeld;
     private PlayerProfile profile;
     private int playerIndex;
+
+    private LinkedList<FloorCard> lastThree;
 
     /**
      * Instantiates a new Player controller.
@@ -43,14 +46,57 @@ public class PlayerController {
         }
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public LinkedList<FloorCard> getLastThree() {
+        return lastThree;
+    }
+
+    public void setLastThree(LinkedList<FloorCard> cards) {
+        this.lastThree = lastThree;
+    }
+
+    /**
+     * Sets goal reached.
+     *
+     * @param goalReached the goal reached
+     */
+    public void setGoalReached(boolean goalReached) {
+        isGoalReached = goalReached;
+    }
+
     /**
      * stores position of the player
      *
-     * @param playerX
-     * @param playerY
+     * @param x
+     * @param y
      */
 
+    public void storePosition(int x, int y) {
+        //last el = current pos, first el 2 pos back
+        if(lastThree.size() == 3){
+            lastThree.add(board.getTile(x, y));
+            lastThree.removeFirst();
+        }else {
+            lastThree.add(board.getTile(x, y));
+        }
+
     public void storePosition(int playerX, int playerY) {
+
     }
 
     public void movePlayer(int x, int y) {
