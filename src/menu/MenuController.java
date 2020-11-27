@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.*;
 import java.io.InputStream;
 import java.io.File;
+import java.util.prefs.Preferences;
 
 /**
  * The type Menu controller.
@@ -55,7 +56,7 @@ public class MenuController extends Application implements Initializable{
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        //playMusic("Music\\\\music.wav");
+        playMusiclevanPolkaa("src\\resources\\music.wav");
         launch(args);
 
     }
@@ -115,8 +116,9 @@ public class MenuController extends Application implements Initializable{
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
+        
         try {
-            playMusic("Music\\\\music.wav");
+            playMusicMegalovania("src\\resources\\megalovania.wav");
             BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
             stackPane.getChildren().remove(borderPane);
@@ -243,13 +245,26 @@ public class MenuController extends Application implements Initializable{
 		windowTransition.play();
     }
 
-    public static void playMusic (String filepath){
+    public static void playMusiclevanPolkaa (String filepath){
         InputStream music;
         try
         {
             music = new FileInputStream(new File(filepath));
             AudioStream audio = new AudioStream(music);
             AudioPlayer.player.start(audio);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    public static void playMusicMegalovania (String filepath){
+        InputStream megalovaniaMusic;
+        try
+        {
+            megalovaniaMusic = new FileInputStream(new File(filepath));
+            AudioStream megalovaniaAudio = new AudioStream(megalovaniaMusic);
+            AudioPlayer.player.start(megalovaniaAudio);
         }
         catch(IOException e){
             e.printStackTrace();
