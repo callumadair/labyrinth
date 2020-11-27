@@ -1,10 +1,8 @@
 package objects;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import javafx.scene.canvas.*;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import java.util.*;
 
 public class Board {
 
@@ -179,5 +177,12 @@ public class Board {
     public boolean checkPlayerPosition(int x, int y){
         return playersMap[x][y] == 0 || playersMap[x][y] == 1 ||
                 playersMap[x][y] ==  2 || playersMap[x][y] ==  3;
+    }
+    public int getFixedTilesNum() {
+        return fixedTilesNum;
+    }
+
+    public int[][] getFixedTiles() {
+        return fixedTiles;
     }
 }
