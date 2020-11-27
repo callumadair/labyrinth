@@ -7,7 +7,6 @@ import java.io.*;
  */
 public class FileManager {
     private String saveFileDirectory;
-    private String playerProfileDirectory;
 
     /**
      * Instantiates a new File manager.
@@ -34,23 +33,6 @@ public class FileManager {
         this.saveFileDirectory = saveFileDirectory;
     }
 
-    /**
-     * Gets player profile directory.
-     *
-     * @return the player profile directory
-     */
-    public String getPlayerProfileDirectory() {
-        return playerProfileDirectory;
-    }
-
-    /**
-     * Sets player profile directory.
-     *
-     * @param playerProfileDirectory the player profile directory
-     */
-    public void setPlayerProfileDirectory(String playerProfileDirectory) {
-        this.playerProfileDirectory = playerProfileDirectory;
-    }
 
     /**
      * Delete save file.
