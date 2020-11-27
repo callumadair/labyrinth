@@ -94,6 +94,7 @@ public class PlayerController {
     }
 
 
+
     public void movePlayer(int x, int y) {
         storePosition(this.x, this.y);
         this.x = x;
