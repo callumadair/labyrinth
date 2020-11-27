@@ -12,9 +12,8 @@ public class FileManager {
     /**
      * Instantiates a new File manager.
      */
-    public FileManager(String saveFileDirectory, String playerProfileDirectory) {
-        setSaveFileDirectory(saveFileDirectory);
-        setPlayerProfileDirectory(playerProfileDirectory);
+    public FileManager(String saveFileDirectory) {
+        this.saveFileDirectory = saveFileDirectory;
     }
 
     /**
