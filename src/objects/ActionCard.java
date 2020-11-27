@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * The type Action card.
  */
-public class ActionCard extends Card{
+public class ActionCard extends Card {
 
     private ActionCardType type;
     private Image image;
@@ -24,51 +24,52 @@ public class ActionCard extends Card{
      * The enum Action card type.
      */
     enum ActionCardType {
-        FIRE ,
-        ICE ,
-        BACKTRACK ,
+        FIRE,
+        ICE,
+        BACKTRACK,
         DOUBLE_MOVE;
-}
+    }
 
     /**
      * Instantiates a new Action card.
      *
      * @param type the type
      */
-    public ActionCard(String type){
-        switch(type) {
-            case "FIRE" :
+    public ActionCard(String type) {
+        switch (type) {
+            case "FIRE":
                 this.type = ActionCardType.FIRE;
                 image = new Image(fireImagePath);
                 break;
-            case "ICE" :
+            case "ICE":
                 this.type = ActionCardType.ICE;
                 image = new Image(iceImagePath);
                 break;
-            case "BACKTRACK" :
+            case "BACKTRACK":
                 this.type = ActionCardType.BACKTRACK;
                 image = new Image(backtrackImagePath);
                 break;
-            case "DOUBLE_MOVE" :
+            case "DOUBLE_MOVE":
                 this.type = ActionCardType.DOUBLE_MOVE;
                 image = new Image(doubleMoveImagePath);
                 break;
         }
- }
- public boolean useCard(Board board, int x, int y){
-        switch(type){
+    }
+
+    public boolean useCard(Board board, int x, int y) {
+        switch (type) {
             case FIRE:
-                return useFireCard(board, x , y);
+                return useFireCard(board, x, y);
             case ICE:
-                return useIceCard(board, x , y);
+                return useIceCard(board, x, y);
             case BACKTRACK:
-                return useBackTrackCard(board, x , y);
+                return useBackTrackCard(board, x, y);
             case DOUBLE_MOVE:
-               return useDoubleMove(board, x , y);
+                return useDoubleMove(board, x, y);
 
         }
         return true;
- }
+    }
 
 
     private boolean useFireCard(Board board, int x, int y) {
@@ -76,23 +77,22 @@ public class ActionCard extends Card{
 
         boolean playerIsInRange = false;
 
-        for(FloorCard tile: tiles){
-            if (board.checkPlayerPosition(tile.getX(), tile.getY())){
+        for (FloorCard tile : tiles) {
+            if (board.checkPlayerPosition(tile.getX(), tile.getY())) {
                 playerIsInRange = true;
             }
         }
 
-        if (playerIsInRange = true){
+        if (playerIsInRange = true) {
             return false;
-        }else{
-            for(FloorCard tile: tiles){
+        } else {
+            for (FloorCard tile : tiles) {
                 tile.setOnFire();
             }
         }
         return true;
-        }
-
     }
+
 
     private boolean useIceCard(Board board, int x, int y) {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
@@ -105,13 +105,13 @@ public class ActionCard extends Card{
 
 
     private boolean useBackTrackCard(Board board, int x, int y) {
-        board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY(), index);
+        board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY());
         return false;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        board.changePlayerPosition(player, x, y, index);
-        board.changePlayerPosition(player, x, y, index);
+        board.changePlayerPosition(player, x, y);
+        board.changePlayerPosition(player, x, y);
         return true;
     }
 
