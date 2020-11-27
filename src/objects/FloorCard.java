@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 public class FloorCard extends Card{ //need to continue javadoc
 
 
-    public static final int TILE_SIZE = 62;
+    public static final int TILE_SIZE = 54;
 
     private int x, y;
     private FloorType type;
@@ -24,10 +24,10 @@ public class FloorCard extends Card{ //need to continue javadoc
     private int rotation;
     private Image image;
 
-    private String straightTileImagePath = "tile.png";
-    private String cornerTileImagePath = "tile1.png";
-    private String tshapedTileImagePath;
-    private String goalTileImagePath;
+    private String straightTileImagePath = "resources/ROAD_straight.png";
+    private String cornerTileImagePath = "resources/ROAD_curved.png";
+    private String tshapedTileImagePath = "resources/ROAD_Tshaped.png";
+    private String goalTileImagePath = "resources/ROAD_goal.png";
 
     /**
      * The enum Floor type.
@@ -199,13 +199,13 @@ public class FloorCard extends Card{ //need to continue javadoc
                 break;
             case T_SHAPED:
                 if (rotation == 0) {
-                    setOpenings(1, 0, 1, 1);
-                } else if (rotation == 90) {
-                    setOpenings(1, 1, 0, 1);
-                } else if (rotation == 180) {
                     setOpenings(1, 1, 1, 0);
-                } else if (rotation == 270) {
+                } else if (rotation == 90) {
                     setOpenings(0, 1, 1, 1);
+                } else if (rotation == 180) {
+                    setOpenings(1, 0, 1, 1);
+                } else if (rotation == 270) {
+                    setOpenings(1, 1, 0, 1);
                 }
                 break;
         }
@@ -293,5 +293,9 @@ public class FloorCard extends Card{ //need to continue javadoc
     public int getOpeningAt(int index) {
         return openings[index];
     }
+
+
+
+
 
 }

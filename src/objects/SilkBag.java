@@ -37,6 +37,7 @@ public class SilkBag {
     public Card drawACard() {
         int card = randomGenerator.nextInt(listOfCards.size());
         Card randomCard = listOfCards.get(card);
+        listOfCards.remove(card);
         return randomCard;
     }
 
