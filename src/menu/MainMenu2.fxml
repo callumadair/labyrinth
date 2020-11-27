@@ -62,7 +62,7 @@
                                 <items>
                                     <MenuItem mnemonicParsing="false">
                                         <graphic>
-                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" text="Map 1" textAlignment="CENTER" />
+                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" prefWidth="200.0" text="Map 1" textAlignment="CENTER" />
                                         </graphic>
                                     </MenuItem>
                                 </items>
