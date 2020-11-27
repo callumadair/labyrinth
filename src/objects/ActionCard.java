@@ -72,7 +72,6 @@ public class ActionCard extends Card{
 
 
     private boolean useFireCard(Board board, int x, int y) {
-        /*
         if(getAreaOfEffect(board, x, y).contains(player.currentLocation)){ //need player current location added
             return false;
         }
@@ -84,12 +83,9 @@ public class ActionCard extends Card{
             }
             return true;
         }
-        */
-        return true;
     }
 
     private boolean useIceCard(Board board, int x, int y) {
-        /*
         if (getAreaOfEffect(board, x, y).contains(player.currentLocation)) { //need player current location added
             return false;
         } else {
@@ -101,15 +97,13 @@ public class ActionCard extends Card{
             return true;
         }
 
-         */
-        return true;
     }
     private boolean useBackTrackCard(Board board, int x, int y) {
-        return true;
+
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        return true;
+
     }
 
     private ArrayList<FloorCard> getAreaOfEffect(Board board, int x, int y){
