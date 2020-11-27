@@ -1,5 +1,6 @@
 package objects;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -177,5 +178,9 @@ public class PlayerController {
      */
     public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
+    }
+
+    public void drawPlayer(GraphicsContext gc){
+        gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 }
