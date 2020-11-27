@@ -92,7 +92,7 @@ public class ActionCard extends Card{
         return true;
         }
 
-
+    }
 
     private boolean useIceCard(Board board, int x, int y) {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
@@ -101,8 +101,7 @@ public class ActionCard extends Card{
                 tile.setOnIce();
             }
             return true;
-        }
-
+    }
 
 
     private boolean useBackTrackCard(Board board, int x, int y) {

@@ -1,5 +1,6 @@
 package objects;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -19,10 +20,16 @@ public class PlayerController {
     private int x, y;
     private ArrayList<Card> cardsHeld;
 
+
     private LinkedList<FloorCard> lastThree;
 
     private PlayerProfile profile;
     private int playerIndex;
+
+    private PlayerProfile profile;
+    private int playerIndex;
+
+    private LinkedList<FloorCard> lastThree;
 
 
     /**
@@ -222,5 +229,9 @@ public class PlayerController {
      */
     public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
+    }
+
+    public void drawPlayer(GraphicsContext gc){
+        gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 }
