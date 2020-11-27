@@ -20,8 +20,7 @@ public class PlayerController {
     private int x, y;
     private ArrayList<Card> cardsHeld;
 
-
-    private LinkedList<FloorCard> lastThree;
+    private LinkedList<Integer> lastThree;
 
     private PlayerProfile profile;
     private int playerIndex;
@@ -64,11 +63,11 @@ public class PlayerController {
         this.y = y;
     }
 
-    public LinkedList<FloorCard> getLastThree() {
+    public LinkedList<Integer> getLastThree() {
         return lastThree;
     }
 
-    public void setLastThree(LinkedList<FloorCard> cards) {
+    public void setLastThree(LinkedList<Integer> cards) {
         this.lastThree = lastThree;
     }
 
@@ -79,23 +78,23 @@ public class PlayerController {
      * @param y
      */
 
-    public void storePosition(Board board, int x, int y) {
-        //last el = current pos, first el 2 pos back
+    public void storePosition(int x, int y) {
+
         if (lastThree.size() == 3) {
-            lastThree.add(board.getTile(x, y));
+            lastThree.add(x);
+            lastThree.add(y);
+            lastThree.removeFirst();
             lastThree.removeFirst();
         } else {
-            lastThree.add(board.getTile(x, y));
+            lastThree.add(x);
+            lastThree.add(y);
         }
 
 
     }
 
-    
-
-
-    public void movePlayer(Board board, int x, int y) {
-        storePosition(board, this.x, this.y);
+    public void movePlayer(int x, int y) {
+        storePosition(this.x, this.y);
         this.x = x;
         this.y = y;
     }

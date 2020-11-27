@@ -83,7 +83,7 @@ public class ActionCard extends Card {
             }
         }
 
-        if (playerIsInRange = true) {
+        if (playerIsInRange == true) {
             return false;
         } else {
             for (FloorCard tile : tiles) {
@@ -103,14 +103,21 @@ public class ActionCard extends Card {
             return true;
     }
 
-
     private boolean useBackTrackCard(Board board, int x, int y) {
-        board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY());
+       // board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY());
+        board.changePlayerPosition(player, player.getLastThree().getFirst(), player.getLastThree().get(2));
         return false;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        board.changePlayerPosition(player, x, y);
+        int NumOfMoves = 2;
+
+        for(int i = 0; i <= NumOfMoves; i++){
+            if (player.determineLegalMoves(board).contains(board.getTile(x, y))) {
+                board.changePlayerPosition(player, x, y);
+                useDoubleMove(board, player.getX(), player.getY());
+            }
+        }
         return true;
     }
 

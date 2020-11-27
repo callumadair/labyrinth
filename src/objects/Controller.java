@@ -150,6 +150,16 @@ public class Controller {
     }
 
     private void showActionCards() {
+        currentPlayer.addInCardsHeld(playingCard);
+
+        for(Card card : currentPlayer.getCardsHeld()){
+            //show cards
+        }
+        if(currentPlayer.getCardsHeld().isEmpty()){
+            changeState(GameState.MOVING);
+        }
+        //if()
+
         //add playingCard to players action cards
         //show players action cards if none go to moving
         //give player the ability to skip this state
