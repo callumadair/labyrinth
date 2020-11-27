@@ -14,12 +14,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import jdk.internal.util.xml.impl.Input;
 import menu.DailyMessage.GetFinalMessage;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -116,8 +119,10 @@ public class MenuController extends Application implements Initializable{
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
-        
+
+        //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
         try {
+            playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
             playMusicMegalovania("src\\resources\\megalovania.wav");
             BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
@@ -265,6 +270,19 @@ public class MenuController extends Application implements Initializable{
             megalovaniaMusic = new FileInputStream(new File(filepath));
             AudioStream megalovaniaAudio = new AudioStream(megalovaniaMusic);
             AudioPlayer.player.start(megalovaniaAudio);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    public static void playMusicHEYYEYAAEYAAAEYAEYAA(String filepath){
+        InputStream HEYYEYAAEYAAAEYAEYAAMusic;
+        try
+        {
+            HEYYEYAAEYAAAEYAEYAAMusic = new FileInputStream(new File(filepath));
+            AudioStream HEYYEYAAEYAAAEYAEYAAAudio = new AudioStream(HEYYEYAAEYAAAEYAEYAAMusic);
+            AudioPlayer.player.start(HEYYEYAAEYAAAEYAEYAAAudio);
         }
         catch(IOException e){
             e.printStackTrace();
