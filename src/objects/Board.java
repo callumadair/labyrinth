@@ -1,10 +1,8 @@
 package objects;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import javafx.scene.canvas.*;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import java.util.*;
 
 public class Board {
 
@@ -16,12 +14,14 @@ public class Board {
     private SilkBag silkBag;
     private FloorCard[][] map;
     private int[][] playersMap;
+    private ArrayList<PlayerController> players;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
 
-    public Board(String[][] data) {
+    public Board(String[][] data, ArrayList<PlayerController> players) {
+        this.players = players;
         setup(data);
     }
 
@@ -33,6 +33,7 @@ public class Board {
     //testing only
     private void setup() {
         map = new FloorCard[5][5];
+        playersMap = new int[5][5];
         width = 5;
         height = 5;
         for(int i = 0; i < 5; i++){
@@ -111,12 +112,14 @@ public class Board {
     public void insertTile(FloorCard tile, int x, int y) {
         if (x == 0 || x == width - 1) {
             if (x == 0) {
+                silkBag.addACard(map[width - 1][y]);
                 for (int i = width - 1; i > 0; i--) {
                     map[i][y] = map[i - 1][y];
                     map[i - 1][y].setX(i);
                 }
                 map[0][y] = tile;
             } else if (x == width - 1) {
+                silkBag.addACard(map[0][y]);
                 for (int i = 0; i < width - 1; i++) {
                     map[i][y] = map[i + 1][y];
                     map[i + 1][y].setX(i);
@@ -125,12 +128,14 @@ public class Board {
             }
         } else if (y == 0 || y == height - 1) {
             if (y == 0) {
+                silkBag.addACard(map[x][height - 1]);
                 for (int i = height - 1; i > 0; i--) {
                     map[x][i] = map[x][i - 1];
                     map[x][i - 1].setY(i);
                 }
                 map[x][0] = tile;
             } else if (y == height - 1) {
+                silkBag.addACard(map[x][0]);
                 for (int i = 0; i < height - 1; i++) {
                     map[x][i] = map[x][i + 1];
                     map[x][i + 1].setY(i);
@@ -171,13 +176,27 @@ public class Board {
         return silkBag;
     }
 
-    public void changePlayerPosition(PlayerController player, int x, int y, int playerIndex){
+    public void changePlayerPosition(PlayerController player, int x, int y){
         player.movePlayer(x, y);
-        playersMap[x][y] = playerIndex;
+        playersMap[x][y] = player.getPlayerIndex();
     }
 
     public boolean checkPlayerPosition(int x, int y){
         return playersMap[x][y] == 0 || playersMap[x][y] == 1 ||
                 playersMap[x][y] ==  2 || playersMap[x][y] ==  3;
+    }
+    public int getFixedTilesNum() {
+        return fixedTilesNum;
+    }
+
+    public int[][] getFixedTiles() {
+        return fixedTiles;
+
+    public ArrayList<PlayerController> getPlayers(){
+        return players;
+    }
+
+    public PlayerController getPlayer(int x, int y){
+        return players.get(playersMap[x][y]);
     }
 }
