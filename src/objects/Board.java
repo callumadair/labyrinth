@@ -33,6 +33,7 @@ public class Board {
     //testing only
     private void setup() {
         map = new FloorCard[5][5];
+        playersMap = new int[5][5];
         width = 5;
         height = 5;
         for(int i = 0; i < 5; i++){
@@ -171,9 +172,9 @@ public class Board {
         return silkBag;
     }
 
-    public void changePlayerPosition(PlayerController player, int x, int y, int playerIndex){
+    public void changePlayerPosition(PlayerController player, int x, int y){
         player.movePlayer(x, y);
-        playersMap[x][y] = playerIndex;
+        playersMap[x][y] = player.getPlayerIndex();
     }
 
     public boolean checkPlayerPosition(int x, int y){

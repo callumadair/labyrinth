@@ -1,41 +1,113 @@
 package objects;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * The type Player controller.
  */
 public class PlayerController {
 
+    private String playerImage1 = "resources/ROAD-player1.png";
+    private String playerImage2 = "resources/ROAD-player2.png";
+    private String playerImage3 = "resources/ROAD-player3.png";
+    private String playerImage4 = "resources/ROAD-player4.png";
+
+    private Image image;
     private int x, y;
     private ArrayList<Card> cardsHeld;
+    private PlayerProfile profile;
+    private int playerIndex;
+
+    private LinkedList<FloorCard> lastThree;
+
 
     /**
      * Instantiates a new Player controller.
      */
-    public PlayerController() {
+
+    public PlayerController(PlayerProfile profile, int playerIndex) {
+        this.profile = profile;
+        this.playerIndex = playerIndex;
+        switch (playerIndex){
+            case 0:
+                image = new Image(playerImage1);
+                break;
+            case 1:
+                image = new Image(playerImage2);
+                break;
+            case 2:
+                image = new Image(playerImage3);
+                break;
+            case 3:
+                image = new Image(playerImage4);
+                break;
+        }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public LinkedList<FloorCard> getLastThree() {
+        return lastThree;
+    }
+
+    public void setLastThree(LinkedList<FloorCard> cards) {
+        this.lastThree = lastThree;
+
     }
 
     /**
      * stores position of the player
      *
-     * @param playerX
-     * @param playerY
+     * @param x
+     * @param y
      */
-    public void storePosition(int playerX, int playerY) {
+
+
+    public void storePosition(int x, int y) {
+        //last el = current pos, first el 2 pos back
+        /*
+        if (lastThree.size() == 3) {
+            lastThree.add(board.getTile(x, y));
+            lastThree.removeFirst();
+        } else {
+            lastThree.add(board.getTile(x, y));
+        }
+         */
     }
 
-    /**
-     * player to move player across board
-     * @param x coordinate of board
-     * @param y coordinate of board
-     */
+
+
     public void movePlayer(int x, int y) {
         storePosition(this.x, this.y);
         this.x = x;
         this.y = y;
     }
 
+    public int getPlayerIndex(){
+        return playerIndex;
+    }
+
+    public PlayerProfile getProfile(){
+        return profile;
+    }
 
     /**
      * Determine legal moves floor card [].
@@ -133,13 +205,6 @@ public class PlayerController {
         }
 
 
-
-
-
-
-
-
-
     /**
      * getter for cards held
      *
@@ -156,5 +221,9 @@ public class PlayerController {
      */
     public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
+    }
+
+    public void drawPlayer(GraphicsContext gc){
+        gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 }
