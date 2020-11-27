@@ -7,11 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import menu.DailyMessage.GetFinalMessage;
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 
 import java.io.IOException;
@@ -36,6 +40,10 @@ public class MenuController extends Application implements Initializable{
     private StackPane stackPane;
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private Label textLabelID;
+    @FXML
+    private ImageView imageView; 
 
     public static void main(String[] args) {
         launch(args);
@@ -95,7 +103,7 @@ public class MenuController extends Application implements Initializable{
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
-            BorderPane root = FXMLLoader.load(getClass().getResource("Test Scene.fxml"));
+            BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
             stackPane.getChildren().remove(borderPane);
             makeFadeOut(root);
@@ -185,6 +193,20 @@ public class MenuController extends Application implements Initializable{
 
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
+    	try {
+			textLabelID.setText(GetFinalMessage.finalMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	TranslateTransition backgroundMove = new TranslateTransition();
+    	backgroundMove.setDuration(Duration.millis(5000));
+    	backgroundMove.setNode(imageView);
+    	backgroundMove.setFromX(0);
+    	backgroundMove.setToX(30);
+		backgroundMove.setAutoReverse(true);	
+		backgroundMove.setCycleCount(Animation.INDEFINITE);
+		backgroundMove.play();
     }
 
     private void makeFadeOut(Pane fadeOut) {
