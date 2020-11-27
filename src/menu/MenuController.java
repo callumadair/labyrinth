@@ -33,8 +33,6 @@ public class MenuController extends Application implements Initializable{
 
     private Stage stage;
     private Scene primaryScene;
-    private Scene secondaryScene;
-    private LeaderboardController leaderboardController;
     private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
     @FXML
     private StackPane stackPane;
@@ -43,18 +41,22 @@ public class MenuController extends Application implements Initializable{
     @FXML
     private Label textLabelID;
     @FXML
-    private ImageView imageView; 
+    private ImageView imageView;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
     @FXML
     public void start(Stage primaryStage) {
-        Pane root = null;
         stage = primaryStage;
         try {
-            root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();
@@ -63,6 +65,11 @@ public class MenuController extends Application implements Initializable{
         }
     }
 
+    /**
+     * Handle quit button action.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -78,7 +85,7 @@ public class MenuController extends Application implements Initializable{
     /**
      * This will take a window that you will be taken to when you click the instructions button
      *
-     * @param actionEvent
+     * @param actionEvent the action event
      */
     @FXML
     private void handleInstructionsButtonAction(ActionEvent actionEvent) {
@@ -97,9 +104,7 @@ public class MenuController extends Application implements Initializable{
      * This will create a second window that you will be taken to when you click the play button
      *
      * @param actionEvent the action event
-     * @throws IOException
      */
-
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         try {
@@ -113,6 +118,11 @@ public class MenuController extends Application implements Initializable{
 
     }
 
+    /**
+     * Handle take me back button action.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -130,7 +140,7 @@ public class MenuController extends Application implements Initializable{
     /**
      * handles take me back button from the instructions screen
      *
-     * @param actionEvent
+     * @param actionEvent the action event
      */
     @FXML
     private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
@@ -166,10 +176,11 @@ public class MenuController extends Application implements Initializable{
     }*/
 
 
-        /**
-         *
-         * @param actionEvent
-         */
+    /**
+     * Open leaderboard.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
         String val = actionEvent.getSource().toString();
@@ -209,6 +220,11 @@ public class MenuController extends Application implements Initializable{
 		backgroundMove.play();
     }
 
+    /**
+     * Make fade out.
+     *
+     * @param fadeOut the fade out
+     */
     private void makeFadeOut(Pane fadeOut) {
     	TranslateTransition windowTransition =new TranslateTransition();
     	windowTransition.setDuration(Duration.millis(500));
