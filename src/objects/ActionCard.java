@@ -106,13 +106,13 @@ public class ActionCard extends Card{
 
 
     private boolean useBackTrackCard(Board board, int x, int y) {
-        board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY(), index);
+        board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY());
         return false;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        board.changePlayerPosition(player, x, y, index);
-        board.changePlayerPosition(player, x, y, index);
+        board.changePlayerPosition(player, x, y);
+        board.changePlayerPosition(player, x, y);
         return true;
     }
 
