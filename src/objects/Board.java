@@ -237,4 +237,8 @@ public class Board {
     public int[][] getSpawnPoints() {
         return spawnPoints;
     }
+
+    public void setPlayers(ArrayList<PlayerController> players) {
+        this.players = players;
+    }
 }

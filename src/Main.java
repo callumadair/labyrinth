@@ -1,13 +1,12 @@
 import javafx.application.*;
 import javafx.scene.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
-import menu.FileManager;
+import menu.*;
 import objects.*;
 
+import java.util.*;
 
 
 public class Main extends Application {
@@ -36,7 +35,15 @@ public class Main extends Application {
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
         int width = 5;
         int height = 5;
-        Controller c = new Controller(FileManager.loadBoard(1));
+
+        ArrayList<PlayerController> players = new ArrayList<PlayerController>(); //testing only
+        players.add(new PlayerController(null, 0)); //testing only
+        players.add(new PlayerController(null, 1)); //testing only
+        players.add(new PlayerController(null, 2)); //testing only
+        Board board = FileManager.loadBoard(1);
+        board.setPlayers(players);
+
+        Controller c = new Controller(board);
 
         root.setCenter(c.getCanvas());
         stage.setScene(scene);
