@@ -15,7 +15,6 @@ public class Board {
     private int[][] fixedTiles; //[fixedTileNum][2];
     private SilkBag silkBag;
     private FloorCard[][] map;
-    private int[][] playersMap;
     private ArrayList<PlayerController> players;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
@@ -35,11 +34,10 @@ public class Board {
     //testing only
     private void setup() {
         map = new FloorCard[5][5];
-        playersMap = new int[5][5];
         width = 5;
         height = 5;
-        for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 5; j++){
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 map[j][i] = new FloorCard("STRAIGHT");
                 map[j][i].setX(j);
                 map[j][i].setY(i);
@@ -99,10 +97,10 @@ public class Board {
 
         for (int i = 0; i < width; i++) {
             if (!frozenColumns.contains(columnsToPlace.get(i))) {
-                if(!insertionTiles.contains(map[0][columnsToPlace.get(i)])){
+                if (!insertionTiles.contains(map[0][columnsToPlace.get(i)])) {
                     insertionTiles.add(map[0][columnsToPlace.get(i)]);
                 }
-                if(!insertionTiles.contains(map[height - 1][columnsToPlace.get(i)])){
+                if (!insertionTiles.contains(map[height - 1][columnsToPlace.get(i)])) {
                     insertionTiles.add(map[height - 1][columnsToPlace.get(i)]);
                 }
             }
@@ -171,6 +169,9 @@ public class Board {
     }
 
     public FloorCard getTile(int x, int y) {
+        if (x < 0 || y < 0 || x >= width || y >= height) {
+            return null;
+        }
         return map[x][y];
     }
 
@@ -178,21 +179,29 @@ public class Board {
         return silkBag;
     }
 
-    public void changePlayerPosition(PlayerController player, int x, int y){
+    public void changePlayerPosition(PlayerController player, int x, int y) {
         player.movePlayer(x, y);
-        playersMap[x][y] = player.getPlayerIndex();
     }
 
-    public boolean checkPlayerPosition(int x, int y){
-        return playersMap[x][y] == 0 || playersMap[x][y] == 1 ||
-                playersMap[x][y] ==  2 || playersMap[x][y] ==  3;
+    public boolean checkPlayerPosition(int x, int y) {
+        for (PlayerController player : players) {
+            if (player.getX() == x && player.getY() == y) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public ArrayList<PlayerController> getPlayers(){
+    public ArrayList<PlayerController> getPlayers() {
         return players;
     }
 
-    public PlayerController getPlayer(int x, int y){
-        return players.get(playersMap[x][y]);
+    public PlayerController getPlayer(int x, int y) {
+        for (PlayerController player : players) {
+            if (player.getX() == x && player.getY() == y) {
+                return player;
+            }
+        }
+        return null;
     }
 }
