@@ -7,12 +7,7 @@ import javafx.scene.image.Image;
 
 /**
  * This class represents the different floor tiles of the game.
- *
- * @author Maha Malik
- * @version 1.8
  */
-
-
 public class FloorCard extends Card { //need to continue javadoc
 
 
@@ -31,6 +26,9 @@ public class FloorCard extends Card { //need to continue javadoc
     private String tshapedTileImagePath = "resources/ROAD_Tshaped.png";
     private String goalTileImagePath = "resources/ROAD_goal.png";
 
+    /**
+     * The enum Direction
+     */
     public enum Direction {
         RIGHT, LEFT, UP, DOWN;
     }
@@ -100,6 +98,10 @@ public class FloorCard extends Card { //need to continue javadoc
         return state;
     }
 
+    /**
+     * Get type of floor.
+     * @return floor type
+     */
     public FloorType getType() {
         return type;
     }
@@ -125,14 +127,25 @@ public class FloorCard extends Card { //need to continue javadoc
         this.state = FloorTileState.NORMAL;
     }
 
+    /**
+     * Sets x coordinate.
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Sets y coordinate.
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Sets possible paths taken by player.
+     */
     private void setPaths() {
         switch (type) {
             case STRAIGHT:
@@ -200,7 +213,9 @@ public class FloorCard extends Card { //need to continue javadoc
         return rotation;
     }
 
-
+    /**
+     * Change path for tile.
+     */
     private void changePaths() {
         boolean temp = possiblePaths[3];
         for (int i = 3; i > 0; i--) {
@@ -209,6 +224,10 @@ public class FloorCard extends Card { //need to continue javadoc
         possiblePaths[0] = temp;
     }
 
+    /**
+     * Change path for tile.
+     * @param times
+     */
     private void changePaths(int times) {
         while (times > 0) {
             times--;
@@ -239,6 +258,10 @@ public class FloorCard extends Card { //need to continue javadoc
         }
     }
 
+    /**
+     * Set rotation of the tile.
+     * @param rotation
+     */
     private void setRotation(int rotation) {
         if (rotation == 90) {
             this.rotation = 90;
@@ -279,6 +302,11 @@ public class FloorCard extends Card { //need to continue javadoc
         return y;
     }
 
+    /**
+     * Get opening at certain direction.
+     * @param dir
+     * @return true if possible paths otherwise return false
+     */
     public boolean getOpeningAt(Direction dir) {
         switch (dir) {
             case LEFT:
@@ -294,6 +322,12 @@ public class FloorCard extends Card { //need to continue javadoc
         }
     }
 
+    /**
+     * Check to see if there is a path in the direction the player wants to go.
+     * @param compare
+     * @param dir
+     * @return true if path has opening in certain direction, otherwise false
+     */
     public boolean checkPath(FloorCard compare, Direction dir) {
         switch (dir) {
             case LEFT:
