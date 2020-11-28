@@ -6,25 +6,16 @@ import java.io.*;
 import java.util.*;
 
 public class FileManager {
-    private String saveFileDirectory;
+    private static String saveFileDirectory;
 
-    public FileManager(String saveFileDirectory) {
-        setSaveFileDirectory(saveFileDirectory);
-    }
-
-    public String getSaveFileDirectory() {
+    public static String getSaveFileDirectory() {
         return saveFileDirectory;
     }
 
-    public void setSaveFileDirectory(String saveFileDirectory) {
-        this.saveFileDirectory = saveFileDirectory;
+    public static void deleteSaveFile(File saveFile) {
     }
-
-    public void deleteSaveFile(File saveFile) {
-    }
-
-
-    public void saveBoard(Board board, int boardNum) throws IOException {
+    
+    public static void saveBoard(Board board, int boardNum) throws IOException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         FileWriter fileWriter = new FileWriter(boardFile);
 
@@ -48,7 +39,7 @@ public class FileManager {
         //add non fixed cards
     }
 
-    public Board loadBoard(int boardNum) throws FileNotFoundException {
+    public static Board loadBoard(int boardNum) throws FileNotFoundException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         Scanner scanner = new Scanner(boardFile);
         Board board = new Board();
@@ -90,13 +81,13 @@ public class FileManager {
         return new Board(width, height, spawnPoints, fixed, silkBag);
     }
 
-    private void createFloorCards(int num, String type, ArrayList<Card> cards) {
+    private static void createFloorCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new FloorCard(type));
         }
     }
 
-    private ArrayList<Card> createActionCards(int num, String type) {
+    private static ArrayList<Card> createActionCards(int num, String type) {
         ArrayList<Card> cards = new ArrayList<>();
         for (int i = 0; i < num; i++) {
             cards.add(new ActionCard(type));
