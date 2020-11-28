@@ -14,7 +14,7 @@ public class FileManager {
 
     public static void deleteSaveFile(File saveFile) {
     }
-    
+
     public static void saveBoard(Board board, int boardNum) throws IOException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         FileWriter fileWriter = new FileWriter(boardFile);
@@ -70,10 +70,10 @@ public class FileManager {
         createFloorCards(scanner.nextInt(), "T_SHAPED", silkBagCards);
         //createFloorCards(scanner.nextInt(), "GOAL", silkBagCards); needed?
         scanner.nextLine();
-        silkBagCards.addAll(createActionCards(scanner.nextInt(), "FIRE"));
-        silkBagCards.addAll(createActionCards(scanner.nextInt(), "ICE"));
-        silkBagCards.addAll(createActionCards(scanner.nextInt(), "BACKTRACK"));
-        silkBagCards.addAll(createActionCards(scanner.nextInt(), "DOUBLE_MOVE"));
+        createActionCards(scanner.nextInt(), "FIRE", silkBagCards);
+        createActionCards(scanner.nextInt(), "ICE", silkBagCards);
+        createActionCards(scanner.nextInt(), "BACKTRACK", silkBagCards);
+        createActionCards(scanner.nextInt(), "DOUBLE_MOVE", silkBagCards);
 
         SilkBag silkBag = new SilkBag(silkBagCards.size());
         silkBag.setListOfCards(silkBagCards);
@@ -87,11 +87,9 @@ public class FileManager {
         }
     }
 
-    private static ArrayList<Card> createActionCards(int num, String type) {
-        ArrayList<Card> cards = new ArrayList<>();
+    private static void createActionCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new ActionCard(type));
         }
-        return cards;
     }
 }
