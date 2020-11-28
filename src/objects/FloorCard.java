@@ -7,12 +7,7 @@ import javafx.scene.image.Image;
 
 /**
  * This class represents the different floor tiles of the game.
- *
- * @author Maha Malik
- * @version 1.8
  */
-
-
 public class FloorCard extends Card { //need to continue javadoc
 
 
