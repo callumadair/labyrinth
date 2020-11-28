@@ -7,27 +7,37 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="250.0" stylesheets="@../resources/menucontrollerstyle.css"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-    <top>
-        <Label text="Leaderboard" BorderPane.alignment="CENTER">
-            <font>
-                <Font name="Quicksand Medium" size="18.0"/>
-            </font>
-            <BorderPane.margin>
-                <Insets bottom="5.0" top="10.0"/>
-            </BorderPane.margin>
-        </Label>
-    </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" stylesheets="@../resources/menucontrollerstyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="225.0"
-                   BorderPane.alignment="CENTER">
+        <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="225.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" text="Name"/>
-                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Victories"/>
-                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Losses"/>
+                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" text="Name" />
+                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Victories" />
+                <TableColumn maxWidth="75.0" prefWidth="75.0" resizable="false" sortType="DESCENDING" text="Losses" />
             </columns>
+         <BorderPane.margin>
+            <Insets bottom="30.0" top="5.0" />
+         </BorderPane.margin>
         </TableView>
     </center>
+   <top>
+        <Label prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: #FFFFFF;" text="Leaderboard" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="Quicksand Medium" size="18.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets bottom="5.0" top="10.0" />
+            </BorderPane.margin>
+        </Label>
+   </top>
+   <bottom>
+        <Button fx:id="backButton" blendMode="DARKEN" graphicTextGap="5.0" mnemonicParsing="false" onAction="#handleTakeMeBackButtonAction" style="-fx-background-color: #808080;" text="Menu" textAlignment="CENTER" textFill="#05011b" BorderPane.alignment="TOP_CENTER">
+            <font>
+                <Font name="Quicksand Medium" size="12.0" />
+            </font>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+        </Button>
+    </bottom>
 </BorderPane>
