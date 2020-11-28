@@ -142,7 +142,7 @@ public class PlayerController {
         if (currentFloor.getY() == 0) {
             return null;
         } else {
-            return board.getTile(currentFloor.getX(), currentFloor.getY() + 1);
+            return board.getTile(currentFloor.getX(), currentFloor.getY() - 1);
         }
     }
 
@@ -150,7 +150,7 @@ public class PlayerController {
         if (currentFloor.getY() == board.getHeight() - 1) {
             return null;
         } else {
-            return board.getTile(currentFloor.getX(), currentFloor.getY() - 1);
+            return board.getTile(currentFloor.getX(), currentFloor.getY() + 1);
         }
     }
 
@@ -162,23 +162,27 @@ public class PlayerController {
         FloorCard right = getOnRight(board.getTile(x, y), board);
         FloorCard bottom = getOnBottom(board.getTile(x, y), board);
 
-        if (left != null){
-            if (board.getTile(x,y).getOpeningAt(0) == getOnLeft(board.getTile(x,y), board).getOpeningAt(2)) {
-                legalMoves.add(getOnLeft(board.getTile(x,y), board));
+        if (left != null) {
+            if (board.getTile(x, y).getOpeningAt(0) == getOnLeft(board.getTile(x, y), board).getOpeningAt(2)) {
+                legalMoves.add(getOnLeft(board.getTile(x, y), board));
             }
-        } else if (top != null) {
+        }
+        if (top != null) {
             if(board.getTile(x,y).getOpeningAt(1) == getOnTop(board.getTile(x,y), board).getOpeningAt(3)) {
                 legalMoves.add(getOnTop(board.getTile(x,y), board));
             }
-        } else if (right != null) {
+        }
+        if (right != null) {
             if(board.getTile(x,y).getOpeningAt(2) == getOnRight(board.getTile(x,y), board).getOpeningAt(0)) {
                 legalMoves.add(getOnRight(board.getTile(x,y), board));
             }
-        } else if (bottom != null) {
-            if(board.getTile(x,y).getOpeningAt(3) == getOnBottom(board.getTile(x,y), board).getOpeningAt(3)) {
+        }
+        if (bottom != null) {
+            if(board.getTile(x,y).getOpeningAt(3) == getOnBottom(board.getTile(x,y), board).getOpeningAt(1)) {
                 legalMoves.add(getOnBottom(board.getTile(x,y), board));
             }
         }
+        //System.out.println("HJWCJEVGCEKRFGBKER  " + legalMoves.size());
         return legalMoves;
     }
 
