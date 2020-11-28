@@ -5,6 +5,7 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
+import menu.FileManager;
 import objects.*;
 
 
@@ -35,7 +36,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
         int width = 5;
         int height = 5;
-        Controller c = new Controller();
+        Controller c = new Controller(FileManager.loadBoard(1));
 
         root.setCenter(c.getCanvas());
         stage.setScene(scene);

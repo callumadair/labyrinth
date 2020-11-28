@@ -42,6 +42,16 @@ public class Controller {
         startGame();
     }
 
+    public Controller(Board b){
+        board = b;
+
+        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
+                board.getHeight() * FloorCard.TILE_SIZE);
+        enableRetrievingTilesFromCanvas();
+
+        draw();
+        startGame();
+    }
     //testing only
     public Controller() {
         board = new Board();
