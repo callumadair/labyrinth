@@ -248,6 +248,10 @@ public class Controller {
         return canvas;
     }
 
+    public PlayerController getCurrentPlayer(){
+        return currentPlayer;
+    }
+
     public void draw() {
         board.drawBoard(canvas.getGraphicsContext2D());
         for (PlayerController player : players) {
