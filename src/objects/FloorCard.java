@@ -199,13 +199,13 @@ public class FloorCard extends Card{ //need to continue javadoc
                 break;
             case T_SHAPED:
                 if (rotation == 0) {
-                    setOpenings(1, 0, 1, 1);
-                } else if (rotation == 90) {
-                    setOpenings(1, 1, 0, 1);
-                } else if (rotation == 180) {
                     setOpenings(1, 1, 1, 0);
-                } else if (rotation == 270) {
+                } else if (rotation == 90) {
                     setOpenings(0, 1, 1, 1);
+                } else if (rotation == 180) {
+                    setOpenings(1, 0, 1, 1);
+                } else if (rotation == 270) {
+                    setOpenings(1, 1, 0, 1);
                 }
                 break;
         }
@@ -293,5 +293,9 @@ public class FloorCard extends Card{ //need to continue javadoc
     public int getOpeningAt(int index) {
         return openings[index];
     }
+
+
+
+
 
 }
