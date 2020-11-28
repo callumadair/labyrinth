@@ -60,7 +60,7 @@ public class MenuController extends Application implements Initializable{
      */
     public static void main(String[] args) {
         //playMusiclevanPolkaa("src\\resources\\music.wav");
-        playMusicNyanCat("src\\resources\\NyanCat.wav");
+        playMusicNyanCat("src\\resources\\MenuMusic.wav");
         launch(args);
 
     }
@@ -222,7 +222,7 @@ public class MenuController extends Application implements Initializable{
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	try {
-			textLabelID.setText(GetFinalMessage.finalMessage());
+			textLabelID.setText(MessageOfTheDay.finalMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
