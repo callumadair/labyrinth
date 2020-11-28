@@ -110,16 +110,16 @@ public class Controller {
     }
 
     private void drawCard() {
+        currentPlayer.setPlayerMoveValue(1);
         playingCard = board.getSilkBag().drawACard();
-
         //show the card to the player
         //? maybe animate as well
-
         if (playingCard instanceof FloorCard){
             changeState(GameState.INSERTING);
         } else if (playingCard instanceof ActionCard){
             changeState(GameState.ACTION_CARD);
         }
+        currentPlayer.setPlayerMoveValue(0);
     }
 
     private void getInsertionList() {
@@ -142,7 +142,7 @@ public class Controller {
     }
 
     private void playActionCard() {
-            playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
+        playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
 
         //player needs to choose action card
         //player needs to select a tile and it needs to be validated
@@ -151,12 +151,14 @@ public class Controller {
     private void showActionCards() {
         currentPlayer.addInCardsHeld(playingCard);
 
-        for(Card card : currentPlayer.getCardsHeld()){
-            //show cards
-        }
         if(currentPlayer.getCardsHeld().isEmpty()){
             changeState(GameState.MOVING);
+        }else{
+            for (int i = 0; i < currentPlayer.getCardsHeld().size() - 1; i++) {
+                //show cards
+            }
         }
+
         //if()
 
         //add playingCard to players action cards
@@ -171,18 +173,20 @@ public class Controller {
     }
 
     private void movePlayer() {
-        if (tilesToCompare.contains(selectedTile)) {
-            if (selectedTile.checkGoal()) {
-                changeState(GameState.VICTORY);
+        if(currentPlayer.getPlayerMoveValue() == 0) {
+            if (tilesToCompare.contains(selectedTile)) {
+                if (selectedTile.checkGoal()) {
+                    changeState(GameState.VICTORY);
+                } else {
+                    board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
+                    draw();
+                    tilesToCompare.clear();
+                    selectedTile = null;
+                    changeState(GameState.END_TURN);
+                }
             } else {
-                board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
-                draw();
-                tilesToCompare.clear();
                 selectedTile = null;
-                changeState(GameState.END_TURN);
             }
-        } else {
-            selectedTile = null;
         }
     }
 

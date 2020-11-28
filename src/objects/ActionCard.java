@@ -104,20 +104,18 @@ public class ActionCard extends Card {
     }
 
     private boolean useBackTrackCard(Board board, int x, int y) {
-       // board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY());
-        board.changePlayerPosition(player, player.getLastThree().getFirst(), player.getLastThree().get(2));
-        return false;
+        if(board.getPlayer(x,y).isBackTracked() == true){
+            return false;
+        }else {
+            board.changePlayerPosition(board.getPlayer(x,y),
+                    player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
+            board.getPlayer(x,y).setBackTracked(true);
+        }
+        return true;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        int NumOfMoves = 2;
-
-        for(int i = 0; i <= NumOfMoves; i++){
-            if (player.determineLegalMoves(board).contains(board.getTile(x, y))) {
-                board.changePlayerPosition(player, x, y);
-                useDoubleMove(board, player.getX(), player.getY());
-            }
-        }
+        board.getPlayer(x,y).setPlayerMoveValue(2);
         return true;
     }
 

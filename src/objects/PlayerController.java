@@ -3,6 +3,7 @@ package objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -20,10 +21,12 @@ public class PlayerController {
     private int x, y;
     private ArrayList<Card> cardsHeld;
 
-    private LinkedList<Integer> lastThree;
+    private LinkedList<int[]> lastThree;
 
     private PlayerProfile profile;
     private int playerIndex;
+    private int playerMoveValue;
+    private boolean isBackTracked;
 	/**
      * Instantiates a new Player controller.
      */
@@ -47,6 +50,22 @@ public class PlayerController {
         }
     }
 
+    public int getPlayerMoveValue() {
+        return playerMoveValue;
+    }
+
+    public void setPlayerMoveValue(int playerMoveValue) {
+        this.playerMoveValue = playerMoveValue;
+    }
+
+    public boolean isBackTracked() {
+        return isBackTracked;
+    }
+
+    public void setBackTracked(boolean backTracked) {
+        isBackTracked = backTracked;
+    }
+
     public int getX() {
         return x;
     }
@@ -63,11 +82,11 @@ public class PlayerController {
         this.y = y;
     }
 
-    public LinkedList<Integer> getLastThree() {
+    public LinkedList<int[]> getLastThree() {
         return lastThree;
     }
 
-    public void setLastThree(LinkedList<Integer> cards) {
+    public void setLastThree(LinkedList<int[]> cards) {
         this.lastThree = lastThree;
     }
 
@@ -79,15 +98,13 @@ public class PlayerController {
      */
 
     public void storePosition(int x, int y) {
+        int pos[] = {x, y};
 
         if (lastThree.size() == 3) {
-            lastThree.add(x);
-            lastThree.add(y);
-            lastThree.removeFirst();
+            lastThree.add(pos);
             lastThree.removeFirst();
         } else {
-            lastThree.add(x);
-            lastThree.add(y);
+            lastThree.add(pos);
         }
 
 
