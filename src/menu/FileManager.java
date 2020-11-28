@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 
 public class FileManager {
-    private static String saveFileDirectory;
+    private static String saveFileDirectory = "src/resources/";
 
     public static String getSaveFileDirectory() {
         return saveFileDirectory;
