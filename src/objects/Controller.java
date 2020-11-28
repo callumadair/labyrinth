@@ -43,7 +43,7 @@ public class Controller {
     }
 
     //testing only
-    public Controller(){
+    public Controller() {
         board = new Board();
         this.players = new ArrayList<PlayerController>(); //testing only
         this.players.add(new PlayerController(null, 0)); //testing only
@@ -111,13 +111,11 @@ public class Controller {
 
     private void drawCard() {
         playingCard = board.getSilkBag().drawACard();
-
         //show the card to the player
         //? maybe animate as well
-
-        if (playingCard instanceof FloorCard){
+        if (playingCard instanceof FloorCard) {
             changeState(GameState.INSERTING);
-        } else if (playingCard instanceof ActionCard){
+        } else if (playingCard instanceof ActionCard) {
             changeState(GameState.ACTION_CARD);
         }
     }
@@ -142,13 +140,25 @@ public class Controller {
     }
 
     private void playActionCard() {
-            playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
+        playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
 
         //player needs to choose action card
         //player needs to select a tile and it needs to be validated
     }
 
     private void showActionCards() {
+        currentPlayer.addInCardsHeld(playingCard);
+
+        if (currentPlayer.getCardsHeld().isEmpty()) {
+            changeState(GameState.MOVING);
+        } else {
+            for (int i = 0; i < currentPlayer.getCardsHeld().size() - 1; i++) {
+                //show cards
+            }
+        }
+
+        //if()
+
         //add playingCard to players action cards
         //show players action cards if none go to moving
         //give player the ability to skip this state
@@ -157,6 +167,9 @@ public class Controller {
 
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
+        if (tilesToCompare.isEmpty()) {
+            changeState(GameState.END_TURN);
+        }
         highlightTiles();
     }
 
@@ -169,11 +182,16 @@ public class Controller {
                 draw();
                 tilesToCompare.clear();
                 selectedTile = null;
+                if (currentPlayer.checkDoubleMove()) {
+                    currentPlayer.setDoubleMove(false);
+                    changeState(GameState.MOVING);
+                }
                 changeState(GameState.END_TURN);
             }
         } else {
             selectedTile = null;
         }
+
     }
 
     private void highlightTiles() {
@@ -187,7 +205,7 @@ public class Controller {
                     FloorCard.TILE_SIZE, FloorCard.TILE_SIZE);
         }
         */
-        for(FloorCard f : tilesToCompare){
+        for (FloorCard f : tilesToCompare) {
             canvas.getGraphicsContext2D().drawImage(new Image("markup.png"),
                     f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE);
         }
@@ -221,19 +239,18 @@ public class Controller {
                 double y = event.getY();
                 selectedTile = board.getTileFromCanvas(x, y);
                 System.out.println("x: " + selectedTile.getX() + " y: " + selectedTile.getY() + "| " + currentState);
-                System.out.println(selectedTile.getType());
                 playState();
             }
         });
     }
 
-    public Canvas getCanvas(){
+    public Canvas getCanvas() {
         return canvas;
     }
 
-    public void draw(){
+    public void draw() {
         board.drawBoard(canvas.getGraphicsContext2D());
-        for(PlayerController player : players){
+        for (PlayerController player : players) {
             player.drawPlayer(canvas.getGraphicsContext2D());
         }
     }
