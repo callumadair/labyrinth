@@ -48,13 +48,13 @@ public class FileManager {
         //add non fixed cards
     }
 
-    public void loadBoard(int boardNum) throws FileNotFoundException {
+    public Board loadBoard(int boardNum) throws FileNotFoundException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         Scanner scanner = new Scanner(boardFile);
         Board board = new Board();
 
         int width = scanner.nextInt();
-        int length = scanner.nextInt();
+        int height = scanner.nextInt();
         scanner.nextLine();
 
         int[][] spawnPoints = new int[4][2];
@@ -87,6 +87,7 @@ public class FileManager {
         SilkBag silkBag = new SilkBag(silkBagCards.size());
         silkBag.setListOfCards(silkBagCards);
 
+        return new Board(width, height, spawnPoints, fixed, silkBag);
     }
 
     private void createFloorCards(int num, String type, ArrayList<Card> cards) {
