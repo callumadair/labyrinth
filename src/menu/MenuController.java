@@ -60,7 +60,7 @@ public class MenuController extends Application implements Initializable{
      */
     public static void main(String[] args) {
         //playMusiclevanPolkaa("src\\resources\\music.wav");
-        playMusicNyanCat("src\\resources\\MenuMusic.wav");
+        //playMusicNyanCat("src\\resources\\MenuMusic.wav");
         launch(args);
 
     }
