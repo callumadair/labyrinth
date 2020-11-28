@@ -26,14 +26,15 @@ public class PlayerController {
     private int playerIndex;
     private boolean doubleMove = false;
     private boolean isBackTracked = false;
-	/**
+
+    /**
      * Instantiates a new Player controller.
      */
 
     public PlayerController(PlayerProfile profile, int playerIndex) {
         this.profile = profile;
         this.playerIndex = playerIndex;
-        switch (playerIndex){
+        switch (playerIndex) {
             case 0:
                 image = new Image(playerImage1);
                 break;
@@ -111,18 +112,18 @@ public class PlayerController {
     }
 
     public void movePlayer(int x, int y) {
-        if(!isBackTracked){
+        if (!isBackTracked) {
             storePosition(this.x, this.y);
         }
         this.x = x;
         this.y = y;
     }
 
-    public int getPlayerIndex(){
+    public int getPlayerIndex() {
         return playerIndex;
     }
 
-    public PlayerProfile getProfile(){
+    public PlayerProfile getProfile() {
         return profile;
     }
 
@@ -135,22 +136,22 @@ public class PlayerController {
         FloorCard bottom = board.getTile(x, y - 1);
 
         if (left != null) {
-            if(currentTile.checkPath(left, FloorCard.Direction.LEFT)){
+            if (currentTile.checkPath(left, FloorCard.Direction.LEFT)) {
                 legalMoves.add(left);
             }
         }
         if (top != null) {
-            if(currentTile.checkPath(top, FloorCard.Direction.UP)){
+            if (currentTile.checkPath(top, FloorCard.Direction.UP)) {
                 legalMoves.add(top);
             }
         }
         if (right != null) {
-            if(currentTile.checkPath(right, FloorCard.Direction.RIGHT)){
+            if (currentTile.checkPath(right, FloorCard.Direction.RIGHT)) {
                 legalMoves.add(right);
             }
         }
         if (bottom != null) {
-            if(currentTile.checkPath(bottom, FloorCard.Direction.DOWN)){
+            if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)) {
                 legalMoves.add(bottom);
             }
         }
@@ -177,7 +178,7 @@ public class PlayerController {
         cardsHeld.add(card);
     }
 
-    public void drawPlayer(GraphicsContext gc){
+    public void drawPlayer(GraphicsContext gc) {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 }

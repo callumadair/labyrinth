@@ -31,7 +31,7 @@ public class FloorCard extends Card { //need to continue javadoc
     private String tshapedTileImagePath = "resources/ROAD_Tshaped.png";
     private String goalTileImagePath = "resources/ROAD_goal.png";
 
-    public enum Direction{
+    public enum Direction {
         RIGHT, LEFT, UP, DOWN;
     }
 
@@ -210,7 +210,7 @@ public class FloorCard extends Card { //need to continue javadoc
     }
 
     private void changePaths(int times) {
-        while(times > 0) {
+        while (times > 0) {
             times--;
             boolean temp = possiblePaths[3];
             for (int i = 3; i > 0; i--) {
@@ -239,7 +239,7 @@ public class FloorCard extends Card { //need to continue javadoc
         }
     }
 
-    private void setRotation(int rotation){
+    private void setRotation(int rotation) {
         if (rotation == 90) {
             this.rotation = 90;
             changePaths(1);
@@ -280,7 +280,7 @@ public class FloorCard extends Card { //need to continue javadoc
     }
 
     public boolean getOpeningAt(Direction dir) {
-        switch(dir){
+        switch (dir) {
             case LEFT:
                 return possiblePaths[0];
             case UP:
@@ -294,25 +294,25 @@ public class FloorCard extends Card { //need to continue javadoc
         }
     }
 
-    public boolean checkPath(FloorCard compare, Direction dir){
-        switch(dir){
+    public boolean checkPath(FloorCard compare, Direction dir) {
+        switch (dir) {
             case LEFT:
-                if(compare.getOpeningAt(Direction.RIGHT) && this.getOpeningAt(Direction.LEFT)){
+                if (compare.getOpeningAt(Direction.RIGHT) && this.getOpeningAt(Direction.LEFT)) {
                     return true;
                 }
                 break;
             case UP:
-                if(compare.getOpeningAt(Direction.DOWN) && this.getOpeningAt(Direction.UP)){
+                if (compare.getOpeningAt(Direction.DOWN) && this.getOpeningAt(Direction.UP)) {
                     return true;
                 }
                 break;
             case RIGHT:
-                if(compare.getOpeningAt(Direction.LEFT) && this.getOpeningAt(Direction.RIGHT)){
+                if (compare.getOpeningAt(Direction.LEFT) && this.getOpeningAt(Direction.RIGHT)) {
                     return true;
                 }
                 break;
             case DOWN:
-                if(compare.getOpeningAt(Direction.UP) && this.getOpeningAt(Direction.DOWN)){
+                if (compare.getOpeningAt(Direction.UP) && this.getOpeningAt(Direction.DOWN)) {
                     return true;
                 }
                 break;
