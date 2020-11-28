@@ -3,6 +3,7 @@ package objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -19,13 +20,14 @@ public class PlayerController {
     private Image image;
     private int x, y;
     private ArrayList<Card> cardsHeld;
+
+    private LinkedList<int[]> lastThree;
+
     private PlayerProfile profile;
     private int playerIndex;
-
-    private LinkedList<FloorCard> lastThree;
-
-
-    /**
+    private int playerMoveValue;
+    private boolean isBackTracked;
+	/**
      * Instantiates a new Player controller.
      */
 
@@ -48,6 +50,22 @@ public class PlayerController {
         }
     }
 
+    public int getPlayerMoveValue() {
+        return playerMoveValue;
+    }
+
+    public void setPlayerMoveValue(int playerMoveValue) {
+        this.playerMoveValue = playerMoveValue;
+    }
+
+    public boolean isBackTracked() {
+        return isBackTracked;
+    }
+
+    public void setBackTracked(boolean backTracked) {
+        isBackTracked = backTracked;
+    }
+
     public int getX() {
         return x;
     }
@@ -64,11 +82,11 @@ public class PlayerController {
         this.y = y;
     }
 
-    public LinkedList<FloorCard> getLastThree() {
+    public LinkedList<int[]> getLastThree() {
         return lastThree;
     }
 
-    public void setLastThree(LinkedList<FloorCard> cards) {
+    public void setLastThree(LinkedList<int[]> cards) {
         this.lastThree = lastThree;
 
     }
@@ -80,15 +98,15 @@ public class PlayerController {
      * @param y
      */
     public void storePosition(int x, int y) {
-        //last el = current pos, first el 2 pos back
-        /*
+        int pos[] = {x, y};
+
         if (lastThree.size() == 3) {
-            lastThree.add(board.getTile(x, y));
+            lastThree.add(pos);
             lastThree.removeFirst();
         } else {
-            lastThree.add(board.getTile(x, y));
+            lastThree.add(pos);
         }
-         */
+
     }
 
     public void movePlayer(int x, int y) {
