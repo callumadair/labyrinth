@@ -29,8 +29,10 @@ public class PlayerController {
 
     /**
      * Instantiates a new Player controller.
+     *
+     * @param profile     the profile
+     * @param playerIndex the player index
      */
-
     public PlayerController(PlayerProfile profile, int playerIndex) {
         this.profile = profile;
         this.playerIndex = playerIndex;
@@ -52,42 +54,92 @@ public class PlayerController {
         cardsHeld = new ArrayList<>();
     }
 
+    /**
+     * Check double move boolean.
+     *
+     * @return boolean
+     */
     public boolean checkDoubleMove() {
         return doubleMove;
     }
 
+    /**
+     * Sets double move.
+     *
+     * @param value - the value
+     */
     public void setDoubleMove(boolean value) {
         this.doubleMove = value;
     }
 
+    /**
+     * Is back tracked boolean.
+     *
+     * @return the boolean
+     */
     public boolean isBackTracked() {
         return isBackTracked;
     }
 
+    /**
+     * Sets back tracked.
+     *
+     * @param backTracked - the back tracked
+     */
     public void setBackTracked(boolean backTracked) {
         isBackTracked = backTracked;
     }
 
+    /**
+     * Gets x coordinate of player.
+     *
+     * @return the x coordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Sets x coordinate of player.
+     *
+     * @param x - the x coordinate
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Gets y coordinate of player.
+     *
+     * @return the y coordinate
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Sets y coordinate of player.
+     *
+     * @param y - the y coordinate
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Gets last three moves made by the player.
+     *
+     * @return the last three moves
+     */
     public LinkedList<int[]> getLastThree() {
         return lastThree;
     }
 
+    /**
+     * Sets last three moves made by the player.
+     *
+     * @param cards - the cards
+     */
     public void setLastThree(LinkedList<int[]> cards) {
         this.lastThree = lastThree;
 
@@ -96,8 +148,8 @@ public class PlayerController {
     /**
      * stores position of the player
      *
-     * @param x
-     * @param y
+     * @param x - the x coordinate
+     * @param y - the y coordinate
      */
     public void storePosition(int x, int y) {
         int pos[] = {x, y};
@@ -111,6 +163,12 @@ public class PlayerController {
 
     }
 
+    /**
+     * Move player.
+     *
+     * @param x - the x coordinate
+     * @param y - the y coordinate
+     */
     public void movePlayer(int x, int y) {
         if (!isBackTracked) {
             storePosition(this.x, this.y);
@@ -119,14 +177,30 @@ public class PlayerController {
         this.y = y;
     }
 
+    /**
+     * Gets player index.
+     *
+     * @return the player index
+     */
     public int getPlayerIndex() {
         return playerIndex;
     }
 
+    /**
+     * Gets profile.
+     *
+     * @return the profile
+     */
     public PlayerProfile getProfile() {
         return profile;
     }
 
+    /**
+     * Determine legal moves array list.
+     *
+     * @param board the board
+     * @return the array list
+     */
     public ArrayList<FloorCard> determineLegalMoves(Board board) {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
         FloorCard currentTile = board.getTile(x, y);
@@ -161,7 +235,7 @@ public class PlayerController {
 
 
     /**
-     * getter for cards held
+     * Getter for cards held.
      *
      * @return list of cards held
      */
@@ -170,14 +244,19 @@ public class PlayerController {
     }
 
     /**
-     * add cards
+     * Add cards.
      *
-     * @param card
+     * @param card the card
      */
     public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
     }
 
+    /**
+     * Draw player.
+     *
+     * @param gc the gc
+     */
     public void drawPlayer(GraphicsContext gc) {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
