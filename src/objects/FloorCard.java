@@ -1,5 +1,7 @@
 package objects;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.scene.image.Image;
 
@@ -11,17 +13,17 @@ import javafx.scene.image.Image;
  */
 
 
-public class FloorCard extends Card{ //need to continue javadoc
+public class FloorCard extends Card { //need to continue javadoc
 
 
     public static final int TILE_SIZE = 54;
 
     private int x, y;
     private FloorType type;
-    private boolean isFixed = true;
+    private boolean isFixed;
     private FloorTileState state = FloorTileState.NORMAL;
-    private int[] openings = new int[4];
-    private int rotation;
+    private boolean[] possiblePaths; //0 left, 1 up, 2 right, 3 down
+    private int rotation = 0;
     private Image image;
 
     private String straightTileImagePath = "resources/ROAD_straight.png";
@@ -29,13 +31,16 @@ public class FloorCard extends Card{ //need to continue javadoc
     private String tshapedTileImagePath = "resources/ROAD_Tshaped.png";
     private String goalTileImagePath = "resources/ROAD_goal.png";
 
+    public enum Direction{
+        RIGHT, LEFT, UP, DOWN;
+    }
+
     /**
      * The enum Floor type.
      */
     public enum FloorType {
         STRAIGHT, CORNER, T_SHAPED, GOAL;
     }
-
 
     /**
      * The enum Floor tile state.
@@ -68,6 +73,8 @@ public class FloorCard extends Card{ //need to continue javadoc
                 image = new Image(goalTileImagePath);
                 break;
         }
+        possiblePaths = new boolean[4];
+        setPaths();
     }
 
     /**
@@ -78,7 +85,9 @@ public class FloorCard extends Card{ //need to continue javadoc
      */
     public FloorCard(String type, int x, int y, int rotation) {
         this(type);
-        this.rotation = rotation;
+        this.x = x;
+        this.y = y;
+        setRotation(rotation);
         this.isFixed = true;
     }
 
@@ -91,7 +100,7 @@ public class FloorCard extends Card{ //need to continue javadoc
         return state;
     }
 
-    public FloorType getType(){
+    public FloorType getType() {
         return type;
     }
 
@@ -110,18 +119,47 @@ public class FloorCard extends Card{ //need to continue javadoc
     }
 
     /**
-     * Sets no state.
+     * Sets normal state.
      */
-    public void setNoState() {
+    public void setStateToNormal() {
         this.state = FloorTileState.NORMAL;
     }
 
-    public void setX(int x){
+    public void setX(int x) {
         this.x = x;
     }
 
-    public void setY(int y){
+    public void setY(int y) {
         this.y = y;
+    }
+
+    private void setPaths() {
+        switch (type) {
+            case STRAIGHT:
+                possiblePaths[0] = true;
+                possiblePaths[1] = false;
+                possiblePaths[2] = true;
+                possiblePaths[3] = false;
+                break;
+            case CORNER:
+                possiblePaths[0] = false;
+                possiblePaths[1] = true;
+                possiblePaths[2] = true;
+                possiblePaths[3] = false;
+                break;
+            case T_SHAPED:
+                possiblePaths[0] = true;
+                possiblePaths[1] = true;
+                possiblePaths[2] = true;
+                possiblePaths[3] = false;
+                break;
+            case GOAL:
+                possiblePaths[0] = true;
+                possiblePaths[1] = true;
+                possiblePaths[2] = true;
+                possiblePaths[3] = true;
+                break;
+        }
     }
 
     /**
@@ -154,60 +192,31 @@ public class FloorCard extends Card{ //need to continue javadoc
     }
 
     /**
-     * Sets fixed tiles in the board
-     *
-     * @param fixedTiles the fixed tiles
-     */
-    public void setFixed(boolean fixedTiles) {
-        isFixed = fixedTiles;
-    }
-
-
-    /**
      * Gets rotation.
+     *
      * @return the rotation
      */
     public int getRotation() {
         return rotation;
     }
 
-    /**
-     * Sets rotation.
-     *
-     * @param rotation - the rotation of the tile
-     */
 
-    public void rotateShape(int rotation) {
-        switch (type) {
-            case STRAIGHT:
-                if (rotation == 0 || rotation == 180) {
-                    setOpenings(1, 0, 1, 0);
-                } else if (rotation == 90 || rotation == 270) {
-                    setOpenings(0, 1, 0, 1);
-                }
-                break;
-            case CORNER:
-                if (rotation == 0) {
-                    setOpenings(0, 1, 1, 0);
-                } else if (rotation == 90) {
-                    setOpenings(0, 0, 1, 1);
-                } else if (rotation == 180) {
-                    setOpenings(1, 0, 0, 1);
-                } else if (rotation == 270) {
-                    setOpenings(1, 1, 0, 0);
-                }
-                break;
-            case T_SHAPED:
-                if (rotation == 0) {
-                    setOpenings(1, 1, 1, 0);
-                } else if (rotation == 90) {
-                    setOpenings(0, 1, 1, 1);
-                } else if (rotation == 180) {
-                    setOpenings(1, 0, 1, 1);
-                } else if (rotation == 270) {
-                    setOpenings(1, 1, 0, 1);
-                }
-                break;
+    private void changePaths() {
+        boolean temp = possiblePaths[3];
+        for (int i = 3; i > 0; i--) {
+            possiblePaths[i] = possiblePaths[i - 1];
+        }
+        possiblePaths[0] = temp;
+    }
+
+    private void changePaths(int times) {
+        while(times > 0) {
+            times--;
+            boolean temp = possiblePaths[3];
+            for (int i = 3; i > 0; i--) {
+                possiblePaths[i] = possiblePaths[i - 1];
+            }
+            possiblePaths[0] = temp;
         }
     }
 
@@ -216,22 +225,31 @@ public class FloorCard extends Card{ //need to continue javadoc
      */
     public void nextRotation() {
         if (rotation == 0) {
-            rotateShape(90);
+            this.rotation = 90;
+            changePaths();
         } else if (rotation == 90) {
-            rotateShape(180);
+            this.rotation = 180;
+            changePaths();
         } else if (rotation == 180) {
-            rotateShape(270);
+            this.rotation = 270;
+            changePaths();
         } else if (rotation == 270) {
-            rotateShape(0);
+            this.rotation = 0;
+            changePaths();
         }
     }
 
-    /**
-     * set rotation for tiles
-     * @param rotation
-     */
-    private void setRotation(int rotation) {
-        this.rotation = rotation;
+    private void setRotation(int rotation){
+        if (rotation == 90) {
+            this.rotation = 90;
+            changePaths(1);
+        } else if (rotation == 180) {
+            this.rotation = 180;
+            changePaths(2);
+        } else if (rotation == 270) {
+            this.rotation = 270;
+            changePaths(3);
+        }
     }
 
     /**
@@ -261,41 +279,45 @@ public class FloorCard extends Card{ //need to continue javadoc
         return y;
     }
 
-    /**
-     * Sets openings from which the player can access the path for the game
-     *
-     * @param left   - opening from the left
-     * @param top    -  opening from the top
-     * @param right  - opening from the right
-     * @param bottom - opening from the bottom
-     */
-    public void setOpenings(int left, int top, int right, int bottom) {
-        openings[0] = left;
-        openings[1] = top;
-        openings[2] = right;
-        openings[3] = bottom;
+    public boolean getOpeningAt(Direction dir) {
+        switch(dir){
+            case LEFT:
+                return possiblePaths[0];
+            case UP:
+                return possiblePaths[1];
+            case RIGHT:
+                return possiblePaths[2];
+            case DOWN:
+                return possiblePaths[3];
+            default:
+                return false;
+        }
     }
 
-
-    /**
-     * gets openings
-     * @return openings
-     */
-    public int[] getOpenings() {
-        return openings;
+    public boolean checkPath(FloorCard compare, Direction dir){
+        switch(dir){
+            case LEFT:
+                if(compare.getOpeningAt(Direction.RIGHT) && this.getOpeningAt(Direction.LEFT)){
+                    return true;
+                }
+                break;
+            case UP:
+                if(compare.getOpeningAt(Direction.DOWN) && this.getOpeningAt(Direction.UP)){
+                    return true;
+                }
+                break;
+            case RIGHT:
+                if(compare.getOpeningAt(Direction.LEFT) && this.getOpeningAt(Direction.RIGHT)){
+                    return true;
+                }
+                break;
+            case DOWN:
+                if(compare.getOpeningAt(Direction.UP) && this.getOpeningAt(Direction.DOWN)){
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
-
-    /**
-     * gets opening at certain index
-     * @param index
-     * @return
-     */
-    public int getOpeningAt(int index) {
-        return openings[index];
-    }
-
-
-
-
 
 }

@@ -110,7 +110,6 @@ public class Controller {
     }
 
     private void drawCard() {
-        currentPlayer.setPlayerMoveValue(1);
         playingCard = board.getSilkBag().drawACard();
         //show the card to the player
         //? maybe animate as well
@@ -119,7 +118,6 @@ public class Controller {
         } else if (playingCard instanceof ActionCard){
             changeState(GameState.ACTION_CARD);
         }
-        currentPlayer.setPlayerMoveValue(0);
     }
 
     private void getInsertionList() {
@@ -169,11 +167,14 @@ public class Controller {
 
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
+        System.out.println(currentPlayer.getX() + "|" + currentPlayer.getY());
+        if(tilesToCompare.isEmpty()){
+            changeState(GameState.END_TURN);
+        }
         highlightTiles();
     }
 
     private void movePlayer() {
-        if(currentPlayer.getPlayerMoveValue() == 0) {
             if (tilesToCompare.contains(selectedTile)) {
                 if (selectedTile.checkGoal()) {
                     changeState(GameState.VICTORY);
@@ -182,12 +183,16 @@ public class Controller {
                     draw();
                     tilesToCompare.clear();
                     selectedTile = null;
+                    if(currentPlayer.checkDoubleMove()){
+                        currentPlayer.setDoubleMove(false);
+                        changeState(GameState.MOVING);
+                    }
                     changeState(GameState.END_TURN);
                 }
             } else {
                 selectedTile = null;
             }
-        }
+
     }
 
     private void highlightTiles() {
@@ -236,6 +241,10 @@ public class Controller {
                 selectedTile = board.getTileFromCanvas(x, y);
                 System.out.println("x: " + selectedTile.getX() + " y: " + selectedTile.getY() + "| " + currentState);
                 System.out.println(selectedTile.getType());
+                System.out.println("Left: " + selectedTile.getOpeningAt(FloorCard.Direction.LEFT) +
+                        " UP: " + selectedTile.getOpeningAt(FloorCard.Direction.UP) +
+                        " Right: " + selectedTile.getOpeningAt(FloorCard.Direction.RIGHT) +
+                        " Down: " + selectedTile.getOpeningAt(FloorCard.Direction.DOWN));
                 playState();
             }
         });

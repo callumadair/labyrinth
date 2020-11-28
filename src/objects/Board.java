@@ -15,7 +15,6 @@ public class Board {
     private int[][] fixedTiles; //[fixedTileNum][2];
     private SilkBag silkBag;
     private FloorCard[][] map;
-    private int[][] playersMap;
     private ArrayList<PlayerController> players;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
@@ -35,7 +34,6 @@ public class Board {
     //testing only
     private void setup() {
         map = new FloorCard[5][5];
-        playersMap = new int[5][5];
         width = 5;
         height = 5;
         for(int i = 0; i < 5; i++){
@@ -171,6 +169,9 @@ public class Board {
     }
 
     public FloorCard getTile(int x, int y) {
+        if(x < 0 || y < 0 || x >= width || y >= height){
+            return null;
+        }
         return map[x][y];
     }
 
@@ -180,12 +181,15 @@ public class Board {
 
     public void changePlayerPosition(PlayerController player, int x, int y){
         player.movePlayer(x, y);
-        playersMap[x][y] = player.getPlayerIndex();
     }
 
     public boolean checkPlayerPosition(int x, int y){
-        return playersMap[x][y] == 0 || playersMap[x][y] == 1 ||
-                playersMap[x][y] ==  2 || playersMap[x][y] ==  3;
+        for(PlayerController player : players){
+            if(player.getX() == x && player.getY() == y){
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<PlayerController> getPlayers(){
@@ -193,6 +197,11 @@ public class Board {
     }
 
     public PlayerController getPlayer(int x, int y){
-        return players.get(playersMap[x][y]);
+        for(PlayerController player : players){
+            if(player.getX() == x && player.getY() == y){
+                return player;
+            }
+        }
+        return null;
     }
 }
