@@ -60,7 +60,7 @@ public class MenuController extends Application implements Initializable{
      */
     public static void main(String[] args) {
         //playMusiclevanPolkaa("src\\resources\\music.wav");
-        //playMusicNyanCat("src\\resources\\MenuMusic.wav");
+        playMusicNyanCat("src\\resources\\MenuMusic.wav");
         launch(args);
 
     }
@@ -144,7 +144,7 @@ public class MenuController extends Application implements Initializable{
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();

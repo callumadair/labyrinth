@@ -30,14 +30,4 @@
             </BorderPane.margin>
         </Label>
    </top>
-   <bottom>
-        <Button fx:id="backButton" blendMode="DARKEN" graphicTextGap="5.0" mnemonicParsing="false" onAction="#handleTakeMeBackButtonAction" style="-fx-background-color: #808080;" text="Menu" textAlignment="CENTER" textFill="#05011b" BorderPane.alignment="TOP_CENTER">
-            <font>
-                <Font name="Quicksand Medium" size="12.0" />
-            </font>
-         <BorderPane.margin>
-            <Insets bottom="10.0" />
-         </BorderPane.margin>
-        </Button>
-    </bottom>
 </BorderPane>
