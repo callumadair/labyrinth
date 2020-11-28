@@ -66,7 +66,7 @@ public class Board {
     private void setup(FloorCard[] fixedTiles) {
         map = new FloorCard[width][height];
         for (FloorCard fixed : fixedTiles) {
-            insertTile(fixed, fixed.getX(), fixed.getY());
+            map[fixed.getX()][fixed.getY()] = fixed;
         }
 
         for (int i = 0; i < map.length; i++) {
