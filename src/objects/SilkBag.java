@@ -41,4 +41,14 @@ public class SilkBag {
         return randomCard;
     }
 
+    public FloorCard drawFloorCard() {
+        int card = randomGenerator.nextInt(listOfCards.size());
+        Card randomCard = (FloorCard) listOfCards.get(card);
+        while (!randomCard.getClass().getSimpleName().equals("FloorCard")) {
+            card = randomGenerator.nextInt(listOfCards.size());
+            randomCard = listOfCards.get(card);
+        }
+        listOfCards.remove(card);
+        return (FloorCard) randomCard;
+    }
 }

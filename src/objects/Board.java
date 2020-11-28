@@ -69,7 +69,11 @@ public class Board {
         }
 
         for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[])
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == null) {
+                    insertTile(getSilkBag().drawFloorCard(), i, j);
+                }
+            }
         }
     }
 
