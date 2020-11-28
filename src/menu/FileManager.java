@@ -51,6 +51,7 @@ public class FileManager {
     public void loadBoard(int boardNum) throws FileNotFoundException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         Scanner scanner = new Scanner(boardFile);
+        Board board = new Board();
 
         int width = scanner.nextInt();
         int length = scanner.nextInt();
@@ -76,7 +77,7 @@ public class FileManager {
         createFloorCards(scanner.nextInt(), "STRAIGHT", silkBagCards);
         createFloorCards(scanner.nextInt(), "CORNER", silkBagCards);
         createFloorCards(scanner.nextInt(), "T_SHAPED", silkBagCards);
-        createFloorCards(scanner.nextInt(), "GOAL", silkBagCards); //needed?
+        //createFloorCards(scanner.nextInt(), "GOAL", silkBagCards); needed?
         scanner.nextLine();
         silkBagCards.addAll(createActionCards(scanner.nextInt(), "FIRE"));
         silkBagCards.addAll(createActionCards(scanner.nextInt(), "ICE"));
@@ -85,7 +86,6 @@ public class FileManager {
 
         SilkBag silkBag = new SilkBag(silkBagCards.size());
         silkBag.setListOfCards(silkBagCards);
-
 
     }
 
