@@ -43,7 +43,7 @@ public class SilkBag {
 
     public FloorCard drawFloorCard() {
         int card = randomGenerator.nextInt(listOfCards.size());
-        Card randomCard = (FloorCard) listOfCards.get(card);
+        Card randomCard = listOfCards.get(card);
         while (!randomCard.getClass().getSimpleName().equals("FloorCard")) {
             card = randomGenerator.nextInt(listOfCards.size());
             randomCard = listOfCards.get(card);
