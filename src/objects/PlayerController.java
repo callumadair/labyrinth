@@ -106,20 +106,20 @@ public class PlayerController {
     }
 
 
-    public boolean isOnLeft(FloorCard currentFloor){
-        return x == currentFloor.getX() - 1 && y == currentFloor.getY();
+    public boolean isOnLeft(FloorCard currentFloor, Board board){
+        return board.getTile(x, y).getX() == currentFloor.getX() - 1 && board.getTile(x, y).getY() == currentFloor.getY();
     }
 
-    public boolean isOnRight(FloorCard currentFloor){
-        return x == currentFloor.getX() + 1 && y == currentFloor.getY();
+    public boolean isOnRight(FloorCard currentFloor, Board board){
+        return board.getTile(x, y).getX() == currentFloor.getX() + 1 && board.getTile(x, y).getY() == currentFloor.getY();
     }
 
-    public boolean isOnTop(FloorCard currentFloor){
-        return x == currentFloor.getX() && y == currentFloor.getY() + 1;
+    public boolean isOnTop(FloorCard currentFloor, Board board){
+        return board.getTile(x, y).getX() == currentFloor.getX() && board.getTile(x, y).getY() == currentFloor.getY() + 1;
     }
 
-    public boolean isOnBottom(FloorCard currentFloor){
-        return x == currentFloor.getX() && y == currentFloor.getY() - 1;
+    public boolean isOnBottom(FloorCard currentFloor, Board board){
+        return board.getTile(x, y).getX() == currentFloor.getX() && board.getTile(x, y).getY() == currentFloor.getY() - 1;
     }
 
     public FloorCard getOnLeft(FloorCard currentFloor, Board board){
@@ -136,7 +136,6 @@ public class PlayerController {
         } else {
             return board.getTile(currentFloor.getX() + 1, currentFloor.getY());
         }
-
     }
 
     public FloorCard getOnTop(FloorCard currentFloor, Board board){
@@ -153,25 +152,29 @@ public class PlayerController {
         } else {
             return board.getTile(currentFloor.getX(), currentFloor.getY() - 1);
         }
-
     }
 
 
     public ArrayList<FloorCard> determineLegalMoves(Board board) {
-        ArrayList<FloorCard> legalMoves = new ArrayList<FloorCard>();
-        if (isOnLeft(board.getTile(x,y))){
+        ArrayList<FloorCard> legalMoves = new ArrayList<>();
+        FloorCard left = getOnLeft(board.getTile(x, y), board);
+        FloorCard top = getOnTop(board.getTile(x, y), board);
+        FloorCard right = getOnRight(board.getTile(x, y), board);
+        FloorCard bottom = getOnBottom(board.getTile(x, y), board);
+
+        if (left != null){
             if (board.getTile(x,y).getOpeningAt(0) == getOnLeft(board.getTile(x,y), board).getOpeningAt(2)) {
                 legalMoves.add(getOnLeft(board.getTile(x,y), board));
             }
-        } else if (isOnTop(board.getTile(x,y))) {
+        } else if (top != null) {
             if(board.getTile(x,y).getOpeningAt(1) == getOnTop(board.getTile(x,y), board).getOpeningAt(3)) {
                 legalMoves.add(getOnTop(board.getTile(x,y), board));
             }
-        } else if (isOnRight(board.getTile(x,y))) {
+        } else if (right != null) {
             if(board.getTile(x,y).getOpeningAt(2) == getOnRight(board.getTile(x,y), board).getOpeningAt(0)) {
                 legalMoves.add(getOnRight(board.getTile(x,y), board));
             }
-        } else if (isOnBottom(board.getTile(x,y))) {
+        } else if (bottom != null) {
             if(board.getTile(x,y).getOpeningAt(3) == getOnBottom(board.getTile(x,y), board).getOpeningAt(3)) {
                 legalMoves.add(getOnBottom(board.getTile(x,y), board));
             }
