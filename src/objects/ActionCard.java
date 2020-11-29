@@ -11,8 +11,6 @@ public class ActionCard extends Card {
 
     private ActionCardType type;
     private Image image;
-    private FloorCard floor;
-    private PlayerController player;
 
     private String fireImagePath;
     private String iceImagePath;
@@ -83,7 +81,7 @@ public class ActionCard extends Card {
             }
         }
 
-        if (playerIsInRange = true) {
+        if (playerIsInRange == true) {
             return false;
         } else {
             for (FloorCard tile : tiles) {
@@ -97,21 +95,27 @@ public class ActionCard extends Card {
     private boolean useIceCard(Board board, int x, int y) {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
-            for (FloorCard tile : tiles) {
-                tile.setOnIce();
-            }
-            return true;
+        for (FloorCard tile : tiles) {
+            tile.setOnIce();
+        }
+        return true;
     }
 
-
     private boolean useBackTrackCard(Board board, int x, int y) {
-        board.changePlayerPosition(player, player.getLastThree().getLast().getX(), player.getLastThree().getLast().getY());
-        return false;
+        PlayerController player = board.getPlayer(x, y);
+
+        if (player.isBackTracked() == true) {
+            return false;
+        } else {
+            board.changePlayerPosition(player,
+                    player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
+            player.setBackTracked(true);
+        }
+        return true;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        board.changePlayerPosition(player, x, y);
-        board.changePlayerPosition(player, x, y);
+        board.getPlayer(x, y).setDoubleMove(true);
         return true;
     }
 

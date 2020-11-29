@@ -20,11 +20,13 @@ public class PlayerController {
     private Image image;
     private int x, y;
     private ArrayList<Card> cardsHeld;
+
+    private LinkedList<int[]> lastThree;
+
     private PlayerProfile profile;
     private int playerIndex;
-
-    private LinkedList<FloorCard> lastThree;
-
+    private boolean doubleMove = false;
+    private boolean isBackTracked = false;
 
 
     /**
@@ -34,7 +36,7 @@ public class PlayerController {
     public PlayerController(PlayerProfile profile, int playerIndex) {
         this.profile = profile;
         this.playerIndex = playerIndex;
-        switch (playerIndex){
+        switch (playerIndex) {
             case 0:
                 image = new Image(playerImage1);
                 break;
@@ -48,6 +50,24 @@ public class PlayerController {
                 image = new Image(playerImage4);
                 break;
         }
+        lastThree = new LinkedList<>();
+        cardsHeld = new ArrayList<>();
+    }
+
+    public boolean checkDoubleMove() {
+        return doubleMove;
+    }
+
+    public void setDoubleMove(boolean value) {
+        this.doubleMove = value;
+    }
+
+    public boolean isBackTracked() {
+        return isBackTracked;
+    }
+
+    public void setBackTracked(boolean backTracked) {
+        isBackTracked = backTracked;
     }
 
     public int getX() {
@@ -66,11 +86,11 @@ public class PlayerController {
         this.y = y;
     }
 
-    public LinkedList<FloorCard> getLastThree() {
+    public LinkedList<int[]> getLastThree() {
         return lastThree;
     }
 
-    public void setLastThree(LinkedList<FloorCard> cards) {
+    public void setLastThree(LinkedList<int[]> cards) {
         this.lastThree = lastThree;
 
     }
@@ -82,102 +102,62 @@ public class PlayerController {
      * @param y
      */
     public void storePosition(int x, int y) {
-        //last el = current pos, first el 2 pos back
-        /*
+        int pos[] = {x, y};
+
         if (lastThree.size() == 3) {
-            lastThree.add(board.getTile(x, y));
+            lastThree.add(pos);
             lastThree.removeFirst();
         } else {
-            lastThree.add(board.getTile(x, y));
+            lastThree.add(pos);
         }
-         */
+
     }
 
     public void movePlayer(int x, int y) {
-        storePosition(this.x, this.y);
+        if (!isBackTracked) {
+            storePosition(this.x, this.y);
+        }
         this.x = x;
         this.y = y;
     }
 
-    public int getPlayerIndex(){
+    public int getPlayerIndex() {
         return playerIndex;
     }
 
-    public PlayerProfile getProfile(){
+    public PlayerProfile getProfile() {
         return profile;
     }
 
-
-    public boolean isOnLeft(FloorCard currentFloor){
-        return x == currentFloor.getX() - 1 && y == currentFloor.getY();
-    }
-
-    public boolean isOnRight(FloorCard currentFloor){
-        return x == currentFloor.getX() + 1 && y == currentFloor.getY();
-    }
-
-    public boolean isOnTop(FloorCard currentFloor){
-        return x == currentFloor.getX() && y == currentFloor.getY() + 1;
-    }
-
-    public boolean isOnBottom(FloorCard currentFloor){
-        return x == currentFloor.getX() && y == currentFloor.getY() - 1;
-    }
-
-    public FloorCard getOnLeft(FloorCard currentFloor, Board board){
-        if (currentFloor.getX() == 0) {
-            return null;
-        } else {
-            return board.getTile(currentFloor.getX() - 1, currentFloor.getY());
-        }
-    }
-
-    public FloorCard getOnRight(FloorCard currentFloor, Board board){
-        if (currentFloor.getX() == board.getWidth() - 1) {
-            return null;
-        } else {
-            return board.getTile(currentFloor.getX() + 1, currentFloor.getY());
-        }
-
-    }
-
-    public FloorCard getOnTop(FloorCard currentFloor, Board board){
-        if (currentFloor.getY() == 0) {
-            return null;
-        } else {
-            return board.getTile(currentFloor.getX(), currentFloor.getY() + 1);
-        }
-    }
-
-    public FloorCard getOnBottom(FloorCard currentFloor, Board board){
-        if (currentFloor.getY() == board.getHeight() - 1) {
-            return null;
-        } else {
-            return board.getTile(currentFloor.getX(), currentFloor.getY() - 1);
-        }
-
-    }
-
-
     public ArrayList<FloorCard> determineLegalMoves(Board board) {
-        ArrayList<FloorCard> legalMoves = new ArrayList<FloorCard>();
-        if (isOnLeft(board.getTile(x,y))){
-            if (board.getTile(x,y).getOpeningAt(0) == getOnLeft(board.getTile(x,y), board).getOpeningAt(2)) {
-                legalMoves.add(getOnLeft(board.getTile(x,y), board));
-            }
-        } else if (isOnTop(board.getTile(x,y))) {
-            if(board.getTile(x,y).getOpeningAt(1) == getOnTop(board.getTile(x,y), board).getOpeningAt(3)) {
-                legalMoves.add(getOnTop(board.getTile(x,y), board));
-            }
-        } else if (isOnRight(board.getTile(x,y))) {
-            if(board.getTile(x,y).getOpeningAt(2) == getOnRight(board.getTile(x,y), board).getOpeningAt(0)) {
-                legalMoves.add(getOnRight(board.getTile(x,y), board));
-            }
-        } else if (isOnBottom(board.getTile(x,y))) {
-            if(board.getTile(x,y).getOpeningAt(3) == getOnBottom(board.getTile(x,y), board).getOpeningAt(3)) {
-                legalMoves.add(getOnBottom(board.getTile(x,y), board));
+        ArrayList<FloorCard> legalMoves = new ArrayList<>();
+        FloorCard currentTile = board.getTile(x, y);
+        FloorCard left = board.getTile(x - 1, y);
+        FloorCard top = board.getTile(x, y + 1);
+        FloorCard right = board.getTile(x + 1, y);
+        FloorCard bottom = board.getTile(x, y - 1);
+
+        if (left != null) {
+            if (currentTile.checkPath(left, FloorCard.Direction.LEFT)) {
+                legalMoves.add(left);
             }
         }
+        if (top != null) {
+            if (currentTile.checkPath(top, FloorCard.Direction.UP)) {
+                legalMoves.add(top);
+            }
+        }
+        if (right != null) {
+            if (currentTile.checkPath(right, FloorCard.Direction.RIGHT)) {
+                legalMoves.add(right);
+            }
+        }
+        if (bottom != null) {
+            if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)) {
+                legalMoves.add(bottom);
+            }
+        }
+
         return legalMoves;
     }
 
@@ -200,7 +180,7 @@ public class PlayerController {
         cardsHeld.add(card);
     }
 
-    public void drawPlayer(GraphicsContext gc){
+    public void drawPlayer(GraphicsContext gc) {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 }

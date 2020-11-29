@@ -1,5 +1,6 @@
 package menu;
 
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,11 +8,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jdk.internal.util.xml.impl.Input;
@@ -27,10 +32,21 @@ import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import javafx.animation.*;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
+import javafx.util.*;
+import sun.audio.*;
+
+import java.io.*;
+import java.net.*;
 import java.util.*;
-import java.io.InputStream;
-import java.io.File;
-import java.util.prefs.Preferences;
 
 /**
  * The type Menu controller.
@@ -52,6 +68,9 @@ public class MenuController extends Application implements Initializable{
     private Label textLabelID;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button musicOnOffButton;
+    private static MediaPlayer menuMusic;
 
     /**
      * The entry point of application.
@@ -60,7 +79,7 @@ public class MenuController extends Application implements Initializable{
      */
     public static void main(String[] args) {
         //playMusiclevanPolkaa("src\\resources\\music.wav");
-        playMusicNyanCat("src\\resources\\NyanCat.wav");
+        playMusicNyanCat("src\\resources\\MenuMusic.wav");
         launch(args);
 
     }
@@ -77,7 +96,19 @@ public class MenuController extends Application implements Initializable{
             e.printStackTrace();
         }
     }
-
+    
+    @FXML
+    private void musicOnOffButtonClick(ActionEvent actionEvent) {
+    	if(menuMusic.getStatus().equals(Status.PLAYING)) {
+    		menuMusic.pause();
+    		musicOnOffButton.setText("Music Off");
+    	}else {
+    		menuMusic.play();
+    		musicOnOffButton.setText("Music On");
+    	}
+    }
+    
+    
     /**
      * Handle quit button action.
      *
@@ -144,7 +175,7 @@ public class MenuController extends Application implements Initializable{
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();
@@ -222,7 +253,7 @@ public class MenuController extends Application implements Initializable{
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	try {
-			textLabelID.setText(GetFinalMessage.finalMessage());
+			textLabelID.setText(MessageOfTheDay.finalMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -290,17 +321,21 @@ public class MenuController extends Application implements Initializable{
         }
 
     }
+    
     public static void playMusicNyanCat(String filepath){
-        InputStream nyanCatMusic;
+    		Media music = new Media(new File(filepath).toURI().toString());
+    		menuMusic = new MediaPlayer(music);
+    		menuMusic.play();
+        /*InputStream nyanCatMusic;
         try
         {
             nyanCatMusic = new FileInputStream(new File(filepath));
-            AudioStream nyanCatAudio = new AudioStream(nyanCatMusic);
+            AudioPlayer nyanCatAudio = new AudioPlayer(nyanCatMusic);
             AudioPlayer.player.start(nyanCatAudio);
         }
         catch(IOException e){
             e.printStackTrace();
         }
-
+		*/
     }
 }
