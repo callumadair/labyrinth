@@ -1,5 +1,6 @@
 package objects;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ public class ActionCard extends Card {
     private ActionCardType type;
     private Image image;
 
-    private String fireImagePath;
-    private String iceImagePath;
-    private String backtrackImagePath;
-    private String doubleMoveImagePath;
+    private String fireImagePath = "resources/ROAD-Cardfire.png";
+    private String iceImagePath = "resources/ROAD-CardIce.png";
+    private String backtrackImagePath = "resources/ROAD-CardReverse.png";
+    private String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
 
 
     /**
@@ -37,7 +38,7 @@ public class ActionCard extends Card {
         switch (type) {
             case "FIRE":
                 this.type = ActionCardType.FIRE;
-                image = new Image(fireImagePath);
+                image = new Image("");
                 break;
             case "ICE":
                 this.type = ActionCardType.ICE;
@@ -184,5 +185,8 @@ public class ActionCard extends Card {
         return area;
     }
 
+    public Image getImage() {
+        return image;
+    }
 }
 

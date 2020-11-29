@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import objects.Controller;
@@ -29,6 +31,7 @@ public class Main extends Application {
         Controller c = new Controller();
 
         root.setCenter(c.getCanvas());
+
         stage.setScene(scene);
         stage.show();
     }

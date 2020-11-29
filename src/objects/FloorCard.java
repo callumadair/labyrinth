@@ -3,6 +3,7 @@ package objects;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
@@ -352,6 +353,9 @@ public class FloorCard extends Card { //need to continue javadoc
                 break;
         }
         return false;
+    }
+    public void drawCard(GraphicsContext gc) {
+        gc.drawImage(image, 20, 30);
     }
 
 }
