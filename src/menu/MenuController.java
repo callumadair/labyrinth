@@ -123,8 +123,8 @@ public class MenuController extends Application implements Initializable{
 
         //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
         try {
-          //  playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
-          //  playMusicMegalovania("src\\resources\\megalovania.wav");
+           // playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
+           // playMusicMegalovania("src\\resources\\megalovania.wav");
             BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
             stackPane.getChildren().remove(borderPane);

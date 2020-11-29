@@ -192,11 +192,13 @@ public class Board {
     public int[][] getFixedTiles() {
         return fixedTiles;
 
-    public ArrayList<PlayerController> getPlayers(){
-        return players;
+        public ArrayList<PlayerController> getPlayers () {
+            return players;
+        }
+
+        public PlayerController getPlayer ( int x, int y){
+            return players.get(playersMap[x][y]);
+        }
     }
 
-    public PlayerController getPlayer(int x, int y){
-        return players.get(playersMap[x][y]);
-    }
 }
