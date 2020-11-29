@@ -1,36 +1,21 @@
 package menu;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import jdk.internal.util.xml.impl.Input;
-import menu.DailyMessage.GetFinalMessage;
-import javafx.animation.Animation;
-import javafx.animation.TranslateTransition;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+import javafx.animation.*;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
+import javafx.util.*;
+import menu.DailyMessage.*;
+import sun.audio.*;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.swing.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.util.*;
-import java.io.InputStream;
-import java.io.File;
-import java.util.prefs.Preferences;
 
 /**
  * The type Menu controller.
@@ -39,7 +24,7 @@ import java.util.prefs.Preferences;
  * @author Callum Adair
  * @author Jeffrey
  */
-public class MenuController extends Application implements Initializable{
+public class MenuController extends Application implements Initializable {
 
     private Stage stage;
     private Scene primaryScene;
@@ -123,8 +108,8 @@ public class MenuController extends Application implements Initializable{
 
         //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
         try {
-          //  playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
-          //  playMusicMegalovania("src\\resources\\megalovania.wav");
+            //  playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
+            //  playMusicMegalovania("src\\resources\\megalovania.wav");
             BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
             stackPane.getChildren().remove(borderPane);
@@ -220,21 +205,21 @@ public class MenuController extends Application implements Initializable{
     }
 
     @Override
-	public void initialize(URL location, ResourceBundle resources) {
-    	try {
-			textLabelID.setText(GetFinalMessage.finalMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            textLabelID.setText(GetFinalMessage.finalMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    	TranslateTransition backgroundMove = new TranslateTransition();
-    	backgroundMove.setDuration(Duration.millis(5000));
-    	backgroundMove.setNode(imageView);
-    	backgroundMove.setFromX(0);
-    	backgroundMove.setToX(30);
-		backgroundMove.setAutoReverse(true);
-		backgroundMove.setCycleCount(Animation.INDEFINITE);
-		backgroundMove.play();
+        TranslateTransition backgroundMove = new TranslateTransition();
+        backgroundMove.setDuration(Duration.millis(5000));
+        backgroundMove.setNode(imageView);
+        backgroundMove.setFromX(0);
+        backgroundMove.setToX(30);
+        backgroundMove.setAutoReverse(true);
+        backgroundMove.setCycleCount(Animation.INDEFINITE);
+        backgroundMove.play();
     }
 
     /**
@@ -243,62 +228,57 @@ public class MenuController extends Application implements Initializable{
      * @param fadeOut the fade out
      */
     private void makeFadeOut(Pane fadeOut) {
-    	TranslateTransition windowTransition =new TranslateTransition();
-    	windowTransition.setDuration(Duration.millis(500));
-		windowTransition.setNode(fadeOut);
-		windowTransition.setFromX(700);
-		windowTransition.setToX(0);
-		windowTransition.play();
+        TranslateTransition windowTransition = new TranslateTransition();
+        windowTransition.setDuration(Duration.millis(500));
+        windowTransition.setNode(fadeOut);
+        windowTransition.setFromX(700);
+        windowTransition.setToX(0);
+        windowTransition.play();
     }
 
-    public static void playMusiclevanPolkaa (String filepath){
+    public static void playMusiclevanPolkaa(String filepath) {
         InputStream music;
-        try
-        {
+        try {
             music = new FileInputStream(new File(filepath));
             AudioStream audio = new AudioStream(music);
             AudioPlayer.player.start(audio);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-    public static void playMusicMegalovania (String filepath){
+
+    public static void playMusicMegalovania(String filepath) {
         InputStream megalovaniaMusic;
-        try
-        {
+        try {
             megalovaniaMusic = new FileInputStream(new File(filepath));
             AudioStream megalovaniaAudio = new AudioStream(megalovaniaMusic);
             AudioPlayer.player.start(megalovaniaAudio);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-    public static void playMusicHEYYEYAAEYAAAEYAEYAA(String filepath){
+
+    public static void playMusicHEYYEYAAEYAAAEYAEYAA(String filepath) {
         InputStream HEYYEYAAEYAAAEYAEYAAMusic;
-        try
-        {
+        try {
             HEYYEYAAEYAAAEYAEYAAMusic = new FileInputStream(new File(filepath));
             AudioStream HEYYEYAAEYAAAEYAEYAAAudio = new AudioStream(HEYYEYAAEYAAAEYAEYAAMusic);
             AudioPlayer.player.start(HEYYEYAAEYAAAEYAEYAAAudio);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-    public static void playMusicNyanCat(String filepath){
+
+    public static void playMusicNyanCat(String filepath) {
         InputStream nyanCatMusic;
-        try
-        {
+        try {
             nyanCatMusic = new FileInputStream(new File(filepath));
             AudioStream nyanCatAudio = new AudioStream(nyanCatMusic);
             AudioPlayer.player.start(nyanCatAudio);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
