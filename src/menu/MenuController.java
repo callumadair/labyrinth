@@ -1,5 +1,6 @@
 package menu;
 
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,10 +32,21 @@ import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import javafx.animation.*;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
+import javafx.util.*;
+import sun.audio.*;
+
+import java.io.*;
+import java.net.*;
 import java.util.*;
-import java.io.InputStream;
-import java.io.File;
-import java.util.prefs.Preferences;
 
 /**
  * The type Menu controller.
