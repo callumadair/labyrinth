@@ -1,5 +1,6 @@
 package objects;
 
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -19,14 +20,16 @@ import javafx.scene.image.ImageView;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+
 import java.util.ArrayList;
 
-public class Game {
+public class Game{
 
     private Scene scene;
-    //private Image;
 
-    public Game(String[][] boardData, ArrayList<PlayerController> players) {
+
+    public void Game(String[][] boardData, ArrayList<PlayerController> players){
+
         BorderPane pane = new BorderPane();
         scene = new Scene(pane, 800, 600);
         Controller controller = new Controller(boardData, players);
@@ -70,5 +73,9 @@ public class Game {
         }
 
 
+
     }
 }
+
+
+

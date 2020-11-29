@@ -141,9 +141,22 @@ public class Controller {
     }
 
     private void playActionCard() {
-        playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
 
         //player needs to choose action card
+/*
+        if(playingCard.equals("BACKTRACK")){
+        //player needs to choose another player's position
+            if(board.checkPlayerPosition(x,y)){
+                playingCard.useCard(board, x, y);
+            }
+        }else if(playingCard.equals("DOUBLE_MOVE")){
+            playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
+        }else if(playingCard.equals("ICE")){
+            //player chooses a tile
+        }else if(playingCard.equals("FIRE")) {
+            //player chooses a tile
+        }
+*/
         //player needs to select a tile and it needs to be validated
     }
 
@@ -157,9 +170,6 @@ public class Controller {
                 //show cards
             }
         }
-
-        //if()
-
         //add playingCard to players action cards
         //show players action cards if none go to moving
         //give player the ability to skip this state
