@@ -1,6 +1,5 @@
 package menu;
 
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,21 +31,10 @@ import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import javafx.animation.*;
-import javafx.application.*;
-import javafx.event.*;
-import javafx.fxml.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
-import javafx.stage.*;
-import javafx.util.*;
-import sun.audio.*;
-
-import java.io.*;
-import java.net.*;
 import java.util.*;
+import java.io.InputStream;
+import java.io.File;
+import java.util.prefs.Preferences;
 
 /**
  * The type Menu controller.
@@ -79,7 +67,7 @@ public class MenuController extends Application implements Initializable{
      */
     public static void main(String[] args) {
         //playMusiclevanPolkaa("src\\resources\\music.wav");
-        playMusicNyanCat("src\\resources\\MenuMusic.wav");
+        playMusic("src\\resources\\MenuMusic.wav");
         launch(args);
 
     }
@@ -282,47 +270,7 @@ public class MenuController extends Application implements Initializable{
 		windowTransition.play();
     }
 
-    public static void playMusiclevanPolkaa (String filepath){
-        InputStream music;
-        try
-        {
-            music = new FileInputStream(new File(filepath));
-            AudioStream audio = new AudioStream(music);
-            AudioPlayer.player.start(audio);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-
-    }
-    public static void playMusicMegalovania (String filepath){
-        InputStream megalovaniaMusic;
-        try
-        {
-            megalovaniaMusic = new FileInputStream(new File(filepath));
-            AudioStream megalovaniaAudio = new AudioStream(megalovaniaMusic);
-            AudioPlayer.player.start(megalovaniaAudio);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-
-    }
-    public static void playMusicHEYYEYAAEYAAAEYAEYAA(String filepath){
-        InputStream HEYYEYAAEYAAAEYAEYAAMusic;
-        try
-        {
-            HEYYEYAAEYAAAEYAEYAAMusic = new FileInputStream(new File(filepath));
-            AudioStream HEYYEYAAEYAAAEYAEYAAAudio = new AudioStream(HEYYEYAAEYAAAEYAEYAAMusic);
-            AudioPlayer.player.start(HEYYEYAAEYAAAEYAEYAAAudio);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-
-    }
-    
-    public static void playMusicNyanCat(String filepath){
+    public static void playMusic(String filepath){
     		Media music = new Media(new File(filepath).toURI().toString());
     		menuMusic = new MediaPlayer(music);
     		menuMusic.play();
