@@ -11,10 +11,6 @@ import java.util.ArrayList;
 
 public class Controller {
 
-    enum GameState {
-        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
-    }
-
     private ArrayList<PlayerController> players;
     private int playerIndex = 0;
     private int numOfPlayers = 0;
@@ -24,6 +20,7 @@ public class Controller {
     private FloorCard selectedTile;
     private Card playingCard;
     private GameState currentState;
+
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
@@ -59,6 +56,10 @@ public class Controller {
 
         draw();
         startGame();
+    }
+
+    enum GameState {
+        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
     }
 
     public void startGame() {
@@ -264,4 +265,13 @@ public class Controller {
             player.drawPlayer(canvas.getGraphicsContext2D());
         }
     }
+
+    public PlayerController getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public ArrayList<PlayerController> getPlayers() {
+        return players;
+    }
+
 }
