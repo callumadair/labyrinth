@@ -7,11 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jdk.internal.util.xml.impl.Input;
@@ -52,6 +56,9 @@ public class MenuController extends Application implements Initializable{
     private Label textLabelID;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button musicOnOffButton;
+    private static MediaPlayer menuMusic;
 
     /**
      * The entry point of application.
@@ -77,7 +84,19 @@ public class MenuController extends Application implements Initializable{
             e.printStackTrace();
         }
     }
-
+    
+    @FXML
+    private void musicOnOffButtonClick(ActionEvent actionEvent) {
+    	if(menuMusic.getStatus().equals(Status.PLAYING)) {
+    		menuMusic.pause();
+    		musicOnOffButton.setText("Music Off");
+    	}else {
+    		menuMusic.play();
+    		musicOnOffButton.setText("Music On");
+    	}
+    }
+    
+    
     /**
      * Handle quit button action.
      *
@@ -290,17 +309,21 @@ public class MenuController extends Application implements Initializable{
         }
 
     }
+    
     public static void playMusicNyanCat(String filepath){
-        InputStream nyanCatMusic;
+    		Media music = new Media(new File(filepath).toURI().toString());
+    		menuMusic = new MediaPlayer(music);
+    		menuMusic.play();
+        /*InputStream nyanCatMusic;
         try
         {
             nyanCatMusic = new FileInputStream(new File(filepath));
-            AudioStream nyanCatAudio = new AudioStream(nyanCatMusic);
+            AudioPlayer nyanCatAudio = new AudioPlayer(nyanCatMusic);
             AudioPlayer.player.start(nyanCatAudio);
         }
         catch(IOException e){
             e.printStackTrace();
         }
-
+		*/
     }
 }

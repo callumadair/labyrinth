@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -33,11 +32,6 @@
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></ImageView>
-      <ToggleButton mnemonicParsing="false" text="Music On/Off" StackPane.alignment="TOP_RIGHT">
-         <StackPane.margin>
-            <Insets right="5.0" top="5.0" />
-         </StackPane.margin>
-      </ToggleButton>
       <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="1200.0">
           <stylesheets>
               <URL value="@../resources/menucontrollerstyle.css" />
@@ -46,7 +40,7 @@
          <center>
             <StackPane prefHeight="429.0" prefWidth="1200.0" BorderPane.alignment="CENTER_LEFT">
                <children>
-                  <VBox fx:id="musicOnOffButton" alignment="BOTTOM_CENTER" spacing="20.0">
+                  <VBox alignment="BOTTOM_CENTER" spacing="20.0">
                      <children>
                             <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handlePlayButtonAction" prefWidth="200.0" text="Play" textFill="#191640">
                                 <font>
@@ -109,6 +103,13 @@
                </children>
             </HBox>
          </bottom>
+         <right>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="musicOnOffButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#musicOnOffButtonClick" text="Music ON" />
+               </children>
+            </VBox>
+         </right>
       </BorderPane>
    </children>
 </StackPane>
