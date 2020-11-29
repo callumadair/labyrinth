@@ -1,23 +1,21 @@
-import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.stage.Stage;
-import objects.Controller;
-import objects.Game;
-import objects.PlayerController;
+import javafx.application.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.stage.*;
+import menu.*;
+import objects.*;
 
+import java.util.*;
 
 public class Main extends Application {
 
+    double orgSceneX, orgSceneY;
+    double orgTranslateX, orgTranslateY;
+
+    // FlowPane for menu
+    // BorderPane for game
+    // TilePane for the board
     public static void main(String[] args) {
         System.out.println("Starting app");
 
@@ -36,8 +34,15 @@ public class Main extends Application {
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
         int width = 5;
         int height = 5;
-        Controller c = new Controller();
 
+        ArrayList<PlayerController> players = new ArrayList<PlayerController>(); // testing only
+        players.add(new PlayerController(null, 0)); // testing only
+        players.add(new PlayerController(null, 1)); // testing only
+        players.add(new PlayerController(null, 2)); // testing only
+        Board board = FileManager.loadBoard(1);
+        board.setPlayers(players);
+
+        Controller c = new Controller(board);
 
         root.setCenter(c.getCanvas());
         stage.setScene(scene);

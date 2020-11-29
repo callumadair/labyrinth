@@ -1,13 +1,11 @@
 package objects;
 
-import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import javafx.event.*;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Controller {
 
@@ -39,6 +37,17 @@ public class Controller {
         startGame();
     }
 
+    public Controller(Board b){
+        board = b;
+        this.players = b.getPlayers();
+
+        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
+                board.getHeight() * FloorCard.TILE_SIZE);
+        enableRetrievingTilesFromCanvas();
+
+        draw();
+        startGame();
+    }
     //testing only
     public Controller() {
         board = new Board();
@@ -141,6 +150,7 @@ public class Controller {
     }
 
     private void playActionCard() {
+        playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
 
         //player needs to choose action card
 /*
@@ -170,6 +180,9 @@ public class Controller {
                 //show cards
             }
         }
+
+        //if()
+
         //add playingCard to players action cards
         //show players action cards if none go to moving
         //give player the ability to skip this state
