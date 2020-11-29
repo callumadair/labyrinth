@@ -142,7 +142,7 @@ public class Controller {
     private void playActionCard() {
 
         //player needs to choose action card
-
+/*
         if(playingCard.equals("BACKTRACK")){
         //player needs to choose another player's position
             if(board.checkPlayerPosition(x,y)){
@@ -155,7 +155,7 @@ public class Controller {
         }else if(playingCard.equals("FIRE")) {
             //player chooses a tile
         }
-
+*/
         //player needs to select a tile and it needs to be validated
     }
 
