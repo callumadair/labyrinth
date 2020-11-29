@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class Game{
 
     private Scene scene;
-    //private Image;
 
 
     public void Game(String[][] boardData, ArrayList<PlayerController> players){
