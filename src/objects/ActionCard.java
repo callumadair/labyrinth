@@ -10,13 +10,13 @@ import java.util.ArrayList;
 public class ActionCard extends Card {
 
     private ActionCardType type;
-    private Image image;
 
-    private String fireImagePath = "resources/ROAD_straight.png";
-    private String iceImagePath = "resources/ROAD_straight.png";
-    private String backtrackImagePath = "resources/ROAD_straight.png";
-    private String doubleMoveImagePath = "resources/ROAD_straight.png";
+    private String fireImagePath = "resources/ROAD_Cardfire.png";
+    private String iceImagePath = "resources/ROAD_CardIce.png";
+    private String backtrackImagePath = "resources/ROAD_CardReverse.png";
+    private String doubleMoveImagePath = "resources/ROAD_CardDouble.png";
 
+    private boolean canBeUsed = false;
 
     /**
      * The enum Action card type.
@@ -37,19 +37,19 @@ public class ActionCard extends Card {
         switch (type) {
             case "FIRE":
                 this.type = ActionCardType.FIRE;
-                image = new Image(fireImagePath);
+                this.setImage(fireImagePath);
                 break;
             case "ICE":
                 this.type = ActionCardType.ICE;
-                image = new Image(iceImagePath);
+                this.setImage(iceImagePath);
                 break;
             case "BACKTRACK":
                 this.type = ActionCardType.BACKTRACK;
-                image = new Image(backtrackImagePath);
+                this.setImage(backtrackImagePath);
                 break;
             case "DOUBLE_MOVE":
                 this.type = ActionCardType.DOUBLE_MOVE;
-                image = new Image(doubleMoveImagePath);
+                this.setImage(doubleMoveImagePath);
                 break;
         }
     }
@@ -96,12 +96,17 @@ public class ActionCard extends Card {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
         for (FloorCard tile : tiles) {
+            board.getFrozenTiles().add(tile);
             tile.setOnIce();
         }
         return true;
     }
 
     private boolean useBackTrackCard(Board board, int x, int y) {
+        if (!board.checkPlayerPosition(x, y)) {
+            return false;
+        }
+
         PlayerController player = board.getPlayer(x, y);
 
         if (player.isBackTracked() == true) {
@@ -115,6 +120,9 @@ public class ActionCard extends Card {
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
+        if(!board.checkPlayerPosition(x, y)){
+            return false;
+        }
         board.getPlayer(x, y).setDoubleMove(true);
         return true;
     }
@@ -184,5 +192,12 @@ public class ActionCard extends Card {
         return area;
     }
 
+    public boolean canBeUsed(){
+        return this.canBeUsed;
+    }
+
+    public void setCanBeUsed(){
+        this.canBeUsed = true;
+    }
 }
 

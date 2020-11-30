@@ -150,51 +150,51 @@ public class Controller {
     }
 
     private void playActionCard() {
-        playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
-
-        //player needs to choose action card
-/*
-        if(playingCard.equals("BACKTRACK")){
-        //player needs to choose another player's position
-            if(board.checkPlayerPosition(x,y)){
-                playingCard.useCard(board, x, y);
+        if (playingCard != null && selectedTile != null) {
+            if (playingCard.useCard(board, selectedTile.getX(), selectedTile.getY())) {
+                currentPlayer.getCardsHeld().remove((ActionCard) playingCard);
+                changeState(GameState.MOVING);
+            } else {
+                selectedTile = null;
+                playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
             }
-        }else if(playingCard.equals("DOUBLE_MOVE")){
-            playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
-        }else if(playingCard.equals("ICE")){
-            //player chooses a tile
-        }else if(playingCard.equals("FIRE")) {
-            //player chooses a tile
         }
-*/
-        //player needs to select a tile and it needs to be validated
     }
 
     private void showActionCards() {
-        currentPlayer.addInCardsHeld(playingCard);
+        ArrayList<ActionCard> cardHeldByCurrentPlayer = currentPlayer.getCardsHeld();
 
-        if (currentPlayer.getCardsHeld().isEmpty()) {
-            changeState(GameState.MOVING);
-        } else {
-            for (int i = 0; i < currentPlayer.getCardsHeld().size() - 1; i++) {
-                //show cards
-            }
+        /*
+        set the last drawn card by a player so that it can be used this turn
+         */
+        if (!cardHeldByCurrentPlayer.isEmpty()) {
+            cardHeldByCurrentPlayer.get(cardHeldByCurrentPlayer.size() - 1).setCanBeUsed();
         }
 
-        //if()
+        /*
+        if playingCard is not null it means player has drawn action card
+        add it at the end of the list so that it is not usable yet
+         */
+        if (cardHeldByCurrentPlayer.isEmpty() && playingCard == null) {
+            changeState(GameState.MOVING);
+        } else if (cardHeldByCurrentPlayer.isEmpty() && playingCard != null) {
+            //if skipping the state notify player that he had no action cards
+            cardHeldByCurrentPlayer.add((ActionCard) playingCard);
+            changeState(GameState.MOVING);
+        } else if (playingCard != null) {
+            cardHeldByCurrentPlayer.add((ActionCard) playingCard);
+        }
 
-        //add playingCard to players action cards
-        //show players action cards if none go to moving
         //give player the ability to skip this state
-        changeState(GameState.MOVING);
     }
 
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
         if (tilesToCompare.isEmpty()) {
             changeState(GameState.END_TURN);
+        } else {
+            highlightTiles();
         }
-        highlightTiles();
     }
 
     private void movePlayer() {
@@ -262,7 +262,13 @@ public class Controller {
                 double x = event.getX();
                 double y = event.getY();
                 selectedTile = board.getTileFromCanvas(x, y);
-                System.out.println("x: " + selectedTile.getX() + " y: " + selectedTile.getY() + "| " + currentState);
+                System.out.println("x: " + selectedTile.getX() + " y: " + selectedTile.getY() +
+                        " | " + selectedTile.getType() + " | " + currentState);
+                System.out.println(currentPlayer.getPlayerIndex());
+                System.out.println("Left: " + selectedTile.getOpeningAt(FloorCard.Direction.LEFT) +
+                        " Up: " + selectedTile.getOpeningAt(FloorCard.Direction.UP) +
+                        " Right: " + selectedTile.getOpeningAt(FloorCard.Direction.RIGHT) +
+                        " Down: " + selectedTile.getOpeningAt(FloorCard.Direction.DOWN));
                 playState();
             }
         });
@@ -270,6 +276,18 @@ public class Controller {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public PlayerController getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public Card getPlayingCard() {
+        return playingCard;
+    }
+
+    public void setPlayingCard(Card card) {
+        playingCard = card;
     }
 
     public void draw() {

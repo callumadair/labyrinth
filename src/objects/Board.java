@@ -39,11 +39,11 @@ public class Board {
 
     // testing only
     private void setup() {
-        map = new FloorCard[5][5];
         width = 5;
-        height = 5;
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        height = 6;
+        map = new FloorCard[width][height];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 map[j][i] = new FloorCard("STRAIGHT");
                 map[j][i].setX(j);
                 map[j][i].setY(i);
@@ -52,6 +52,14 @@ public class Board {
         assignInsertPositions();
         silkBag = new SilkBag(4);
 
+        map[1][1].nextRotation();
+        map[4][4].nextRotation();
+        map[4][3].nextRotation();
+        frozenTiles.add(map[4][3]);
+        map[4][3].setOnIce();
+        map[2][2].setOnIce();
+        frozenTiles.add(map[2][2]);
+        map[1][0].setOnFire();
         silkBag.addACard(new FloorCard("CORNER"));
         silkBag.addACard(new FloorCard("CORNER"));
         silkBag.addACard(new FloorCard("CORNER"));
@@ -79,17 +87,15 @@ public class Board {
     }
 
     private void assignInsertPositions() {
-        // call the function within setup
-        // assign numbers from 0 to height to columnsToPlace
-        // assign numbers from 0 to width to rowsToPlace
-        for (int i = 0; i < width; i++) {
+
+        for (int i = 0; i < height - 1; i++) {
             rowsToPlace.add(i);
         }
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < width - 1; i++) {
             columnsToPlace.add(i);
         }
 
-        for (int i = 0; i < fixedTilesNum; i++) {
+        for (int i = 0; i < fixedTilesNum - 1; i++) {
             int[] cord = fixedTiles[i];
             rowsToPlace.remove(cord[0]);
             columnsToPlace.remove(cord[1]);
@@ -105,28 +111,32 @@ public class Board {
         ArrayList<Integer> frozenRows = new ArrayList<>();
         ArrayList<Integer> frozenColumns = new ArrayList<>();
         for (FloorCard tile : frozenTiles) {
-            frozenRows.add(tile.getX());
-            frozenColumns.add(tile.getY());
+            frozenRows.add(tile.getY());
+            frozenColumns.add(tile.getX());
         }
 
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < height - 1; i++) {
             if (!frozenRows.contains(rowsToPlace.get(i))) {
-                insertionTiles.add(map[rowsToPlace.get(i)][0]);
-                insertionTiles.add(map[rowsToPlace.get(i)][width - 1]);
+                insertionTiles.add(map[0][rowsToPlace.get(i)]);
+                insertionTiles.add(map[width - 1][rowsToPlace.get(i)]);
             }
         }
 
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < width - 1; i++) {
             if (!frozenColumns.contains(columnsToPlace.get(i))) {
-                if (!insertionTiles.contains(map[0][columnsToPlace.get(i)])) {
-                    insertionTiles.add(map[0][columnsToPlace.get(i)]);
+                if (!insertionTiles.contains(map[columnsToPlace.get(i)][0])) {
+                    insertionTiles.add(map[columnsToPlace.get(i)][0]);
                 }
-                if (!insertionTiles.contains(map[height - 1][columnsToPlace.get(i)])) {
-                    insertionTiles.add(map[height - 1][columnsToPlace.get(i)]);
+                if (!insertionTiles.contains(map[columnsToPlace.get(i)][height - 1])) {
+                    insertionTiles.add(map[columnsToPlace.get(i)][height - 1]);
                 }
             }
         }
 
+        insertionTiles.remove(map[0][0]);
+        insertionTiles.remove(map[width - 1][0]);
+        insertionTiles.remove(map[0][height - 1]);
+        insertionTiles.remove(map[width - 1][height - 1]);
         return insertionTiles;
     }
 
@@ -177,7 +187,7 @@ public class Board {
     public void drawBoard(GraphicsContext gc) {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                gc.drawImage(map[i][j].getImage(), i * FloorCard.TILE_SIZE, j * FloorCard.TILE_SIZE);
+                map[j][i].drawTile(gc, j, i);
             }
         }
     }
@@ -234,11 +244,7 @@ public class Board {
         return null;
     }
 
-    public int[][] getSpawnPoints() {
-        return spawnPoints;
-    }
-
-    public void setPlayers(ArrayList<PlayerController> players) {
-        this.players = players;
+    public ArrayList<FloorCard> getFrozenTiles(){
+        return frozenTiles;
     }
 }
