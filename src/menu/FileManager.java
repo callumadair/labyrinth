@@ -49,7 +49,7 @@ public class FileManager {
             fileWriter.write(curVal + " ");
         }
         fileWriter.write("\n");
-
+        
         ArrayList<PlayerController> players = board.getPlayers();
         for (PlayerController player : players) {
             fileWriter.write(getPlayerDetails(player) + "\n");
