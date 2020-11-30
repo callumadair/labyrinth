@@ -124,7 +124,6 @@ public class FileManager {
     public static Board loadBoard(int boardNum) throws FileNotFoundException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         Scanner scanner = new Scanner(boardFile);
-        Board board = new Board();
 
         int width = scanner.nextInt();
         int height = scanner.nextInt();
