@@ -38,7 +38,7 @@ public class Board {
         setup();
     }
 
-    private void setup(FloorCard[] fixedTiles) {
+    private void setup() {
         map = new FloorCard[width][height];
         for (FloorCard fixed : fixedTiles) {
             map[fixed.getX()][fixed.getY()] = fixed;
