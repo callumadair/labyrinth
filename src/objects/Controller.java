@@ -37,7 +37,7 @@ public class Controller {
         startGame();
     }
 
-    public Controller(Board b){
+    public Controller(Board b) {
         board = b;
         this.players = b.getPlayers();
 
@@ -48,6 +48,7 @@ public class Controller {
         draw();
         startGame();
     }
+
     //testing only
     public Controller() {
         board = new Board();
@@ -278,10 +279,6 @@ public class Controller {
         return canvas;
     }
 
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     public Card getPlayingCard() {
         return playingCard;
     }
@@ -295,6 +292,10 @@ public class Controller {
         for (PlayerController player : players) {
             player.drawPlayer(canvas.getGraphicsContext2D());
         }
+    }
+
+    public PlayerController getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public ArrayList<PlayerController> getPlayers() {
