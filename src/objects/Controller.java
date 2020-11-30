@@ -275,5 +275,9 @@ public class Controller {
         return players;
     }
 
+    public PlayerController getCurrentPlayer(){
+        return currentPlayer;
+    }
+
 }
 
