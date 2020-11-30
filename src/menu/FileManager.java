@@ -15,7 +15,7 @@ public class FileManager {
     public static void deleteSaveFile(File saveFile) {
     }
 
-    public static void saveBoard(Board board, int boardNum) throws IOException {
+    public static void saveGame(Board board, int boardNum) throws IOException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         FileWriter fileWriter = new FileWriter(boardFile);
 
@@ -68,7 +68,6 @@ public class FileManager {
         createFloorCards(scanner.nextInt(), "STRAIGHT", silkBagCards);
         createFloorCards(scanner.nextInt(), "CORNER", silkBagCards);
         createFloorCards(scanner.nextInt(), "T_SHAPED", silkBagCards);
-        //createFloorCards(scanner.nextInt(), "GOAL", silkBagCards); needed?
         scanner.nextLine();
         createActionCards(scanner.nextInt(), "FIRE", silkBagCards);
         createActionCards(scanner.nextInt(), "ICE", silkBagCards);
