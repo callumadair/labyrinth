@@ -1,11 +1,16 @@
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+<<<<<<< HEAD
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+=======
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+>>>>>>> origin/Stefani
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -40,6 +45,7 @@ public class Main extends Application {
 
 
         root.setCenter(c.getCanvas());
+
         stage.setScene(scene);
         stage.show();
     }
