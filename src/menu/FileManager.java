@@ -50,15 +50,17 @@ public class FileManager {
         }
         fileWriter.write("\n");
 
+        ArrayList<PlayerController> players = board.getPlayers();
+        for (PlayerController player : players) {
+            fileWriter.write(getPlayerDetails(player) + "\n");
+        }
     }
 
     private static int[] countSilkBagCards(ArrayList<Card> cardsInBag) {
         int[] values = new int[7];
         for (Card curCard : cardsInBag) {
             if (curCard.getClass().getSimpleName().equals("FloorCard")) {
-                FloorCard asFloor = (FloorCard) curCard;
-                String floorType = asFloor.getType().toString();
-                switch (floorType) {
+                switch (((FloorCard) curCard).getType().toString()) {
                     case "STRAIGHT":
                         values[0]++;
                         break;
@@ -70,9 +72,7 @@ public class FileManager {
                         break;
                 }
             } else {
-                ActionCard asAction = (ActionCard) curCard;
-                String actionType = asAction.getType().toString();
-                switch (actionType) {
+                switch (((ActionCard) curCard).getType().toString()) {
                     case "FIRE":
                         values[3]++;
                         break;
@@ -89,6 +89,36 @@ public class FileManager {
             }
         }
         return values;
+    }
+
+    private static String getPlayerDetails(PlayerController player) {
+        int[] cardValues = new int[4];
+        for (Card curCard : player.getCardsHeld()) {
+            switch (((ActionCard) curCard).getType().toString()) {
+                case "FIRE":
+                    cardValues[0]++;
+                    break;
+                case "ICE":
+                    cardValues[1]++;
+                    break;
+                case "BACKTRACK":
+                    cardValues[2]++;
+                    break;
+                case "DOUBLE_MOVE":
+                    cardValues[3]++;
+                    break;
+            }
+        }
+        StringBuilder vals = new StringBuilder();
+        for (int i = 0; i < cardValues.length; i++) {
+            if (i == cardValues.length - 1) {
+                vals.append(cardValues[i]);
+            } else {
+                vals.append(cardValues[i]).append(" ");
+            }
+        }
+        return player.getPlayerIndex() + " " + player.getProfile().getPlayerName() + " " + player.getX() + " "
+                + player.getY() + " " + vals.toString();
     }
 
     public static Board loadBoard(int boardNum) throws FileNotFoundException {
