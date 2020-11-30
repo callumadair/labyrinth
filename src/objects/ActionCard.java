@@ -11,10 +11,10 @@ public class ActionCard extends Card {
 
     private ActionCardType type;
 
-    private String fireImagePath = "resources/ROAD_Cardfire.png";
-    private String iceImagePath = "resources/ROAD_CardIce.png";
-    private String backtrackImagePath = "resources/ROAD_CardReverse.png";
-    private String doubleMoveImagePath = "resources/ROAD_CardDouble.png";
+    private String fireImagePath = "resources/ROAD-Cardfire.png";
+    private String iceImagePath = "resources/ROAD-CardIce.png";
+    private String backtrackImagePath = "resources/ROAD-CardReverse.png";
+    private String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
 
     private boolean canBeUsed = false;
 

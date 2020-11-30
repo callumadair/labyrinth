@@ -25,7 +25,7 @@ public class FloorCard extends Card { //need to continue javadoc
     private String straightTileImagePath = "resources/ROAD_straight";
     private String cornerTileImagePath = "resources/ROAD_curved";
     private String tshapedTileImagePath = "resources/ROAD_Tshaped";
-    private String goalTileImagePath = "resources/ROAD_goal";
+    private String goalTileImagePath = "resources/ROAD_goal.png";
     private String onFireImagePath = "resources/ROAD-Fireeffect.png";
     private String onIceImagePath = "resources/ROAD-Iceeffect.png";
 

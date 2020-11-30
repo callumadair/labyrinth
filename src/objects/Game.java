@@ -26,13 +26,13 @@ import java.util.ArrayList;
 public class Game{
 
     private Scene scene;
+    private Controller controller;
 
-
-    public void Game(String[][] boardData, ArrayList<PlayerController> players){
+    public void Game(Board board, ArrayList<PlayerController> players){
 
         BorderPane pane = new BorderPane();
         scene = new Scene(pane, 800, 600);
-        Controller controller = new Controller(boardData, players);
+        controller = new Controller(board);
         pane.setCenter(controller.getCanvas());
 
         // left pane
