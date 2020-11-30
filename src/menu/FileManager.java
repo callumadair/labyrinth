@@ -84,8 +84,6 @@ public class FileManager {
 
         SilkBag silkBag = new SilkBag(silkBagCards.size());
         silkBag.setListOfCards(silkBagCards);
-
-
     }
 
     private void createFloorCards(int num, String type, ArrayList<Card> cards) {
