@@ -17,7 +17,9 @@ import javafx.scene.input.*;
 
 import java.util.*;
 
+
 public class Controller {
+
 
     private ArrayList<PlayerController> players;
     private int playerIndex = 0;
@@ -71,7 +73,6 @@ public class Controller {
 
         players.get(0).getCardsHeld().add(new ActionCard("FIRE"));//testing
         players.get(0).getCardsHeld().add(new ActionCard("ICE"));//testing
-
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
@@ -316,5 +317,12 @@ public class Controller {
         return players;
     }
 
+    public Card getPlayingCard() {
+        return playingCard;
+    }
+
+    public PlayerController getCurrentPlayer() {
+        return currentPlayer;
+    }
 }
 

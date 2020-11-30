@@ -2,7 +2,9 @@ package objects;
 
 import javafx.application.Application;
 
+
 import javafx.event.ActionEvent;
+
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -13,21 +15,27 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
+
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
+
 
 
 import java.util.ArrayList;
@@ -37,6 +45,7 @@ import java.util.ArrayList;
 public class Game extends Application {
 
 
+
     private Scene scene;
 
 
@@ -44,10 +53,14 @@ public class Game extends Application {
 
 
        /* BorderPane pane = new BorderPane();
+
         scene = new Scene(pane, 800, 600);
         Controller controller = new Controller(boardData, players);
         pane.setCenter(controller.getCanvas());
 */
+
+
+    }
 
 
     public static void main(String[] args){
@@ -72,6 +85,7 @@ public class Game extends Application {
 
 
 
+
         //Bottom
         Glow glow = new Glow();
         glow.setLevel(0.9);
@@ -80,6 +94,7 @@ public class Game extends Application {
         VBox bottom = new VBox();
         bottom.setAlignment(javafx.geometry.Pos.CENTER);
        
+
 
         ImageView playingCard = new ImageView();
         playingCard.setImage(c.getPlayingCard().getImage());
@@ -90,6 +105,8 @@ public class Game extends Application {
         root.setBottom(bottom);
 
 //Left
+
+
         VBox left = new VBox();
         left.setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -99,11 +116,13 @@ public class Game extends Application {
                 Label playersInGame = new Label(player.toString());
                 playersInGame.setFont(Font.font("Cambria", FontPosture.REGULAR, 20));
                 playersInGame.setTextFill(Color.DEEPPINK);
+
                 playersInGame.setOnMouseEntered(new EventHandler<MouseEvent>() {
                     @Override public void handle(MouseEvent e) {
                         playersInGame.setScaleX(1.5);
                         playersInGame.setScaleY(1.5);
                     }
+
                 });
                 playersInGame.setOnMouseExited(new EventHandler<MouseEvent>() {
                     @Override public void handle(MouseEvent e) {
@@ -157,6 +176,7 @@ public class Game extends Application {
             right.getChildren().add(image);
         }
 
+
         Button button = new Button("Skip Action");
 
         right.getChildren().add(button);
@@ -175,8 +195,10 @@ public class Game extends Application {
         stage.setScene(scene);
         stage.show();
 
+
     }
 
 
 }
+
 
