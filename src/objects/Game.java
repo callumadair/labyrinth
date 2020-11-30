@@ -33,24 +33,9 @@ import java.util.ArrayList;
 public class Game extends Application {
 
     private Scene scene;
+    private Controller controller;
 
-
-    public void Game(String[][] boardData, ArrayList<PlayerController> players) {
-
-       /* BorderPane pane = new BorderPane();
-
-
-    public void Game(String[][] boardData, ArrayList<PlayerController> players){
-
-        BorderPane pane = new BorderPane();
-
-        scene = new Scene(pane, 800, 600);
-        Controller controller = new Controller(boardData, players);
-        pane.setCenter(controller.getCanvas());
-*/
-
-
-    }
+    public void Game(Board board, ArrayList<PlayerController> players){ }
 
     public static void main(String[] args) {
         System.out.println("Starting app");
@@ -73,7 +58,7 @@ public class Game extends Application {
             left.getChildren().add(playersInGame);
             left.setAlignment(Pos.CENTER_LEFT);
             pane.setLeft(left);
-
+		}
             // right pane
             //
 
@@ -90,8 +75,8 @@ public class Game extends Application {
         right.getChildren().addAll(selectedImage);
         right.setAlignment(Pos.BOTTOM_CENTER);
         pane.setRight(selectedImage);
-
-
+	}
+	
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("Labyrinth");
@@ -201,9 +186,6 @@ public class Game extends Application {
 
         stage.setScene(scene);
         stage.show();
-
-    }
-
 
 }
 

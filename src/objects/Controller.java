@@ -32,44 +32,9 @@ public class Controller {
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
-    /**
-     * @param boardData
-     * @param players
-     */
-    public Controller(String[][] boardData, ArrayList<PlayerController> players) {
-        board = new Board(boardData, players);
-
-        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
-                board.getHeight() * FloorCard.TILE_SIZE);
-        enableRetrievingTilesFromCanvas();
-
-        draw();
-        startGame();
-    }
-
-    public Controller(Board b){
+    public Controller(Board b) {
         board = b;
         this.players = b.getPlayers();
-
-        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
-                board.getHeight() * FloorCard.TILE_SIZE);
-        enableRetrievingTilesFromCanvas();
-
-        draw();
-        startGame();
-    }
-    //testing only
-    public Controller() {
-        board = new Board();
-        this.players = new ArrayList<PlayerController>(); //testing only
-        this.players.add(new PlayerController(null, 0)); //testing only
-        this.players.add(new PlayerController(null, 1)); //testing only
-        this.players.add(new PlayerController(null, 2)); //testing only
-        board.changePlayerPosition(players.get(0), 0, 0); //testing only
-        board.changePlayerPosition(players.get(1), 4, 4); //testing only
-        board.changePlayerPosition(players.get(2), 2, 2); //testing only
-        players.get(0).getCardsHeld().add(new ActionCard("FIRE"));//testing
-        players.get(0).getCardsHeld().add(new ActionCard("ICE"));//testing
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
@@ -289,10 +254,6 @@ public class Controller {
 
     public Canvas getCanvas() {
         return canvas;
-    }
-
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
     }
 
     public Card getPlayingCard() {

@@ -29,9 +29,9 @@ public class FileManager {
         fileWriter.write("\n");
 
         fileWriter.write(board.getFixedTilesNum() + "\n");
-        for (int k = 0; k < board.getFixedTiles().length; k++) {
-            int x = board.getFixedTiles()[k][0];
-            int y = board.getFixedTiles()[k][1];
+        for (int k = 0; k < board.getFixedTilesNum(); k++) {
+            int x = board.getFixedTiles()[k].getX();
+            int y = board.getFixedTiles()[k].getY();
             fileWriter.write(board.getTile(x, y).getType().toString() + " " + x + " " + y + " "
                     + board.getTile(x, y).getRotation());
         }
@@ -42,7 +42,6 @@ public class FileManager {
     public static Board loadBoard(int boardNum) throws FileNotFoundException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         Scanner scanner = new Scanner(boardFile);
-        Board board = new Board();
 
         int width = scanner.nextInt();
         int height = scanner.nextInt();

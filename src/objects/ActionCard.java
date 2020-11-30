@@ -17,7 +17,6 @@ public class ActionCard extends Card {
     private String backtrackImagePath = "resources/ROAD-CardReverse.png";
     private String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
 
-
     private boolean canBeUsed = false;
 
     /**
