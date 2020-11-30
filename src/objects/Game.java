@@ -186,9 +186,6 @@ public class Game extends Application {
         });
 
 
-
-        }
-
         root.setRight(right);
 
 

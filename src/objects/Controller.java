@@ -316,13 +316,5 @@ public class Controller {
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
-
-    public Card getPlayingCard() {
-        return playingCard;
-    }
-
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
-    }
 }
 
