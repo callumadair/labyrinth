@@ -49,7 +49,7 @@ public class FileManager {
             fileWriter.write(curVal + " ");
         }
         fileWriter.write("\n");
-        
+
         ArrayList<PlayerController> players = board.getPlayers();
         for (PlayerController player : players) {
             fileWriter.write(getPlayerDetails(player) + "\n");
@@ -119,6 +119,10 @@ public class FileManager {
         }
         return player.getPlayerIndex() + " " + player.getProfile().getPlayerName() + " " + player.getX() + " "
                 + player.getY() + " " + vals.toString();
+    }
+
+    public static Board loadGame(String gameName) {
+        return null;
     }
 
     public static Board loadBoard(int boardNum) throws FileNotFoundException {
