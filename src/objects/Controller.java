@@ -1,5 +1,15 @@
 package objects;
 
+
+import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
 import javafx.event.*;
 import javafx.scene.canvas.*;
 import javafx.scene.image.*;
@@ -58,6 +68,8 @@ public class Controller {
         board.changePlayerPosition(players.get(0), 0, 0); //testing only
         board.changePlayerPosition(players.get(1), 4, 4); //testing only
         board.changePlayerPosition(players.get(2), 2, 2); //testing only
+        players.get(0).getCardsHeld().add(new ActionCard("FIRE"));//testing
+        players.get(0).getCardsHeld().add(new ActionCard("ICE"));//testing
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
@@ -77,7 +89,7 @@ public class Controller {
         changeState(GameState.DRAWING);
     }
 
-    private void changeState(GameState state) {
+    public void changeState(GameState state) {
         currentState = state;
         startState(currentState);
     }
@@ -121,6 +133,7 @@ public class Controller {
 
     private void drawCard() {
         playingCard = board.getSilkBag().drawACard();
+        //drawingACard();
         //show the card to the player
         //? maybe animate as well
         if (playingCard instanceof FloorCard) {
@@ -149,7 +162,7 @@ public class Controller {
         }
     }
 
-    private void playActionCard() {
+    public void playActionCard() {
         if (playingCard != null && selectedTile != null) {
             if (playingCard.useCard(board, selectedTile.getX(), selectedTile.getY())) {
                 currentPlayer.getCardsHeld().remove((ActionCard) playingCard);
@@ -297,12 +310,9 @@ public class Controller {
         }
     }
 
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
 
 }
+

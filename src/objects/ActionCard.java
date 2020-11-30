@@ -1,5 +1,6 @@
 package objects;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -11,10 +12,11 @@ public class ActionCard extends Card {
 
     private ActionCardType type;
 
-    private String fireImagePath = "resources/ROAD_Cardfire.png";
-    private String iceImagePath = "resources/ROAD_CardIce.png";
-    private String backtrackImagePath = "resources/ROAD_CardReverse.png";
-    private String doubleMoveImagePath = "resources/ROAD_CardDouble.png";
+    private String fireImagePath = "resources/ROAD-Cardfire.png";
+    private String iceImagePath = "resources/ROAD-CardIce.png";
+    private String backtrackImagePath = "resources/ROAD-CardReverse.png";
+    private String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
+
 
     private boolean canBeUsed = false;
 
@@ -120,7 +122,7 @@ public class ActionCard extends Card {
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        if(!board.checkPlayerPosition(x, y)){
+        if (!board.checkPlayerPosition(x, y)) {
             return false;
         }
         board.getPlayer(x, y).setDoubleMove(true);
@@ -192,11 +194,11 @@ public class ActionCard extends Card {
         return area;
     }
 
-    public boolean canBeUsed(){
+    public boolean canBeUsed() {
         return this.canBeUsed;
     }
 
-    public void setCanBeUsed(){
+    public void setCanBeUsed() {
         this.canBeUsed = true;
     }
 }

@@ -269,4 +269,9 @@ public class PlayerController {
     public void drawPlayer(GraphicsContext gc) {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
+
+    @Override
+    public String toString() {
+        return "Player index: " + playerIndex;
+    }
 }
