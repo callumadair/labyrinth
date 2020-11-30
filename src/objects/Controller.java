@@ -34,22 +34,7 @@ public class Controller {
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
-    /**
-     * @param boardData
-     * @param players
-     */
-    public Controller(String[][] boardData, ArrayList<PlayerController> players) {
-        board = new Board(boardData, players);
-
-        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
-                board.getHeight() * FloorCard.TILE_SIZE);
-        enableRetrievingTilesFromCanvas();
-
-        draw();
-        startGame();
-    }
-
-    public Controller(Board b){
+    public Controller(Board b) {
         board = b;
         this.players = b.getPlayers();
 
@@ -60,6 +45,7 @@ public class Controller {
         draw();
         startGame();
     }
+
     //testing only
     public Controller() {
         board = new Board();
@@ -81,6 +67,7 @@ public class Controller {
         draw();
         startGame();
     }
+
 
     enum GameState {
         DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
@@ -294,10 +281,6 @@ public class Controller {
         return canvas;
     }
 
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     public Card getPlayingCard() {
         return playingCard;
     }
@@ -316,5 +299,12 @@ public class Controller {
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
+
+
+    public PlayerController getCurrentPlayer(){
+        return currentPlayer;
+    }
+
+
 }
 
