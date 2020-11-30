@@ -1,40 +1,21 @@
 package menu;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import jdk.internal.util.xml.impl.Input;
-import menu.DailyMessage.GetFinalMessage;
-import javafx.animation.Animation;
-import javafx.animation.TranslateTransition;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+import javafx.animation.*;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.scene.media.*;
+import javafx.scene.media.MediaPlayer.*;
+import javafx.stage.*;
+import javafx.util.*;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.swing.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.util.*;
-import java.io.InputStream;
-import java.io.File;
-import java.util.prefs.Preferences;
 
 /**
  * The type Menu controller.
