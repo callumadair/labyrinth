@@ -1,5 +1,15 @@
 package objects;
 
+
+import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
 import javafx.event.*;
 import javafx.scene.canvas.*;
 import javafx.scene.image.*;
@@ -44,7 +54,7 @@ public class Controller {
         changeState(GameState.DRAWING);
     }
 
-    private void changeState(GameState state) {
+    public void changeState(GameState state) {
         currentState = state;
         startState(currentState);
     }
@@ -88,6 +98,7 @@ public class Controller {
 
     private void drawCard() {
         playingCard = board.getSilkBag().drawACard();
+        //drawingACard();
         //show the card to the player
         //? maybe animate as well
         if (playingCard instanceof FloorCard) {
@@ -116,7 +127,7 @@ public class Controller {
         }
     }
 
-    private void playActionCard() {
+    public void playActionCard() {
         if (playingCard != null && selectedTile != null) {
             if (playingCard.useCard(board, selectedTile.getX(), selectedTile.getY())) {
                 currentPlayer.getCardsHeld().remove((ActionCard) playingCard);
@@ -260,12 +271,9 @@ public class Controller {
         }
     }
 
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
 
 }
+

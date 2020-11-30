@@ -1,5 +1,6 @@
 package objects;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -120,7 +121,7 @@ public class ActionCard extends Card {
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        if(!board.checkPlayerPosition(x, y)){
+        if (!board.checkPlayerPosition(x, y)) {
             return false;
         }
         board.getPlayer(x, y).setDoubleMove(true);
@@ -192,11 +193,11 @@ public class ActionCard extends Card {
         return area;
     }
 
-    public boolean canBeUsed(){
+    public boolean canBeUsed() {
         return this.canBeUsed;
     }
 
-    public void setCanBeUsed(){
+    public void setCanBeUsed() {
         this.canBeUsed = true;
     }
 }
