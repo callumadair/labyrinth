@@ -1,13 +1,13 @@
 package menu;
 
-import javafx.application.Application;
+import javafx.application.*;
 import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import javafx.stage.*;
 import objects.*;
 
 import java.io.*;
@@ -15,7 +15,7 @@ import java.io.*;
 /**
  * The type Leaderboard app.
  *
- * @author Cal
+ * @author Callum Adair
  */
 public class LeaderboardController extends Application {
     @FXML
@@ -58,6 +58,7 @@ public class LeaderboardController extends Application {
     /**
      * Add columns.
      */
+
     @FXML
     private void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase();
@@ -70,9 +71,6 @@ public class LeaderboardController extends Application {
         tableView.setItems(data);
     }
 
-    /**
-     * Exit.
-     */
     public void exit() {
         if (stage != null) {
             stage.close();
