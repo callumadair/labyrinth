@@ -13,6 +13,7 @@ import java.util.LinkedList;
  */
 public class PlayerController {
 
+    public FloorCard currentLocation;
     private String playerImage1 = "resources/ROAD-player1.png";
     private String playerImage2 = "resources/ROAD-player2.png";
     private String playerImage3 = "resources/ROAD-player3.png";
@@ -28,6 +29,7 @@ public class PlayerController {
     private int playerIndex;
     private boolean doubleMove = false;
     private boolean isBackTracked = false;
+
 
     /**
      * Instantiates a new Player controller.
@@ -252,6 +254,11 @@ public class PlayerController {
      */
     public void addCard(ActionCard card) {
         cardsHeld.add(card);
+    }
+
+    @Override
+    public String toString() {
+        return "Player index: " + getPlayerIndex();
     }
 
     /**

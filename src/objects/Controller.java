@@ -1,5 +1,6 @@
 package objects;
 
+
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,13 +10,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
+import javafx.event.*;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
+
+import java.util.*;
 
 public class Controller {
-
-    enum GameState {
-        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
-    }
 
     private ArrayList<PlayerController> players;
     private int playerIndex = 0;
@@ -26,6 +28,7 @@ public class Controller {
     private FloorCard selectedTile;
     private Card playingCard;
     private GameState currentState;
+
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
@@ -44,6 +47,17 @@ public class Controller {
         startGame();
     }
 
+    public Controller(Board b){
+        board = b;
+        this.players = b.getPlayers();
+
+        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
+                board.getHeight() * FloorCard.TILE_SIZE);
+        enableRetrievingTilesFromCanvas();
+
+        draw();
+        startGame();
+    }
     //testing only
     public Controller() {
         board = new Board();
@@ -63,6 +77,10 @@ public class Controller {
 
         draw();
         startGame();
+    }
+
+    enum GameState {
+        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
     }
 
     public void startGame() {
@@ -151,6 +169,7 @@ public class Controller {
                 changeState(GameState.MOVING);
             } else {
                 selectedTile = null;
+                playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
             }
         }
     }
@@ -294,7 +313,6 @@ public class Controller {
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
-
 
 }
 

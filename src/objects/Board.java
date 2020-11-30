@@ -1,10 +1,8 @@
 package objects;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import javafx.scene.canvas.*;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import java.util.*;
 
 public class Board {
 
@@ -12,7 +10,7 @@ public class Board {
     private int height;
     private int fixedTilesNum;
     private int[][] spawnPoints = new int[4][2];
-    private int[][] fixedTiles; //[fixedTileNum][2];
+    private int[][] fixedTiles; // [fixedTileNum][2];
     private SilkBag silkBag;
     private FloorCard[][] map;
     private ArrayList<PlayerController> players;
@@ -26,12 +24,20 @@ public class Board {
         setup(data);
     }
 
-    //Just for testing
+    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles, SilkBag silkBag) {
+        this.width = width;
+        this.height = height;
+        this.spawnPoints = spawnPoints;
+        this.silkBag = silkBag;
+        setup(fixedTiles);
+    }
+
+    // Just for testing
     public Board() {
         setup();
     }
 
-    //testing only
+    // testing only
     private void setup() {
         width = 5;
         height = 6;
@@ -62,11 +68,27 @@ public class Board {
     }
 
     private void setup(String[][] data) {
-        //Handle assigning all the data
+        // Handle assigning all the data
         map = new FloorCard[width][height];
     }
 
+    private void setup(FloorCard[] fixedTiles) {
+        map = new FloorCard[width][height];
+        for (FloorCard fixed : fixedTiles) {
+            map[fixed.getX()][fixed.getY()] = fixed;
+        }
+
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == null) {
+                    map[i][j] = silkBag.drawFloorCard();
+                }
+            }
+        }
+    }
+
     private void assignInsertPositions() {
+
         for (int i = 0; i < height - 1; i++) {
             rowsToPlace.add(i);
         }
@@ -200,6 +222,14 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public int getFixedTilesNum() {
+        return fixedTilesNum;
+    }
+
+    public int[][] getFixedTiles() {
+        return fixedTiles;
     }
 
     public ArrayList<PlayerController> getPlayers() {
