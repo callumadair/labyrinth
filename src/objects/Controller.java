@@ -51,7 +51,8 @@ public class Controller {
         board.changePlayerPosition(players.get(0), 0, 0); //testing only
         board.changePlayerPosition(players.get(1), 4, 4); //testing only
         board.changePlayerPosition(players.get(2), 2, 2); //testing only
-
+        players.get(0).getCardsHeld().add(new ActionCard("FIRE"));
+        players.get(0).getCardsHeld().add(new ActionCard("ICE"));
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
         enableRetrievingTilesFromCanvas();
