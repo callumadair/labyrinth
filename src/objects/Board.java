@@ -54,6 +54,7 @@ public class Board {
         map[2][2].setOnIce();
         frozenTiles.add(map[2][2]);
         map[1][0].setOnFire();
+
         silkBag.addACard(new FloorCard("CORNER"));
         silkBag.addACard(new FloorCard("CORNER"));
         silkBag.addACard(new FloorCard("CORNER"));
