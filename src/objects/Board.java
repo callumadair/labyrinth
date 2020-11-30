@@ -8,7 +8,7 @@ public class Board {
 
     private int width;
     private int height;
-    private int[][] spawnPoints = new int[4][2];
+    private int[][] spawnPoints;
     private SilkBag silkBag;
     private FloorCard[][] map;
     private FloorCard[] fixedTiles;
@@ -17,6 +17,17 @@ public class Board {
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
+
+    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
+                 SilkBag silkBag, ArrayList<PlayerController> players) {
+        this.width = width;
+        this.height = height;
+        this.spawnPoints = spawnPoints;
+        this.silkBag = silkBag;
+        this.fixedTiles = fixedTiles;
+        this.players = players;
+        setup();
+    }
 
     public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles, SilkBag silkBag) {
         this.width = width;
@@ -43,6 +54,9 @@ public class Board {
             }
         }
 
+//        for(int i = 0; i < players.size(); i++){
+//            players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
+//        }
         assignInsertPositions();
     }
 
