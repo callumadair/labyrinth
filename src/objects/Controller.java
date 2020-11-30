@@ -1,5 +1,6 @@
 package objects;
 
+
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,7 +10,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
+import javafx.event.*;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
+
+import java.util.*;
 
 public class Controller {
 
@@ -41,6 +47,17 @@ public class Controller {
         startGame();
     }
 
+    public Controller(Board b){
+        board = b;
+        this.players = b.getPlayers();
+
+        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
+                board.getHeight() * FloorCard.TILE_SIZE);
+        enableRetrievingTilesFromCanvas();
+
+        draw();
+        startGame();
+    }
     //testing only
     public Controller() {
         board = new Board();
@@ -51,8 +68,11 @@ public class Controller {
         board.changePlayerPosition(players.get(0), 0, 0); //testing only
         board.changePlayerPosition(players.get(1), 4, 4); //testing only
         board.changePlayerPosition(players.get(2), 2, 2); //testing only
-        players.get(0).getCardsHeld().add(new ActionCard("FIRE"));
-        players.get(0).getCardsHeld().add(new ActionCard("ICE"));
+
+        players.get(0).getCardsHeld().add(new ActionCard("FIRE"));//testing
+        players.get(0).getCardsHeld().add(new ActionCard("ICE"));//testing
+
+
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);
         enableRetrievingTilesFromCanvas();
@@ -71,7 +91,7 @@ public class Controller {
         changeState(GameState.DRAWING);
     }
 
-    private void changeState(GameState state) {
+    public void changeState(GameState state) {
         currentState = state;
         startState(currentState);
     }
@@ -144,13 +164,14 @@ public class Controller {
         }
     }
 
-    private void playActionCard() {
+    public void playActionCard() {
         if (playingCard != null && selectedTile != null) {
             if (playingCard.useCard(board, selectedTile.getX(), selectedTile.getY())) {
                 currentPlayer.getCardsHeld().remove((ActionCard) playingCard);
                 changeState(GameState.MOVING);
             } else {
                 selectedTile = null;
+                playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
             }
         }
     }
@@ -289,22 +310,6 @@ public class Controller {
         for (PlayerController player : players) {
             player.drawPlayer(canvas.getGraphicsContext2D());
         }
-        }
-
-    public ArrayList<PlayerController> getPlayers() {
-        return players;
-    }
-
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public Card getPlayingCard() {
-        return playingCard;
-    }
-
-    public PlayerController getCurrentPlayer() {
-        return currentPlayer;
     }
 
     public ArrayList<PlayerController> getPlayers() {
@@ -312,3 +317,4 @@ public class Controller {
     }
 
 }
+

@@ -24,6 +24,7 @@ public class PlayerProfile {
         setPlayerName(playerName);
         setVictories(victories);
         setLosses(losses);
+        setGamesPlayed();
         setPlayerID(playerID);
     }
 

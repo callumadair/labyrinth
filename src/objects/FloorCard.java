@@ -363,10 +363,10 @@ public class FloorCard extends Card { //need to continue javadoc
         }
         return false;
     }
-    public void drawCard(GraphicsContext gc) {
+   /* public void drawCard(GraphicsContext gc) {
         gc.drawImage(image, 20, 30);
     }
-
+*/
     private void setImageWithRotation() {
         switch (type) {
             case STRAIGHT:

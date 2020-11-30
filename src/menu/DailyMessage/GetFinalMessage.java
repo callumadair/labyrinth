@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class GetFinalMessage {
-	public static void main(String[] args) throws IOException {
+	public static String finalMessage() throws IOException {
 		String solvedCode = Encode.encode();
 		String requestURL = "http://cswebcat.swansea.ac.uk/message?solution=";
 
@@ -17,5 +17,6 @@ public class GetFinalMessage {
 		}
 		String result = buffer.toString();
 		System.out.print(result);
-	}
+        return solvedCode;
+    }
 }
