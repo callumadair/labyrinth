@@ -32,15 +32,63 @@ public class FileManager {
         }
         fileWriter.write("\n");
 
+        //Save tiles in board currently.
         for (int k = 0; k < board.getWidth(); k++) {
             for (int l = 0; l < board.getHeight(); l++) {
                 FloorCard curTile = board.getTile(k, l);
-                fileWriter.write(curTile.getType().toString() + " " + curTile.getX() + " " + curTile.getY()+ " "
-                        + curTile.getRotation() + " " + curTile.isFixed() + "\n");
+                fileWriter.write(curTile.getType().toString() + " " + k + " " + l + " " + curTile.getRotation()
+                        + " " + curTile.isFixed() + "\n");
             }
         }
         fileWriter.write("\n");
-        //add non fixed cards
+        fileWriter.write("silkbagCards\n");
+
+        //Save tiles in silkbag currently.
+        ArrayList<Card> cardsInBag = board.getSilkBag().getListOfCards();
+        for (int curVal : countSilkBagCards(cardsInBag)) {
+            fileWriter.write(curVal + " ");
+        }
+        fileWriter.write("\n");
+
+    }
+
+    private static int[] countSilkBagCards(ArrayList<Card> cardsInBag) {
+        int[] values = new int[7];
+        for (Card curCard : cardsInBag) {
+            if (curCard.getClass().getSimpleName().equals("FloorCard")) {
+                FloorCard asFloor = (FloorCard) curCard;
+                String floorType = asFloor.getType().toString();
+                switch (floorType) {
+                    case "STRAIGHT":
+                        values[0]++;
+                        break;
+                    case "CORNER":
+                        values[1]++;
+                        break;
+                    case "T_SHAPED":
+                        values[2]++;
+                        break;
+                }
+            } else {
+                ActionCard asAction = (ActionCard) curCard;
+                String actionType = asAction.getType().toString();
+                switch (actionType) {
+                    case "FIRE":
+                        values[3]++;
+                        break;
+                    case "ICE":
+                        values[4]++;
+                        break;
+                    case "BACKTRACK":
+                        values[5]++;
+                        break;
+                    case "DOUBLE_MOVE":
+                        values[7]++;
+                        break;
+                }
+            }
+        }
+        return values;
     }
 
     public static Board loadBoard(int boardNum) throws FileNotFoundException {
