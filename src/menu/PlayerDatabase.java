@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * The type Database.
  *
- * @author Cal
+ * @author Callum Adair
  */
 public class PlayerDatabase {
     private String url;
