@@ -76,7 +76,6 @@ public class FileManager {
         createFloorCards(scanner.nextInt(), "STRAIGHT", silkBagCards);
         createFloorCards(scanner.nextInt(), "CORNER", silkBagCards);
         createFloorCards(scanner.nextInt(), "T_SHAPED", silkBagCards);
-        createFloorCards(scanner.nextInt(), "GOAL", silkBagCards); //needed?
         scanner.nextLine();
         silkBagCards.addAll(createActionCards(scanner.nextInt(), "FIRE"));
         silkBagCards.addAll(createActionCards(scanner.nextInt(), "ICE"));
