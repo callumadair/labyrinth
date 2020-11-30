@@ -8,6 +8,10 @@ import java.util.*;
 public class FileManager {
     private static String saveFileDirectory = "src/resources/";
 
+    public static void setSaveFileDirectory(String saveFileDirectory) {
+        FileManager.saveFileDirectory = saveFileDirectory;
+    }
+
     public static String getSaveFileDirectory() {
         return saveFileDirectory;
     }
@@ -15,9 +19,9 @@ public class FileManager {
     public static void deleteSaveFile(File saveFile) {
     }
 
-    public static void saveGame(Board board, int boardNum) throws IOException {
-        File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
-        FileWriter fileWriter = new FileWriter(boardFile);
+    public static void saveGame(Board board, String gameName) throws IOException {
+        File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
+        FileWriter fileWriter = new FileWriter(gameFile);
 
         fileWriter.write(board.getWidth() + " " + board.getHeight() + "\n");
 
@@ -28,12 +32,12 @@ public class FileManager {
         }
         fileWriter.write("\n");
 
-        fileWriter.write(board.getFixedTilesNum() + "\n");
-        for (int k = 0; k < board.getFixedTiles().length; k++) {
-            int x = board.getFixedTiles()[k][0];
-            int y = board.getFixedTiles()[k][1];
-            fileWriter.write(board.getTile(x, y).getType().toString() + " " + x + " " + y + " "
-                    + board.getTile(x, y).getRotation());
+        for (int k = 0; k < board.getWidth(); k++) {
+            for (int l = 0; l < board.getHeight(); l++) {
+                FloorCard curTile = board.getTile(k, l);
+                fileWriter.write(curTile.getType().toString() + " " + curTile.getX() + " " + curTile.getY()+ " "
+                        + curTile.getRotation() + " " + curTile.isFixed() + "\n");
+            }
         }
         fileWriter.write("\n");
         //add non fixed cards
