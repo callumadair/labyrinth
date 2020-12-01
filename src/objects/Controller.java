@@ -7,7 +7,9 @@ import javafx.scene.input.*;
 
 import java.util.*;
 
+
 public class Controller {
+
 
     private ArrayList<PlayerController> players;
     private int playerIndex = 0;
@@ -66,6 +68,29 @@ public class Controller {
         draw();
         startGame();
     }
+
+    //testing only
+    public Controller() {
+        board = new Board();
+        this.players = new ArrayList<PlayerController>(); //testing only
+        this.players.add(new PlayerController(null, 0)); //testing only
+        this.players.add(new PlayerController(null, 1)); //testing only
+        this.players.add(new PlayerController(null, 2)); //testing only
+        board.changePlayerPosition(players.get(0), 0, 0); //testing only
+        board.changePlayerPosition(players.get(1), 4, 4); //testing only
+        board.changePlayerPosition(players.get(2), 2, 2); //testing only
+
+        players.get(0).getCardsHeld().add(new ActionCard("FIRE"));//testing
+        players.get(0).getCardsHeld().add(new ActionCard("ICE"));//testing
+
+        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
+                board.getHeight() * FloorCard.TILE_SIZE);
+        enableRetrievingTilesFromCanvas();
+
+        draw();
+        startGame();
+    }
+
 
     enum GameState {
         DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
@@ -286,5 +311,11 @@ public class Controller {
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
+
+
+    public PlayerController getCurrentPlayer(){
+        return currentPlayer;
+    }
+
 
 }

@@ -1,3 +1,14 @@
+
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import objects.Controller;
+
 import javafx.application.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -5,6 +16,7 @@ import javafx.scene.paint.*;
 import javafx.stage.*;
 import menu.*;
 import objects.*;
+
 
 import java.util.*;
 
@@ -45,7 +57,9 @@ public class Main extends Application {
         Controller c = new Controller(board);
 
         root.setCenter(c.getCanvas());
+
         stage.setScene(scene);
         stage.show();
     }
 }
+

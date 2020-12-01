@@ -254,11 +254,6 @@ public class PlayerController {
         cardsHeld.add(card);
     }
 
-    @Override
-    public String toString() {
-        return "Player index: " + getPlayerIndex();
-    }
-
     /**
      * Draw player.
      *
