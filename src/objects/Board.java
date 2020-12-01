@@ -45,33 +45,9 @@ public class Board {
         setup();
     }
 
-    // testing only
+
     private void setup() {
-        map = new FloorCard[5][5];
-        width = 5;
-        height = 5;
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                map[j][i] = new FloorCard("STRAIGHT");
-                map[j][i].setX(j);
-                map[j][i].setY(i);
-            }
-        }
-        assignInsertPositions();
-        silkBag = new SilkBag(4);
 
-        silkBag.addACard(new FloorCard("CORNER"));
-        silkBag.addACard(new FloorCard("CORNER"));
-        silkBag.addACard(new FloorCard("CORNER"));
-        silkBag.addACard(new FloorCard("CORNER"));
-    }
-
-    private void setup(String[][] data) {
-        // Handle assigning all the data
-        map = new FloorCard[width][height];
-    }
-
-    private void setup(FloorCard[] fixedTiles) {
         map = new FloorCard[width][height];
         for (FloorCard fixed : fixedTiles) {
             map[fixed.getX()][fixed.getY()] = fixed;
@@ -219,6 +195,14 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public boolean checkBoardBoundary(int x, int y){
+        if(x < 0 || x >= width || y < 0 || y >= height){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public int getFixedTilesNum() {

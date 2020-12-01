@@ -245,7 +245,17 @@ public class FileManager {
             fixed[k] = new FloorCard(type, x, y, rotation);
         }
         ArrayList<Card> silkBagCards = new ArrayList<>();
-        int floorCardCount = loadSilkBagCards(silkBagCards, scanner);
+
+        createFloorCards(scanner.nextInt(), "STRAIGHT", silkBagCards);
+        createFloorCards(scanner.nextInt(), "CORNER", silkBagCards);
+        createFloorCards(scanner.nextInt(), "T_SHAPED", silkBagCards);
+
+        scanner.nextLine();
+        createActionCards(scanner.nextInt(), "FIRE", silkBagCards);
+        createActionCards(scanner.nextInt(), "ICE", silkBagCards);
+        createActionCards(scanner.nextInt(), "BACKTRACK", silkBagCards);
+        createActionCards(scanner.nextInt(), "DOUBLE_MOVE", silkBagCards);
+
 
         if ((width * height) - numFixed >= floorCardCount) {
             throw new IllegalArgumentException("Not enough floor cards in this file, please try again with more than "

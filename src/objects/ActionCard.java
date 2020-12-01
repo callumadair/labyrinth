@@ -1,6 +1,5 @@
 package objects;
 
-import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -8,6 +7,8 @@ import java.util.ArrayList;
  * The type Action card.
  */
 public class ActionCard extends Card {
+
+    public static final int CARD_SIZE = 54;
 
     private ActionCardType type;
     private Image image;
@@ -122,6 +123,7 @@ public class ActionCard extends Card {
     private ArrayList<FloorCard> getAreaOfEffect(Board board, int x, int y) {
         ArrayList<FloorCard> area = new ArrayList<>();
 
+        /*
         if (x == 0 && y == 0) { //left upper corner
             area.add(board.getTile(x, y));
             area.add(board.getTile(x + 1, y));
@@ -181,6 +183,35 @@ public class ActionCard extends Card {
             area.add(board.getTile(x - 1, y - 1));
             area.add(board.getTile(x - 1, y + 1));
         }
+         */
+
+        if (board.checkBoardBoundary(x - 1, y)) {
+            area.add(board.getTile(x - 1, y));
+        }
+        if (board.checkBoardBoundary(x + 1, y)) {
+            area.add(board.getTile(x + 1, y));
+        }
+        if (board.checkBoardBoundary(x, y + 1)) {
+            area.add(board.getTile(x, y + 1));
+        }
+        if (board.checkBoardBoundary(x, y - 1)) {
+            area.add(board.getTile(x, y - 1));
+        }
+        if (board.checkBoardBoundary(x + 1, y + 1)) {
+            area.add(board.getTile(x + 1, y + 1));
+        }
+        if (board.checkBoardBoundary(x - 1, y - 1)) {
+            area.add(board.getTile(x - 1, y - 1));
+        }
+        if (board.checkBoardBoundary(x - 1, y + 1)) {
+            area.add(board.getTile(x - 1, y + 1));
+        }
+        if (board.checkBoardBoundary(x + 1, y - 1)) {
+            area.add(board.getTile(x + 1, y - 1));
+        }
+
+        area.add(board.getTile(x, y));
+
         return area;
     }
 

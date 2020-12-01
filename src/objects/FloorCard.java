@@ -1,6 +1,9 @@
 package objects;
 
-import javafx.scene.image.*;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+
 
 /**
  * This class represents the different floor tiles of the game.
@@ -10,7 +13,8 @@ public class FloorCard extends Card { //need to continue javadoc
 
     public static final int TILE_SIZE = 54;
 
-    private int x, y;
+    private int x;
+    private int y;
     private FloorType type;
     private boolean isFixed;
     private FloorTileState state = FloorTileState.NORMAL;
@@ -86,13 +90,14 @@ public class FloorCard extends Card { //need to continue javadoc
         this.isFixed = true;
     }
 
-    /**
-     * State of the floor tile.
-     *
-     * @return the state of the floor tile
-     */
-    public FloorTileState state() {
-        return state;
+
+    public boolean isOnFire() {
+        if (state == FloorTileState.FIRE) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -337,6 +342,10 @@ public class FloorCard extends Card { //need to continue javadoc
      * @return true if path has opening in certain direction, otherwise false
      */
     public boolean checkPath(FloorCard compare, Direction dir) {
+
+        if (compare.isOnFire()) {
+            return false;
+        }
         switch (dir) {
             case LEFT:
                 if (compare.getOpeningAt(Direction.RIGHT) && this.getOpeningAt(Direction.LEFT)) {
@@ -361,5 +370,28 @@ public class FloorCard extends Card { //need to continue javadoc
         }
         return false;
     }
+
+
+    /* public void drawCard(GraphicsContext gc) {
+         gc.drawImage(image, 20, 30);
+     }
+ */
+    private void setImageWithRotation() {
+        switch (type) {
+            case STRAIGHT:
+                this.setImage(straightTileImagePath, this.getRotation());
+                break;
+            case CORNER:
+                this.setImage(cornerTileImagePath, this.getRotation());
+                break;
+            case T_SHAPED:
+                this.setImage(tshapedTileImagePath, this.getRotation());
+                break;
+            case GOAL:
+                this.setImage(goalTileImagePath);
+                break;
+        }
+    }
+
 
 }
