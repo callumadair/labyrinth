@@ -1,6 +1,5 @@
 package objects;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -11,19 +10,22 @@ import java.util.ArrayList;
 public class ActionCard extends Card {
 
     private ActionCardType type;
+    private Image image;
 
-    private String fireImagePath = "resources/ROAD-Cardfire.png";
-    private String iceImagePath = "resources/ROAD-CardIce.png";
-    private String backtrackImagePath = "resources/ROAD-CardReverse.png";
-    private String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
+    private String fireImagePath = "resources/ROAD_straight.png";
+    private String iceImagePath = "resources/ROAD_straight.png";
+    private String backtrackImagePath = "resources/ROAD_straight.png";
+    private String doubleMoveImagePath = "resources/ROAD_straight.png";
 
-    private boolean canBeUsed = false;
 
     /**
      * The enum Action card type.
      */
     public enum ActionCardType {
-        FIRE, ICE, BACKTRACK, DOUBLE_MOVE;
+        FIRE,
+        ICE,
+        BACKTRACK,
+        DOUBLE_MOVE;
     }
 
     /**
@@ -35,19 +37,19 @@ public class ActionCard extends Card {
         switch (type) {
             case "FIRE":
                 this.type = ActionCardType.FIRE;
-                this.setImage(fireImagePath);
+                image = new Image(fireImagePath);
                 break;
             case "ICE":
                 this.type = ActionCardType.ICE;
-                this.setImage(iceImagePath);
+                image = new Image(iceImagePath);
                 break;
             case "BACKTRACK":
                 this.type = ActionCardType.BACKTRACK;
-                this.setImage(backtrackImagePath);
+                image = new Image(backtrackImagePath);
                 break;
             case "DOUBLE_MOVE":
                 this.type = ActionCardType.DOUBLE_MOVE;
-                this.setImage(doubleMoveImagePath);
+                image = new Image(doubleMoveImagePath);
                 break;
         }
     }
@@ -66,6 +68,7 @@ public class ActionCard extends Card {
         }
         return true;
     }
+
 
     private boolean useFireCard(Board board, int x, int y) {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
@@ -88,37 +91,30 @@ public class ActionCard extends Card {
         return true;
     }
 
+
     private boolean useIceCard(Board board, int x, int y) {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
         for (FloorCard tile : tiles) {
-            board.getFrozenTiles().add(tile);
             tile.setOnIce();
         }
         return true;
     }
 
     private boolean useBackTrackCard(Board board, int x, int y) {
-        if (!board.checkPlayerPosition(x, y)) {
-            return false;
-        }
-
         PlayerController player = board.getPlayer(x, y);
 
         if (player.isBackTracked() == true) {
             return false;
         } else {
-            board.changePlayerPosition(player, player.getLastThree().getFirst()[0],
-                    player.getLastThree().getFirst()[1]);
+            board.changePlayerPosition(player,
+                    player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
             player.setBackTracked(true);
         }
         return true;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
-        if (!board.checkPlayerPosition(x, y)) {
-            return false;
-        }
         board.getPlayer(x, y).setDoubleMove(true);
         return true;
     }
@@ -126,48 +122,48 @@ public class ActionCard extends Card {
     private ArrayList<FloorCard> getAreaOfEffect(Board board, int x, int y) {
         ArrayList<FloorCard> area = new ArrayList<>();
 
-        if (x == 0 && y == 0) { // left upper corner
+        if (x == 0 && y == 0) { //left upper corner
             area.add(board.getTile(x, y));
             area.add(board.getTile(x + 1, y));
             area.add(board.getTile(x, y - 1));
             area.add(board.getTile(x + 1, y - 1));
-        } else if ((x == board.getWidth() - 1) && y == 0) { // right upper corner
+        } else if ((x == board.getWidth() - 1) && y == 0) { //right upper corner
             area.add(board.getTile(x, y));
             area.add(board.getTile(x - 1, y));
             area.add(board.getTile(x - 1, y - 1));
             area.add(board.getTile(x + 1, y - 1));
-        } else if (x == 0 && (y == board.getHeight() - 1)) { // left bottom corner
+        } else if (x == 0 && (y == board.getHeight() - 1)) { //left bottom corner
             area.add(board.getTile(x, y));
             area.add(board.getTile(x, y + 1));
             area.add(board.getTile(x + 1, y + 1));
             area.add(board.getTile(x + 1, y));
-        } else if (x == 0 && (y == board.getWidth() - 1)) { // right bottom corner
+        } else if (x == 0 && (y == board.getWidth() - 1)) { //right bottom corner
             area.add(board.getTile(x, y));
             area.add(board.getTile(x - 1, y + 1));
             area.add(board.getTile(x, y + 1));
             area.add(board.getTile(x - 1, y));
-        } else if (y == 0) { // upper middle
+        } else if (y == 0) { //upper middle
             area.add(board.getTile(x, y));
             area.add(board.getTile(x - 1, y));
             area.add(board.getTile(x - 1, y - 1));
             area.add(board.getTile(x, y - 1));
             area.add(board.getTile(x + 1, y - 1));
             area.add(board.getTile(x + 1, y));
-        } else if (x == 0 && ((y != 0) || y != board.getHeight() - 1)) { // left middle
+        } else if (x == 0 && ((y != 0) || y != board.getHeight() - 1)) { //left middle
             area.add(board.getTile(x, y));
             area.add(board.getTile(x, y + 1));
             area.add(board.getTile(x + 1, y + 1));
             area.add(board.getTile(x + 1, y));
             area.add(board.getTile(x + 1, y - 1));
             area.add(board.getTile(x, y - 1));
-        } else if ((x == board.getWidth() - 1) && ((y != 0) || (y != board.getHeight() - 1))) { // right middle
+        } else if ((x == board.getWidth() - 1) && ((y != 0) || (y != board.getHeight() - 1))) { //right middle
             area.add(board.getTile(x, y));
             area.add(board.getTile(x, y + 1));
             area.add(board.getTile(x - 1, y + 1));
             area.add(board.getTile(x - 1, y));
             area.add(board.getTile(x - 1, y - 1));
             area.add(board.getTile(x, y - 1));
-        } else if ((y == board.getHeight() - 1) && ((x != board.getWidth() - 1) || (x != 0))) { // bottom middle
+        } else if ((y == board.getHeight() - 1) && ((x != board.getWidth() - 1) || (x != 0))) { //bottom middle
             area.add(board.getTile(x, y));
             area.add(board.getTile(x + 1, y));
             area.add(board.getTile(x + 1, y + 1));
@@ -191,12 +187,5 @@ public class ActionCard extends Card {
     public ActionCardType getType() {
         return this.type;
     }
-
-    public boolean canBeUsed() {
-        return this.canBeUsed;
-    }
-
-    public void setCanBeUsed() {
-        this.canBeUsed = true;
-    }
 }
+
