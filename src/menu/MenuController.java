@@ -255,15 +255,5 @@ public class MenuController extends Application implements Initializable {
     		Media music = new Media(new File(filepath).toURI().toString());
     		menuMusic = new MediaPlayer(music);
     		menuMusic.play();
-        /*InputStream nyanCatMusic;
-        try
-        {
-            nyanCatMusic = new FileInputStream(new File(filepath));
-            AudioPlayer nyanCatAudio = new AudioPlayer(nyanCatMusic);
-            AudioPlayer.player.start(nyanCatAudio);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		*/
     }
 }
