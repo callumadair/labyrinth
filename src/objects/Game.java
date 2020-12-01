@@ -1,5 +1,6 @@
 package objects;
 
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -18,13 +19,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 
-public class Game extends Application {
+
+public class Game{
 
     private Controller controller;
     private BorderPane pane;
 
-    public static void main(String[] args) {
-        System.out.println("Starting app");
+
+    public void Game(String[][] boardData, ArrayList<PlayerController> players){
+
 
         launch(args);
     }
@@ -150,8 +153,8 @@ public class Game extends Application {
 
     }
 
+    }
 }
-
 
 
 
