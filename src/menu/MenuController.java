@@ -65,19 +65,19 @@ public class MenuController extends Application implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void musicOnOffButtonClick(ActionEvent actionEvent) {
-    	if(menuMusic.getStatus().equals(Status.PLAYING)) {
-    		menuMusic.pause();
-    		musicOnOffButton.setText("Music Off");
-    	}else {
-    		menuMusic.play();
-    		musicOnOffButton.setText("Music On");
-    	}
+        if (menuMusic.getStatus().equals(Status.PLAYING)) {
+            menuMusic.pause();
+            musicOnOffButton.setText("Music Off");
+        } else {
+            menuMusic.play();
+            musicOnOffButton.setText("Music On");
+        }
     }
-    
-    
+
+
     /**
      * Handle quit button action.
      *
@@ -123,8 +123,8 @@ public class MenuController extends Application implements Initializable {
 
         //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
         try {
-           // playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
-           // playMusicMegalovania("src\\resources\\megalovania.wav");
+            // playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
+            // playMusicMegalovania("src\\resources\\megalovania.wav");
             BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
             stackPane.getChildren().remove(borderPane);
@@ -171,28 +171,6 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
-
-    /**
-     * Handle leaderboard action.
-     *
-     * @param actionEvent the action event
-     */
-
-    /*
-
-    @FXML
-    private void leaderboardTransition(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        try {
-            Pane root = FXMLLoader.load(getClass().getResource("LeaderboardScreen.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-
     /**
      * Open leaderboard.
      *
@@ -220,21 +198,21 @@ public class MenuController extends Application implements Initializable {
     }
 
     @Override
-	public void initialize(URL location, ResourceBundle resources) {
-    	try {
-			textLabelID.setText(MessageOfTheDay.finalMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            textLabelID.setText(MessageOfTheDay.finalMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    	TranslateTransition backgroundMove = new TranslateTransition();
-    	backgroundMove.setDuration(Duration.millis(5000));
-    	backgroundMove.setNode(imageView);
-    	backgroundMove.setFromX(0);
-    	backgroundMove.setToX(30);
-		backgroundMove.setAutoReverse(true);
-		backgroundMove.setCycleCount(Animation.INDEFINITE);
-		backgroundMove.play();
+        TranslateTransition backgroundMove = new TranslateTransition();
+        backgroundMove.setDuration(Duration.millis(5000));
+        backgroundMove.setNode(imageView);
+        backgroundMove.setFromX(0);
+        backgroundMove.setToX(30);
+        backgroundMove.setAutoReverse(true);
+        backgroundMove.setCycleCount(Animation.INDEFINITE);
+        backgroundMove.play();
     }
 
     /**
@@ -251,9 +229,9 @@ public class MenuController extends Application implements Initializable {
         windowTransition.play();
     }
 
-    public static void playMusic(String filepath){
-    		Media music = new Media(new File(filepath).toURI().toString());
-    		menuMusic = new MediaPlayer(music);
-    		menuMusic.play();
+    public static void playMusic(String filepath) {
+        Media music = new Media(new File(filepath).toURI().toString());
+        menuMusic = new MediaPlayer(music);
+        menuMusic.play();
     }
 }
