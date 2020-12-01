@@ -1,8 +1,5 @@
 package objects;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 
 /**
@@ -195,28 +192,28 @@ public class ActionCard extends Card {
         }
          */
 
-        if(board.checkBoardBoundary(x - 1, y)){
+        if (board.checkBoardBoundary(x - 1, y)) {
             area.add(board.getTile(x - 1, y));
         }
-        if(board.checkBoardBoundary(x + 1, y)){
+        if (board.checkBoardBoundary(x + 1, y)) {
             area.add(board.getTile(x + 1, y));
         }
-        if(board.checkBoardBoundary(x, y + 1)){
+        if (board.checkBoardBoundary(x, y + 1)) {
             area.add(board.getTile(x, y + 1));
         }
-        if(board.checkBoardBoundary(x, y - 1)){
+        if (board.checkBoardBoundary(x, y - 1)) {
             area.add(board.getTile(x, y - 1));
         }
-        if(board.checkBoardBoundary(x + 1, y + 1)){
+        if (board.checkBoardBoundary(x + 1, y + 1)) {
             area.add(board.getTile(x + 1, y + 1));
         }
-        if(board.checkBoardBoundary(x - 1, y - 1)){
+        if (board.checkBoardBoundary(x - 1, y - 1)) {
             area.add(board.getTile(x - 1, y - 1));
         }
-        if(board.checkBoardBoundary(x - 1, y + 1)){
+        if (board.checkBoardBoundary(x - 1, y + 1)) {
             area.add(board.getTile(x - 1, y + 1));
         }
-        if(board.checkBoardBoundary(x + 1, y - 1)){
+        if (board.checkBoardBoundary(x + 1, y - 1)) {
             area.add(board.getTile(x + 1, y - 1));
         }
 

@@ -264,8 +264,8 @@ public class PlayerController {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 
-    private String getPlayerColor(){
-        switch (playerIndex){
+    private String getPlayerColor() {
+        switch (playerIndex) {
             case 0:
                 return "Green";
             case 1:

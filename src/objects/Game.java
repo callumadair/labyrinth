@@ -171,7 +171,7 @@ public class Game {
             }
         });
     }
-    
+
     private void enableActionCardSelection() {
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
