@@ -16,9 +16,6 @@ public class FileManager {
         return saveFileDirectory;
     }
 
-    public static void deleteSaveFile(File saveFile) {
-    }
-
     public static void saveGame(Board board, String gameName) throws IOException {
         File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
         FileWriter fileWriter = new FileWriter(gameFile);

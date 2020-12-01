@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
@@ -6,7 +7,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -46,18 +46,6 @@
                                     <Font name="Quicksand Medium" size="14.0" />
                                 </font>
                             </Button>
-                            <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#openLeaderboard" prefWidth="200.0" text="Leaderboards" textFill="#191640">
-                                <items>
-                                    <MenuItem mnemonicParsing="false">
-                                        <graphic>
-                                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" prefWidth="200.0" text="Map 1" textAlignment="CENTER" />
-                                        </graphic>
-                                    </MenuItem>
-                                </items>
-                           <font>
-                              <Font name="Quicksand Medium" size="14.0" />
-                           </font>
-                            </MenuButton>
                             <Button fx:id="instructionsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" text="Instructions" textFill="#191640">
                                 <font>
                                     <Font name="Quicksand Medium" size="14.0" />
@@ -102,13 +90,35 @@
                </children>
             </HBox>
          </bottom>
-         <right>
-            <VBox BorderPane.alignment="CENTER">
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="musicOnOffButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#musicOnOffButtonClick" text="Music ON" />
+                  <Button mnemonicParsing="false" text="Main Menu" textFill="#191640">
+                     <font>
+                        <Font name="Quicksand Medium" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="musicOnOffButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#musicOnOffButtonClick" text="Music ON" textFill="#191640">
+                     <font>
+                        <Font name="Quicksand Medium" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="5.0" />
+                     </HBox.margin></Button>
+                      <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#openLeaderboard" prefWidth="200.0" text="Leaderboards" textFill="#191640">
+                     <font>
+                        <Font name="Quicksand Medium" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                      </MenuButton>
                </children>
-            </VBox>
-         </right>
+            </HBox>
+         </top>
       </BorderPane>
    </children>
 </StackPane>
