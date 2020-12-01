@@ -1,14 +1,26 @@
 package objects;
 
-import javafx.event.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.input.*;
 
-import java.util.*;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+
+import java.util.ArrayList;
+
 
 
 public class Controller {
+
+
+    private IntegerProperty currentPlayerIndex;
+    private BooleanProperty cardSelectionFlag;
+    private BooleanProperty stateChangeFlag;
 
 
     private ArrayList<PlayerController> players;
@@ -99,11 +111,15 @@ public class Controller {
     public void startGame() {
         numOfPlayers = players.size() - 1;
         currentPlayer = players.get(playerIndex);
+        currentPlayerIndex = new SimpleIntegerProperty();
+        cardSelectionFlag = new SimpleBooleanProperty();
+        stateChangeFlag = new SimpleBooleanProperty();
         changeState(GameState.DRAWING);
     }
 
     private void changeState(GameState state) {
         currentState = state;
+        getStateChangeFlag().set(!getStateChangeFlag().getValue());
         startState(currentState);
     }
 
@@ -145,7 +161,10 @@ public class Controller {
     }
 
     private void drawCard() {
-        playingCard = board.getSilkBag().drawACard();
+
+        setPlayingCard(board.getSilkBag().drawACard());
+        currentPlayerIndex.set(currentPlayer.getPlayerIndex());
+
         //show the card to the player
         //? maybe animate as well
         if (playingCard instanceof FloorCard) {
@@ -164,9 +183,7 @@ public class Controller {
     private void insert() {
         if (tilesToCompare.contains(selectedTile)) {
             playingCard.useCard(board, selectedTile.getX(), selectedTile.getY());
-            tilesToCompare.clear();
-            selectedTile = null;
-            playingCard = null;
+            clearSelection();
             draw();
             changeState(GameState.ACTION_CARD);
         } else {
@@ -174,15 +191,17 @@ public class Controller {
         }
     }
 
-    private void playActionCard() {
-        playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
 
-        //player needs to choose action card
-/*
-        if(playingCard.equals("BACKTRACK")){
-        //player needs to choose another player's position
-            if(board.checkPlayerPosition(x,y)){
-                playingCard.useCard(board, x, y);
+    public void playActionCard() {
+        if (playingCard != null && selectedTile != null) {
+            if (playingCard.useCard(board, selectedTile.getX(), selectedTile.getY())) {
+                currentPlayer.getCardsHeld().remove((ActionCard) playingCard);
+                clearSelection();
+                draw();
+                changeState(GameState.MOVING);
+            } else {
+                selectedTile = null;
+
             }
         }else if(playingCard.equals("DOUBLE_MOVE")){
             playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
@@ -191,7 +210,7 @@ public class Controller {
         }else if(playingCard.equals("FIRE")) {
             //player chooses a tile
         }
-*/
+
         //player needs to select a tile and it needs to be validated
     }
 
@@ -217,6 +236,7 @@ public class Controller {
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
         if (tilesToCompare.isEmpty()) {
+            //notify player what happened
             changeState(GameState.END_TURN);
         }
         highlightTiles();
@@ -229,13 +249,13 @@ public class Controller {
             } else {
                 board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
                 draw();
-                tilesToCompare.clear();
-                selectedTile = null;
+                clearSelection();
                 if (currentPlayer.checkDoubleMove()) {
                     currentPlayer.setDoubleMove(false);
                     changeState(GameState.MOVING);
+                } else {
+                    changeState(GameState.END_TURN);
                 }
-                changeState(GameState.END_TURN);
             }
         } else {
             selectedTile = null;
@@ -261,9 +281,7 @@ public class Controller {
     }
 
     private void endTurn() {
-        selectedTile = null;
-        tilesToCompare.clear();
-        playingCard = null;
+        clearSelection();
         if (playerIndex == numOfPlayers) {
             playerIndex = 0;
         } else {
@@ -297,6 +315,23 @@ public class Controller {
         return canvas;
     }
 
+
+    public Card getPlayingCard() {
+        return playingCard;
+    }
+
+    public void setPlayingCard(Card card) {
+        playingCard = card;
+        getCardSelectionFlag().set(!getCardSelectionFlag().getValue());
+    }
+
+    private void clearSelection(){
+        setPlayingCard(null);
+        selectedTile = null;
+        tilesToCompare.clear();
+    }
+
+
     public void draw() {
         board.drawBoard(canvas.getGraphicsContext2D());
         for (PlayerController player : players) {
@@ -313,9 +348,27 @@ public class Controller {
     }
 
 
-    public PlayerController getCurrentPlayer(){
+    public GameState getCurrentState(){
+        return currentState;
+    }
+
+    public PlayerController getCurrentPlayer() {
         return currentPlayer;
     }
+
+    public IntegerProperty getCurrentPlayerIndex() {
+        return currentPlayerIndex;
+    }
+
+    public BooleanProperty getCardSelectionFlag(){
+        return cardSelectionFlag;
+    }
+
+    public BooleanProperty getStateChangeFlag(){
+        return stateChangeFlag;
+    }
+}
+
 
 
 }
