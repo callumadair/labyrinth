@@ -41,12 +41,14 @@ public class FileManager {
             }
         }
         fileWriter.write("\n");
-        fileWriter.write("silkbagCards\n");
 
         //Save tiles in silkbag currently.
         ArrayList<Card> cardsInBag = board.getSilkBag().getListOfCards();
-        for (int curVal : countSilkBagCards(cardsInBag)) {
-            fileWriter.write(curVal + " ");
+        for (int m = 0; m < countSilkBagCards(cardsInBag).length; m++) {
+            fileWriter.write(countSilkBagCards(cardsInBag)[m] + " ");
+            if (m == 2) {
+                fileWriter.write("\n");
+            }
         }
         fileWriter.write("\n");
 
@@ -124,7 +126,55 @@ public class FileManager {
     public static Board loadGame(String gameName) throws FileNotFoundException {
         File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
         Scanner scanner = new Scanner(gameFile);
+
+        int width = scanner.nextInt();
+        int height = scanner.nextInt();
+        scanner.nextLine();
+
+        int[][] spawnPoints = new int[4][2];
+        for (int i = 0; i < spawnPoints.length; i++) {
+            for (int j = 0; j < spawnPoints[i].length; j++) {
+                spawnPoints[i][j] = scanner.nextInt();
+            }
+        }
+        scanner.nextLine();
+        ArrayList<FloorCard> insertedCards = new ArrayList<>();
+        for (int k = 0; k < width; k++) {
+            for (int l = 0; l < height; l++) {
+                FloorCard newFloorCard = new FloorCard(scanner.next());
+                newFloorCard.setX(scanner.nextInt());
+                newFloorCard.setY(scanner.nextInt());
+                newFloorCard.setRotation(scanner.nextInt());
+                newFloorCard.setFixed(scanner.nextBoolean());
+
+                insertedCards.add(newFloorCard);
+            }
+        }
+
+        ArrayList<Card> silkBagCards = new ArrayList<>();
+        loadSilkBagCards(silkBagCards, scanner);
+
+
         return null;
+    }
+
+    private static int loadSilkBagCards(ArrayList<Card> silkBagCards, Scanner scanner) {
+        int straightCount = scanner.nextInt();
+        createFloorCards(straightCount, "STRAIGHT", silkBagCards);
+        int cornerCunt = scanner.nextInt();
+        createFloorCards(cornerCunt, "CORNER", silkBagCards);
+        int tShapedCount = scanner.nextInt();
+        createFloorCards(tShapedCount, "T_SHAPED", silkBagCards);
+        int floorCardCount = 0;
+        floorCardCount += straightCount + cornerCunt + tShapedCount;
+
+        scanner.nextLine();
+        createActionCards(scanner.nextInt(), "FIRE", silkBagCards);
+        createActionCards(scanner.nextInt(), "ICE", silkBagCards);
+        createActionCards(scanner.nextInt(), "BACKTRACK", silkBagCards);
+        createActionCards(scanner.nextInt(), "DOUBLE_MOVE", silkBagCards);
+
+        return floorCardCount;
     }
 
     public static Board loadBoard(int boardNum) throws FileNotFoundException {
@@ -152,25 +202,12 @@ public class FileManager {
             fixed[k] = new FloorCard(type, x, y, rotation);
         }
         ArrayList<Card> silkBagCards = new ArrayList<>();
-        int straightCount = scanner.nextInt();
-        createFloorCards(straightCount, "STRAIGHT", silkBagCards);
-        int cornerCunt = scanner.nextInt();
-        createFloorCards(cornerCunt, "CORNER", silkBagCards);
-        int tShapedCount = scanner.nextInt();
-        createFloorCards(tShapedCount, "T_SHAPED", silkBagCards);
-        int floorCardCount = straightCount + cornerCunt + tShapedCount;
+        int floorCardCount = loadSilkBagCards(silkBagCards, scanner);
 
         if ((width * height) - numFixed >= floorCardCount) {
             throw new IllegalArgumentException("Not enough floor cards in this file, please try again with more than "
                     + width * height + " floor cards.");
         }
-
-        scanner.nextLine();
-        createActionCards(scanner.nextInt(), "FIRE", silkBagCards);
-        createActionCards(scanner.nextInt(), "ICE", silkBagCards);
-        createActionCards(scanner.nextInt(), "BACKTRACK", silkBagCards);
-        createActionCards(scanner.nextInt(), "DOUBLE_MOVE", silkBagCards);
-
         SilkBag silkBag = new SilkBag(silkBagCards.size());
         silkBag.setListOfCards(silkBagCards);
 

@@ -1,9 +1,6 @@
 package objects;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javafx.scene.image.Image;
+import javafx.scene.image.*;
 
 /**
  * This class represents the different floor tiles of the game.
@@ -100,6 +97,7 @@ public class FloorCard extends Card { //need to continue javadoc
 
     /**
      * Get type of floor.
+     *
      * @return floor type
      */
     public FloorType getType() {
@@ -129,6 +127,7 @@ public class FloorCard extends Card { //need to continue javadoc
 
     /**
      * Sets x coordinate.
+     *
      * @param x
      */
     public void setX(int x) {
@@ -137,6 +136,7 @@ public class FloorCard extends Card { //need to continue javadoc
 
     /**
      * Sets y coordinate.
+     *
      * @param y
      */
     public void setY(int y) {
@@ -204,6 +204,10 @@ public class FloorCard extends Card { //need to continue javadoc
         return isFixed;
     }
 
+    public void setFixed(boolean isFixed) {
+        this.isFixed = isFixed;
+    }
+
     /**
      * Gets rotation.
      *
@@ -226,6 +230,7 @@ public class FloorCard extends Card { //need to continue javadoc
 
     /**
      * Change path for tile.
+     *
      * @param times
      */
     private void changePaths(int times) {
@@ -260,9 +265,10 @@ public class FloorCard extends Card { //need to continue javadoc
 
     /**
      * Set rotation of the tile.
+     *
      * @param rotation
      */
-    private void setRotation(int rotation) {
+    public void setRotation(int rotation) {
         if (rotation == 90) {
             this.rotation = 90;
             changePaths(1);
@@ -304,6 +310,7 @@ public class FloorCard extends Card { //need to continue javadoc
 
     /**
      * Get opening at certain direction.
+     *
      * @param dir
      * @return true if possible paths otherwise return false
      */
@@ -324,6 +331,7 @@ public class FloorCard extends Card { //need to continue javadoc
 
     /**
      * Check to see if there is a path in the direction the player wants to go.
+     *
      * @param compare
      * @param dir
      * @return true if path has opening in certain direction, otherwise false
