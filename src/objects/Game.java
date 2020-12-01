@@ -1,13 +1,15 @@
 package objects;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -16,147 +18,145 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
+import menu.FileManager;
 
-public class Game extends Application {
+import java.util.ArrayList;
+
+public class Game {
 
     private Controller controller;
     private BorderPane pane;
-    private VBox left;
+
+    //Left
+    private ArrayList<Label> playerTags;
+    private Label highlightedPlayer;
+
+    //Bottom
+    private ImageView playingCardImage;
+
+    //Right
     private VBox right;
-    private VBox bottom;
 
-    public void Game(Board board) {
-        controller = new Controller(board);
+    public Game(Board board) {
+        this.controller = new Controller(board);
 
+        pane = new BorderPane();
+        pane.setCenter(controller.getCanvas());
         this.createBottomPane();
         this.createLeftPane();
         this.createRightPane();
-    }
 
-    public static void main(String[] args) {
-        System.out.println("Starting app");
-
-        launch(args);
-    }
-
-    public void init() {
-
+        this.listenForPlayerChange();
+        this.listenForCardChange();
+        this.enableActionCardSelection();
     }
 
     private void createLeftPane() {
+        playerTags = new ArrayList<>();
+        VBox left = new VBox();
+        for (int i = 0; i < controller.getPlayers().size(); i++) {
+            playerTags.add(new Label(controller.getPlayers().get(i).toString()));
+            playerTags.get(i).setFont(Font.font("Cambria", FontPosture.REGULAR, 20));
+            playerTags.get(i).setTextFill(Color.BLACK);
+            left.getChildren().add(playerTags.get(i));
+        }
+        pane.setLeft(left);
+        highlightPlayer();
+    }
 
+    private void highlightPlayer() {
+        if (highlightedPlayer != null) {
+            highlightedPlayer.setTextFill(Color.BLACK);
+        }
+        highlightedPlayer = playerTags.get(controller.getCurrentPlayerIndex().getValue());
+        highlightedPlayer.setTextFill(Color.DEEPPINK);
     }
 
     private void createRightPane() {
+        right = new VBox();
+        right.setAlignment(Pos.TOP_CENTER);
+        showPlayersActionCard();
 
+        pane.setRight(right);
+    }
+
+    private void showPlayersActionCard() {
+        Glow glow = new Glow();
+        glow.setLevel(0.7);
+
+        for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
+            ImageView cardDisplay = new ImageView();
+            cardDisplay.setImage(card.getImage());
+            cardDisplay.setPickOnBounds(true);
+            cardDisplay.setCursor(Cursor.HAND);
+
+            if(card.canBeUsed()){
+                cardDisplay.setEffect(glow);
+            }
+
+            right.getChildren().add(cardDisplay);
+        }
     }
 
     private void createBottomPane() {
+        VBox bottom = new VBox();
+        bottom.setAlignment(Pos.CENTER);
 
-    }
-
-    public void start(Stage stage) throws Exception {
-
-        BorderPane root = new BorderPane();
-
-        //Bottom
         Glow glow = new Glow();
         glow.setLevel(0.9);
 
-        bottom = new VBox();
-        bottom.setAlignment(Pos.CENTER);
+        playingCardImage = new ImageView();
+        playingCardImage.setEffect(glow);
+        bottom.getChildren().add(playingCardImage);
 
-        ImageView playingCard = new ImageView();
-        playingCard.setImage(controller.getPlayingCard().getImage());
-        playingCard.setEffect(glow);
-        bottom.getChildren().add(playingCard);
-
-        root.setBottom(bottom);
-
-//Left
-        left = new VBox();
-        left.setAlignment(Pos.CENTER);
-
-        for (PlayerController player : controller.getPlayers()) {
-            if (player.equals(controller.getCurrentPlayer())) {
-
-                Label playersInGame = new Label(player.toString());
-                playersInGame.setFont(Font.font("Cambria", FontPosture.REGULAR, 20));
-                playersInGame.setTextFill(Color.DEEPPINK);
-                playersInGame.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        playersInGame.setScaleX(1.5);
-                        playersInGame.setScaleY(1.5);
-                    }
-                });
-                playersInGame.setOnMouseExited(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        playersInGame.setScaleX(1);
-                        playersInGame.setScaleY(1);
-                    }
-                });
-                left.getChildren().add(playersInGame);
-            } else {
-                Label playersInGame = new Label(player.toString());
-                playersInGame.setFont(Font.font("Cambria", FontPosture.REGULAR, 20));
-                left.getChildren().add(playersInGame);
-
-                playersInGame.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        playersInGame.setScaleX(1.5);
-                        playersInGame.setScaleY(1.5);
-                    }
-                });
-                playersInGame.setOnMouseExited(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        playersInGame.setScaleX(1);
-                        playersInGame.setScaleY(1);
-                    }
-                });
-            }
-
-        }
-
-        root.setLeft(left);
-
-//Right
-        right = new VBox();
-        right.setAlignment(Pos.CENTER);
-
-
-        for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
-            ImageView image = new ImageView();
-            image.setImage(card.getImage());
-            image.setEffect(glow);
-            image.setPickOnBounds(true);
-
-            image.setCursor(Cursor.HAND);
-
-            image.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    controller.playActionCard();
-                }
-            });
-            right.getChildren().add(image);
-        }
-
-        Button button = new Button("Skip Action");
-
-        right.getChildren().add(button);
-
-        button.setOnAction(e -> {
-            controller.changeState(Controller.GameState.MOVING);
-        });
-
-
-        root.setRight(right);
+        pane.setBottom(bottom);
     }
 
+    private void listenForPlayerChange() {
+        controller.getCurrentPlayerIndex().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                highlightPlayer();
+                showPlayersActionCard();
+            }
+        });
+    }
+
+    private void listenForCardChange() {
+        controller.getCardSelectionFlag().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (controller.getPlayingCard() != null) {
+                    playingCardImage.setImage(controller.getPlayingCard().getImage());
+                } else {
+                    playingCardImage.setImage(null);
+                }
+            }
+        });
+    }
+
+    private void enableActionCardSelection(){
+        right.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                double y = event.getY();
+
+                selectActionCard(y);
+            }
+        });
+    }
+
+    private void selectActionCard(double y){
+        int cordY = (int) (y / ActionCard.CARD_SIZE);
+
+        if(controller.getCurrentPlayer().getCardsHeld().size() > cordY){
+            controller.setPlayingCard(controller.getCurrentPlayer().getCardsHeld().get(cordY));
+        }
+    }
+
+    public BorderPane getPane(){
+        return pane;
+    }
 }
 
 

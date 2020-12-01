@@ -10,6 +10,8 @@ import java.util.ArrayList;
  */
 public class ActionCard extends Card {
 
+    public static final int CARD_SIZE = 54;
+
     private ActionCardType type;
 
     private String fireImagePath = "resources/ROAD-Cardfire.png";
