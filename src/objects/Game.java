@@ -22,9 +22,13 @@ public class Game extends Application {
     private Controller controller;
     private BorderPane pane;
 
+    private VBox left;
+    private VBox right;
+    private VBox bottom;
+
     public void Game(Board board) {
         controller = new Controller(board);
-        pane = new BorderPane();
+
 
         this.createBottomPane();
         this.createLeftPane();

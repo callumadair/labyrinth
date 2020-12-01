@@ -38,7 +38,7 @@ public class Board {
         setup();
     }
 
-    private void setup(FloorCard[] fixedTiles) {
+    private void setup() {
         map = new FloorCard[width][height];
         for (FloorCard fixed : fixedTiles) {
             map[fixed.getX()][fixed.getY()] = fixed;
@@ -220,6 +220,14 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public boolean checkBoardBoundary(int x, int y){
+        if(x < 0 || x >= width || y < 0 || y >= height){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public int getFixedTilesNum() {

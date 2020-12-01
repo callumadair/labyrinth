@@ -15,7 +15,8 @@ public class FloorCard extends Card { //need to continue javadoc
 
     public static final int TILE_SIZE = 54;
 
-    private int x, y;
+    private int x;
+    private int y;
     private FloorType type;
     private boolean isFixed;
     private FloorTileState state = FloorTileState.NORMAL;
