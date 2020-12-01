@@ -8,10 +8,10 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.*;
+import javafx.scene.media.MediaPlayer.*;
 import javafx.stage.*;
 import javafx.util.*;
-import menu.DailyMessage.*;
-import sun.audio.*;
 
 import java.io.*;
 import java.net.*;
@@ -37,6 +37,9 @@ public class MenuController extends Application implements Initializable {
     private Label textLabelID;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button musicOnOffButton;
+    private static MediaPlayer menuMusic;
 
     /**
      * The entry point of application.
@@ -45,7 +48,7 @@ public class MenuController extends Application implements Initializable {
      */
     public static void main(String[] args) {
         //playMusiclevanPolkaa("src\\resources\\music.wav");
-        playMusicNyanCat("src\\resources\\NyanCat.wav");
+        playMusic("src\\resources\\MenuMusic.wav");
         launch(args);
 
     }
@@ -62,7 +65,19 @@ public class MenuController extends Application implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
+    @FXML
+    private void musicOnOffButtonClick(ActionEvent actionEvent) {
+    	if(menuMusic.getStatus().equals(Status.PLAYING)) {
+    		menuMusic.pause();
+    		musicOnOffButton.setText("Music Off");
+    	}else {
+    		menuMusic.play();
+    		musicOnOffButton.setText("Music On");
+    	}
+    }
+    
+    
     /**
      * Handle quit button action.
      *
@@ -108,8 +123,8 @@ public class MenuController extends Application implements Initializable {
 
         //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
         try {
-            //  playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
-            //  playMusicMegalovania("src\\resources\\megalovania.wav");
+           // playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
+           // playMusicMegalovania("src\\resources\\megalovania.wav");
             BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
             stackPane.getChildren().add(root);
             stackPane.getChildren().remove(borderPane);
@@ -129,7 +144,7 @@ public class MenuController extends Application implements Initializable {
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();
@@ -205,21 +220,21 @@ public class MenuController extends Application implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            textLabelID.setText(GetFinalMessage.finalMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	public void initialize(URL location, ResourceBundle resources) {
+    	try {
+			textLabelID.setText(MessageOfTheDay.finalMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        TranslateTransition backgroundMove = new TranslateTransition();
-        backgroundMove.setDuration(Duration.millis(5000));
-        backgroundMove.setNode(imageView);
-        backgroundMove.setFromX(0);
-        backgroundMove.setToX(30);
-        backgroundMove.setAutoReverse(true);
-        backgroundMove.setCycleCount(Animation.INDEFINITE);
-        backgroundMove.play();
+    	TranslateTransition backgroundMove = new TranslateTransition();
+    	backgroundMove.setDuration(Duration.millis(5000));
+    	backgroundMove.setNode(imageView);
+    	backgroundMove.setFromX(0);
+    	backgroundMove.setToX(30);
+		backgroundMove.setAutoReverse(true);
+		backgroundMove.setCycleCount(Animation.INDEFINITE);
+		backgroundMove.play();
     }
 
     /**
@@ -236,51 +251,19 @@ public class MenuController extends Application implements Initializable {
         windowTransition.play();
     }
 
-    public static void playMusiclevanPolkaa(String filepath) {
-        InputStream music;
-        try {
-            music = new FileInputStream(new File(filepath));
-            AudioStream audio = new AudioStream(music);
-            AudioPlayer.player.start(audio);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void playMusicMegalovania(String filepath) {
-        InputStream megalovaniaMusic;
-        try {
-            megalovaniaMusic = new FileInputStream(new File(filepath));
-            AudioStream megalovaniaAudio = new AudioStream(megalovaniaMusic);
-            AudioPlayer.player.start(megalovaniaAudio);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void playMusicHEYYEYAAEYAAAEYAEYAA(String filepath) {
-        InputStream HEYYEYAAEYAAAEYAEYAAMusic;
-        try {
-            HEYYEYAAEYAAAEYAEYAAMusic = new FileInputStream(new File(filepath));
-            AudioStream HEYYEYAAEYAAAEYAEYAAAudio = new AudioStream(HEYYEYAAEYAAAEYAEYAAMusic);
-            AudioPlayer.player.start(HEYYEYAAEYAAAEYAEYAAAudio);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void playMusicNyanCat(String filepath) {
-        InputStream nyanCatMusic;
-        try {
+    public static void playMusic(String filepath){
+    		Media music = new Media(new File(filepath).toURI().toString());
+    		menuMusic = new MediaPlayer(music);
+    		menuMusic.play();
+        /*InputStream nyanCatMusic;
+        try
+        {
             nyanCatMusic = new FileInputStream(new File(filepath));
-            AudioStream nyanCatAudio = new AudioStream(nyanCatMusic);
+            AudioPlayer nyanCatAudio = new AudioPlayer(nyanCatMusic);
             AudioPlayer.player.start(nyanCatAudio);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+		*/
     }
 }

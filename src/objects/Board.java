@@ -229,6 +229,7 @@ public class Board {
         return fixedTiles;
     }
 
+
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
@@ -244,6 +245,7 @@ public class Board {
 
     public int[][] getSpawnPoints() {
         return spawnPoints;
+
     }
 
     public void setPlayers(ArrayList<PlayerController> players) {
