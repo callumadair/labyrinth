@@ -104,9 +104,9 @@ public class Game {
 
     }
 
-    private void clearDisplayedCards(){
-        if(!cardsDisplayed.isEmpty()){
-            for(ImageView imageView : cardsDisplayed){
+    private void clearDisplayedCards() {
+        if (!cardsDisplayed.isEmpty()) {
+            for (ImageView imageView : cardsDisplayed) {
                 right.getChildren().remove(imageView);
             }
         }
@@ -154,23 +154,24 @@ public class Game {
         controller.getStateChangeFlag().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(controller.getCurrentState() == Controller.GameState.DRAWING){
+                if (controller.getCurrentState() == Controller.GameState.DRAWING) {
                     //set label to drawn card and show it
                 }
-                if(controller.getCurrentState() == Controller.GameState.ACTION_CARD){
+                if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
                     //show skip button
                 }
-                if(controller.getCurrentState() == Controller.GameState.MOVING){
+                if (controller.getCurrentState() == Controller.GameState.MOVING) {
                     //disable skip button
                     //disable label
                     showPlayersActionCard();
                 }
-                if(controller.getCurrentState() == Controller.GameState.VICTORY){
+                if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     //end game
                 }
             }
         });
     }
+    
     private void enableActionCardSelection() {
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -183,11 +184,11 @@ public class Game {
     }
 
     private void selectActionCard(double y) {
-        if(controller.getCurrentState() == Controller.GameState.ACTION_CARD){
+        if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
             int cordY = (int) (y / ActionCard.CARD_SIZE);
 
             if (controller.getCurrentPlayer().getCardsHeld().size() > cordY) {
-                //set label to Playing Card: 
+                //set label to Playing Card:
                 controller.setPlayingCard(controller.getCurrentPlayer().getCardsHeld().get(cordY));
             }
         }
