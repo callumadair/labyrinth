@@ -311,11 +311,7 @@ public class Controller {
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
-
-
-    public PlayerController getCurrentPlayer(){
-        return currentPlayer;
-    }
+    
 
 
 }
