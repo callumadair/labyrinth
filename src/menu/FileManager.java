@@ -121,7 +121,9 @@ public class FileManager {
                 + player.getY() + " " + vals.toString();
     }
 
-    public static Board loadGame(String gameName) {
+    public static Board loadGame(String gameName) throws FileNotFoundException {
+        File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
+        Scanner scanner = new Scanner(gameFile);
         return null;
     }
 
@@ -150,9 +152,19 @@ public class FileManager {
             fixed[k] = new FloorCard(type, x, y, rotation);
         }
         ArrayList<Card> silkBagCards = new ArrayList<>();
-        createFloorCards(scanner.nextInt(), "STRAIGHT", silkBagCards);
-        createFloorCards(scanner.nextInt(), "CORNER", silkBagCards);
-        createFloorCards(scanner.nextInt(), "T_SHAPED", silkBagCards);
+        int straightCount = scanner.nextInt();
+        createFloorCards(straightCount, "STRAIGHT", silkBagCards);
+        int cornerCunt = scanner.nextInt();
+        createFloorCards(cornerCunt, "CORNER", silkBagCards);
+        int tShapedCount = scanner.nextInt();
+        createFloorCards(tShapedCount, "T_SHAPED", silkBagCards);
+        int floorCardCount = straightCount + cornerCunt + tShapedCount;
+
+        if ((width * height) - numFixed >= floorCardCount) {
+            throw new IllegalArgumentException("Not enough floor cards in this file, please try again with more than "
+                    + width * height + " floor cards.");
+        }
+
         scanner.nextLine();
         createActionCards(scanner.nextInt(), "FIRE", silkBagCards);
         createActionCards(scanner.nextInt(), "ICE", silkBagCards);
