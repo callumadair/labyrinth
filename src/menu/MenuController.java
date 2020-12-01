@@ -24,7 +24,7 @@ import java.util.*;
  * @author Callum Adair
  * @author Jeffrey
  */
-public class MenuController extends Application implements Initializable{
+public class MenuController extends Application implements Initializable {
 
     private Stage stage;
     private Scene primaryScene;
@@ -243,12 +243,12 @@ public class MenuController extends Application implements Initializable{
      * @param fadeOut the fade out
      */
     private void makeFadeOut(Pane fadeOut) {
-    	TranslateTransition windowTransition =new TranslateTransition();
-    	windowTransition.setDuration(Duration.millis(500));
-		windowTransition.setNode(fadeOut);
-		windowTransition.setFromX(700);
-		windowTransition.setToX(0);
-		windowTransition.play();
+        TranslateTransition windowTransition = new TranslateTransition();
+        windowTransition.setDuration(Duration.millis(500));
+        windowTransition.setNode(fadeOut);
+        windowTransition.setFromX(700);
+        windowTransition.setToX(0);
+        windowTransition.play();
     }
 
     public static void playMusic(String filepath){
@@ -261,8 +261,7 @@ public class MenuController extends Application implements Initializable{
             nyanCatMusic = new FileInputStream(new File(filepath));
             AudioPlayer nyanCatAudio = new AudioPlayer(nyanCatMusic);
             AudioPlayer.player.start(nyanCatAudio);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 		*/

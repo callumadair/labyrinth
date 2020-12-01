@@ -12,16 +12,16 @@ public class ActionCard extends Card {
     private ActionCardType type;
     private Image image;
 
-    private String fireImagePath;
-    private String iceImagePath;
-    private String backtrackImagePath;
-    private String doubleMoveImagePath;
+    private String fireImagePath = "resources/ROAD_straight.png";
+    private String iceImagePath = "resources/ROAD_straight.png";
+    private String backtrackImagePath = "resources/ROAD_straight.png";
+    private String doubleMoveImagePath = "resources/ROAD_straight.png";
 
 
     /**
      * The enum Action card type.
      */
-    enum ActionCardType {
+    public enum ActionCardType {
         FIRE,
         ICE,
         BACKTRACK,
@@ -184,5 +184,8 @@ public class ActionCard extends Card {
         return area;
     }
 
+    public ActionCardType getType() {
+        return this.type;
+    }
 }
 

@@ -24,6 +24,22 @@ public class Board {
         setup(data);
     }
 
+    public Board(int width, int height, int[][] spawnPoints, SilkBag silkBag, ArrayList<PlayerController> players) {
+        this.width = width;
+        this.height = height;
+        this.spawnPoints = spawnPoints;
+        this.silkBag = silkBag;
+        this.players = players;
+    }
+
+    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles, SilkBag silkBag) {
+        this.width = width;
+        this.height = height;
+        this.spawnPoints = spawnPoints;
+        this.silkBag = silkBag;
+        setup(fixedTiles);
+    }
+
     // Just for testing
     public Board() {
         setup();
@@ -53,6 +69,21 @@ public class Board {
     private void setup(String[][] data) {
         // Handle assigning all the data
         map = new FloorCard[width][height];
+    }
+
+    private void setup(FloorCard[] fixedTiles) {
+        map = new FloorCard[width][height];
+        for (FloorCard fixed : fixedTiles) {
+            map[fixed.getX()][fixed.getY()] = fixed;
+        }
+
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == null) {
+                    map[i][j] = silkBag.drawFloorCard();
+                }
+            }
+        }
     }
 
     private void assignInsertPositions() {
@@ -217,4 +248,7 @@ public class Board {
 
     }
 
+    public void setPlayers(ArrayList<PlayerController> players) {
+        this.players = players;
+    }
 }

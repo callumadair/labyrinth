@@ -1,19 +1,13 @@
 package objects;
 
-import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import javafx.event.*;
+import javafx.scene.canvas.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Controller {
-
-    enum GameState {
-        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
-    }
 
     private ArrayList<PlayerController> players;
     private int playerIndex = 0;
@@ -24,6 +18,7 @@ public class Controller {
     private FloorCard selectedTile;
     private Card playingCard;
     private GameState currentState;
+
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
@@ -42,6 +37,17 @@ public class Controller {
         startGame();
     }
 
+    public Controller(Board b){
+        board = b;
+        this.players = b.getPlayers();
+
+        canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
+                board.getHeight() * FloorCard.TILE_SIZE);
+        enableRetrievingTilesFromCanvas();
+
+        draw();
+        startGame();
+    }
     //testing only
     public Controller() {
         board = new Board();
@@ -59,6 +65,10 @@ public class Controller {
 
         draw();
         startGame();
+    }
+
+    enum GameState {
+        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
     }
 
     public void startGame() {
@@ -143,6 +153,20 @@ public class Controller {
         playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
 
         //player needs to choose action card
+/*
+        if(playingCard.equals("BACKTRACK")){
+        //player needs to choose another player's position
+            if(board.checkPlayerPosition(x,y)){
+                playingCard.useCard(board, x, y);
+            }
+        }else if(playingCard.equals("DOUBLE_MOVE")){
+            playingCard.useCard(board, currentPlayer.getX(), currentPlayer.getY());
+        }else if(playingCard.equals("ICE")){
+            //player chooses a tile
+        }else if(playingCard.equals("FIRE")) {
+            //player chooses a tile
+        }
+*/
         //player needs to select a tile and it needs to be validated
     }
 
@@ -254,4 +278,13 @@ public class Controller {
             player.drawPlayer(canvas.getGraphicsContext2D());
         }
     }
+
+    public PlayerController getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public ArrayList<PlayerController> getPlayers() {
+        return players;
+    }
+
 }
