@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
+   <children>
+      <ImageView fx:id="imageView" cache="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/testImage.jpg" />
+         </image>
+         <effect>
+            <GaussianBlur radius="5.0" />
+         </effect>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></ImageView>
+      <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="1200.0">
+          <stylesheets>
+              <URL value="@../resources/menucontrollerstyle.css" />
+              <URL value="@../resources/leaderboardstyle.css" />
+          </stylesheets>
+         <center>
+            <StackPane prefHeight="429.0" prefWidth="1200.0" BorderPane.alignment="CENTER_LEFT">
+               <children>
+                  <VBox alignment="BOTTOM_CENTER" spacing="20.0">
+                     <children>
+                            <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handlePlayButtonAction" prefWidth="200.0" text="Play" textFill="#191640">
+                                <font>
+                                    <Font name="Quicksand Medium" size="14.0" />
+                                </font>
+                            </Button>
+                            <Button fx:id="instructionsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" text="Instructions" textFill="#191640">
+                                <font>
+                                    <Font name="Quicksand Medium" size="14.0" />
+                                </font>
+                            </Button>
+                            <Button fx:id="quitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleQuitButtonAction" prefWidth="200.0" text="Quit" textFill="#191640">
+                                <font>
+                                    <Font name="Quicksand Medium" size="14.0" />
+                                </font>
+                            </Button>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <padding>
+                        <Insets bottom="80.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </StackPane>
+         </center>
+         <bottom>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="10.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+               <children>
+                      <Label fx:id="textLabelID" alignment="BOTTOM_CENTER" contentDisplay="CENTER" snapToPixel="false" textFill="#ebebeb" textOverrun="CLIP">
+                          <font>
+                              <Font name="Arial Bold Italic" size="24.0" />
+                          </font>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                      </Label>
+               </children>
+            </HBox>
+         </bottom>
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="musicOnOffButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#musicOnOffButtonClick" text="Music ON" textFill="#191640">
+                     <font>
+                        <Font name="Quicksand Medium" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="5.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+</StackPane>
