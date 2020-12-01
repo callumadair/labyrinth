@@ -36,6 +36,7 @@ public class Game {
 
     //Right
     private VBox right;
+    private ArrayList<ImageView> cardsDisplayed;
 
     public Game(Board board) {
         this.controller = new Controller(board);
@@ -48,6 +49,7 @@ public class Game {
 
         this.listenForPlayerChange();
         this.listenForCardChange();
+        this.listenForStateChange();
         this.enableActionCardSelection();
     }
 
@@ -75,6 +77,7 @@ public class Game {
     private void createRightPane() {
         right = new VBox();
         right.setAlignment(Pos.TOP_CENTER);
+        cardsDisplayed = new ArrayList<>();
         showPlayersActionCard();
 
         pane.setRight(right);
@@ -84,17 +87,28 @@ public class Game {
         Glow glow = new Glow();
         glow.setLevel(0.7);
 
+        clearDisplayedCards();
+
         for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
             ImageView cardDisplay = new ImageView();
             cardDisplay.setImage(card.getImage());
             cardDisplay.setPickOnBounds(true);
             cardDisplay.setCursor(Cursor.HAND);
 
-            if(card.canBeUsed()){
+            if (card.canBeUsed()) {
                 cardDisplay.setEffect(glow);
             }
-
+            cardsDisplayed.add(cardDisplay);
             right.getChildren().add(cardDisplay);
+        }
+
+    }
+
+    private void clearDisplayedCards(){
+        if(!cardsDisplayed.isEmpty()){
+            for(ImageView imageView : cardsDisplayed){
+                right.getChildren().remove(imageView);
+            }
         }
     }
 
@@ -108,6 +122,7 @@ public class Game {
         playingCardImage = new ImageView();
         playingCardImage.setEffect(glow);
         bottom.getChildren().add(playingCardImage);
+        playingCardImage.setImage(controller.getPlayingCard().getImage());
 
         pane.setBottom(bottom);
     }
@@ -135,7 +150,28 @@ public class Game {
         });
     }
 
-    private void enableActionCardSelection(){
+    private void listenForStateChange() {
+        controller.getStateChangeFlag().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(controller.getCurrentState() == Controller.GameState.DRAWING){
+                    //set label to drawn card and show it
+                }
+                if(controller.getCurrentState() == Controller.GameState.ACTION_CARD){
+                    //show skip button
+                }
+                if(controller.getCurrentState() == Controller.GameState.MOVING){
+                    //disable skip button
+                    //disable label
+                    showPlayersActionCard();
+                }
+                if(controller.getCurrentState() == Controller.GameState.VICTORY){
+                    //end game
+                }
+            }
+        });
+    }
+    private void enableActionCardSelection() {
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -146,15 +182,18 @@ public class Game {
         });
     }
 
-    private void selectActionCard(double y){
-        int cordY = (int) (y / ActionCard.CARD_SIZE);
+    private void selectActionCard(double y) {
+        if(controller.getCurrentState() == Controller.GameState.ACTION_CARD){
+            int cordY = (int) (y / ActionCard.CARD_SIZE);
 
-        if(controller.getCurrentPlayer().getCardsHeld().size() > cordY){
-            controller.setPlayingCard(controller.getCurrentPlayer().getCardsHeld().get(cordY));
+            if (controller.getCurrentPlayer().getCardsHeld().size() > cordY) {
+                //set label to Playing Card: 
+                controller.setPlayingCard(controller.getCurrentPlayer().getCardsHeld().get(cordY));
+            }
         }
     }
 
-    public BorderPane getPane(){
+    public BorderPane getPane() {
         return pane;
     }
 }

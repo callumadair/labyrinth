@@ -16,6 +16,7 @@ public class Controller {
 
     private IntegerProperty currentPlayerIndex;
     private BooleanProperty cardSelectionFlag;
+    private BooleanProperty stateChangeFlag;
 
     private ArrayList<PlayerController> players;
     private int playerIndex = 0;
@@ -51,11 +52,13 @@ public class Controller {
         currentPlayer = players.get(playerIndex);
         currentPlayerIndex = new SimpleIntegerProperty();
         cardSelectionFlag = new SimpleBooleanProperty();
+        stateChangeFlag = new SimpleBooleanProperty();
         changeState(GameState.DRAWING);
     }
 
     public void changeState(GameState state) {
         currentState = state;
+        getStateChangeFlag().set(!getStateChangeFlag().getValue());
         startState(currentState);
     }
 
@@ -294,6 +297,10 @@ public class Controller {
 
     public BooleanProperty getCardSelectionFlag(){
         return cardSelectionFlag;
+    }
+
+    public BooleanProperty getStateChangeFlag(){
+        return stateChangeFlag;
     }
 }
 
