@@ -119,8 +119,9 @@ public class FileManager {
                 vals.append(cardValues[i]).append(" ");
             }
         }
-        return player.getPlayerIndex() + " " + player.getProfile().getPlayerName() + " " + player.getX() + " "
-                + player.getY() + " " + vals.toString();
+        return player.getProfile().getPlayerName() + " " + player.getProfile().getVictories() + " "
+                + player.getProfile().getLosses() + " " + player.getProfile().getPlayerID() + " "
+                + player.getPlayerIndex() + " " + player.getX() + " " + player.getY() + " " + vals.toString();
     }
 
     public static Board loadGame(String gameName) throws FileNotFoundException {
@@ -153,9 +154,54 @@ public class FileManager {
 
         ArrayList<Card> silkBagCards = new ArrayList<>();
         loadSilkBagCards(silkBagCards, scanner);
+        SilkBag silkBag = new SilkBag(silkBagCards.size());
+        scanner.nextLine();
 
+        ArrayList<PlayerController> players = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            players.add(createPlayerController(scanner.nextLine()));
+        }
 
-        return null;
+        Board loadedBoard = new Board(width, height, spawnPoints, silkBag, players);
+        for (FloorCard curCard : insertedCards) {
+            loadedBoard.insertTile(curCard, curCard.getX(), curCard.getY());
+        }
+        return loadedBoard;
+    }
+
+    private static PlayerController createPlayerController(String info) {
+        Scanner playerScanner = new Scanner(info);
+        PlayerProfile newProfile = new PlayerProfile(playerScanner.next(), playerScanner.nextInt(),
+                playerScanner.nextInt(), playerScanner.nextInt());
+
+        PlayerController newController = new PlayerController(newProfile, playerScanner.nextInt());
+        newController.setX(playerScanner.nextInt());
+        newController.setY(playerScanner.nextInt());
+
+        int[] cardValues = new int[4];
+        for (int i = 0; i < cardValues.length; i++) {
+            cardValues[i] = playerScanner.nextInt();
+            String type = "";
+            switch (i) {
+                case 0:
+                    type = "FIRE";
+                    break;
+                case 1:
+                    type = "ICE";
+                    break;
+                case 2:
+                    type = "BACKTRACK";
+                    break;
+                case 3:
+                    type = "DOUBLE_MOVE";
+                    break;
+            }
+
+            for (int j = 0; j < cardValues[i]; j++) {
+                newController.addInCardsHeld(new ActionCard(type));
+            }
+        }
+        return newController;
     }
 
     private static int loadSilkBagCards(ArrayList<Card> silkBagCards, Scanner scanner) {

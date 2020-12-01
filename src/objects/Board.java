@@ -24,6 +24,14 @@ public class Board {
         setup(data);
     }
 
+    public Board(int width, int height, int[][] spawnPoints, SilkBag silkBag, ArrayList<PlayerController> players) {
+        this.width = width;
+        this.height = height;
+        this.spawnPoints = spawnPoints;
+        this.silkBag = silkBag;
+        this.players = players;
+    }
+
     public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles, SilkBag silkBag) {
         this.width = width;
         this.height = height;
