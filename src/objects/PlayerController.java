@@ -264,8 +264,23 @@ public class PlayerController {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 
+    private String getPlayerColor() {
+        switch (playerIndex) {
+            case 0:
+                return "Green";
+            case 1:
+                return "Purple";
+            case 2:
+                return "Red";
+            case 3:
+                return "Orange";
+            default:
+                return "No color";
+        }
+    }
+
     @Override
     public String toString() {
-        return "Player index: " + playerIndex;
+        return getPlayerColor(); // add players name from profile as well
     }
 }

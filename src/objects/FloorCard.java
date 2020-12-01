@@ -1,9 +1,5 @@
 package objects;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -94,7 +90,7 @@ public class FloorCard extends Card { //need to continue javadoc
     }
 
     public boolean isOnFire() {
-        if(state == FloorTileState.FIRE){
+        if (state == FloorTileState.FIRE) {
             return true;
         } else {
             return false;
@@ -337,7 +333,7 @@ public class FloorCard extends Card { //need to continue javadoc
      * @return true if path has opening in certain direction, otherwise false
      */
     public boolean checkPath(FloorCard compare, Direction dir) {
-        if(compare.isOnFire()){
+        if (compare.isOnFire()) {
             return false;
         }
         switch (dir) {
@@ -364,10 +360,11 @@ public class FloorCard extends Card { //need to continue javadoc
         }
         return false;
     }
-   /* public void drawCard(GraphicsContext gc) {
-        gc.drawImage(image, 20, 30);
-    }
-*/
+
+    /* public void drawCard(GraphicsContext gc) {
+         gc.drawImage(image, 20, 30);
+     }
+ */
     private void setImageWithRotation() {
         switch (type) {
             case STRAIGHT:
