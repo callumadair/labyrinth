@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +23,12 @@ public class Game extends Application {
     private Controller controller;
     private BorderPane pane;
 
+    public static void main(String[] args) {
+        System.out.println("Starting app");
+
+        launch(args);
+    }
+
     public void Game(Board board) {
         controller = new Controller(board);
         pane = new BorderPane();
@@ -31,48 +38,12 @@ public class Game extends Application {
         this.createRightPane();
     }
 
-    public static void main(String[] args) {
-        System.out.println("Starting app");
-
-        launch(args);
-    }
-
     public void init() {
 
     }
 
     private void createLeftPane() {
-
-    }
-
-    private void createRightPane() {
-
-    }
-
-    private void createBottomPane() {
-
-    }
-
-    public void start(Stage stage) throws Exception {
-
-        BorderPane root = new BorderPane();
-
-        //Bottom
-        Glow glow = new Glow();
-        glow.setLevel(0.9);
-
-        bottom = new VBox();
-        bottom.setAlignment(Pos.CENTER);
-
-        ImageView playingCard = new ImageView();
-        playingCard.setImage(controller.getPlayingCard().getImage());
-        playingCard.setEffect(glow);
-        bottom.getChildren().add(playingCard);
-
-        root.setBottom(bottom);
-
-//Left
-        left = new VBox();
+        VBox left = new VBox();
         left.setAlignment(Pos.CENTER);
 
         for (PlayerController player : controller.getPlayers()) {
@@ -81,12 +52,9 @@ public class Game extends Application {
                 Label playersInGame = new Label(player.toString());
                 playersInGame.setFont(Font.font("Cambria", FontPosture.REGULAR, 20));
                 playersInGame.setTextFill(Color.DEEPPINK);
-                playersInGame.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        playersInGame.setScaleX(1.5);
-                        playersInGame.setScaleY(1.5);
-                    }
+                playersInGame.setOnMouseEntered(e -> {
+                    playersInGame.setScaleX(1.5);
+                    playersInGame.setScaleY(1.5);
                 });
                 playersInGame.setOnMouseExited(new EventHandler<MouseEvent>() {
                     @Override
@@ -96,6 +64,7 @@ public class Game extends Application {
                     }
                 });
                 left.getChildren().add(playersInGame);
+
             } else {
                 Label playersInGame = new Label(player.toString());
                 playersInGame.setFont(Font.font("Cambria", FontPosture.REGULAR, 20));
@@ -119,16 +88,19 @@ public class Game extends Application {
 
         }
 
-        root.setLeft(left);
+        pane.setLeft(left);
 
-//Right
-        right = new VBox();
+    }
+
+    private void createRightPane() {
+        VBox right = new VBox();
         right.setAlignment(Pos.CENTER);
 
 
         for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
             ImageView image = new ImageView();
             image.setImage(card.getImage());
+            Glow glow = new Glow();
             image.setEffect(glow);
             image.setPickOnBounds(true);
 
@@ -152,7 +124,30 @@ public class Game extends Application {
         });
 
 
-        root.setRight(right);
+        pane.setRight(right);
+
+    }
+
+    private void createBottomPane() {
+        Glow glow = new Glow();
+        glow.setLevel(0.9);
+
+        VBox bottom = new VBox();
+        bottom.setAlignment(Pos.CENTER);
+
+        ImageView playingCard = new ImageView();
+        playingCard.setImage(controller.getPlayingCard().getImage());
+        playingCard.setEffect(glow);
+        bottom.getChildren().add(playingCard);
+
+        pane.setBottom(bottom);
+    }
+
+    public void start(Stage stage) throws Exception {
+
+        BorderPane root = new BorderPane();
+
+
     }
 
 }
