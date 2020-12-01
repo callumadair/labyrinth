@@ -3,8 +3,6 @@ package objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import javax.swing.*;
-import java.rmi.activation.ActivationID;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -13,6 +11,7 @@ import java.util.LinkedList;
  */
 public class PlayerController {
 
+    public FloorCard currentLocation;
     private String playerImage1 = "resources/ROAD-player1.png";
     private String playerImage2 = "resources/ROAD-player2.png";
     private String playerImage3 = "resources/ROAD-player3.png";
@@ -20,7 +19,7 @@ public class PlayerController {
 
     private Image image;
     private int x, y;
-    private ArrayList<ActionCard> cardsHeld;
+    private ArrayList<Card> cardsHeld;
 
     private LinkedList<int[]> lastThree;
 
@@ -208,9 +207,9 @@ public class PlayerController {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
         FloorCard currentTile = board.getTile(x, y);
         FloorCard left = board.getTile(x - 1, y);
-        FloorCard top = board.getTile(x, y - 1);
+        FloorCard top = board.getTile(x, y + 1);
         FloorCard right = board.getTile(x + 1, y);
-        FloorCard bottom = board.getTile(x, y + 1);
+        FloorCard bottom = board.getTile(x, y - 1);
 
         if (left != null) {
             if (currentTile.checkPath(left, FloorCard.Direction.LEFT)) {
@@ -242,7 +241,7 @@ public class PlayerController {
      *
      * @return list of cards held
      */
-    public ArrayList<ActionCard> getCardsHeld() {
+    public ArrayList<Card> getCardsHeld() {
         return this.cardsHeld;
     }
 
@@ -251,7 +250,7 @@ public class PlayerController {
      *
      * @param card the card
      */
-    public void addCard(ActionCard card) {
+    public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
     }
 
@@ -267,10 +266,5 @@ public class PlayerController {
      */
     public void drawPlayer(GraphicsContext gc) {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
-    }
-
-    @Override
-    public String toString() {
-        return "Player index: " + playerIndex;
     }
 }
