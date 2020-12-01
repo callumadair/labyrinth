@@ -57,7 +57,7 @@ public class MenuController extends Application implements Initializable {
     public void start(Stage primaryStage) {
         stage = primaryStage;
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();
@@ -144,7 +144,7 @@ public class MenuController extends Application implements Initializable {
     private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("MainMenu2.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             primaryScene = new Scene(root, 700, 450);
             stage.setScene(primaryScene);
             stage.show();
