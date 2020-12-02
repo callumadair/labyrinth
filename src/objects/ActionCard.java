@@ -112,7 +112,7 @@ public class ActionCard extends Card {
 
         PlayerController player = board.getPlayer(x, y);
 
-        if(player.getLastThree().size() < 2){
+        if(player.getLastThree().size() < 3){
             return false;
         }
 
