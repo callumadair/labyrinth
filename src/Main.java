@@ -42,7 +42,7 @@ public class Main extends Application {
         players.add(new PlayerController(null, 0)); // testing only
         players.add(new PlayerController(null, 1)); // testing only
         players.add(new PlayerController(null, 2)); // testing only
-        Board board = FileManager.loadBoard(3);
+        Board board = FileManager.loadBoard(2);
         players.get(0).setX(5);
         players.get(0).setY(6);
         players.get(1).setX(5);

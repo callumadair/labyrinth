@@ -207,9 +207,9 @@ public class PlayerController {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
         FloorCard currentTile = board.getTile(x, y);
         FloorCard left = board.getTile(x - 1, y);
-        FloorCard top = board.getTile(x, y + 1);
+        FloorCard top = board.getTile(x, y - 1);
         FloorCard right = board.getTile(x + 1, y);
-        FloorCard bottom = board.getTile(x, y - 1);
+        FloorCard bottom = board.getTile(x, y + 1);
 
         if (left != null) {
             if (currentTile.checkPath(left, FloorCard.Direction.LEFT)) {

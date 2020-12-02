@@ -2,7 +2,6 @@ package objects;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -13,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -86,7 +84,7 @@ public class Game {
         skipActionState = new Button();
         skipActionState.setText("Skip Playing");
         skipActionState.setOnAction((event) -> {
-            if(controller.getCurrentState() == Controller.GameState.ACTION_CARD){
+            if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
                 controller.changeState(Controller.GameState.MOVING);
             }
         });
@@ -101,25 +99,16 @@ public class Game {
     }
 
     private void showPlayersActionCard() {
-        Glow glow = new Glow();
-        glow.setLevel(0.7);
-
         clearDisplayedCards();
 
-        if(!controller.getCurrentPlayer().getCardsHeld().isEmpty()){
-            for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
-                ImageView cardDisplay = new ImageView();
-                cardDisplay.setImage(card.getImage());
-                cardDisplay.setPickOnBounds(true);
-                cardDisplay.setCursor(Cursor.HAND);
+        for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
+            ImageView cardDisplay = new ImageView();
+            cardDisplay.setImage(card.getImage());
+            cardDisplay.setPickOnBounds(true);
+            cardDisplay.setCursor(Cursor.HAND);
 
-                if (card.canBeUsed()) {
-                    cardDisplay.setEffect(glow);
-                }
-                cardsDisplayed.add(cardDisplay);
-                right.getChildren().add(cardDisplay);
-            }
-
+            cardsDisplayed.add(cardDisplay);
+            right.getChildren().add(cardDisplay);
         }
     }
 
@@ -139,7 +128,7 @@ public class Game {
         Glow glow = new Glow();
         glow.setLevel(0.9);
 
-        label = new Label();
+        label = new Label("Drawn Card:");
         bottom.getChildren().add(label);
         label.setVisible(true);
 
@@ -157,7 +146,6 @@ public class Game {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 highlightPlayer();
-                showPlayersActionCard();
             }
         });
     }
@@ -190,7 +178,6 @@ public class Game {
                 }
                 if (controller.getCurrentState() == Controller.GameState.MOVING) {
                     skipActionState.setVisible(false);
-                    label.setVisible(false);
                 }
                 if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     //end game
@@ -214,7 +201,7 @@ public class Game {
         });
     }
 
-    private void enableRotatingInsertionTile(){
+    private void enableRotatingInsertionTile() {
         playingCardImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -224,8 +211,8 @@ public class Game {
     }
 
     private void rotateCurrentTile() {
-        if(controller.getCurrentState() == Controller.GameState.INSERTING){
-            FloorCard card = (FloorCard)controller.getPlayingCard();
+        if (controller.getCurrentState() == Controller.GameState.INSERTING) {
+            FloorCard card = (FloorCard) controller.getPlayingCard();
             card.nextRotation();
             playingCardImage.setImage(controller.getPlayingCard().getImage());
         }

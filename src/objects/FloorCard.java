@@ -3,6 +3,8 @@ package objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.Random;
+
 /**
  * This class represents the different floor tiles of the game.
  */
@@ -234,11 +236,7 @@ public class FloorCard extends Card { //need to continue javadoc
     private void changePaths(int times) {
         while (times > 0) {
             times--;
-            boolean temp = possiblePaths[3];
-            for (int i = 3; i > 0; i--) {
-                possiblePaths[i] = possiblePaths[i - 1];
-            }
-            possiblePaths[0] = temp;
+            changePaths();
         }
     }
 
@@ -283,6 +281,25 @@ public class FloorCard extends Card { //need to continue javadoc
             this.rotation = 270;
             setImageWithRotation();
             changePaths(3);
+        }
+    }
+
+    public void setRandomRotation(){
+        Random random = new Random();
+        int randomRotation = random.nextInt(4);
+        switch (randomRotation){
+            case 0:
+                setRotation(90);
+                break;
+            case 1:
+                setRotation(180);
+                break;
+            case 2:
+                setRotation(270);
+                break;
+            default:
+                setRotation(0);
+                break;
         }
     }
 
@@ -361,10 +378,6 @@ public class FloorCard extends Card { //need to continue javadoc
         return false;
     }
 
-    /* public void drawCard(GraphicsContext gc) {
-         gc.drawImage(image, 20, 30);
-     }
- */
     private void setImageWithRotation() {
         switch (type) {
             case STRAIGHT:

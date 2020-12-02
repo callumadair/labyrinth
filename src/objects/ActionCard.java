@@ -58,18 +58,22 @@ public class ActionCard extends Card {
     }
 
     public boolean useCard(Board board, int x, int y) {
-        switch (type) {
-            case FIRE:
-                return useFireCard(board, x, y);
-            case ICE:
-                return useIceCard(board, x, y);
-            case BACKTRACK:
-                return useBackTrackCard(board, x, y);
-            case DOUBLE_MOVE:
-                return useDoubleMove(board, x, y);
-
+        if(this.canBeUsed()){
+            switch (type) {
+                case FIRE:
+                    return useFireCard(board, x, y);
+                case ICE:
+                    return useIceCard(board, x, y);
+                case BACKTRACK:
+                    return useBackTrackCard(board, x, y);
+                case DOUBLE_MOVE:
+                    return useDoubleMove(board, x, y);
+                default:
+                    return false;
+            }
+        } else {
+            return false;
         }
-        return true;
     }
 
 

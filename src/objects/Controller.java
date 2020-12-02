@@ -157,15 +157,10 @@ public class Controller {
          */
         if (cardHeldByCurrentPlayer.isEmpty() && playingCard == null) {
             changeState(GameState.MOVING);
-        } else if (cardHeldByCurrentPlayer.isEmpty() && playingCard != null) {
-            //if skipping the state notify player that he had no action cards
-            cardHeldByCurrentPlayer.add((ActionCard) playingCard);
-            changeState(GameState.MOVING);
         } else if (playingCard != null) {
             cardHeldByCurrentPlayer.add((ActionCard) playingCard);
         }
 
-        //give player the ability to skip this state
     }
 
     private void getLegalMoves() {
