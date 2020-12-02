@@ -32,6 +32,8 @@ public class MenuController extends Application implements Initializable {
     @FXML
     private StackPane stackPane;
     @FXML
+    private BorderPane borderPane;
+    @FXML
     private Pane mainView;
     @FXML
     private Label textLabelID;
@@ -83,11 +85,12 @@ public class MenuController extends Application implements Initializable {
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
+        borderPane.getChildren().remove(mainView);
         try {
-            ((Pane) ((Pane) actionEvent.getSource()).getParent().getParent()).getChildren().remove(mainView);
-            mainView = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
-            stackPane.getChildren().add(mainView);
-            //makeFadeOut(root);
+            mainView = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
+            fadeOut(mainView);
+            borderPane.setCenter(mainView);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -136,13 +139,13 @@ public class MenuController extends Application implements Initializable {
      * @param actionEvent the action event
      */
     @FXML
-    private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    private void handleMenuButton(ActionEvent actionEvent) {
+        borderPane.getChildren().remove(mainView);
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            stackPane = new StackPane(root);
-            stage.setScene(primaryScene);
-            stage.show();
+            StackPane menu = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+            mainView = (Pane) ((BorderPane) menu.getChildren().get(1)).getChildren().get(0);
+            fadeOut(mainView);
+            borderPane.setCenter(mainView);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -215,7 +218,7 @@ public class MenuController extends Application implements Initializable {
      *
      * @param fadeOut the fade out
      */
-    private void makeFadeOut(Pane fadeOut) {
+    private void fadeOut(Pane fadeOut) {
         TranslateTransition windowTransition = new TranslateTransition();
         windowTransition.setDuration(Duration.millis(500));
         windowTransition.setNode(fadeOut);

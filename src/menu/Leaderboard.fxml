@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
     <center>
         <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="225.0" BorderPane.alignment="CENTER">
             <columns>
@@ -32,7 +32,7 @@
         </Label>
    </top>
    <bottom>
-      <Button mnemonicParsing="false" text="Menu" textAlignment="CENTER" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#handleMenuButton" text="Menu" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
             <Font name="Quicksand Medium" size="14.0" />
          </font>
