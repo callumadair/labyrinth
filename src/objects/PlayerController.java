@@ -19,7 +19,7 @@ public class PlayerController {
 
     private Image image;
     private int x, y;
-    private ArrayList<Card> cardsHeld;
+    private ArrayList<ActionCard> cardsHeld;
 
     private LinkedList<int[]> lastThree;
 
@@ -241,7 +241,7 @@ public class PlayerController {
      *
      * @return list of cards held
      */
-    public ArrayList<Card> getCardsHeld() {
+    public ArrayList<ActionCard> getCardsHeld() {
         return this.cardsHeld;
     }
 
@@ -250,7 +250,7 @@ public class PlayerController {
      *
      * @param card the card
      */
-    public void addInCardsHeld(Card card) {
+    public void addInCardsHeld(ActionCard card) {
         cardsHeld.add(card);
     }
 

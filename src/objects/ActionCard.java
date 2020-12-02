@@ -137,68 +137,6 @@ public class ActionCard extends Card {
     private ArrayList<FloorCard> getAreaOfEffect(Board board, int x, int y) {
         ArrayList<FloorCard> area = new ArrayList<>();
 
-        /*
-        if (x == 0 && y == 0) { //left upper corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-        } else if ((x == board.getWidth() - 1) && y == 0) { //right upper corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-        } else if (x == 0 && (y == board.getHeight() - 1)) { //left bottom corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x + 1, y));
-        } else if (x == 0 && (y == board.getWidth() - 1)) { //right bottom corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x - 1, y + 1));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x - 1, y));
-        } else if (y == 0) { //upper middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-            area.add(board.getTile(x + 1, y));
-        } else if (x == 0 && ((y != 0) || y != board.getHeight() - 1)) { //left middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x + 1, y - 1));
-            area.add(board.getTile(x, y - 1));
-        } else if ((x == board.getWidth() - 1) && ((y != 0) || (y != board.getHeight() - 1))) { //right middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x - 1, y + 1));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x, y - 1));
-        } else if ((y == board.getHeight() - 1) && ((x != board.getWidth() - 1) || (x != 0))) { //bottom middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x - 1, y + 1));
-            area.add(board.getTile(x - 1, y));
-        } else {
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x - 1, y + 1));
-        }
-         */
-
         if (board.checkBoardBoundary(x - 1, y)) {
             area.add(board.getTile(x - 1, y));
         }
