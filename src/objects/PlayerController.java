@@ -11,7 +11,6 @@ import java.util.LinkedList;
  */
 public class PlayerController {
 
-    public FloorCard currentLocation;
     private String playerImage1 = "resources/ROAD-player1.png";
     private String playerImage2 = "resources/ROAD-player2.png";
     private String playerImage3 = "resources/ROAD-player3.png";
@@ -27,7 +26,7 @@ public class PlayerController {
     private int playerIndex;
     private boolean doubleMove = false;
     private boolean isBackTracked = false;
-
+    private boolean isCurrentPlayer = false;
 
     /**
      * Instantiates a new Player controller.
@@ -128,6 +127,14 @@ public class PlayerController {
         this.y = y;
     }
 
+    public void setCurrentPlayer(boolean flag){
+        isCurrentPlayer = flag;
+    }
+
+    public boolean isCurrentPlayer(){
+        return isCurrentPlayer;
+    }
+
     /**
      * Gets last three moves made by the player.
      *
@@ -157,10 +164,10 @@ public class PlayerController {
         int pos[] = {x, y};
 
         if (lastThree.size() == 3) {
-            lastThree.add(pos);
+            lastThree.addLast(pos);
             lastThree.removeFirst();
         } else {
-            lastThree.add(pos);
+            lastThree.addLast(pos);
         }
 
     }

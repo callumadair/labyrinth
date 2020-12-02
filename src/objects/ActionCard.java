@@ -117,6 +117,10 @@ public class ActionCard extends Card {
 
         PlayerController player = board.getPlayer(x, y);
 
+        if(player.isCurrentPlayer()){
+            return false;
+        }
+
         if(player.getLastThree().size() < 3){
             return false;
         }
@@ -124,18 +128,37 @@ public class ActionCard extends Card {
         if (player.isBackTracked() == true) {
             return false;
         } else {
-            board.changePlayerPosition(player,
-                    player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
-            player.setBackTracked(true);
+            int[] temp = player.getLastThree().getFirst();
+            player.getLastThree().removeFirst();
+            if(board.getTile(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]).isOnFire()){
+                player.getLastThree().addFirst(temp);
+                return false;
+            } else {
+                if(board.getTile(temp[0], temp[1]).isOnFire()){
+                    player.setBackTracked(true);
+                    player.movePlayer(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
+                    return true;
+                } else {
+                    player.setBackTracked(true);
+                    player.movePlayer(temp[0], temp[1]);
+                    return true;
+                }
+            }
         }
-        return true;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
         if (!board.checkPlayerPosition(x, y)) {
             return false;
         }
-        board.getPlayer(x, y).setDoubleMove(true);
+
+        PlayerController player = board.getPlayer(x, y);
+
+        if(!player.isCurrentPlayer()){
+            return false;
+        }
+
+        player.setDoubleMove(true);
         return true;
     }
 

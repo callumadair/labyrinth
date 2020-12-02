@@ -102,6 +102,7 @@ public class Controller {
     private void drawCard() {
         setPlayingCard(board.getSilkBag().drawACard());
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
+        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
 
         if(!board.getFrozenTiles().isEmpty()){
             ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
@@ -249,6 +250,8 @@ public class Controller {
         } else {
             playerIndex++;
         }
+        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
+
         currentPlayer = players.get(playerIndex);
         changeState(GameState.DRAWING);
     }
