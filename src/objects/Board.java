@@ -92,7 +92,7 @@ public class Board {
 
         for (int i = 0; i < rowsToPlace.size(); i++) {
             if (!frozenRows.isEmpty()) {
-                if(!frozenRows.contains(rowsToPlace.get(i))){
+                if (!frozenRows.contains(rowsToPlace.get(i))) {
                     insertionTiles.add(map[0][rowsToPlace.get(i)]);
                     insertionTiles.add(map[width - 1][rowsToPlace.get(i)]);
                 }
@@ -104,7 +104,7 @@ public class Board {
 
         for (int i = 0; i < columnsToPlace.size(); i++) {
             if (!frozenColumns.isEmpty()) {
-                if(!frozenColumns.contains(columnsToPlace.get(i))){
+                if (!frozenColumns.contains(columnsToPlace.get(i))) {
                     if (!insertionTiles.contains(map[columnsToPlace.get(i)][0])) {
                         insertionTiles.add(map[columnsToPlace.get(i)][0]);
                     }
@@ -112,7 +112,7 @@ public class Board {
                         insertionTiles.add(map[columnsToPlace.get(i)][height - 1]);
                     }
                 }
-            } else{
+            } else {
                 if (!insertionTiles.contains(map[columnsToPlace.get(i)][0])) {
                     insertionTiles.add(map[columnsToPlace.get(i)][0]);
                 }
@@ -137,8 +137,11 @@ public class Board {
                 for (int i = width - 1; i > 0; i--) {
                     map[i][y] = map[i - 1][y];
                     map[i - 1][y].setX(i);
+                    if (checkPlayerPosition(i - 1, y)) {
+                        getPlayer(i - 1, y).movePlayer(i, y);
+                    }
                 }
-                if(this.checkPlayerPosition(width - 1, y)){
+                if (this.checkPlayerPosition(width - 1, y)) {
                     getPlayer(width - 1, y).movePlayer(0, y);
                 }
                 map[0][y] = tile;
@@ -148,8 +151,11 @@ public class Board {
                 for (int i = 0; i < width - 1; i++) {
                     map[i][y] = map[i + 1][y];
                     map[i + 1][y].setX(i);
+                    if (checkPlayerPosition(i + 1, y)) {
+                        getPlayer(i + 1, y).movePlayer(i, y);
+                    }
                 }
-                if(this.checkPlayerPosition(0, y)){
+                if (this.checkPlayerPosition(0, y)) {
                     getPlayer(0, y).movePlayer(width - 1, y);
                 }
                 map[width - 1][y] = tile;
@@ -161,8 +167,11 @@ public class Board {
                 for (int i = height - 1; i > 0; i--) {
                     map[x][i] = map[x][i - 1];
                     map[x][i - 1].setY(i);
+                    if (checkPlayerPosition(x, i - 1)) {
+                        getPlayer(x, i - 1).movePlayer(x, i);
+                    }
                 }
-                if(this.checkPlayerPosition(x, height - 1)){
+                if (this.checkPlayerPosition(x, height - 1)) {
                     getPlayer(x, height - 1).movePlayer(x, 0);
                 }
                 map[x][0] = tile;
@@ -172,8 +181,11 @@ public class Board {
                 for (int i = 0; i < height - 1; i++) {
                     map[x][i] = map[x][i + 1];
                     map[x][i + 1].setY(i);
+                    if (checkPlayerPosition(x, i + 1)) {
+                        getPlayer(x, i + 1).movePlayer(x, i);
+                    }
                 }
-                if(this.checkPlayerPosition(x, 0)){
+                if (this.checkPlayerPosition(x, 0)) {
                     getPlayer(x, 0).movePlayer(x, height - 1);
                 }
                 map[x][height - 1] = tile;
@@ -195,7 +207,7 @@ public class Board {
                 map[j][i].drawTile(gc, j, i);
             }
         }
-        for(PlayerController player : players){
+        for (PlayerController player : players) {
             player.drawPlayer(gc);
         }
     }
@@ -223,7 +235,7 @@ public class Board {
     }
 
     //use only when loading a board from a save file
-    public void setPlayerPosition(PlayerController player, int x, int y){
+    public void setPlayerPosition(PlayerController player, int x, int y) {
         player.setX(x);
         player.setY(y);
     }
@@ -237,8 +249,8 @@ public class Board {
         return false;
     }
 
-    public boolean checkBoardBoundary(int x, int y){
-        if(x < 0 || x >= width || y < 0 || y >= height){
+    public boolean checkBoardBoundary(int x, int y) {
+        if (x < 0 || x >= width || y < 0 || y >= height) {
             return false;
         } else {
             return true;
@@ -266,15 +278,15 @@ public class Board {
         return null;
     }
 
-    public ArrayList<FloorCard> getFrozenTiles(){
+    public ArrayList<FloorCard> getFrozenTiles() {
         return frozenTiles;
     }
 
-    public void setPlayers(ArrayList<PlayerController> players){
+    public void setPlayers(ArrayList<PlayerController> players) {
         this.players = players;
     }
 
-    public int[][] getSpawnPoints(){
+    public int[][] getSpawnPoints() {
         return this.spawnPoints;
     }
 

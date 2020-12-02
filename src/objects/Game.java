@@ -174,7 +174,7 @@ public class Game {
                     showPlayersActionCard();
                 }
                 if (controller.getCurrentState() == Controller.GameState.MOVING) {
-
+                    clearDisplayedCards();
                 }
                 if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     //end game

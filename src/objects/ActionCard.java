@@ -93,7 +93,7 @@ public class ActionCard extends Card {
         } else {
             for (FloorCard tile : tiles) {
                 board.getTilesOnFire().add(tile);
-                tile.setOnFire((board.getPlayers().size() * 2) - 1);
+                tile.setOnFire(fireEffectTimer(board));
             }
         }
         return true;
@@ -105,7 +105,7 @@ public class ActionCard extends Card {
 
         for (FloorCard tile : tiles) {
             board.getFrozenTiles().add(tile);
-            tile.setOnIce(board.getPlayers().size() - 1);
+            tile.setOnIce(iceEffectTimer(board));
         }
         return true;
     }
@@ -170,6 +170,14 @@ public class ActionCard extends Card {
         area.add(board.getTile(x, y));
 
         return area;
+    }
+
+    private int fireEffectTimer(Board board){
+        return (board.getPlayers().size() * 2);
+    }
+
+    private int iceEffectTimer(Board board){
+        return board.getPlayers().size();
     }
 
     /**

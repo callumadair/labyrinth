@@ -1,28 +1,13 @@
-
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import objects.Controller;
+import menu.FileManager;
+import objects.Board;
+import objects.Game;
+import objects.PlayerController;
 
-import menu.*;
-import objects.*;
-
-
-import java.util.*;
+import java.util.ArrayList;
 
 public class Main extends Application {
 

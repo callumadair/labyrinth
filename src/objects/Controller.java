@@ -102,24 +102,12 @@ public class Controller {
     private void drawCard() {
         setPlayingCard(board.getSilkBag().drawACard());
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
-        //show the card to the player
-        //? maybe animate as well
-        if (playingCard instanceof FloorCard) {
-            changeState(GameState.INSERTING);
-        } else if (playingCard instanceof ActionCard) {
-            changeState(GameState.ACTION_CARD);
-        }
-    }
-
-    private void getInsertionList() {
-        tilesToCompare = board.getInsertionPoints();
 
         if(!board.getFrozenTiles().isEmpty()){
             ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
             for(FloorCard card : board.getFrozenTiles()){
                 card.decrementEffectTimer();
-                if(card.getEffectTimer() == 0){
-                    card.setStateToNormal();
+                if(!card.isEffectActive()){
                     frozenTilesToRemove.add(card);
                 }
             }
@@ -130,8 +118,7 @@ public class Controller {
             ArrayList<FloorCard> tilesOnFireToRemove = new ArrayList<>();
             for(FloorCard card : board.getTilesOnFire()){
                 card.decrementEffectTimer();
-                if(card.getEffectTimer() == 0){
-                    card.setStateToNormal();
+                if(!card.isEffectActive()){
                     tilesOnFireToRemove.add(card);
                 }
             }
@@ -139,6 +126,16 @@ public class Controller {
         }
 
         draw();
+
+        if (playingCard instanceof FloorCard) {
+            changeState(GameState.INSERTING);
+        } else if (playingCard instanceof ActionCard) {
+            changeState(GameState.ACTION_CARD);
+        }
+    }
+
+    private void getInsertionList() {
+        tilesToCompare = board.getInsertionPoints();
 
         if(tilesToCompare.isEmpty()){
             playingCard = null;

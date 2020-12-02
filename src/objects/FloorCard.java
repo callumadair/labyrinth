@@ -114,7 +114,7 @@ public class FloorCard extends Card { //need to continue javadoc
      * Sets on fire.
      */
     public void setOnFire(int effectTimer) {
-        this.effectTimer = effectTimer;
+        setEffectTimer(effectTimer);
         this.state = FloorTileState.FIRE;
     }
 
@@ -122,16 +122,36 @@ public class FloorCard extends Card { //need to continue javadoc
      * Sets on ice.
      */
     public void setOnIce(int effectTimer) {
-        this.effectTimer = effectTimer;
+        setEffectTimer(effectTimer);
         this.state = FloorTileState.FROZEN;
     }
 
     public void decrementEffectTimer(){
         effectTimer--;
+        if(effectTimer <= 0){
+            this.setStateToNormal();
+            effectTimer = 0;
+        }
+    }
+
+    public boolean isEffectActive(){
+        if(effectTimer > 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getEffectTimer(){
         return effectTimer;
+    }
+
+    public void setEffectTimer(int effectTimer){
+        if(effectTimer < 0){
+            this.effectTimer = 0;
+        } else {
+            this.effectTimer = effectTimer;
+        }
     }
 
     /**
