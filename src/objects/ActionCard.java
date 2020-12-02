@@ -112,6 +112,10 @@ public class ActionCard extends Card {
 
         PlayerController player = board.getPlayer(x, y);
 
+        if(player.getLastThree().size() < 2){
+            return false;
+        }
+
         if (player.isBackTracked() == true) {
             return false;
         } else {
