@@ -1,6 +1,5 @@
 package objects;
 
-
 import java.util.ArrayList;
 
 /**
@@ -8,21 +7,24 @@ import java.util.ArrayList;
  */
 public class ActionCard extends Card {
 
+    /**
+     * The constant CARD_SIZE.
+     */
     public static final int CARD_SIZE = 54;
 
     private ActionCardType type;
-    private Image image;
 
-    private String fireImagePath = "resources/ROAD_straight.png";
-    private String iceImagePath = "resources/ROAD_straight.png";
-    private String backtrackImagePath = "resources/ROAD_straight.png";
-    private String doubleMoveImagePath = "resources/ROAD_straight.png";
+    private String fireImagePath = "resources/ROAD-Cardfire.png";
+    private String iceImagePath = "resources/ROAD-CardIce.png";
+    private String backtrackImagePath = "resources/ROAD-CardReverse.png";
+    private String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
 
+    private boolean canBeUsed = false;
 
     /**
      * The enum Action card type.
      */
-    public enum ActionCardType {
+    enum ActionCardType {
         FIRE,
         ICE,
         BACKTRACK,
@@ -38,19 +40,19 @@ public class ActionCard extends Card {
         switch (type) {
             case "FIRE":
                 this.type = ActionCardType.FIRE;
-                image = new Image(fireImagePath);
+                this.setImage(fireImagePath);
                 break;
             case "ICE":
                 this.type = ActionCardType.ICE;
-                image = new Image(iceImagePath);
+                this.setImage(iceImagePath);
                 break;
             case "BACKTRACK":
                 this.type = ActionCardType.BACKTRACK;
-                image = new Image(backtrackImagePath);
+                this.setImage(backtrackImagePath);
                 break;
             case "DOUBLE_MOVE":
                 this.type = ActionCardType.DOUBLE_MOVE;
-                image = new Image(doubleMoveImagePath);
+                this.setImage(doubleMoveImagePath);
                 break;
         }
     }
@@ -97,12 +99,17 @@ public class ActionCard extends Card {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
         for (FloorCard tile : tiles) {
+            board.getFrozenTiles().add(tile);
             tile.setOnIce();
         }
         return true;
     }
 
     private boolean useBackTrackCard(Board board, int x, int y) {
+        if (!board.checkPlayerPosition(x, y)) {
+            return false;
+        }
+
         PlayerController player = board.getPlayer(x, y);
 
         if (player.isBackTracked() == true) {
@@ -116,6 +123,9 @@ public class ActionCard extends Card {
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
+        if (!board.checkPlayerPosition(x, y)) {
+            return false;
+        }
         board.getPlayer(x, y).setDoubleMove(true);
         return true;
     }
@@ -215,8 +225,20 @@ public class ActionCard extends Card {
         return area;
     }
 
-    public ActionCardType getType() {
-        return this.type;
+    /**
+     * Can be used boolean.
+     *
+     * @return the boolean
+     */
+    public boolean canBeUsed() {
+        return this.canBeUsed;
+    }
+
+    /**
+     * Sets can be used.
+     */
+    public void setCanBeUsed() {
+        this.canBeUsed = true;
     }
 }
 

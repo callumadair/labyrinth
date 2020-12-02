@@ -1,18 +1,15 @@
 package objects;
 
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-
 import menu.FileManager;
 
 import java.util.ArrayList;
@@ -32,14 +28,18 @@ public class Game {
     private Controller controller;
     private BorderPane pane;
 
+    private VBox left;
+
     //Left
     private ArrayList<Label> playerTags;
     private Label highlightedPlayer;
 
     //Bottom
+    private VBox bottom;
     private ImageView playingCardImage;
 
     //Right
+
     private VBox right;
     private ArrayList<ImageView> cardsDisplayed;
 
@@ -48,6 +48,7 @@ public class Game {
 
         pane = new BorderPane();
         pane.setCenter(controller.getCanvas());
+
         this.createBottomPane();
         this.createLeftPane();
         this.createRightPane();
@@ -71,7 +72,6 @@ public class Game {
         highlightPlayer();
     }
 
-
     private void highlightPlayer() {
         if (highlightedPlayer != null) {
             highlightedPlayer.setTextFill(Color.BLACK);
@@ -79,7 +79,6 @@ public class Game {
         highlightedPlayer = playerTags.get(controller.getCurrentPlayerIndex().getValue());
         highlightedPlayer.setTextFill(Color.DEEPPINK);
     }
-
 
     private void createRightPane() {
         right = new VBox();
@@ -90,21 +89,17 @@ public class Game {
         pane.setRight(right);
     }
 
-
     private void showPlayersActionCard() {
         Glow glow = new Glow();
         glow.setLevel(0.7);
 
-
         clearDisplayedCards();
-
 
         for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
             ImageView cardDisplay = new ImageView();
             cardDisplay.setImage(card.getImage());
             cardDisplay.setPickOnBounds(true);
             cardDisplay.setCursor(Cursor.HAND);
-
 
             if (card.canBeUsed()) {
                 cardDisplay.setEffect(glow);
@@ -115,7 +110,6 @@ public class Game {
 
     }
 
-
     private void clearDisplayedCards() {
         if (!cardsDisplayed.isEmpty()) {
             for (ImageView imageView : cardsDisplayed) {
@@ -125,9 +119,8 @@ public class Game {
     }
 
     private void createBottomPane() {
-        VBox bottom = new VBox();
+        bottom = new VBox();
         bottom.setAlignment(Pos.CENTER);
-
 
         Glow glow = new Glow();
         glow.setLevel(0.9);
@@ -147,7 +140,6 @@ public class Game {
                 highlightPlayer();
                 showPlayersActionCard();
             }
-
         });
     }
 
@@ -165,17 +157,31 @@ public class Game {
     }
 
 
+    Button button = new Button("Skip Action Card");
+    Label label = new Label("Drawn card");
+
     private void listenForStateChange() {
         controller.getStateChangeFlag().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (controller.getCurrentState() == Controller.GameState.DRAWING) {
                     //set label to drawn card and show it
+                    label.setVisible(true);
+                    bottom.getChildren().add(label);
                 }
                 if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
                     //show skip button
+                    button.setVisible(true);
+                    button.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event) {
+                            controller.changeState(Controller.GameState.MOVING);
+                        }
+                    });
+                    right.getChildren().add(button);
                 }
                 if (controller.getCurrentState() == Controller.GameState.MOVING) {
+                    button.setVisible(false);
+                    label.setVisible(false);
                     //disable skip button
                     //disable label
                     showPlayersActionCard();
@@ -186,6 +192,7 @@ public class Game {
             }
         });
     }
+
 
     private void enableActionCardSelection() {
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -214,14 +221,6 @@ public class Game {
     }
 }
 
-
-        BorderPane root = new BorderPane();
-
-
-    }
-
-    }
-}
 
 
 
