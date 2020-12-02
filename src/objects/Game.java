@@ -12,6 +12,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -25,19 +26,17 @@ public class Game {
     private Controller controller;
     private BorderPane pane;
 
-    private VBox left;
-
     //Left
     private ArrayList<Label> playerTags;
     private Label highlightedPlayer;
     private Button skipActionState;
 
     //Bottom
-    private VBox bottom;
+    private HBox bottom;
     private ImageView playingCardImage;
+    private Label label;
 
     //Right
-
     private VBox right;
     private ArrayList<ImageView> cardsDisplayed;
 
@@ -83,6 +82,7 @@ public class Game {
         right = new VBox();
         right.setAlignment(Pos.TOP_CENTER);
         cardsDisplayed = new ArrayList<>();
+
         skipActionState = new Button();
         skipActionState.setText("Skip Playing");
         skipActionState.setOnAction((event) -> {
@@ -91,10 +91,12 @@ public class Game {
             }
         });
         skipActionState.setVisible(false);
+
         VBox rightPane = new VBox();
         rightPane.getChildren().add(right);
         rightPane.getChildren().add(skipActionState);
         showPlayersActionCard();
+
         pane.setRight(rightPane);
     }
 
@@ -131,11 +133,15 @@ public class Game {
     }
 
     private void createBottomPane() {
-        bottom = new VBox();
+        bottom = new HBox();
         bottom.setAlignment(Pos.CENTER);
 
         Glow glow = new Glow();
         glow.setLevel(0.9);
+
+        label = new Label();
+        bottom.getChildren().add(label);
+        label.setVisible(true);
 
         playingCardImage = new ImageView();
         playingCardImage.setPickOnBounds(true);
@@ -170,36 +176,21 @@ public class Game {
     }
 
 
-    Button button = new Button("Skip Action Card");
-    Label label = new Label("Drawn card");
-
     private void listenForStateChange() {
         controller.getStateChangeFlag().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (controller.getCurrentState() == Controller.GameState.DRAWING) {
-                    //set label to drawn card and show it
+                    label.setText("Card Drawn:");
                     label.setVisible(true);
-                    bottom.getChildren().add(label);
+                    showPlayersActionCard();
                 }
                 if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
-                    System.out.println("ACTION");
                     skipActionState.setVisible(true);
-                    //show skip button
-                    button.setVisible(true);
-                    button.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent event) {
-                            controller.changeState(Controller.GameState.MOVING);
-                        }
-                    });
-                    right.getChildren().add(button);
                 }
                 if (controller.getCurrentState() == Controller.GameState.MOVING) {
-                    System.out.println("MOVING");
                     skipActionState.setVisible(false);
-                    button.setVisible(false);
                     label.setVisible(false);
-                    showPlayersActionCard();
                 }
                 if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     //end game
@@ -245,7 +236,7 @@ public class Game {
             int cordY = (int) (y / ActionCard.CARD_SIZE);
 
             if (controller.getCurrentPlayer().getCardsHeld().size() > cordY) {
-                //set label to Playing Card:
+                label.setText("Playing Card:");
                 controller.setPlayingCard(controller.getCurrentPlayer().getCardsHeld().get(cordY));
             }
         }
