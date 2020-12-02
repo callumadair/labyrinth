@@ -12,7 +12,6 @@ import java.util.*;
  */
 public class PlayerDatabase {
     private String url;
-
     /**
      * Create new database.
      *

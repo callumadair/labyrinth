@@ -7,6 +7,9 @@ import java.util.ArrayList;
  */
 public class ActionCard extends Card {
 
+    /**
+     * The constant CARD_SIZE.
+     */
     public static final int CARD_SIZE = 54;
 
     private ActionCardType type;
@@ -226,10 +229,18 @@ public class ActionCard extends Card {
         return area;
     }
 
+    /**
+     * Can be used boolean.
+     *
+     * @return the boolean
+     */
     public boolean canBeUsed() {
         return this.canBeUsed;
     }
 
+    /**
+     * Sets can be used.
+     */
     public void setCanBeUsed() {
         this.canBeUsed = true;
     }

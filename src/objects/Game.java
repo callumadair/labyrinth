@@ -2,6 +2,7 @@ package objects;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -24,15 +25,19 @@ public class Game {
     private Controller controller;
     private BorderPane pane;
 
+    private VBox left;
+
     //Left
     private ArrayList<Label> playerTags;
     private Label highlightedPlayer;
     private Button skipActionState;
 
     //Bottom
+    private VBox bottom;
     private ImageView playingCardImage;
 
     //Right
+
     private VBox right;
     private ArrayList<ImageView> cardsDisplayed;
 
@@ -41,6 +46,7 @@ public class Game {
 
         pane = new BorderPane();
         pane.setCenter(controller.getCanvas());
+
         this.createBottomPane();
         this.createLeftPane();
         this.createRightPane();
@@ -125,7 +131,7 @@ public class Game {
     }
 
     private void createBottomPane() {
-        VBox bottom = new VBox();
+        bottom = new VBox();
         bottom.setAlignment(Pos.CENTER);
 
         Glow glow = new Glow();
@@ -163,22 +169,36 @@ public class Game {
         });
     }
 
+
+    Button button = new Button("Skip Action Card");
+    Label label = new Label("Drawn card");
+
     private void listenForStateChange() {
         controller.getStateChangeFlag().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (controller.getCurrentState() == Controller.GameState.DRAWING) {
                     //set label to drawn card and show it
+                    label.setVisible(true);
+                    bottom.getChildren().add(label);
                 }
                 if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
                     System.out.println("ACTION");
                     skipActionState.setVisible(true);
                     //show skip button
+                    button.setVisible(true);
+                    button.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event) {
+                            controller.changeState(Controller.GameState.MOVING);
+                        }
+                    });
+                    right.getChildren().add(button);
                 }
                 if (controller.getCurrentState() == Controller.GameState.MOVING) {
                     System.out.println("MOVING");
                     skipActionState.setVisible(false);
-                    //disable label
+                    button.setVisible(false);
+                    label.setVisible(false);
                     showPlayersActionCard();
                 }
                 if (controller.getCurrentState() == Controller.GameState.VICTORY) {
@@ -190,6 +210,7 @@ public class Game {
             }
         });
     }
+
 
     private void enableActionCardSelection() {
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
