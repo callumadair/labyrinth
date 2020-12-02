@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" stylesheets="@../resources/menucontrollerstyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <center>
         <TableView fx:id="tableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="225.0" BorderPane.alignment="CENTER">
             <columns>
@@ -22,7 +22,7 @@
         </TableView>
     </center>
    <top>
-        <Label prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: #FFFFFF;" text="Leaderboard" BorderPane.alignment="CENTER">
+        <Label style="-fx-background-color: #FFFFFF;" text="Leaderboard" BorderPane.alignment="CENTER">
             <font>
                 <Font name="Quicksand Medium" size="18.0" />
             </font>
@@ -32,6 +32,12 @@
         </Label>
    </top>
    <bottom>
-      <Button mnemonicParsing="false" text="Menu" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" text="Menu" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Quicksand Medium" size="14.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin></Button>
    </bottom>
 </BorderPane>

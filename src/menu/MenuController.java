@@ -32,7 +32,7 @@ public class MenuController extends Application implements Initializable {
     @FXML
     private StackPane stackPane;
     @FXML
-    private BorderPane borderPane;
+    private Pane mainView;
     @FXML
     private Label textLabelID;
     @FXML
@@ -47,7 +47,6 @@ public class MenuController extends Application implements Initializable {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        //playMusiclevanPolkaa("src\\resources\\music.wav");
         playMusic("src\\resources\\MenuMusic.wav");
         launch(args);
 
@@ -58,7 +57,7 @@ public class MenuController extends Application implements Initializable {
         stage = primaryStage;
         try {
             Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            primaryScene = new Scene(root, 700, 450);
+            primaryScene = new Scene(root, 1125, 650);
             stage.setScene(primaryScene);
             stage.show();
         } catch (Exception e) {
@@ -67,7 +66,7 @@ public class MenuController extends Application implements Initializable {
     }
 
     @FXML
-    private void musicOnOffButtonClick(ActionEvent actionEvent) {
+    private void musicOnOffButtonClick() {
         if (menuMusic.getStatus().equals(Status.PLAYING)) {
             menuMusic.pause();
             musicOnOffButton.setText("Music Off");
@@ -77,6 +76,23 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
+    /**
+     * This will create a second window that you will be taken to when you click the play button
+     *
+     * @param actionEvent the action event
+     */
+    @FXML
+    private void handlePlayButtonAction(ActionEvent actionEvent) {
+        try {
+            ((Pane) ((Pane) actionEvent.getSource()).getParent().getParent()).getChildren().remove(mainView);
+            mainView = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
+            stackPane.getChildren().add(mainView);
+            //makeFadeOut(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Handle quit button action.
@@ -103,8 +119,8 @@ public class MenuController extends Application implements Initializable {
     @FXML
     private void handleInstructionsButtonAction(ActionEvent actionEvent) {
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
-            Scene instructionsScene = new Scene(root);
+            mainView = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
+            Scene instructionsScene = new Scene(mainView);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(instructionsScene);
             stage.show();
@@ -113,27 +129,6 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
-    /**
-     * This will create a second window that you will be taken to when you click the play button
-     *
-     * @param actionEvent the action event
-     */
-    @FXML
-    private void handlePlayButtonAction(ActionEvent actionEvent) {
-
-        //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
-        try {
-            // playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
-            // playMusicMegalovania("src\\resources\\megalovania.wav");
-            BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
-            stackPane.getChildren().add(root);
-            stackPane.getChildren().remove(borderPane);
-            makeFadeOut(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     /**
      * Handle take me back button action.
@@ -145,7 +140,7 @@ public class MenuController extends Application implements Initializable {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         try {
             Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            primaryScene = new Scene(root, 700, 450);
+            stackPane = new StackPane(root);
             stage.setScene(primaryScene);
             stage.show();
         } catch (IOException e) {
