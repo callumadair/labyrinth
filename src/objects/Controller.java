@@ -181,6 +181,9 @@ public class Controller {
     private void movePlayer() {
         if (tilesToCompare.contains(selectedTile)) {
             if (selectedTile.checkGoal()) {
+                board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
+                draw();
+                clearSelection();
                 changeState(GameState.VICTORY);
             } else {
                 board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
@@ -228,10 +231,13 @@ public class Controller {
     }
 
     private void endGame() {
-        //set current player to be the winner
-        //display the winners name
-        //change the leaderboard for the given board
-        //display two buttons on screen 'go back to menu' and 'quit game'
+        for (PlayerController player : players) {
+            if (player.equals(currentPlayer)) {
+                player.getProfile().incrementVictories();
+            } else {
+                player.getProfile().incrementLoses();
+            }
+        }
     }
 
     private void enableRetrievingTilesFromCanvas() {
@@ -266,7 +272,7 @@ public class Controller {
         getCardSelectionFlag().set(!getCardSelectionFlag().getValue());
     }
 
-    private void clearSelection(){
+    private void clearSelection() {
         setPlayingCard(null);
         selectedTile = null;
         tilesToCompare.clear();
@@ -283,7 +289,7 @@ public class Controller {
         return players;
     }
 
-    public GameState getCurrentState(){
+    public GameState getCurrentState() {
         return currentState;
     }
 
@@ -295,11 +301,11 @@ public class Controller {
         return currentPlayerIndex;
     }
 
-    public BooleanProperty getCardSelectionFlag(){
+    public BooleanProperty getCardSelectionFlag() {
         return cardSelectionFlag;
     }
 
-    public BooleanProperty getStateChangeFlag(){
+    public BooleanProperty getStateChangeFlag() {
         return stateChangeFlag;
     }
 }

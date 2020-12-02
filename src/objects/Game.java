@@ -5,11 +5,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -25,6 +27,7 @@ public class Game {
     //Left
     private ArrayList<Label> playerTags;
     private Label highlightedPlayer;
+    private Button skipActionState;
 
     //Bottom
     private ImageView playingCardImage;
@@ -46,6 +49,7 @@ public class Game {
         this.listenForCardChange();
         this.listenForStateChange();
         this.enableActionCardSelection();
+        this.enableRotatingInsertionTile();
     }
 
     private void createLeftPane() {
@@ -73,9 +77,19 @@ public class Game {
         right = new VBox();
         right.setAlignment(Pos.TOP_CENTER);
         cardsDisplayed = new ArrayList<>();
+        skipActionState = new Button();
+        skipActionState.setText("Skip Playing");
+        skipActionState.setOnAction((event) -> {
+            if(controller.getCurrentState() == Controller.GameState.ACTION_CARD){
+                controller.changeState(Controller.GameState.MOVING);
+            }
+        });
+        skipActionState.setVisible(false);
+        VBox rightPane = new VBox();
+        rightPane.getChildren().add(right);
+        rightPane.getChildren().add(skipActionState);
         showPlayersActionCard();
-
-        pane.setRight(right);
+        pane.setRight(rightPane);
     }
 
     private void showPlayersActionCard() {
@@ -84,19 +98,21 @@ public class Game {
 
         clearDisplayedCards();
 
-        for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
-            ImageView cardDisplay = new ImageView();
-            cardDisplay.setImage(card.getImage());
-            cardDisplay.setPickOnBounds(true);
-            cardDisplay.setCursor(Cursor.HAND);
+        if(!controller.getCurrentPlayer().getCardsHeld().isEmpty()){
+            for (ActionCard card : controller.getCurrentPlayer().getCardsHeld()) {
+                ImageView cardDisplay = new ImageView();
+                cardDisplay.setImage(card.getImage());
+                cardDisplay.setPickOnBounds(true);
+                cardDisplay.setCursor(Cursor.HAND);
 
-            if (card.canBeUsed()) {
-                cardDisplay.setEffect(glow);
+                if (card.canBeUsed()) {
+                    cardDisplay.setEffect(glow);
+                }
+                cardsDisplayed.add(cardDisplay);
+                right.getChildren().add(cardDisplay);
             }
-            cardsDisplayed.add(cardDisplay);
-            right.getChildren().add(cardDisplay);
-        }
 
+        }
     }
 
     private void clearDisplayedCards() {
@@ -104,6 +120,7 @@ public class Game {
             for (ImageView imageView : cardsDisplayed) {
                 right.getChildren().remove(imageView);
             }
+            cardsDisplayed.clear();
         }
     }
 
@@ -115,6 +132,7 @@ public class Game {
         glow.setLevel(0.9);
 
         playingCardImage = new ImageView();
+        playingCardImage.setPickOnBounds(true);
         playingCardImage.setEffect(glow);
         bottom.getChildren().add(playingCardImage);
         playingCardImage.setImage(controller.getPlayingCard().getImage());
@@ -153,15 +171,21 @@ public class Game {
                     //set label to drawn card and show it
                 }
                 if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
+                    System.out.println("ACTION");
+                    skipActionState.setVisible(true);
                     //show skip button
                 }
                 if (controller.getCurrentState() == Controller.GameState.MOVING) {
-                    //disable skip button
+                    System.out.println("MOVING");
+                    skipActionState.setVisible(false);
                     //disable label
                     showPlayersActionCard();
                 }
                 if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     //end game
+                    //display the winners name
+                    //change the leaderboard for the given board
+                    //display two buttons on screen 'go back to menu' and 'quit game'
                 }
             }
         });
@@ -176,6 +200,23 @@ public class Game {
                 selectActionCard(y);
             }
         });
+    }
+
+    private void enableRotatingInsertionTile(){
+        playingCardImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                rotateCurrentTile();
+            }
+        });
+    }
+
+    private void rotateCurrentTile() {
+        if(controller.getCurrentState() == Controller.GameState.INSERTING){
+            FloorCard card = (FloorCard)controller.getPlayingCard();
+            card.nextRotation();
+            playingCardImage.setImage(controller.getPlayingCard().getImage());
+        }
     }
 
     private void selectActionCard(double y) {
