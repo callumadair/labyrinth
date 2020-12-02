@@ -50,9 +50,9 @@ public class Controller {
     public void startGame() {
         numOfPlayers = players.size() - 1;
         currentPlayer = players.get(playerIndex);
-        currentPlayerIndex = new SimpleIntegerProperty();
-        cardSelectionFlag = new SimpleBooleanProperty();
-        stateChangeFlag = new SimpleBooleanProperty();
+        currentPlayerIndex = new SimpleIntegerProperty(playerIndex);
+        cardSelectionFlag = new SimpleBooleanProperty(false);
+        stateChangeFlag = new SimpleBooleanProperty(false);
         changeState(GameState.DRAWING);
     }
 
@@ -113,8 +113,39 @@ public class Controller {
 
     private void getInsertionList() {
         tilesToCompare = board.getInsertionPoints();
-        highlightTiles();
-        //enable rotating the card
+
+        if(!board.getFrozenTiles().isEmpty()){
+            ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
+            for(FloorCard card : board.getFrozenTiles()){
+                card.decrementEffectTimer();
+                if(card.getEffectTimer() == 0){
+                    card.setStateToNormal();
+                    frozenTilesToRemove.add(card);
+                }
+            }
+            board.getFrozenTiles().removeAll(frozenTilesToRemove);
+        }
+
+        if(!board.getTilesOnFire().isEmpty()){
+            ArrayList<FloorCard> tilesOnFireToRemove = new ArrayList<>();
+            for(FloorCard card : board.getTilesOnFire()){
+                card.decrementEffectTimer();
+                if(card.getEffectTimer() == 0){
+                    card.setStateToNormal();
+                    tilesOnFireToRemove.add(card);
+                }
+            }
+            board.getTilesOnFire().removeAll(tilesOnFireToRemove);
+        }
+
+        draw();
+
+        if(tilesToCompare.isEmpty()){
+            playingCard = null;
+            changeState(GameState.ACTION_CARD);
+        } else {
+            highlightTiles();
+        }
     }
 
     private void insert() {
@@ -275,9 +306,6 @@ public class Controller {
 
     public void draw() {
         board.drawBoard(canvas.getGraphicsContext2D());
-        for (PlayerController player : players) {
-            player.drawPlayer(canvas.getGraphicsContext2D());
-        }
     }
 
     public ArrayList<PlayerController> getPlayers() {

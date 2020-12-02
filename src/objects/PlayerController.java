@@ -212,22 +212,26 @@ public class PlayerController {
         FloorCard bottom = board.getTile(x, y + 1);
 
         if (left != null) {
-            if (currentTile.checkPath(left, FloorCard.Direction.LEFT)) {
+            if (currentTile.checkPath(left, FloorCard.Direction.LEFT)
+                    && !board.checkPlayerPosition(left.getX(), left.getY())) {
                 legalMoves.add(left);
             }
         }
         if (top != null) {
-            if (currentTile.checkPath(top, FloorCard.Direction.UP)) {
+            if (currentTile.checkPath(top, FloorCard.Direction.UP)
+                    && !board.checkPlayerPosition(top.getX(), top.getY())) {
                 legalMoves.add(top);
             }
         }
         if (right != null) {
-            if (currentTile.checkPath(right, FloorCard.Direction.RIGHT)) {
+            if (currentTile.checkPath(right, FloorCard.Direction.RIGHT)
+                    && !board.checkPlayerPosition(right.getX(), right.getY())) {
                 legalMoves.add(right);
             }
         }
         if (bottom != null) {
-            if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)) {
+            if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)
+                    && !board.checkPlayerPosition(bottom.getX(), bottom.getY())) {
                 legalMoves.add(bottom);
             }
         }

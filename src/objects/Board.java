@@ -15,6 +15,8 @@ public class Board {
     private ArrayList<PlayerController> players;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
+    private ArrayList<FloorCard> tilesOnFire = new ArrayList<>();
+
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
 
@@ -130,6 +132,7 @@ public class Board {
     public void insertTile(FloorCard tile, int x, int y) {
         if (x == 0 || x == width - 1) {
             if (x == 0) {
+                map[width - 1][y].setStateToNormal();
                 silkBag.addACard(map[width - 1][y]);
                 for (int i = width - 1; i > 0; i--) {
                     map[i][y] = map[i - 1][y];
@@ -140,18 +143,20 @@ public class Board {
                 }
                 map[0][y] = tile;
             } else if (x == width - 1) {
+                map[0][y].setStateToNormal();
                 silkBag.addACard(map[0][y]);
                 for (int i = 0; i < width - 1; i++) {
                     map[i][y] = map[i + 1][y];
                     map[i + 1][y].setX(i);
                 }
                 if(this.checkPlayerPosition(0, y)){
-                    getPlayer(width - 1, y).movePlayer(width - 1, y);
+                    getPlayer(0, y).movePlayer(width - 1, y);
                 }
                 map[width - 1][y] = tile;
             }
         } else if (y == 0 || y == height - 1) {
             if (y == 0) {
+                map[x][height - 1].setStateToNormal();
                 silkBag.addACard(map[x][height - 1]);
                 for (int i = height - 1; i > 0; i--) {
                     map[x][i] = map[x][i - 1];
@@ -162,6 +167,7 @@ public class Board {
                 }
                 map[x][0] = tile;
             } else if (y == height - 1) {
+                map[x][0].setStateToNormal();
                 silkBag.addACard(map[x][0]);
                 for (int i = 0; i < height - 1; i++) {
                     map[x][i] = map[x][i + 1];
@@ -189,6 +195,9 @@ public class Board {
                 map[j][i].drawTile(gc, j, i);
             }
         }
+        for(PlayerController player : players){
+            player.drawPlayer(gc);
+        }
     }
 
     public FloorCard getTileFromCanvas(double x, double y) {
@@ -211,6 +220,12 @@ public class Board {
 
     public void changePlayerPosition(PlayerController player, int x, int y) {
         player.movePlayer(x, y);
+    }
+
+    //use only when loading a board from a save file
+    public void setPlayerPosition(PlayerController player, int x, int y){
+        player.setX(x);
+        player.setY(y);
     }
 
     public boolean checkPlayerPosition(int x, int y) {
@@ -261,5 +276,9 @@ public class Board {
 
     public int[][] getSpawnPoints(){
         return this.spawnPoints;
+    }
+
+    public ArrayList<FloorCard> getTilesOnFire() {
+        return tilesOnFire;
     }
 }

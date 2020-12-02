@@ -21,6 +21,8 @@ public class FloorCard extends Card { //need to continue javadoc
     private boolean[] possiblePaths; //0 left, 1 up, 2 right, 3 down
     private int rotation = 0;
 
+    private int effectTimer = 0;
+
     private String straightTileImagePath = "resources/ROAD_straight";
     private String cornerTileImagePath = "resources/ROAD_curved";
     private String tshapedTileImagePath = "resources/ROAD_Tshaped";
@@ -111,15 +113,25 @@ public class FloorCard extends Card { //need to continue javadoc
     /**
      * Sets on fire.
      */
-    public void setOnFire() {
+    public void setOnFire(int effectTimer) {
+        this.effectTimer = effectTimer;
         this.state = FloorTileState.FIRE;
     }
 
     /**
      * Sets on ice.
      */
-    public void setOnIce() {
+    public void setOnIce(int effectTimer) {
+        this.effectTimer = effectTimer;
         this.state = FloorTileState.FROZEN;
+    }
+
+    public void decrementEffectTimer(){
+        effectTimer--;
+    }
+
+    public int getEffectTimer(){
+        return effectTimer;
     }
 
     /**

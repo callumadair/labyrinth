@@ -92,7 +92,8 @@ public class ActionCard extends Card {
             return false;
         } else {
             for (FloorCard tile : tiles) {
-                tile.setOnFire();
+                board.getTilesOnFire().add(tile);
+                tile.setOnFire((board.getPlayers().size() * 2) - 1);
             }
         }
         return true;
@@ -104,7 +105,7 @@ public class ActionCard extends Card {
 
         for (FloorCard tile : tiles) {
             board.getFrozenTiles().add(tile);
-            tile.setOnIce();
+            tile.setOnIce(board.getPlayers().size() - 1);
         }
         return true;
     }

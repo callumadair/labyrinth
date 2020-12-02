@@ -82,18 +82,17 @@ public class Game {
         cardsDisplayed = new ArrayList<>();
 
         skipActionState = new Button();
-        skipActionState.setText("Skip Playing");
+        skipActionState.setText("Skip");
         skipActionState.setOnAction((event) -> {
             if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
                 controller.changeState(Controller.GameState.MOVING);
             }
         });
-        skipActionState.setVisible(false);
+        skipActionState.setVisible(true);
 
         VBox rightPane = new VBox();
         rightPane.getChildren().add(right);
         rightPane.getChildren().add(skipActionState);
-        showPlayersActionCard();
 
         pane.setRight(rightPane);
     }
@@ -170,14 +169,12 @@ public class Game {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (controller.getCurrentState() == Controller.GameState.DRAWING) {
                     label.setText("Card Drawn:");
-                    label.setVisible(true);
-                    showPlayersActionCard();
                 }
                 if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
-                    skipActionState.setVisible(true);
+                    showPlayersActionCard();
                 }
                 if (controller.getCurrentState() == Controller.GameState.MOVING) {
-                    skipActionState.setVisible(false);
+
                 }
                 if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     //end game
