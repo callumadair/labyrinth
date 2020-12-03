@@ -34,6 +34,8 @@ public class MenuController extends Application implements Initializable {
     @FXML
     private BorderPane borderPane;
     @FXML
+    private Pane mainView;
+    @FXML
     private Label textLabelID;
     @FXML
     private ImageView imageView;
@@ -47,10 +49,7 @@ public class MenuController extends Application implements Initializable {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        //playMusiclevanPolkaa("src\\resources\\music.wav");
-        playMusic("src\\resources\\MenuMusic.wav");
         launch(args);
-
     }
 
     @FXML
@@ -58,7 +57,7 @@ public class MenuController extends Application implements Initializable {
         stage = primaryStage;
         try {
             Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            primaryScene = new Scene(root, 700, 450);
+            primaryScene = new Scene(root, 1125, 650);
             stage.setScene(primaryScene);
             stage.show();
         } catch (Exception e) {
@@ -67,7 +66,7 @@ public class MenuController extends Application implements Initializable {
     }
 
     @FXML
-    private void musicOnOffButtonClick(ActionEvent actionEvent) {
+    private void musicOnOffButtonClick() {
         if (menuMusic.getStatus().equals(Status.PLAYING)) {
             menuMusic.pause();
             musicOnOffButton.setText("Music Off");
@@ -77,6 +76,25 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
+    /**
+     * This will create a second window that you will be taken to when you click the play button
+     *
+     * @param actionEvent the action event
+     */
+    @FXML
+    private void handlePlayButtonAction(ActionEvent actionEvent) {
+        borderPane.getChildren().remove(mainView);
+        try {
+            Pane root = FXMLLoader.load(getClass().getResource("GameTest.fxml"));
+            mainView = (Pane) root.getChildren().get(1);
+            fadeOut(mainView);
+            borderPane.setCenter(mainView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Handle quit button action.
@@ -103,8 +121,8 @@ public class MenuController extends Application implements Initializable {
     @FXML
     private void handleInstructionsButtonAction(ActionEvent actionEvent) {
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
-            Scene instructionsScene = new Scene(root);
+            mainView = FXMLLoader.load(getClass().getResource("Instructions.fxml"));
+            Scene instructionsScene = new Scene(mainView);
             stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(instructionsScene);
             stage.show();
@@ -113,41 +131,20 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
+
     /**
-     * This will create a second window that you will be taken to when you click the play button
+     * Handle menu button action.
      *
      * @param actionEvent the action event
      */
     @FXML
-    private void handlePlayButtonAction(ActionEvent actionEvent) {
-
-        //AudioPlayer.player.stop(InputStream, levanPolkaaMusic);
+    private void handleMenuButton(ActionEvent actionEvent) {
+        borderPane.getChildren().remove(mainView);
         try {
-            // playMusicHEYYEYAAEYAAAEYAEYAA("src\\resources\\HEYYEYAAEYAAAEYAEYAA.wav");
-            // playMusicMegalovania("src\\resources\\megalovania.wav");
-            BorderPane root = FXMLLoader.load(getClass().getResource("LeaderBoard.fxml"));
-            stackPane.getChildren().add(root);
-            stackPane.getChildren().remove(borderPane);
-            makeFadeOut(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * Handle take me back button action.
-     *
-     * @param actionEvent the action event
-     */
-    @FXML
-    private void handleTakeMeBackButtonAction(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        try {
-            Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            primaryScene = new Scene(root, 700, 450);
-            stage.setScene(primaryScene);
-            stage.show();
+            StackPane menu = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+            mainView = (Pane) ((BorderPane) menu.getChildren().get(1)).getChildren().get(0);
+            fadeOut(mainView);
+            borderPane.setCenter(mainView);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -204,6 +201,7 @@ public class MenuController extends Application implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        playMusic("src\\resources\\MenuMusic.wav");
 
         TranslateTransition backgroundMove = new TranslateTransition();
         backgroundMove.setDuration(Duration.millis(5000));
@@ -220,7 +218,7 @@ public class MenuController extends Application implements Initializable {
      *
      * @param fadeOut the fade out
      */
-    private void makeFadeOut(Pane fadeOut) {
+    private void fadeOut(Pane fadeOut) {
         TranslateTransition windowTransition = new TranslateTransition();
         windowTransition.setDuration(Duration.millis(500));
         windowTransition.setNode(fadeOut);
@@ -232,6 +230,7 @@ public class MenuController extends Application implements Initializable {
     public static void playMusic(String filepath) {
         Media music = new Media(new File(filepath).toURI().toString());
         menuMusic = new MediaPlayer(music);
+        menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
         menuMusic.play();
     }
 }

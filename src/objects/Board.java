@@ -8,27 +8,28 @@ public class Board {
 
     private int width;
     private int height;
-    private int[][] spawnPoints;
+    private int fixedTilesNum;
+    private int[][] spawnPoints = new int[4][2];
+    private int[][] fixedTiles; // [fixedTileNum][2];
     private SilkBag silkBag;
     private FloorCard[][] map;
-    private FloorCard[] fixedTiles;
     private ArrayList<PlayerController> players;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
-    private ArrayList<FloorCard> tilesOnFire = new ArrayList<>();
-
     private ArrayList<Integer> columnsToPlace = new ArrayList<>();
     private ArrayList<Integer> rowsToPlace = new ArrayList<>();
 
-    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
-                 SilkBag silkBag, ArrayList<PlayerController> players) {
+    public Board(String[][] data, ArrayList<PlayerController> players) {
+        this.players = players;
+        setup(data);
+    }
+
+    public Board(int width, int height, int[][] spawnPoints, SilkBag silkBag, ArrayList<PlayerController> players) {
         this.width = width;
         this.height = height;
         this.spawnPoints = spawnPoints;
         this.silkBag = silkBag;
-        this.fixedTiles = fixedTiles;
         this.players = players;
-        setup();
     }
 
     //for loading board in progress
@@ -49,44 +50,70 @@ public class Board {
         this.height = height;
         this.spawnPoints = spawnPoints;
         this.silkBag = silkBag;
-        this.fixedTiles = fixedTiles;
+        setup(fixedTiles);
+    }
+
+    // Just for testing
+    public Board() {
         setup();
     }
 
+    // testing only
     private void setup() {
+        map = new FloorCard[5][5];
+        width = 5;
+        height = 5;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                map[j][i] = new FloorCard("STRAIGHT");
+                map[j][i].setX(j);
+                map[j][i].setY(i);
+            }
+        }
+        assignInsertPositions();
+        silkBag = new SilkBag(4);
+
+        silkBag.addACard(new FloorCard("CORNER"));
+        silkBag.addACard(new FloorCard("CORNER"));
+        silkBag.addACard(new FloorCard("CORNER"));
+        silkBag.addACard(new FloorCard("CORNER"));
+    }
+
+    private void setup(String[][] data) {
+        // Handle assigning all the data
+        map = new FloorCard[width][height];
+    }
+
+    private void setup(FloorCard[] fixedTiles) {
         map = new FloorCard[width][height];
         for (FloorCard fixed : fixedTiles) {
             map[fixed.getX()][fixed.getY()] = fixed;
         }
 
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (map[j][i] == null) {
-                    map[j][i] = silkBag.drawFloorCard();
-                    map[j][i].setX(j);
-                    map[j][i].setY(i);
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == null) {
+                    map[i][j] = silkBag.drawFloorCard();
                 }
             }
         }
-
-//        for(int i = 0; i < players.size(); i++){
-//            players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
-//        }
-        assignInsertPositions();
     }
 
     private void assignInsertPositions() {
-
-        for (int i = 0; i < height; i++) {
+        // call the function within setup
+        // assign numbers from 0 to height to columnsToPlace
+        // assign numbers from 0 to width to rowsToPlace
+        for (int i = 0; i < width; i++) {
             rowsToPlace.add(i);
         }
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < height; i++) {
             columnsToPlace.add(i);
         }
 
-        for (FloorCard tile : fixedTiles) {
-            rowsToPlace.remove(Integer.valueOf(tile.getY()));
-            columnsToPlace.remove(Integer.valueOf(tile.getX()));
+        for (int i = 0; i < fixedTilesNum; i++) {
+            int[] cord = fixedTiles[i];
+            rowsToPlace.remove(cord[0]);
+            columnsToPlace.remove(cord[1]);
         }
     }
 
@@ -99,107 +126,61 @@ public class Board {
         ArrayList<Integer> frozenRows = new ArrayList<>();
         ArrayList<Integer> frozenColumns = new ArrayList<>();
         for (FloorCard tile : frozenTiles) {
-            frozenRows.add(tile.getY());
-            frozenColumns.add(tile.getX());
+            frozenRows.add(tile.getX());
+            frozenColumns.add(tile.getY());
         }
 
-        for (int i = 0; i < rowsToPlace.size(); i++) {
-            if (!frozenRows.isEmpty()) {
-                if (!frozenRows.contains(rowsToPlace.get(i))) {
-                    insertionTiles.add(map[0][rowsToPlace.get(i)]);
-                    insertionTiles.add(map[width - 1][rowsToPlace.get(i)]);
-                }
-            } else {
-                insertionTiles.add(map[0][rowsToPlace.get(i)]);
-                insertionTiles.add(map[width - 1][rowsToPlace.get(i)]);
+        for (int i = 0; i < height; i++) {
+            if (!frozenRows.contains(rowsToPlace.get(i))) {
+                insertionTiles.add(map[rowsToPlace.get(i)][0]);
+                insertionTiles.add(map[rowsToPlace.get(i)][width - 1]);
             }
         }
 
-        for (int i = 0; i < columnsToPlace.size(); i++) {
-            if (!frozenColumns.isEmpty()) {
-                if (!frozenColumns.contains(columnsToPlace.get(i))) {
-                    if (!insertionTiles.contains(map[columnsToPlace.get(i)][0])) {
-                        insertionTiles.add(map[columnsToPlace.get(i)][0]);
-                    }
-                    if (!insertionTiles.contains(map[columnsToPlace.get(i)][height - 1])) {
-                        insertionTiles.add(map[columnsToPlace.get(i)][height - 1]);
-                    }
+        for (int i = 0; i < width; i++) {
+            if (!frozenColumns.contains(columnsToPlace.get(i))) {
+                if (!insertionTiles.contains(map[0][columnsToPlace.get(i)])) {
+                    insertionTiles.add(map[0][columnsToPlace.get(i)]);
                 }
-            } else {
-                if (!insertionTiles.contains(map[columnsToPlace.get(i)][0])) {
-                    insertionTiles.add(map[columnsToPlace.get(i)][0]);
-                }
-                if (!insertionTiles.contains(map[columnsToPlace.get(i)][height - 1])) {
-                    insertionTiles.add(map[columnsToPlace.get(i)][height - 1]);
+                if (!insertionTiles.contains(map[height - 1][columnsToPlace.get(i)])) {
+                    insertionTiles.add(map[height - 1][columnsToPlace.get(i)]);
                 }
             }
         }
 
-        insertionTiles.remove(map[0][0]);
-        insertionTiles.remove(map[width - 1][0]);
-        insertionTiles.remove(map[0][height - 1]);
-        insertionTiles.remove(map[width - 1][height - 1]);
         return insertionTiles;
     }
 
     public void insertTile(FloorCard tile, int x, int y) {
         if (x == 0 || x == width - 1) {
             if (x == 0) {
-                map[width - 1][y].setStateToNormal();
                 silkBag.addACard(map[width - 1][y]);
                 for (int i = width - 1; i > 0; i--) {
                     map[i][y] = map[i - 1][y];
                     map[i - 1][y].setX(i);
-                    if (checkPlayerPosition(i - 1, y)) {
-                        getPlayer(i - 1, y).movePlayer(i, y);
-                    }
-                }
-                if (this.checkPlayerPosition(width - 1, y)) {
-                    getPlayer(width - 1, y).movePlayer(0, y);
                 }
                 map[0][y] = tile;
             } else if (x == width - 1) {
-                map[0][y].setStateToNormal();
                 silkBag.addACard(map[0][y]);
                 for (int i = 0; i < width - 1; i++) {
                     map[i][y] = map[i + 1][y];
                     map[i + 1][y].setX(i);
-                    if (checkPlayerPosition(i + 1, y)) {
-                        getPlayer(i + 1, y).movePlayer(i, y);
-                    }
-                }
-                if (this.checkPlayerPosition(0, y)) {
-                    getPlayer(0, y).movePlayer(width - 1, y);
                 }
                 map[width - 1][y] = tile;
             }
         } else if (y == 0 || y == height - 1) {
             if (y == 0) {
-                map[x][height - 1].setStateToNormal();
                 silkBag.addACard(map[x][height - 1]);
                 for (int i = height - 1; i > 0; i--) {
                     map[x][i] = map[x][i - 1];
                     map[x][i - 1].setY(i);
-                    if (checkPlayerPosition(x, i - 1)) {
-                        getPlayer(x, i - 1).movePlayer(x, i);
-                    }
-                }
-                if (this.checkPlayerPosition(x, height - 1)) {
-                    getPlayer(x, height - 1).movePlayer(x, 0);
                 }
                 map[x][0] = tile;
             } else if (y == height - 1) {
-                map[x][0].setStateToNormal();
                 silkBag.addACard(map[x][0]);
                 for (int i = 0; i < height - 1; i++) {
                     map[x][i] = map[x][i + 1];
                     map[x][i + 1].setY(i);
-                    if (checkPlayerPosition(x, i + 1)) {
-                        getPlayer(x, i + 1).movePlayer(x, i);
-                    }
-                }
-                if (this.checkPlayerPosition(x, 0)) {
-                    getPlayer(x, 0).movePlayer(x, height - 1);
                 }
                 map[x][height - 1] = tile;
             }
@@ -217,11 +198,8 @@ public class Board {
     public void drawBoard(GraphicsContext gc) {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                map[j][i].drawTile(gc, j, i);
+                gc.drawImage(map[i][j].getImage(), i * FloorCard.TILE_SIZE, j * FloorCard.TILE_SIZE);
             }
-        }
-        for (PlayerController player : players) {
-            player.drawPlayer(gc);
         }
     }
 
@@ -247,12 +225,6 @@ public class Board {
         player.movePlayer(x, y);
     }
 
-    //use only when loading a board from a save file
-    public void setPlayerPosition(PlayerController player, int x, int y) {
-        player.setX(x);
-        player.setY(y);
-    }
-
     public boolean checkPlayerPosition(int x, int y) {
         for (PlayerController player : players) {
             if (player.getX() == x && player.getY() == y) {
@@ -262,21 +234,14 @@ public class Board {
         return false;
     }
 
-    public boolean checkBoardBoundary(int x, int y) {
-        if (x < 0 || x >= width || y < 0 || y >= height) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public int getFixedTilesNum() {
-        return this.fixedTiles.length;
+        return fixedTilesNum;
     }
 
-    public FloorCard[] getFixedTiles() {
-        return this.fixedTiles;
+    public int[][] getFixedTiles() {
+        return fixedTiles;
     }
+
 
     public ArrayList<PlayerController> getPlayers() {
         return players;
@@ -291,19 +256,12 @@ public class Board {
         return null;
     }
 
-    public ArrayList<FloorCard> getFrozenTiles() {
-        return frozenTiles;
+    public int[][] getSpawnPoints() {
+        return spawnPoints;
+
     }
 
     public void setPlayers(ArrayList<PlayerController> players) {
         this.players = players;
-    }
-
-    public int[][] getSpawnPoints() {
-        return this.spawnPoints;
-    }
-
-    public ArrayList<FloorCard> getTilesOnFire() {
-        return tilesOnFire;
     }
 }

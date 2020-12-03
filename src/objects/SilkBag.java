@@ -49,8 +49,6 @@ public class SilkBag {
             randomCard = listOfCards.get(card);
         }
         listOfCards.remove(card);
-        FloorCard floorCard = (FloorCard) randomCard;
-        floorCard.setRandomRotation();
-        return floorCard;
+        return (FloorCard) randomCard;
     }
 }
