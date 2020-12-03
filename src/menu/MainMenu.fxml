@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -31,27 +30,22 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor></ImageView>
       <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="1200.0">
-          <stylesheets>
-              <URL value="@../resources/menucontrollerstyle.css" />
-              <URL value="@../resources/leaderboardstyle.css" />
-          </stylesheets>
          <center>
             <StackPane fx:id="mainView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="BOTTOM_CENTER" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#openLeaderboard" text="profiles" />
-                            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handlePlayButtonAction" prefWidth="200.0" text="Play" textFill="#191640">
+                            <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handlePlayButtonAction" prefWidth="200.0" text="Play" textFill="#191640">
                                 <font>
                                     <Font name="Quicksand Medium" size="14.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="instructionsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" text="Instructions" textFill="#191640">
+                            <Button fx:id="instructionsButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" text="Instructions" textFill="#191640">
                                 <font>
                                     <Font name="Quicksand Medium" size="14.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="quitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleQuitButtonAction" prefWidth="200.0" text="Quit" textFill="#191640">
+                            <Button fx:id="quitButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleQuitButtonAction" prefWidth="200.0" text="Quit" textFill="#191640">
                                 <font>
                                     <Font name="Quicksand Medium" size="14.0" />
                                 </font>
@@ -93,29 +87,37 @@
          <top>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="musicOnOffButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#musicOnOffButtonClick" text="Music On" textAlignment="CENTER" textFill="#191640">
+                  <Button fx:id="musicOnOffButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#musicOnOffButtonClick" prefHeight="30.0" text="Music On" textAlignment="CENTER" textFill="#191640">
                      <font>
                         <Font name="Quicksand Medium" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="50.0" right="5.0" top="15.0" />
+                        <Insets left="50.0" right="15.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleMenuButton" text="Menu" textAlignment="CENTER" textFill="#191640">
+                  <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="30.0" text="Menu" textAlignment="CENTER" textFill="#191640">
                      <HBox.margin>
-                        <Insets left="10.0" right="5.0" top="15.0" />
+                        <Insets left="5.0" right="10.0" top="15.0" />
                      </HBox.margin>
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="930.0" text="Labyrinth" textAlignment="CENTER" textFill="#191640">
-                     <padding>
-                        <Insets right="170.0" />
-                     </padding>
+                  <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#openLeaderboard" prefHeight="30.0" text="Profiles" textAlignment="CENTER" textFill="#191640">
+                     <font>
+                        <Font name="Quicksand Medium" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="500.0" text="Labyrinth" textAlignment="CENTER" textFill="#191640">
                      <font>
                         <Font name="Quicksand Medium" size="24.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
                   </Label>
                </children>
             </HBox>

@@ -17,12 +17,10 @@ import java.io.*;
 public class Leaderboard {
     @FXML
     private static TableView<PlayerProfile> tableView;
-    @FXML
-    private BorderPane pane;
     private static String databaseName;
 
 
-    public static void start(String databaseName) {
+    public static BorderPane getLeaderboard(String databaseName) {
         Leaderboard.databaseName = databaseName;
         BorderPane root = null;
         try {
@@ -31,8 +29,9 @@ public class Leaderboard {
             e.printStackTrace();
             System.exit(-1);
         }
-        tableView = (TableView<PlayerProfile>) root.getCenter();
+        root.setCenter(tableView);
         addColumns();
+        return root;
     }
 
 
