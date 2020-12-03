@@ -64,6 +64,14 @@ public class PlayerProfile {
         this.victories = victories;
     }
 
+    public void incrementVictories(){
+        victories++;
+    }
+
+    public void incrementLoses(){
+        losses++;
+    }
+
     /**
      * Gets losses.
      *

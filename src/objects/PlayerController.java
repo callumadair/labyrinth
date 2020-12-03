@@ -135,6 +135,10 @@ public class PlayerController {
         return isCurrentPlayer;
     }
 
+    public void addInCardsHeld(ActionCard card){
+        cardsHeld.add(card);
+    }
+
     /**
      * Gets last three moves made by the player.
      *

@@ -110,6 +110,10 @@ public class FloorCard extends Card {
         return type;
     }
 
+    public void setFixed(boolean fixed){
+        this.isFixed = fixed;
+    }
+
     /**
      * Sets on fire.
      */
@@ -296,7 +300,7 @@ public class FloorCard extends Card {
      *
      * @param rotation
      */
-    private void setRotation(int rotation) {
+    public void setRotation(int rotation) {
         if (rotation == 90) {
             this.rotation = 90;
             setImageWithRotation();
