@@ -24,7 +24,7 @@ public class ActionCard extends Card {
     /**
      * The enum Action card type.
      */
-    enum ActionCardType {
+    public enum ActionCardType {
         FIRE,
         ICE,
         BACKTRACK,
