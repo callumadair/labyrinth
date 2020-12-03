@@ -12,6 +12,7 @@ import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer.*;
 import javafx.stage.*;
 import javafx.util.*;
+import objects.*;
 
 import java.io.*;
 import java.net.*;
@@ -150,8 +151,23 @@ public class MenuController extends Application implements Initializable {
     private void openLeaderboard(ActionEvent actionEvent) {
         String buttonName = actionEvent.getSource().toString().substring(33,
                 actionEvent.getSource().toString().length() - 1).toLowerCase();
-        System.out.println(buttonName);
         borderPane.setCenter(Leaderboard.getLeaderboard(buttonName));
+    }
+
+    @FXML
+    private void getAllProfiles(ActionEvent actionEvent) {
+        HashMap<Integer, PlayerProfile> allProfiles = new HashMap<>();
+        for (PlayerDatabase database : databases) {
+            for (PlayerProfile profile : database.getAllData()) {
+                if (allProfiles.get(profile.getPlayerID()) == null) {
+                    allProfiles.put(profile.getPlayerID(), profile);
+                } else {
+                    PlayerProfile curProfile = allProfiles.get(profile.getPlayerID());
+                    profile.setVictories(profile.getVictories() + curProfile.getVictories());
+                    profile.setLosses(profile.getLosses() + curProfile.getLosses());
+                }
+            }
+        }
     }
 
     @Override

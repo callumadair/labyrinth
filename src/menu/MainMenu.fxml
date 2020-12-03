@@ -103,7 +103,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#openLeaderboard" prefHeight="30.0" text="Profiles" textAlignment="CENTER" textFill="#191640">
+                  <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#getAllProfiles" prefHeight="30.0" text="Profiles" textAlignment="CENTER" textFill="#191640">
                      <font>
                         <Font name="Quicksand Medium" size="14.0" />
                      </font>
