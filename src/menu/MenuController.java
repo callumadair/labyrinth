@@ -87,9 +87,7 @@ public class MenuController extends Application implements Initializable {
         borderPane.getChildren().remove(mainView);
         try {
             Pane root = FXMLLoader.load(MenuController.class.getResource("AnotherPlay.fxml"));
-            mainView = (Pane) root.getChildren().get(2);
-            //fadeOut(mainView);
-            borderPane.setCenter(mainView);
+            borderPane.setCenter(root);
 
         } catch (IOException e) {
             e.printStackTrace();
