@@ -128,6 +128,18 @@ public class PlayerController {
         this.y = y;
     }
 
+    public void setCurrentPlayer(boolean flag){
+        isCurrentPlayer = flag;
+    }
+
+    public boolean isCurrentPlayer(){
+        return isCurrentPlayer;
+    }
+
+    public void addInCardsHeld(ActionCard card){
+        cardsHeld.add(card);
+    }
+
     /**
      * Gets last three moves made by the player.
      *
