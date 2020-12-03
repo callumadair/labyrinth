@@ -160,6 +160,7 @@ public class FileManager {
             players.add(createPlayerController(scanner.nextLine()));
         }
 
+
         Board loadedBoard = new Board(width, height, spawnPoints, silkBag, players);
         for (FloorCard curCard : insertedCards) {
             loadedBoard.insertTile(curCard, curCard.getX(), curCard.getY());
