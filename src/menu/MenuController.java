@@ -12,7 +12,6 @@ import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer.*;
 import javafx.stage.*;
 import javafx.util.*;
-import objects.*;
 
 import java.io.*;
 import java.net.*;
@@ -87,9 +86,9 @@ public class MenuController extends Application implements Initializable {
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("GameTest.fxml"));
-            mainView = (Pane) root.getChildren().get(1);
-            fadeOut(mainView);
+            Pane root = FXMLLoader.load(MenuController.class.getResource("AnotherPlay.fxml"));
+            mainView = (Pane) root.getChildren().get(2);
+            //fadeOut(mainView);
             borderPane.setCenter(mainView);
 
         } catch (IOException e) {
@@ -156,18 +155,8 @@ public class MenuController extends Application implements Initializable {
 
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
-        HashMap<Integer, PlayerProfile> allProfiles = new HashMap<>();
-        for (PlayerDatabase database : databases) {
-            for (PlayerProfile profile : database.getAllData()) {
-                if (allProfiles.get(profile.getPlayerID()) == null) {
-                    allProfiles.put(profile.getPlayerID(), profile);
-                } else {
-                    PlayerProfile curProfile = allProfiles.get(profile.getPlayerID());
-                    profile.setVictories(profile.getVictories() + curProfile.getVictories());
-                    profile.setLosses(profile.getLosses() + curProfile.getLosses());
-                }
-            }
-        }
+        borderPane.setCenter(Profiles.getAllProfiles(databases));
+
     }
 
     @Override

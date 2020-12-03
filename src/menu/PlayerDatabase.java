@@ -13,6 +13,16 @@ import java.util.*;
 public class PlayerDatabase {
     private String url;
 
+    public void start() {
+        try (Connection conn = connect()) {
+            if (conn != null) {
+                System.out.println("Connection successful.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * Create new database.
      *
