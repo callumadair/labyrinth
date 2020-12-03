@@ -58,18 +58,22 @@ public class ActionCard extends Card {
     }
 
     public boolean useCard(Board board, int x, int y) {
-        switch (type) {
-            case FIRE:
-                return useFireCard(board, x, y);
-            case ICE:
-                return useIceCard(board, x, y);
-            case BACKTRACK:
-                return useBackTrackCard(board, x, y);
-            case DOUBLE_MOVE:
-                return useDoubleMove(board, x, y);
-
+        if(this.canBeUsed()){
+            switch (type) {
+                case FIRE:
+                    return useFireCard(board, x, y);
+                case ICE:
+                    return useIceCard(board, x, y);
+                case BACKTRACK:
+                    return useBackTrackCard(board, x, y);
+                case DOUBLE_MOVE:
+                    return useDoubleMove(board, x, y);
+                default:
+                    return false;
+            }
+        } else {
+            return false;
         }
-        return true;
     }
 
 
@@ -88,7 +92,8 @@ public class ActionCard extends Card {
             return false;
         } else {
             for (FloorCard tile : tiles) {
-                tile.setOnFire();
+                board.getTilesOnFire().add(tile);
+                tile.setOnFire(fireEffectTimer(board));
             }
         }
         return true;
@@ -100,7 +105,7 @@ public class ActionCard extends Card {
 
         for (FloorCard tile : tiles) {
             board.getFrozenTiles().add(tile);
-            tile.setOnIce();
+            tile.setOnIce(iceEffectTimer(board));
         }
         return true;
     }
@@ -112,92 +117,53 @@ public class ActionCard extends Card {
 
         PlayerController player = board.getPlayer(x, y);
 
-        if(player.getLastThree().size() < 2){
+        if(player.isCurrentPlayer()){
+            return false;
+        }
+
+        if(player.getLastThree().size() < 3){
             return false;
         }
 
         if (player.isBackTracked() == true) {
             return false;
         } else {
-            board.changePlayerPosition(player,
-                    player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
-            player.setBackTracked(true);
+            int[] temp = player.getLastThree().getFirst();
+            player.getLastThree().removeFirst();
+            if(board.getTile(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]).isOnFire()){
+                player.getLastThree().addFirst(temp);
+                return false;
+            } else {
+                if(board.getTile(temp[0], temp[1]).isOnFire()){
+                    player.setBackTracked(true);
+                    player.movePlayer(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
+                    return true;
+                } else {
+                    player.setBackTracked(true);
+                    player.movePlayer(temp[0], temp[1]);
+                    return true;
+                }
+            }
         }
-        return true;
     }
 
     private boolean useDoubleMove(Board board, int x, int y) {
         if (!board.checkPlayerPosition(x, y)) {
             return false;
         }
-        board.getPlayer(x, y).setDoubleMove(true);
+
+        PlayerController player = board.getPlayer(x, y);
+
+        if(!player.isCurrentPlayer()){
+            return false;
+        }
+
+        player.setDoubleMove(true);
         return true;
     }
 
     private ArrayList<FloorCard> getAreaOfEffect(Board board, int x, int y) {
         ArrayList<FloorCard> area = new ArrayList<>();
-
-        /*
-        if (x == 0 && y == 0) { //left upper corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-        } else if ((x == board.getWidth() - 1) && y == 0) { //right upper corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-        } else if (x == 0 && (y == board.getHeight() - 1)) { //left bottom corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x + 1, y));
-        } else if (x == 0 && (y == board.getWidth() - 1)) { //right bottom corner
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x - 1, y + 1));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x - 1, y));
-        } else if (y == 0) { //upper middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-            area.add(board.getTile(x + 1, y));
-        } else if (x == 0 && ((y != 0) || y != board.getHeight() - 1)) { //left middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x + 1, y - 1));
-            area.add(board.getTile(x, y - 1));
-        } else if ((x == board.getWidth() - 1) && ((y != 0) || (y != board.getHeight() - 1))) { //right middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x - 1, y + 1));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x, y - 1));
-        } else if ((y == board.getHeight() - 1) && ((x != board.getWidth() - 1) || (x != 0))) { //bottom middle
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x - 1, y + 1));
-            area.add(board.getTile(x - 1, y));
-        } else {
-            area.add(board.getTile(x, y));
-            area.add(board.getTile(x + 1, y));
-            area.add(board.getTile(x - 1, y));
-            area.add(board.getTile(x, y + 1));
-            area.add(board.getTile(x, y - 1));
-            area.add(board.getTile(x + 1, y - 1));
-            area.add(board.getTile(x + 1, y + 1));
-            area.add(board.getTile(x - 1, y - 1));
-            area.add(board.getTile(x - 1, y + 1));
-        }
-         */
 
         if (board.checkBoardBoundary(x - 1, y)) {
             area.add(board.getTile(x - 1, y));
@@ -227,6 +193,14 @@ public class ActionCard extends Card {
         area.add(board.getTile(x, y));
 
         return area;
+    }
+
+    private int fireEffectTimer(Board board){
+        return (board.getPlayers().size() * 2);
+    }
+
+    private int iceEffectTimer(Board board){
+        return board.getPlayers().size();
     }
 
     /**

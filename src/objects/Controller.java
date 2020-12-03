@@ -31,6 +31,8 @@ public class Controller {
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
+    private String tileHighlightImagePath = "markup.png";
+
     public Controller(Board b) {
         board = b;
         this.players = b.getPlayers();
@@ -50,9 +52,9 @@ public class Controller {
     public void startGame() {
         numOfPlayers = players.size() - 1;
         currentPlayer = players.get(playerIndex);
-        currentPlayerIndex = new SimpleIntegerProperty();
-        cardSelectionFlag = new SimpleBooleanProperty();
-        stateChangeFlag = new SimpleBooleanProperty();
+        currentPlayerIndex = new SimpleIntegerProperty(playerIndex);
+        cardSelectionFlag = new SimpleBooleanProperty(false);
+        stateChangeFlag = new SimpleBooleanProperty(false);
         changeState(GameState.DRAWING);
     }
 
@@ -102,8 +104,32 @@ public class Controller {
     private void drawCard() {
         setPlayingCard(board.getSilkBag().drawACard());
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
-        //show the card to the player
-        //? maybe animate as well
+        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
+
+        if(!board.getFrozenTiles().isEmpty()){
+            ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
+            for(FloorCard card : board.getFrozenTiles()){
+                card.decrementEffectTimer();
+                if(!card.isEffectActive()){
+                    frozenTilesToRemove.add(card);
+                }
+            }
+            board.getFrozenTiles().removeAll(frozenTilesToRemove);
+        }
+
+        if(!board.getTilesOnFire().isEmpty()){
+            ArrayList<FloorCard> tilesOnFireToRemove = new ArrayList<>();
+            for(FloorCard card : board.getTilesOnFire()){
+                card.decrementEffectTimer();
+                if(!card.isEffectActive()){
+                    tilesOnFireToRemove.add(card);
+                }
+            }
+            board.getTilesOnFire().removeAll(tilesOnFireToRemove);
+        }
+
+        draw();
+
         if (playingCard instanceof FloorCard) {
             changeState(GameState.INSERTING);
         } else if (playingCard instanceof ActionCard) {
@@ -113,8 +139,13 @@ public class Controller {
 
     private void getInsertionList() {
         tilesToCompare = board.getInsertionPoints();
-        highlightTiles();
-        //enable rotating the card
+
+        if(tilesToCompare.isEmpty()){
+            playingCard = null;
+            changeState(GameState.ACTION_CARD);
+        } else {
+            highlightTiles();
+        }
     }
 
     private void insert() {
@@ -151,27 +182,17 @@ public class Controller {
             cardHeldByCurrentPlayer.get(cardHeldByCurrentPlayer.size() - 1).setCanBeUsed();
         }
 
-        /*
-        if playingCard is not null it means player has drawn action card
-        add it at the end of the list so that it is not usable yet
-         */
         if (cardHeldByCurrentPlayer.isEmpty() && playingCard == null) {
-            changeState(GameState.MOVING);
-        } else if (cardHeldByCurrentPlayer.isEmpty() && playingCard != null) {
-            //if skipping the state notify player that he had no action cards
-            cardHeldByCurrentPlayer.add((ActionCard) playingCard);
             changeState(GameState.MOVING);
         } else if (playingCard != null) {
             cardHeldByCurrentPlayer.add((ActionCard) playingCard);
         }
 
-        //give player the ability to skip this state
     }
 
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
         if (tilesToCompare.isEmpty()) {
-            //notify player what happened
             changeState(GameState.END_TURN);
         } else {
             highlightTiles();
@@ -203,18 +224,8 @@ public class Controller {
     }
 
     private void highlightTiles() {
-        /*
-        canvas.getGraphicsContext2D().setStroke(Color.GREEN);
-        canvas.getGraphicsContext2D().setFill(Color.GREEN);
-        canvas.getGraphicsContext2D().setLineWidth(5);
-
-        for(FloorCard f : tilesToCompare){
-            canvas.getGraphicsContext2D().strokeRect(f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE,
-                    FloorCard.TILE_SIZE, FloorCard.TILE_SIZE);
-        }
-        */
         for (FloorCard f : tilesToCompare) {
-            canvas.getGraphicsContext2D().drawImage(new Image("markup.png"),
+            canvas.getGraphicsContext2D().drawImage(new Image(tileHighlightImagePath),
                     f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE);
         }
     }
@@ -226,6 +237,8 @@ public class Controller {
         } else {
             playerIndex++;
         }
+        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
+
         currentPlayer = players.get(playerIndex);
         changeState(GameState.DRAWING);
     }
@@ -280,9 +293,6 @@ public class Controller {
 
     public void draw() {
         board.drawBoard(canvas.getGraphicsContext2D());
-        for (PlayerController player : players) {
-            player.drawPlayer(canvas.getGraphicsContext2D());
-        }
     }
 
     public ArrayList<PlayerController> getPlayers() {

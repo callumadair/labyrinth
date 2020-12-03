@@ -3,10 +3,12 @@ package objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.Random;
+
 /**
  * This class represents the different floor tiles of the game.
  */
-public class FloorCard extends Card { //need to continue javadoc
+public class FloorCard extends Card {
 
 
     public static final int TILE_SIZE = 54;
@@ -18,6 +20,8 @@ public class FloorCard extends Card { //need to continue javadoc
     private FloorTileState state = FloorTileState.NORMAL;
     private boolean[] possiblePaths; //0 left, 1 up, 2 right, 3 down
     private int rotation = 0;
+
+    private int effectTimer = 0;
 
     private String straightTileImagePath = "resources/ROAD_straight";
     private String cornerTileImagePath = "resources/ROAD_curved";
@@ -109,15 +113,41 @@ public class FloorCard extends Card { //need to continue javadoc
     /**
      * Sets on fire.
      */
-    public void setOnFire() {
+    public void setOnFire(int effectTimer) {
+        setEffectTimer(effectTimer);
         this.state = FloorTileState.FIRE;
     }
 
     /**
      * Sets on ice.
      */
-    public void setOnIce() {
+    public void setOnIce(int effectTimer) {
+        setEffectTimer(effectTimer);
         this.state = FloorTileState.FROZEN;
+    }
+
+    public void decrementEffectTimer(){
+        effectTimer--;
+        if(effectTimer <= 0){
+            this.setStateToNormal();
+            effectTimer = 0;
+        }
+    }
+
+    public boolean isEffectActive(){
+        if(effectTimer > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setEffectTimer(int effectTimer){
+        if(effectTimer < 0){
+            this.effectTimer = 0;
+        } else {
+            this.effectTimer = effectTimer;
+        }
     }
 
     /**
@@ -234,11 +264,7 @@ public class FloorCard extends Card { //need to continue javadoc
     private void changePaths(int times) {
         while (times > 0) {
             times--;
-            boolean temp = possiblePaths[3];
-            for (int i = 3; i > 0; i--) {
-                possiblePaths[i] = possiblePaths[i - 1];
-            }
-            possiblePaths[0] = temp;
+            changePaths();
         }
     }
 
@@ -283,6 +309,25 @@ public class FloorCard extends Card { //need to continue javadoc
             this.rotation = 270;
             setImageWithRotation();
             changePaths(3);
+        }
+    }
+
+    public void setRandomRotation(){
+        Random random = new Random();
+        int randomRotation = random.nextInt(4);
+        switch (randomRotation){
+            case 0:
+                setRotation(90);
+                break;
+            case 1:
+                setRotation(180);
+                break;
+            case 2:
+                setRotation(270);
+                break;
+            default:
+                setRotation(0);
+                break;
         }
     }
 
@@ -361,10 +406,6 @@ public class FloorCard extends Card { //need to continue javadoc
         return false;
     }
 
-    /* public void drawCard(GraphicsContext gc) {
-         gc.drawImage(image, 20, 30);
-     }
- */
     private void setImageWithRotation() {
         switch (type) {
             case STRAIGHT:
