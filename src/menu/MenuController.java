@@ -49,6 +49,7 @@ public class MenuController extends Application implements Initializable {
      * @param args the input arguments
      */
     public static void main(String[] args) {
+        playMusic("src\\resources\\MenuMusic.wav");
         launch(args);
     }
 
@@ -201,7 +202,6 @@ public class MenuController extends Application implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        playMusic("src\\resources\\MenuMusic.wav");
 
         TranslateTransition backgroundMove = new TranslateTransition();
         backgroundMove.setDuration(Duration.millis(5000));
