@@ -17,7 +17,7 @@
             <TableColumn prefWidth="59.0" text="Delete" />
         </columns>
       </TableView>
-      <Button layoutX="506.0" layoutY="344.0" mnemonicParsing="false" text="Load" />
+      <Button layoutX="495.0" layoutY="349.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="76.0" text="Load" />
       <TextArea layoutX="90.0" layoutY="338.0" minWidth="-Infinity" prefHeight="16.0" prefWidth="184.0" />
       <Button layoutX="14.0" layoutY="338.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="76.0" text="Add Profile" />
    </children>
