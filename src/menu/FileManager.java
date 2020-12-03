@@ -137,7 +137,7 @@ public class FileManager {
         }
         scanner.nextLine();
         ArrayList<FloorCard> insertedCards = new ArrayList<>();
-        int fixedCunt = 0;
+        int fixedCount = 0;
         for (int k = 0; k < width; k++) {
             for (int l = 0; l < height; l++) {
                 FloorCard newFloorCard = new FloorCard(scanner.next());
@@ -146,9 +146,22 @@ public class FileManager {
                 newFloorCard.setRotation(scanner.nextInt());
                 newFloorCard.setFixed(scanner.nextBoolean());
 
+                if (newFloorCard.isFixed()) {
+                    fixedCount++;
+                }
                 insertedCards.add(newFloorCard);
             }
         }
+
+        FloorCard[] fixed = new FloorCard[fixedCount];
+        int index = 0;
+        for (FloorCard insertedCard : insertedCards) {
+            if (insertedCard.isFixed()) {
+                fixed[index] = insertedCard;
+                index++;
+            }
+        }
+        insertedCards.removeIf(FloorCard::isFixed);
 
         ArrayList<Card> silkBagCards = new ArrayList<>();
         loadSilkBagCards(silkBagCards, scanner);
@@ -160,12 +173,7 @@ public class FileManager {
             players.add(createPlayerController(scanner.nextLine()));
         }
 
-
-        Board loadedBoard = new Board(width, height, spawnPoints, silkBag, players);
-        for (FloorCard curCard : insertedCards) {
-            loadedBoard.insertTile(curCard, curCard.getX(), curCard.getY());
-        }
-        return loadedBoard;
+        return new Board(width, height, spawnPoints, fixed, silkBag, players, insertedCards);
     }
 
     private static PlayerController createPlayerController(String info) {
