@@ -27,8 +27,6 @@ import java.util.*;
 public class MenuController extends Application implements Initializable {
 
     private Stage stage;
-    private Scene primaryScene;
-    private final ArrayList<LeaderboardController> leaderboardControllers = new ArrayList<>();
     @FXML
     private StackPane stackPane;
     @FXML
@@ -42,6 +40,7 @@ public class MenuController extends Application implements Initializable {
     @FXML
     private Button musicOnOffButton;
     private static MediaPlayer menuMusic;
+    private ArrayList<PlayerDatabase> databases = new ArrayList<>();
 
     /**
      * The entry point of application.
@@ -54,11 +53,12 @@ public class MenuController extends Application implements Initializable {
     }
 
     @FXML
+    @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
         try {
             Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            primaryScene = new Scene(root, 1125, 650);
+            Scene primaryScene = new Scene(root, 1125, 650);
             stage.setScene(primaryScene);
             stage.show();
         } catch (Exception e) {
@@ -98,23 +98,6 @@ public class MenuController extends Application implements Initializable {
     }
 
     /**
-     * Handle quit button action.
-     *
-     * @param actionEvent the action event
-     */
-    @FXML
-    private void handleQuitButtonAction(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        if (!leaderboardControllers.isEmpty()) {
-            for (LeaderboardController leaderboardController : leaderboardControllers) {
-                leaderboardController.exit();
-            }
-        }
-        stage.close();
-    }
-
-
-    /**
      * This will take a window that you will be taken to when you click the instructions button
      *
      * @param actionEvent the action event
@@ -130,6 +113,17 @@ public class MenuController extends Application implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Handle quit button action.
+     *
+     * @param actionEvent the action event
+     */
+    @FXML
+    private void handleQuitButtonAction(ActionEvent actionEvent) {
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.close();
     }
 
 
@@ -151,48 +145,13 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
-
-    /**
-     * handles take me back button from the instructions screen
-     *
-     * @param actionEvent the action event
-     */
-    @FXML
-    private void handleTakeMeBackButtonActionInstructions(ActionEvent actionEvent) {
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        try {
-            Pane root = FXMLLoader.load(getClass().getResource("Main Menu.fxml"));
-            Scene scene = new Scene(root, 700, 450);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Open leaderboard.
-     *
-     * @param actionEvent the action event
-     */
+    
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
-        String val = actionEvent.getSource().toString();
-        int boardNum = Integer.parseInt(String.valueOf(val.charAt(val.length() - 2)));
-        int index = boardNum - 1;
-
-        leaderboardControllers.ensureCapacity(boardNum);
-
-        String boardStr = "board" + boardNum + ".db";
-        LeaderboardController curLeaderboard = new LeaderboardController(boardStr);
-
-        if (!leaderboardControllers.isEmpty() && leaderboardControllers.get(index) != null) {
-            curLeaderboard = leaderboardControllers.get(index);
-            curLeaderboard.exit();
-        } else {
-            leaderboardControllers.add(index, curLeaderboard);
-        }
-        curLeaderboard.start(new Stage());
-        System.out.println(leaderboardControllers.size());
+        String buttonName = actionEvent.getSource().toString().substring(33,
+                actionEvent.getSource().toString().length() - 1).toLowerCase();
+        System.out.println(buttonName);
+        borderPane.setCenter(Leaderboard.getLeaderboard(buttonName));
     }
 
     @Override
