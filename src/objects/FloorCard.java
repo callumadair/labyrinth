@@ -1,9 +1,6 @@
 package objects;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
-import java.util.Random;
+import javafx.scene.image.*;
 
 /**
  * This class represents the different floor tiles of the game.
@@ -13,22 +10,18 @@ public class FloorCard extends Card { //need to continue javadoc
 
     public static final int TILE_SIZE = 54;
 
-    private int x;
-    private int y;
+    private int x, y;
     private FloorType type;
     private boolean isFixed;
     private FloorTileState state = FloorTileState.NORMAL;
     private boolean[] possiblePaths; //0 left, 1 up, 2 right, 3 down
     private int rotation = 0;
+    private Image image;
 
-    private int effectTimer = 0;
-
-    private String straightTileImagePath = "resources/ROAD_straight";
-    private String cornerTileImagePath = "resources/ROAD_curved";
-    private String tshapedTileImagePath = "resources/ROAD_Tshaped";
+    private String straightTileImagePath = "resources/ROAD_straight.png";
+    private String cornerTileImagePath = "resources/ROAD_curved.png";
+    private String tshapedTileImagePath = "resources/ROAD_Tshaped.png";
     private String goalTileImagePath = "resources/ROAD_goal.png";
-    private String onFireImagePath = "resources/ROAD-Fireeffect.png";
-    private String onIceImagePath = "resources/ROAD-Iceeffect.png";
 
     /**
      * The enum Direction
@@ -60,19 +53,19 @@ public class FloorCard extends Card { //need to continue javadoc
         switch (type) {
             case "STRAIGHT":
                 this.type = FloorType.STRAIGHT;
-                this.setImage(straightTileImagePath, this.getRotation());
+                image = new Image(straightTileImagePath);
                 break;
             case "CORNER":
                 this.type = FloorType.CORNER;
-                this.setImage(cornerTileImagePath, this.getRotation());
+                image = new Image(cornerTileImagePath);
                 break;
             case "T_SHAPED":
                 this.type = FloorType.T_SHAPED;
-                this.setImage(tshapedTileImagePath, this.getRotation());
+                image = new Image(tshapedTileImagePath);
                 break;
             case "GOAL":
                 this.type = FloorType.GOAL;
-                this.setImage(goalTileImagePath);
+                image = new Image(goalTileImagePath);
                 break;
         }
         possiblePaths = new boolean[4];
@@ -93,12 +86,13 @@ public class FloorCard extends Card { //need to continue javadoc
         this.isFixed = true;
     }
 
-    public boolean isOnFire() {
-        if (state == FloorTileState.FIRE) {
-            return true;
-        } else {
-            return false;
-        }
+    /**
+     * State of the floor tile.
+     *
+     * @return the state of the floor tile
+     */
+    public FloorTileState state() {
+        return state;
     }
 
     /**
@@ -113,45 +107,15 @@ public class FloorCard extends Card { //need to continue javadoc
     /**
      * Sets on fire.
      */
-    public void setOnFire(int effectTimer) {
-        setEffectTimer(effectTimer);
+    public void setOnFire() {
         this.state = FloorTileState.FIRE;
     }
 
     /**
      * Sets on ice.
      */
-    public void setOnIce(int effectTimer) {
-        setEffectTimer(effectTimer);
+    public void setOnIce() {
         this.state = FloorTileState.FROZEN;
-    }
-
-    public void decrementEffectTimer(){
-        effectTimer--;
-        if(effectTimer <= 0){
-            this.setStateToNormal();
-            effectTimer = 0;
-        }
-    }
-
-    public boolean isEffectActive(){
-        if(effectTimer > 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public int getEffectTimer(){
-        return effectTimer;
-    }
-
-    public void setEffectTimer(int effectTimer){
-        if(effectTimer < 0){
-            this.effectTimer = 0;
-        } else {
-            this.effectTimer = effectTimer;
-        }
     }
 
     /**
@@ -240,6 +204,10 @@ public class FloorCard extends Card { //need to continue javadoc
         return isFixed;
     }
 
+    public void setFixed(boolean isFixed) {
+        this.isFixed = isFixed;
+    }
+
     /**
      * Gets rotation.
      *
@@ -268,7 +236,11 @@ public class FloorCard extends Card { //need to continue javadoc
     private void changePaths(int times) {
         while (times > 0) {
             times--;
-            changePaths();
+            boolean temp = possiblePaths[3];
+            for (int i = 3; i > 0; i--) {
+                possiblePaths[i] = possiblePaths[i - 1];
+            }
+            possiblePaths[0] = temp;
         }
     }
 
@@ -278,19 +250,15 @@ public class FloorCard extends Card { //need to continue javadoc
     public void nextRotation() {
         if (rotation == 0) {
             this.rotation = 90;
-            setImageWithRotation();
             changePaths();
         } else if (rotation == 90) {
             this.rotation = 180;
-            setImageWithRotation();
             changePaths();
         } else if (rotation == 180) {
             this.rotation = 270;
-            setImageWithRotation();
             changePaths();
         } else if (rotation == 270) {
             this.rotation = 0;
-            setImageWithRotation();
             changePaths();
         }
     }
@@ -300,39 +268,26 @@ public class FloorCard extends Card { //need to continue javadoc
      *
      * @param rotation
      */
-    private void setRotation(int rotation) {
+    public void setRotation(int rotation) {
         if (rotation == 90) {
             this.rotation = 90;
-            setImageWithRotation();
             changePaths(1);
         } else if (rotation == 180) {
             this.rotation = 180;
-            setImageWithRotation();
             changePaths(2);
         } else if (rotation == 270) {
             this.rotation = 270;
-            setImageWithRotation();
             changePaths(3);
         }
     }
 
-    public void setRandomRotation(){
-        Random random = new Random();
-        int randomRotation = random.nextInt(4);
-        switch (randomRotation){
-            case 0:
-                setRotation(90);
-                break;
-            case 1:
-                setRotation(180);
-                break;
-            case 2:
-                setRotation(270);
-                break;
-            default:
-                setRotation(0);
-                break;
-        }
+    /**
+     * Get image image.
+     *
+     * @return the image
+     */
+    public Image getImage() {
+        return image;
     }
 
     /**
@@ -382,9 +337,6 @@ public class FloorCard extends Card { //need to continue javadoc
      * @return true if path has opening in certain direction, otherwise false
      */
     public boolean checkPath(FloorCard compare, Direction dir) {
-        if (compare.isOnFire()) {
-            return false;
-        }
         switch (dir) {
             case LEFT:
                 if (compare.getOpeningAt(Direction.RIGHT) && this.getOpeningAt(Direction.LEFT)) {
@@ -410,37 +362,4 @@ public class FloorCard extends Card { //need to continue javadoc
         return false;
     }
 
-    private void setImageWithRotation() {
-        switch (type) {
-            case STRAIGHT:
-                this.setImage(straightTileImagePath, this.getRotation());
-                break;
-            case CORNER:
-                this.setImage(cornerTileImagePath, this.getRotation());
-                break;
-            case T_SHAPED:
-                this.setImage(tshapedTileImagePath, this.getRotation());
-                break;
-            case GOAL:
-                this.setImage(goalTileImagePath);
-                break;
-        }
-    }
-
-    public void drawTile(GraphicsContext gc, int x, int y) {
-        gc.drawImage(this.getImage(), x * TILE_SIZE, y * TILE_SIZE);
-        if (state != FloorTileState.NORMAL) {
-            gc.drawImage(getTileEffectImage(), x * TILE_SIZE, y * TILE_SIZE);
-        }
-    }
-
-    private Image getTileEffectImage() {
-        switch (state) {
-            case FIRE:
-                return new Image(onFireImagePath);
-            case FROZEN:
-                return new Image(onIceImagePath);
-        }
-        return this.getImage();
-    }
 }

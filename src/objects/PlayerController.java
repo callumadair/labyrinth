@@ -11,6 +11,7 @@ import java.util.LinkedList;
  */
 public class PlayerController {
 
+    public FloorCard currentLocation;
     private String playerImage1 = "resources/ROAD-player1.png";
     private String playerImage2 = "resources/ROAD-player2.png";
     private String playerImage3 = "resources/ROAD-player3.png";
@@ -18,7 +19,7 @@ public class PlayerController {
 
     private Image image;
     private int x, y;
-    private ArrayList<ActionCard> cardsHeld;
+    private ArrayList<Card> cardsHeld;
 
     private LinkedList<int[]> lastThree;
 
@@ -26,7 +27,7 @@ public class PlayerController {
     private int playerIndex;
     private boolean doubleMove = false;
     private boolean isBackTracked = false;
-    private boolean isCurrentPlayer = false;
+
 
     /**
      * Instantiates a new Player controller.
@@ -127,14 +128,6 @@ public class PlayerController {
         this.y = y;
     }
 
-    public void setCurrentPlayer(boolean flag){
-        isCurrentPlayer = flag;
-    }
-
-    public boolean isCurrentPlayer(){
-        return isCurrentPlayer;
-    }
-
     /**
      * Gets last three moves made by the player.
      *
@@ -164,10 +157,10 @@ public class PlayerController {
         int pos[] = {x, y};
 
         if (lastThree.size() == 3) {
-            lastThree.addLast(pos);
+            lastThree.add(pos);
             lastThree.removeFirst();
         } else {
-            lastThree.addLast(pos);
+            lastThree.add(pos);
         }
 
     }
@@ -214,31 +207,27 @@ public class PlayerController {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
         FloorCard currentTile = board.getTile(x, y);
         FloorCard left = board.getTile(x - 1, y);
-        FloorCard top = board.getTile(x, y - 1);
+        FloorCard top = board.getTile(x, y + 1);
         FloorCard right = board.getTile(x + 1, y);
-        FloorCard bottom = board.getTile(x, y + 1);
+        FloorCard bottom = board.getTile(x, y - 1);
 
         if (left != null) {
-            if (currentTile.checkPath(left, FloorCard.Direction.LEFT)
-                    && !board.checkPlayerPosition(left.getX(), left.getY())) {
+            if (currentTile.checkPath(left, FloorCard.Direction.LEFT)) {
                 legalMoves.add(left);
             }
         }
         if (top != null) {
-            if (currentTile.checkPath(top, FloorCard.Direction.UP)
-                    && !board.checkPlayerPosition(top.getX(), top.getY())) {
+            if (currentTile.checkPath(top, FloorCard.Direction.UP)) {
                 legalMoves.add(top);
             }
         }
         if (right != null) {
-            if (currentTile.checkPath(right, FloorCard.Direction.RIGHT)
-                    && !board.checkPlayerPosition(right.getX(), right.getY())) {
+            if (currentTile.checkPath(right, FloorCard.Direction.RIGHT)) {
                 legalMoves.add(right);
             }
         }
         if (bottom != null) {
-            if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)
-                    && !board.checkPlayerPosition(bottom.getX(), bottom.getY())) {
+            if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)) {
                 legalMoves.add(bottom);
             }
         }
@@ -252,7 +241,7 @@ public class PlayerController {
      *
      * @return list of cards held
      */
-    public ArrayList<ActionCard> getCardsHeld() {
+    public ArrayList<Card> getCardsHeld() {
         return this.cardsHeld;
     }
 
@@ -261,8 +250,13 @@ public class PlayerController {
      *
      * @param card the card
      */
-    public void addInCardsHeld(ActionCard card) {
+    public void addInCardsHeld(Card card) {
         cardsHeld.add(card);
+    }
+
+    @Override
+    public String toString() {
+        return "Player index: " + getPlayerIndex();
     }
 
     /**
@@ -273,26 +267,4 @@ public class PlayerController {
     public void drawPlayer(GraphicsContext gc) {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
-
-
-    private String getPlayerColor() {
-        switch (playerIndex) {
-            case 0:
-                return "Green";
-            case 1:
-                return "Purple";
-            case 2:
-                return "Red";
-            case 3:
-                return "Orange";
-            default:
-                return "No color";
-        }
-    }
-
-    @Override
-    public String toString() {
-        return getPlayerColor(); // add players name from profile as well
-    }
-
 }
