@@ -16,7 +16,8 @@ import java.io.*;
  */
 public class Leaderboard {
     @FXML
-    private TableView<PlayerProfile> tableView;
+    private static TableView<PlayerProfile> tableView;
+    @FXML
     private BorderPane pane;
     private static String databaseName;
 
