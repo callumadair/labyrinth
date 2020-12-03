@@ -145,7 +145,7 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
-    
+
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
         String buttonName = actionEvent.getSource().toString().substring(33,

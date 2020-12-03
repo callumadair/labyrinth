@@ -19,7 +19,6 @@ public class Leaderboard {
     private static TableView<PlayerProfile> tableView;
     private static String databaseName;
 
-
     public static BorderPane getLeaderboard(String databaseName) {
         Leaderboard.databaseName = databaseName;
         BorderPane root = null;
@@ -29,7 +28,7 @@ public class Leaderboard {
             e.printStackTrace();
             System.exit(-1);
         }
-        root.setCenter(tableView);
+        tableView = (TableView<PlayerProfile>) root.getCenter();
         addColumns();
         return root;
     }
@@ -51,4 +50,6 @@ public class Leaderboard {
     public static String getDatabaseName() {
         return databaseName;
     }
+
+
 }
