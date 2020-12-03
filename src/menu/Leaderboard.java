@@ -26,7 +26,6 @@ public class Leaderboard {
             root = FXMLLoader.load(Leaderboard.class.getResource("Leaderboard.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(-1);
         }
         tableView = (TableView<PlayerProfile>) root.getCenter();
         addColumns();
