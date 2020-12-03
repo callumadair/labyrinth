@@ -137,6 +137,7 @@ public class FileManager {
         }
         scanner.nextLine();
         ArrayList<FloorCard> insertedCards = new ArrayList<>();
+        int fixedCunt = 0;
         for (int k = 0; k < width; k++) {
             for (int l = 0; l < height; l++) {
                 FloorCard newFloorCard = new FloorCard(scanner.next());
