@@ -31,6 +31,15 @@ public class Board {
         setup();
     }
 
+    //Testing
+    public Board(int width, int height, int[][] spawnPoints, SilkBag silkBag, ArrayList<PlayerController> players) {
+        this.width = width;
+        this.height = height;
+        this.spawnPoints = spawnPoints;
+        this.silkBag = silkBag;
+        this.players = players;
+    }
+
     //for loading board in progress
     public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
                  SilkBag silkBag, ArrayList<PlayerController> players, ArrayList<FloorCard> existingFloorCards) {
