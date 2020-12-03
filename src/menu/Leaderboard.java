@@ -14,22 +14,18 @@ import java.io.*;
  *
  * @author Callum Adair
  */
-public class LeaderboardController {
+public class Leaderboard {
     @FXML
     private TableView<PlayerProfile> tableView;
     private BorderPane pane;
-    private String databaseName;
-
-    public LeaderboardController(String databaseName) {
-        this.databaseName = databaseName;
-    }
+    private static String databaseName;
 
 
-    public void start(String databaseName) {
-        this.databaseName = databaseName;
+    public static void start(String databaseName) {
+        Leaderboard.databaseName = databaseName;
         BorderPane root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
+            root = FXMLLoader.load(Leaderboard.class.getResource("Leaderboard.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
@@ -40,7 +36,7 @@ public class LeaderboardController {
 
 
     @FXML
-    private void addColumns() {
+    private static void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.start(getDatabaseName());
         ObservableList<PlayerProfile> data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
@@ -52,7 +48,7 @@ public class LeaderboardController {
     }
 
 
-    public String getDatabaseName() {
+    public static String getDatabaseName() {
         return databaseName;
     }
 }
