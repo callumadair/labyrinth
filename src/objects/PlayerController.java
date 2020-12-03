@@ -151,7 +151,6 @@ public class PlayerController {
      */
     public void setLastThree(LinkedList<int[]> cards) {
         this.lastThree = lastThree;
-
     }
 
     /**

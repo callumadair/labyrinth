@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * This class represents the different floor tiles of the game.
  */
-public class FloorCard extends Card { //need to continue javadoc
+public class FloorCard extends Card {
 
 
     public static final int TILE_SIZE = 54;
@@ -140,10 +140,6 @@ public class FloorCard extends Card { //need to continue javadoc
         } else {
             return false;
         }
-    }
-
-    public int getEffectTimer(){
-        return effectTimer;
     }
 
     public void setEffectTimer(int effectTimer){
