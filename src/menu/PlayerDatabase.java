@@ -15,10 +15,10 @@ public class PlayerDatabase {
     /**
      * Create new database.
      *
-     * @param databaseName the database name
+     * @param boardName the database name
      */
-    public void start(String databaseName) {
-        url = "jdbc:sqlite:src/resources/" + databaseName;
+    public void start(String boardName) {
+        url = "jdbc:sqlite:src/resources/" + boardName;
         try (Connection conn = connect()) {
             if (conn != null) {
                 System.out.println("Connection successful.");
