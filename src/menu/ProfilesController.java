@@ -22,5 +22,7 @@ public class ProfilesController extends Application {
         for (PlayerDatabase database : databases) {
             profiles.addAll(database.getAllData());
         }
+
+        return profiles;
     }
 }
