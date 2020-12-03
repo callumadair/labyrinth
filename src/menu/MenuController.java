@@ -49,9 +49,7 @@ public class MenuController extends Application implements Initializable {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        playMusic("src\\resources\\MenuMusic.wav");
         launch(args);
-
     }
 
     @FXML
@@ -87,7 +85,8 @@ public class MenuController extends Application implements Initializable {
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            mainView = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
+            Pane root = FXMLLoader.load(getClass().getResource("GameTest.fxml"));
+            mainView = (Pane) root.getChildren().get(1);
             fadeOut(mainView);
             borderPane.setCenter(mainView);
 
@@ -134,7 +133,7 @@ public class MenuController extends Application implements Initializable {
 
 
     /**
-     * Handle take me back button action.
+     * Handle menu button action.
      *
      * @param actionEvent the action event
      */
@@ -202,6 +201,7 @@ public class MenuController extends Application implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        playMusic("src\\resources\\MenuMusic.wav");
 
         TranslateTransition backgroundMove = new TranslateTransition();
         backgroundMove.setDuration(Duration.millis(5000));
@@ -230,6 +230,7 @@ public class MenuController extends Application implements Initializable {
     public static void playMusic(String filepath) {
         Media music = new Media(new File(filepath).toURI().toString());
         menuMusic = new MediaPlayer(music);
+        menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
         menuMusic.play();
     }
 }
