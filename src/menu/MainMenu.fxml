@@ -110,7 +110,7 @@
                   </Button>
                   <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="930.0" text="Labyrinth" textAlignment="CENTER" textFill="#191640">
                      <padding>
-                        <Insets right="215.0" />
+                        <Insets right="170.0" />
                      </padding>
                      <font>
                         <Font name="Quicksand Medium" size="24.0" />
