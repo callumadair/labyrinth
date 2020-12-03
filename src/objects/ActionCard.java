@@ -218,5 +218,9 @@ public class ActionCard extends Card {
     public void setCanBeUsed() {
         this.canBeUsed = true;
     }
+
+    public ActionCardType getType() {
+        return type;
+    }
 }
 
