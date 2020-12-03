@@ -230,6 +230,7 @@ public class MenuController extends Application implements Initializable {
     public static void playMusic(String filepath) {
         Media music = new Media(new File(filepath).toURI().toString());
         menuMusic = new MediaPlayer(music);
+        menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
         menuMusic.play();
     }
 }
