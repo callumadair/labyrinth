@@ -87,7 +87,7 @@ public class MenuController extends Application implements Initializable {
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            mainView = FXMLLoader.load(getClass().getResource("Leaderboard.fxml"));
+            mainView = FXMLLoader.load(getClass().getResource("GameTest.fxml"));
             fadeOut(mainView);
             borderPane.setCenter(mainView);
 
@@ -134,7 +134,7 @@ public class MenuController extends Application implements Initializable {
 
 
     /**
-     * Handle take me back button action.
+     * Handle take menu button action.
      *
      * @param actionEvent the action event
      */
