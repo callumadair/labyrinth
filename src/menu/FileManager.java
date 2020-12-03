@@ -230,7 +230,7 @@ public class FileManager {
         return floorCardCount;
     }
 
-    public static Board loadBoard(int boardNum, ArrayList<PlayerController> players) throws FileNotFoundException {
+    public static Board loadBoard(int boardNum, ArrayList<PlayerProfile> playerProfiles) throws FileNotFoundException {
         File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
         Scanner scanner = new Scanner(boardFile);
 
@@ -264,6 +264,10 @@ public class FileManager {
         SilkBag silkBag = new SilkBag(silkBagCards.size());
         silkBag.setListOfCards(silkBagCards);
 
+        ArrayList<PlayerController> players = new ArrayList<>();
+        for (int i = 0; i < playerProfiles.size(); i++) {
+            players.add(new PlayerController(playerProfiles.get(i), i));
+        }
         return new Board(width, height, spawnPoints, fixed, silkBag, players);
     }
 
