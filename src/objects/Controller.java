@@ -31,6 +31,8 @@ public class Controller {
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
+    private String tileHighlightImagePath = "markup.png";
+
     public Controller(Board b) {
         board = b;
         this.players = b.getPlayers();
@@ -180,10 +182,6 @@ public class Controller {
             cardHeldByCurrentPlayer.get(cardHeldByCurrentPlayer.size() - 1).setCanBeUsed();
         }
 
-        /*
-        if playingCard is not null it means player has drawn action card
-        add it at the end of the list so that it is not usable yet
-         */
         if (cardHeldByCurrentPlayer.isEmpty() && playingCard == null) {
             changeState(GameState.MOVING);
         } else if (playingCard != null) {
@@ -195,7 +193,6 @@ public class Controller {
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
         if (tilesToCompare.isEmpty()) {
-            //notify player what happened
             changeState(GameState.END_TURN);
         } else {
             highlightTiles();
@@ -227,18 +224,8 @@ public class Controller {
     }
 
     private void highlightTiles() {
-        /*
-        canvas.getGraphicsContext2D().setStroke(Color.GREEN);
-        canvas.getGraphicsContext2D().setFill(Color.GREEN);
-        canvas.getGraphicsContext2D().setLineWidth(5);
-
-        for(FloorCard f : tilesToCompare){
-            canvas.getGraphicsContext2D().strokeRect(f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE,
-                    FloorCard.TILE_SIZE, FloorCard.TILE_SIZE);
-        }
-        */
         for (FloorCard f : tilesToCompare) {
-            canvas.getGraphicsContext2D().drawImage(new Image("markup.png"),
+            canvas.getGraphicsContext2D().drawImage(new Image(tileHighlightImagePath),
                     f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE);
         }
     }

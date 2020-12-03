@@ -60,7 +60,7 @@ public class Game {
         VBox left = new VBox();
         for (int i = 0; i < controller.getPlayers().size(); i++) {
             playerTags.add(new Label(controller.getPlayers().get(i).toString()));
-            playerTags.get(i).setFont(Font.font("Cambria", FontPosture.REGULAR, 20));
+            playerTags.get(i).setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
             playerTags.get(i).setTextFill(Color.BLACK);
             left.getChildren().add(playerTags.get(i));
         }

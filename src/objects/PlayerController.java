@@ -256,15 +256,6 @@ public class PlayerController {
     }
 
     /**
-     * Add cards.
-     *
-     * @param card the card
-     */
-    public void addInCardsHeld(ActionCard card) {
-        cardsHeld.add(card);
-    }
-
-    /**
      * Draw player.
      *
      * @param gc the gc
