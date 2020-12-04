@@ -203,9 +203,9 @@ public class MenuController extends Application implements Initializable {
             e.printStackTrace();
         }
 
-        //resize image to window
-        imageView.fitWidthProperty().bind(stackPane.widthProperty().add(60));
-        imageView.fitHeightProperty().bind(stackPane.heightProperty().add(60));
+        //resize image to window size
+        imageView.fitWidthProperty().bind(stackPane.widthProperty().multiply(1.1));
+        imageView.fitHeightProperty().bind(stackPane.heightProperty().multiply(1.1));
         imageView.setPreserveRatio(false);
 
         //create background movement
