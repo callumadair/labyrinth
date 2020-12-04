@@ -53,6 +53,7 @@ public class FileManager {
         for (PlayerController player : players) {
             fileWriter.write(getPlayerDetails(player) + "\n");
         }
+        fileWriter.close();
     }
 
     private static int[] countSilkBagCards(ArrayList<Card> cardsInBag) {
