@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import objects.*;
 
+import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
@@ -65,4 +66,17 @@ public class Profiles {
             }
         });
     }*/
+
+    @FXML
+    private static void addPlayer(ActionEvent actionEvent) {
+        String name = ((TextField) ((HBox) ((Button) actionEvent.getSource()).getParent())
+                .getChildren().get(1)).getText();
+        int id = Integer.parseInt(((TextField) ((HBox) ((Button) actionEvent.getSource()).getParent())
+                .getChildren().get(2)).getText());
+
+        PlayerProfile newPlayer = new PlayerProfile(name, 0, 0, id);
+        System.out.println(newPlayer);
+
+        System.out.println(actionEvent.getSource());
+    }
 }
