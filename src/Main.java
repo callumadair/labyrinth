@@ -29,7 +29,7 @@ public class Main extends Application {
         players.get(0).setY(6);
         players.get(1).setX(5);
         players.get(1).setY(0);*/
-        Board board = FileManager.loadBoard(2, players);
+        Board board = FileManager.loadBoard("board2", players);
 
         Game game = new Game(board);
         Scene scene = new Scene(game.getPane(), 800, 600, Color.WHITE);
