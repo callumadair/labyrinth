@@ -54,6 +54,7 @@ public class MenuController extends Application implements Initializable {
 
     /**
      * Creates the Stage for the scenes and loads the MainMenu
+     *
      * @param primaryStage
      */
     @FXML
@@ -152,6 +153,7 @@ public class MenuController extends Application implements Initializable {
 
     /**
      * Will open up the leaderboard after this button is pressed
+     *
      * @param actionEvent
      */
     @FXML
@@ -163,6 +165,7 @@ public class MenuController extends Application implements Initializable {
 
     /**
      * Will return all player profiles
+     *
      * @param actionEvent
      */
     @FXML
@@ -173,6 +176,7 @@ public class MenuController extends Application implements Initializable {
 
     /**
      * Will setup the background and the dailyMessage on the main menu screen
+     *
      * @param location
      * @param resources
      */
@@ -184,10 +188,10 @@ public class MenuController extends Application implements Initializable {
             e.printStackTrace();
         }
 
-
-
         imageView.fitWidthProperty().bind(stackPane.widthProperty().multiply(1.1));
         imageView.fitHeightProperty().bind(stackPane.heightProperty().multiply(1.1));
+        imageView.setPreserveRatio(false);
+        
         TranslateTransition backgroundMove = new TranslateTransition();
 
         backgroundMove.setDuration(Duration.millis(5000));
@@ -215,6 +219,7 @@ public class MenuController extends Application implements Initializable {
 
     /**
      * Will play the music on the main menu screen
+     *
      * @param filepath
      */
     public static void playMusic(String filepath) {
