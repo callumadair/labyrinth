@@ -10,12 +10,12 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer.*;
+import javafx.scene.paint.*;
 import javafx.stage.*;
 import javafx.util.*;
 import objects.*;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 /**
@@ -25,7 +25,7 @@ import java.util.*;
  * @author Callum Adair
  * @author Jeffrey
  */
-public class MenuController extends Application implements Initializable {
+public class MenuController extends Application {
 
     private Stage stage;
     @FXML
@@ -53,40 +53,9 @@ public class MenuController extends Application implements Initializable {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        playMusic("src\\resources\\MenuMusic.wav");
         launch(args);
     }
 
-    /**
-     * Will setup the background and the dailyMessage on the main menu screen
-     *
-     * @param location
-     * @param resources
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        /*
-        try {
-            textLabelID.setText(MessageOfTheDay.finalMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        imageView.fitWidthProperty().bind(stackPane.widthProperty().multiply(1.1));
-        imageView.fitHeightProperty().bind(stackPane.heightProperty().multiply(1.1));
-        imageView.setPreserveRatio(false);
-
-        TranslateTransition backgroundMove = new TranslateTransition();
-
-        backgroundMove.setDuration(Duration.millis(5000));
-        backgroundMove.setNode(imageView);
-        backgroundMove.setFromX(0);
-        backgroundMove.setToX(30);
-        backgroundMove.setAutoReverse(true);
-        backgroundMove.setCycleCount(Animation.INDEFINITE);
-        backgroundMove.play();
-        */
-    }
 
     /**
      * Make fade out.
@@ -122,15 +91,43 @@ public class MenuController extends Application implements Initializable {
     @FXML
     @Override
     public void start(Stage primaryStage) {
+        playMusic("src\\resources\\MenuMusic.wav");
+
         stage = primaryStage;
+        Pane root = null;
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            Scene primaryScene = new Scene(root, 1125, 650);
-            stage.setScene(primaryScene);
-            stage.show();
+            root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
+        stackPane = (StackPane) root;
+
+        borderPane = (BorderPane) root.getChildren().get(1);
+        Label message = (Label) ((HBox) borderPane.getBottom()).getChildren().get(0);
+        try {
+            message.setText(MessageOfTheDay.finalMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        imageView = (ImageView) root.getChildren().get(0);
+        imageView.fitWidthProperty().bind(stackPane.widthProperty().multiply(1.1));
+        imageView.fitHeightProperty().bind(stackPane.heightProperty().multiply(1.1));
+        imageView.setPreserveRatio(false);
+
+        TranslateTransition backgroundMove = new TranslateTransition();
+
+        backgroundMove.setDuration(Duration.millis(5000));
+        backgroundMove.setNode(imageView);
+        backgroundMove.setFromX(0);
+        backgroundMove.setToX(30);
+        backgroundMove.setAutoReverse(true);
+        backgroundMove.setCycleCount(Animation.INDEFINITE);
+        backgroundMove.play();
+
+        Scene primaryScene = new Scene(root, 1125, 650);
+        stage.setScene(primaryScene);
+        stage.show();
     }
 
     /**
@@ -154,7 +151,7 @@ public class MenuController extends Application implements Initializable {
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
-        borderPane.getChildren().remove(mainView);
+        //borderPane.getChildren().remove(mainView);
         try {
             mainView = FXMLLoader.load(MenuController.class.getResource("/menu/AnotherPlay.fxml"));
             fadeOut(mainView);
@@ -204,16 +201,29 @@ public class MenuController extends Application implements Initializable {
     }
 
     @FXML
-    private void handleNewGame(ActionEvent actionEvent) throws FileNotFoundException {
-        String boardName = ((TextField) ((HBox) ((Button) actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
+    private void handleNewGame(ActionEvent actionEvent) throws IOException {
+        String boardName = ((TextField) ((HBox) ((Button)
+                actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
+
         ArrayList<PlayerProfile> players = new ArrayList<>();
         players.add(new PlayerProfile("Cal", 1, 3, 1));
         players.add(new PlayerProfile("Luke", 3, 1, 2));
 
         Board board = FileManager.loadBoard(boardName, players);
+        System.out.println(board);
+
         Game game = new Game(board);
-        mainView = game.getPane();
-        borderPane.setCenter(mainView);
+        System.out.println(game);
+
+
+        borderPane = (BorderPane)
+                ((StackPane) FXMLLoader.load(getClass().getResource("MainMenu.fxml"))).getChildren().get(1);
+        borderPane.getChildren().remove(borderPane.getCenter());
+        fadeOut(mainView);
+
+        BorderPane gamePane = game.getPane();
+        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
+        borderPane.setCenter(gamePane.getCenter());
     }
 
     /**
