@@ -21,7 +21,7 @@
             </Label>
             <HBox alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleNewGame" text="New Game">
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#handleNewGame" text="New Game">
                      <font>
                         <Font name="Quicksand Medium" size="12.0" />
                      </font>
@@ -38,7 +38,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Load Game">
+                  <Button defaultButton="true" mnemonicParsing="false" text="Load Game">
                      <font>
                         <Font name="Quicksand Medium" size="12.0" />
                      </font>
@@ -53,6 +53,16 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
+            <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#openLeaderboard" text="Leaderboard">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" text="Save Game">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </center>
