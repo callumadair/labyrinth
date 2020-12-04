@@ -204,13 +204,13 @@ public class MenuController extends Application implements Initializable {
         }
 
         //resize image to window
-        imageView.fitWidthProperty().bind(stackPane.widthProperty().add(30));
-        imageView.fitHeightProperty().bind(stackPane.heightProperty().add(30));
+        imageView.fitWidthProperty().bind(stackPane.widthProperty().add(60));
+        imageView.fitHeightProperty().bind(stackPane.heightProperty().add(60));
         imageView.setPreserveRatio(false);
 
         //create background movement
         TranslateTransition backgroundMove = new TranslateTransition();
-        backgroundMove.setDuration(Duration.millis(5000));
+        backgroundMove.setDuration(Duration.millis(4500));
         backgroundMove.setNode(imageView);
         backgroundMove.setFromX(-10);
         backgroundMove.setToX(10);
