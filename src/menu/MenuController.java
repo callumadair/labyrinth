@@ -184,7 +184,12 @@ public class MenuController extends Application implements Initializable {
             e.printStackTrace();
         }
 
+
+
+        imageView.fitWidthProperty().bind(stackPane.widthProperty().multiply(1.1));
+        imageView.fitHeightProperty().bind(stackPane.heightProperty().multiply(1.1));
         TranslateTransition backgroundMove = new TranslateTransition();
+
         backgroundMove.setDuration(Duration.millis(5000));
         backgroundMove.setNode(imageView);
         backgroundMove.setFromX(0);
