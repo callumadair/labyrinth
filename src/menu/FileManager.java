@@ -230,8 +230,8 @@ public class FileManager {
         return floorCardCount;
     }
 
-    public static Board loadBoard(int boardNum, ArrayList<PlayerProfile> playerProfiles) throws FileNotFoundException {
-        File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
+    public static Board loadBoard(String boardName, ArrayList<PlayerProfile> playerProfiles) throws FileNotFoundException {
+        File boardFile = new File(getSaveFileDirectory() + boardName + ".txt");
         Scanner scanner = new Scanner(boardFile);
 
         int width = scanner.nextInt();

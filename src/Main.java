@@ -22,6 +22,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         ArrayList<PlayerProfile> players = new ArrayList<>(); // testing only
+        players.add(new PlayerProfile("Cal", 1, 3, 1));
+        players.add(new PlayerProfile("Luke", 3, 1, 2));
         /*players.add(new PlayerController(null, 0)); // testing only
         players.add(new PlayerController(null, 1)); // testing only
         players.add(new PlayerController(null, 2)); // testing only
