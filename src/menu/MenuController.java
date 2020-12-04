@@ -12,6 +12,7 @@ import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer.*;
 import javafx.stage.*;
 import javafx.util.*;
+import objects.*;
 
 import java.io.*;
 import java.net.*;
@@ -64,6 +65,7 @@ public class MenuController extends Application implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        /*
         try {
             textLabelID.setText(MessageOfTheDay.finalMessage());
         } catch (IOException e) {
@@ -83,6 +85,7 @@ public class MenuController extends Application implements Initializable {
         backgroundMove.setAutoReverse(true);
         backgroundMove.setCycleCount(Animation.INDEFINITE);
         backgroundMove.play();
+        */
     }
 
     /**
@@ -201,9 +204,16 @@ public class MenuController extends Application implements Initializable {
     }
 
     @FXML
-    private void handleNewGame(ActionEvent actionEvent) {
-        //String boardName = ((TextField) ((HBox) actionEvent.getSource()).getChildren().get(1)).getText();
-        //System.out.println(boardName);
+    private void handleNewGame(ActionEvent actionEvent) throws FileNotFoundException {
+        String boardName = ((TextField) ((HBox) ((Button) actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
+        ArrayList<PlayerProfile> players = new ArrayList<>();
+        players.add(new PlayerProfile("Cal", 1, 3, 1));
+        players.add(new PlayerProfile("Luke", 3, 1, 2));
+
+        Board board = FileManager.loadBoard(boardName, players);
+        Game game = new Game(board);
+        mainView = game.getPane();
+        borderPane.setCenter(mainView);
     }
 
     /**
