@@ -212,7 +212,7 @@ public class MenuController extends Application {
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
         if (gameStage != null) {
-            return;
+            gameStage.close();
         }
         boardName = ((TextField) ((HBox) ((Button)
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
@@ -224,17 +224,23 @@ public class MenuController extends Application {
         board = FileManager.loadBoard(boardName, players);
         game = new Game(board);
 
-
-        borderPane = (BorderPane)
-                ((StackPane) FXMLLoader.load(getClass().getResource("MainMenu.fxml"))).getChildren().get(1);
-        borderPane.getChildren().remove(borderPane.getCenter());
-        fadeOut(mainView);
-
         BorderPane gamePane = game.getPane();
         Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
         gameStage = new Stage();
         gameStage.setScene(scene);
         gameStage.show();
+    }
+
+    @FXML
+    private void handleLoadGame(ActionEvent actionEvent) throws FileNotFoundException {
+        if (gameStage != null) {
+            gameStage.close();
+        }
+        String fileName = ((TextField) ((HBox) ((Button)
+                actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
+
+        board = FileManager.loadGame(fileName);
+        game = new Game(board);
     }
 
     @FXML
