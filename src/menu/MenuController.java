@@ -241,11 +241,19 @@ public class MenuController extends Application {
 
         board = FileManager.loadGame(fileName);
         game = new Game(board);
+
+        BorderPane gamePane = game.getPane();
+        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
+        gameStage = new Stage();
+        gameStage.setScene(scene);
+        gameStage.show();
     }
 
     @FXML
     private void handleSaveGame(ActionEvent actionEvent) throws IOException {
         System.out.println(board);
+        System.out.println(board.getHeight());
+        System.out.println(board.getWidth());
         FileManager.saveGame(board, ((TextField) ((HBox) ((Button)
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText());
     }
