@@ -53,6 +53,10 @@ public class MenuController extends Application implements Initializable {
         launch(args);
     }
 
+    /**
+     * Creates the Stage for the scenes and loads the MainMenu
+     * @param primaryStage
+     */
     @FXML
     @Override
     public void start(Stage primaryStage) {
@@ -67,6 +71,9 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
+    /**
+     * Button for turning the music on or off
+     */
     @FXML
     private void musicOnOffButtonClick() {
         if (menuMusic.getStatus().equals(Status.PLAYING)) {
@@ -146,7 +153,10 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
-
+    /**
+     * Will open up the leaderboard after this button is pressed
+     * @param actionEvent
+     */
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
         String buttonName = actionEvent.getSource().toString().substring(33,
@@ -154,6 +164,10 @@ public class MenuController extends Application implements Initializable {
         borderPane.setCenter(Leaderboard.getLeaderboard(buttonName));
     }
 
+    /**
+     * Will return all player profiles
+     * @param actionEvent
+     */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
         HashMap<Integer, PlayerProfile> allProfiles = new HashMap<>();
@@ -170,6 +184,11 @@ public class MenuController extends Application implements Initializable {
         }
     }
 
+    /**
+     * Will setup the background and the dailyMessage on the main menu screen
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -202,6 +221,10 @@ public class MenuController extends Application implements Initializable {
         windowTransition.play();
     }
 
+    /**
+     * Will play the music on the main menu screen
+     * @param filepath
+     */
     public static void playMusic(String filepath) {
         Media music = new Media(new File(filepath).toURI().toString());
         menuMusic = new MediaPlayer(music);
