@@ -28,6 +28,8 @@ import java.util.*;
 public class MenuController extends Application {
 
     private Stage stage;
+    private Stage gameStage;
+    private Stage leaderboardStage;
     @FXML
     private StackPane root;
     @FXML
@@ -46,6 +48,7 @@ public class MenuController extends Application {
     private Button quitButton;
     private static MediaPlayer menuMusic;
     private ArrayList<PlayerDatabase> databases = new ArrayList<>();
+    private String boardName;
 
     /**
      * The entry point of application.
@@ -205,7 +208,7 @@ public class MenuController extends Application {
 
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
-        String boardName = ((TextField) ((HBox) ((Button)
+        boardName = ((TextField) ((HBox) ((Button)
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
         ArrayList<PlayerProfile> players = new ArrayList<>();
@@ -241,9 +244,13 @@ public class MenuController extends Application {
      */
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
-        String buttonName = actionEvent.getSource().toString().substring(33,
-                actionEvent.getSource().toString().length() - 1).toLowerCase();
-        borderPane.setCenter(Leaderboard.getLeaderboard(buttonName));
+        if (leaderboardStage == null) {
+            leaderboardStage = new Stage();
+            BorderPane leaderboardPane = Leaderboard.getLeaderboard(boardName);
+            Scene leaderboard = new Scene(leaderboardPane, 350, 450);
+            leaderboardStage.setScene(leaderboard);
+            leaderboardStage.show();
+        }
     }
 
     /**
