@@ -225,8 +225,13 @@ public class MenuController extends Application {
         fadeOut(mainView);
 
         BorderPane gamePane = game.getPane();
-        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
-        borderPane.setCenter(gamePane.getCenter());
+        Scene scene = null;
+        if (scene == null) {
+            scene = new Scene(gamePane, 800, 600, Color.WHITE);
+            Stage secondaryStage = new Stage();
+            secondaryStage.setScene(scene);
+            secondaryStage.show();
+        }
     }
 
     /**
