@@ -37,10 +37,13 @@
    <bottom>
       <HBox prefHeight="50.0" prefWidth="410.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#addPlayer" text="Add">
+            <Button mnemonicParsing="false" text="Add">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
+               <font>
+                  <Font name="Quicksand Medium" size="12.0" />
+               </font>
             </Button>
             <TextField text="Name">
                <HBox.margin>

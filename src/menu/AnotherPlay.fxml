@@ -19,7 +19,7 @@
                   <Font name="Quicksand Medium" size="20.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="580.0">
                <children>
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#handleNewGame" text="New Game">
                      <font>
@@ -36,14 +36,14 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="580.0">
                <children>
                   <Button defaultButton="true" mnemonicParsing="false" text="Load Game">
                      <font>
                         <Font name="Quicksand Medium" size="12.0" />
                      </font>
                   </Button>
-                  <TextField text="Save Name">
+                  <TextField text="Game Name">
                      <font>
                         <Font name="Quicksand Medium" size="12.0" />
                      </font>
@@ -58,11 +58,16 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" text="Save Game">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
+            <HBox alignment="CENTER">
+               <children>
+                  <Button contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleSaveGame" text="Save Game" />
+                  <TextField text="Save Name">
+                     <font>
+                        <Font name="Quicksand Medium" size="12.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>

@@ -30,6 +30,10 @@ public class MenuController extends Application {
     private Stage stage;
     private Stage gameStage;
     private Stage leaderboardStage;
+    private Game game;
+    private String boardName;
+    private Board board;
+    private ArrayList<PlayerProfile> players;
     @FXML
     private StackPane root;
     @FXML
@@ -48,7 +52,6 @@ public class MenuController extends Application {
     private Button quitButton;
     private static MediaPlayer menuMusic;
     private ArrayList<PlayerDatabase> databases = new ArrayList<>();
-    private String boardName;
 
     /**
      * The entry point of application.
@@ -157,7 +160,7 @@ public class MenuController extends Application {
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
-        //borderPane.getChildren().remove(mainView);
+        borderPane.getChildren().remove(mainView);
         try {
             mainView = FXMLLoader.load(MenuController.class.getResource("/menu/AnotherPlay.fxml"));
             fadeOut(mainView);
@@ -208,18 +211,18 @@ public class MenuController extends Application {
 
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
+        if (gameStage != null) {
+            return;
+        }
         boardName = ((TextField) ((HBox) ((Button)
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
-        ArrayList<PlayerProfile> players = new ArrayList<>();
+        players = new ArrayList<>();
         players.add(new PlayerProfile("Cal", 1, 3, 1));
         players.add(new PlayerProfile("Luke", 3, 1, 2));
 
-        Board board = FileManager.loadBoard(boardName, players);
-        System.out.println(board);
-
-        Game game = new Game(board);
-        System.out.println(game);
+        board = FileManager.loadBoard(boardName, players);
+        game = new Game(board);
 
 
         borderPane = (BorderPane)
@@ -228,13 +231,17 @@ public class MenuController extends Application {
         fadeOut(mainView);
 
         BorderPane gamePane = game.getPane();
-        Scene scene = null;
-        if (scene == null) {
-            scene = new Scene(gamePane, 800, 600, Color.WHITE);
-            Stage secondaryStage = new Stage();
-            secondaryStage.setScene(scene);
-            secondaryStage.show();
-        }
+        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
+        gameStage = new Stage();
+        gameStage.setScene(scene);
+        gameStage.show();
+    }
+
+    @FXML
+    private void handleSaveGame(ActionEvent actionEvent) throws IOException {
+        System.out.println(board);
+        FileManager.saveGame(board, ((TextField) ((HBox) ((Button)
+                actionEvent.getSource()).getParent()).getChildren().get(1)).getText());
     }
 
     /**

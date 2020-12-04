@@ -16,8 +16,10 @@ public class Profiles {
     private final Button deleteButton = new Button("Delete");
     @FXML
     private static TableView<PlayerProfile> tableView = new TableView<>();
+    private static ArrayList<PlayerDatabase> databases;
 
     public static BorderPane getAllProfiles(ArrayList<PlayerDatabase> databases) {
+        Profiles.databases = databases;
         BorderPane root = null;
         try {
             root = FXMLLoader.load(Profiles.class.getResource("Profiles.fxml"));
@@ -46,23 +48,26 @@ public class Profiles {
         return root;
     }
 
-    /*
-    private static void addColumns(ObservableList<PlayerProfile> profiles) {
+
+    /*private static void addColumns(ObservableList<PlayerProfile> profiles) {
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("playerID"));
         tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
         tableView.getColumns().get(3).setCellValueFactory(param -> new TableCell<PlayerProfile, PlayerProfile>() {
-            private final Button deleteButton = new Button("Delete");
+
+            final Button deleteButton = new Button("Delete");
+
             @Override
             protected void updateItem(PlayerProfile profile, boolean empty) {
                 super.updateItem(profile, empty);
 
-                if (profile == null) {
+                if (empty) {
                     setGraphic(null);
                     return;
+                } else {
+                    setGraphic(deleteButton);
+                    deleteButton.setOnAction(event -> profiles.remove(profile));
                 }
-                setGraphic(deleteButton);
-                deleteButton.setOnAction(event -> profiles.remove(profile));
             }
         });
     }*/

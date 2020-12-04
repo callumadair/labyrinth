@@ -82,7 +82,7 @@ public class FileManager {
                         values[5]++;
                         break;
                     case "DOUBLE_MOVE":
-                        values[7]++;
+                        values[6]++;
                         break;
                 }
             }
