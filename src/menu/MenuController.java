@@ -29,7 +29,7 @@ public class MenuController extends Application {
 
     private Stage stage;
     @FXML
-    private StackPane stackPane;
+    private StackPane root;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -94,13 +94,12 @@ public class MenuController extends Application {
         playMusic("src\\resources\\MenuMusic.wav");
 
         stage = primaryStage;
-        Pane root = null;
+        root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        stackPane = (StackPane) root;
 
         borderPane = (BorderPane) root.getChildren().get(1);
         Label message = (Label) ((HBox) borderPane.getBottom()).getChildren().get(0);
@@ -109,21 +108,7 @@ public class MenuController extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        imageView = (ImageView) root.getChildren().get(0);
-        imageView.fitWidthProperty().bind(stackPane.widthProperty().multiply(1.1));
-        imageView.fitHeightProperty().bind(stackPane.heightProperty().multiply(1.1));
-        imageView.setPreserveRatio(false);
-
-        TranslateTransition backgroundMove = new TranslateTransition();
-
-        backgroundMove.setDuration(Duration.millis(5000));
-        backgroundMove.setNode(imageView);
-        backgroundMove.setFromX(0);
-        backgroundMove.setToX(30);
-        backgroundMove.setAutoReverse(true);
-        backgroundMove.setCycleCount(Animation.INDEFINITE);
-        backgroundMove.play();
+        setBackgroundEffects();
 
         Scene primaryScene = new Scene(root, 1125, 650);
         stage.setScene(primaryScene);
@@ -142,6 +127,24 @@ public class MenuController extends Application {
             menuMusic.play();
             musicOnOffButton.setText("Music On");
         }
+    }
+
+    private void setBackgroundEffects() {
+        imageView = (ImageView) root.getChildren().get(0);
+        imageView.fitWidthProperty().bind(root.widthProperty().multiply(1.1));
+        imageView.fitHeightProperty().bind(root.heightProperty().multiply(1.1));
+        imageView.setPreserveRatio(false);
+
+        TranslateTransition backgroundMove = new TranslateTransition();
+
+        backgroundMove.setDuration(Duration.millis(5000));
+        backgroundMove.setNode(imageView);
+        backgroundMove.setFromX(0);
+        backgroundMove.setToX(30);
+        backgroundMove.setAutoReverse(true);
+        backgroundMove.setCycleCount(Animation.INDEFINITE);
+        backgroundMove.play();
+
     }
 
     /**
