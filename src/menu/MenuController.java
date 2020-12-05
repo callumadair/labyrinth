@@ -18,6 +18,7 @@ import javafx.util.*;
 import objects.*;
 
 import java.io.*;
+import java.net.*;
 import java.util.*;
 
 /**
@@ -27,7 +28,7 @@ import java.util.*;
  * @author Callum Adair
  * @author Jeffrey
  */
-public class MenuController extends Application {
+public class MenuController extends Application implements Initializable {
 
     private Stage stage;
     private Stage gameStage;
@@ -36,6 +37,7 @@ public class MenuController extends Application {
     private String boardName;
     private Board board;
     private ArrayList<PlayerProfile> players;
+    private FXMLLoader loader;
     @FXML
     private StackPane root;
     @FXML
@@ -63,6 +65,11 @@ public class MenuController extends Application {
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+    }
+
     /**
      * Creates the Stage for the scenes and loads the MainMenu
      *
@@ -71,12 +78,13 @@ public class MenuController extends Application {
     @FXML
     @Override
     public void start(Stage primaryStage) {
-        playMusic("src\\resources\\MenuMusic.wav");
+        // playMusic("src\\resources\\MenuMusic.wav");
 
         stage = primaryStage;
         root = null;
+        loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
         try {
-            root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+            root = loader.load();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -222,6 +230,7 @@ public class MenuController extends Application {
 
     /**
      * Creates a new game for a board
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -230,9 +239,7 @@ public class MenuController extends Application {
         if (gameStage != null) {
             gameStage.close();
         }
-        boardName = ((TextField) ((HBox) ((Button)
-                actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
-
+        boardName = ((Button) actionEvent.getSource()).getText();
 
         //TESTING
         players = new ArrayList<>();
@@ -252,6 +259,7 @@ public class MenuController extends Application {
 
     /**
      * Handle button to load game
+     *
      * @param actionEvent
      * @throws FileNotFoundException
      */
@@ -276,6 +284,7 @@ public class MenuController extends Application {
 
     /**
      * Button to save the game
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -315,6 +324,11 @@ public class MenuController extends Application {
     private void getAllProfiles(ActionEvent actionEvent) {
         addLeaderboards();
         borderPane.setCenter(Profiles.getAllProfiles(databases));
+    }
+
+    @FXML
+    private void addPlayer(ActionEvent actionEvent) {
+
     }
 
     private void gameFinishedListener() {
