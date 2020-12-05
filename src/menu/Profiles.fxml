@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.Profiles">
+<BorderPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.Profiles">
    <top>
       <Label text="Profiles" BorderPane.alignment="CENTER">
          <font>
@@ -24,10 +24,9 @@
    <center>
       <TableView maxHeight="350.0" maxWidth="400.0" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn maxWidth="-Infinity" minWidth="100.0" prefWidth="-1.0" text="Name" />
-          <TableColumn maxWidth="-Infinity" minWidth="100.0" prefWidth="-1.0" text="ID" />
-            <TableColumn maxWidth="-Infinity" minWidth="100.0" prefWidth="-1.0" text="Games Played" />
-            <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Delete" />
+          <TableColumn maxWidth="-Infinity" minWidth="135.0" prefWidth="-1.0" text="Name" />
+          <TableColumn maxWidth="-Infinity" minWidth="135.0" prefWidth="-1.0" text="ID" />
+            <TableColumn maxWidth="-Infinity" minWidth="135.0" prefWidth="-1.0" text="Games Played" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -35,7 +34,7 @@
       </TableView>
    </center>
    <bottom>
-      <HBox fillHeight="false" maxWidth="-Infinity" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <HBox fillHeight="false" maxWidth="-Infinity" prefWidth="430.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#addPlayer" text="Add">
                <HBox.margin>
@@ -55,6 +54,11 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </TextField>
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#setDeleteButton" text="Delete">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
          <BorderPane.margin>
             <Insets />
