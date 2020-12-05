@@ -51,7 +51,7 @@ public class Game {
     /**
      * Instantiates a new Game.
      *
-     * @param board the board
+     * @param board the board.
      */
     public Game(Board board) {
         this.controller = new Controller(board);
