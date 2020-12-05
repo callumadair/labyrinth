@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * The type Player controller.
+ * This class represents the Player controller.
+ *
+ * @author
  */
 public class PlayerController {
 
@@ -74,18 +76,18 @@ public class PlayerController {
     }
 
     /**
-     * Is back tracked boolean.
+     * Is backtracked true.
      *
-     * @return the boolean
+     * @return true if the player's been backtracked
      */
     public boolean isBackTracked() {
         return isBackTracked;
     }
 
     /**
-     * Sets back tracked.
+     * Sets backtracked.
      *
-     * @param backTracked - the back tracked
+     * @param backTracked - the backtracked boolean
      */
     public void setBackTracked(boolean backTracked) {
         isBackTracked = backTracked;
@@ -127,14 +129,29 @@ public class PlayerController {
         this.y = y;
     }
 
+    /**
+     * Sets current player if .
+     *
+     * @param flag -
+     */
     public void setCurrentPlayer(boolean flag){
         isCurrentPlayer = flag;
     }
 
+    /**
+     * Checks if a player is the current player in the game.
+     *
+     * @return true if the player is the current player
+     */
     public boolean isCurrentPlayer(){
         return isCurrentPlayer;
     }
 
+    /**
+     * Adds a card into the player's held cards.
+     *
+     * @param card - the card to be added
+     */
     public void addInCardsHeld(ActionCard card){
         cardsHeld.add(card);
     }
@@ -199,9 +216,9 @@ public class PlayerController {
     }
 
     /**
-     * Gets profile.
+     * Gets profile of the player.
      *
-     * @return the profile
+     * @return the profile of the player.
      */
     public PlayerProfile getProfile() {
         return profile;
@@ -211,7 +228,7 @@ public class PlayerController {
      * Determine legal moves array list.
      *
      * @param board the board
-     * @return the array list
+     * @return the array list of Floor Cards
      */
     public ArrayList<FloorCard> determineLegalMoves(Board board) {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
@@ -251,7 +268,7 @@ public class PlayerController {
 
 
     /**
-     * Getter for cards held.
+     * Gets the player's cards held.
      *
      * @return list of cards held
      */
@@ -268,7 +285,9 @@ public class PlayerController {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
     }
 
-
+    /**
+    * Gets player's color.
+    */
     private String getPlayerColor() {
         switch (playerIndex) {
             case 0:
@@ -286,7 +305,7 @@ public class PlayerController {
 
     @Override
     public String toString() {
-        return getPlayerColor(); // add players name from profile as well
+        return getPlayerColor() + ": " + getProfile().getPlayerName(); // add players name from profile as well
     }
 
 }

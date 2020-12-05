@@ -34,7 +34,8 @@ public class FileManager {
             for (int l = 0; l < board.getHeight(); l++) {
                 FloorCard curTile = board.getTile(k, l);
                 fileWriter.write(curTile.getType().toString() + " " + k + " " + l + " " + curTile.getRotation()
-                        + " " + curTile.isFixed() + "\n");
+                        + " " + curTile.isFixed() + " " + curTile.getState().toString() + " "
+                        + curTile.getEffectTimer() + "\n");
             }
         }
         fileWriter.write("\n");
@@ -53,6 +54,7 @@ public class FileManager {
         for (PlayerController player : players) {
             fileWriter.write(getPlayerDetails(player) + "\n");
         }
+        fileWriter.close();
     }
 
     private static int[] countSilkBagCards(ArrayList<Card> cardsInBag) {
@@ -82,7 +84,7 @@ public class FileManager {
                         values[5]++;
                         break;
                     case "DOUBLE_MOVE":
-                        values[7]++;
+                        values[6]++;
                         break;
                 }
             }
@@ -118,7 +120,8 @@ public class FileManager {
         }
         return player.getProfile().getPlayerName() + " " + player.getProfile().getVictories() + " "
                 + player.getProfile().getLosses() + " " + player.getProfile().getPlayerID() + " "
-                + player.getPlayerIndex() + " " + player.getX() + " " + player.getY() + " " + vals.toString();
+                + player.getPlayerIndex() + " " + player.getX() + " " + player.getY() + " " + player.isCurrentPlayer()
+                + " " + vals.toString();
     }
 
     public static Board loadGame(String gameName) throws FileNotFoundException {
@@ -137,7 +140,7 @@ public class FileManager {
         }
         scanner.nextLine();
         ArrayList<FloorCard> insertedCards = new ArrayList<>();
-        int fixedCunt = 0;
+        int fixedCount = 0;
         for (int k = 0; k < width; k++) {
             for (int l = 0; l < height; l++) {
                 FloorCard newFloorCard = new FloorCard(scanner.next());
@@ -145,14 +148,28 @@ public class FileManager {
                 newFloorCard.setY(scanner.nextInt());
                 newFloorCard.setRotation(scanner.nextInt());
                 newFloorCard.setFixed(scanner.nextBoolean());
+                setEffect(newFloorCard, scanner.next(), scanner.nextInt());
 
+                if (newFloorCard.isFixed()) {
+                    fixedCount++;
+                }
                 insertedCards.add(newFloorCard);
+            }
+        }
+
+        FloorCard[] fixed = new FloorCard[fixedCount];
+        int index = 0;
+        for (FloorCard insertedCard : insertedCards) {
+            if (insertedCard.isFixed()) {
+                fixed[index] = insertedCard;
+                index++;
             }
         }
 
         ArrayList<Card> silkBagCards = new ArrayList<>();
         loadSilkBagCards(silkBagCards, scanner);
         SilkBag silkBag = new SilkBag(silkBagCards.size());
+        silkBag.setListOfCards(silkBagCards);
         scanner.nextLine();
 
         ArrayList<PlayerController> players = new ArrayList<>();
@@ -160,12 +177,18 @@ public class FileManager {
             players.add(createPlayerController(scanner.nextLine()));
         }
 
+        return new Board(width, height, spawnPoints, fixed, silkBag, players, insertedCards);
+    }
 
-        Board loadedBoard = new Board(width, height, spawnPoints, silkBag, players);
-        for (FloorCard curCard : insertedCards) {
-            loadedBoard.insertTile(curCard, curCard.getX(), curCard.getY());
+    private static void setEffect(FloorCard floorCard, String effect, int time) {
+        switch (effect) {
+            case "FIRE":
+                floorCard.setOnFire(time);
+                break;
+            case "ICE":
+                floorCard.setOnIce(time);
+                break;
         }
-        return loadedBoard;
     }
 
     private static PlayerController createPlayerController(String info) {
@@ -176,6 +199,7 @@ public class FileManager {
         PlayerController newController = new PlayerController(newProfile, playerScanner.nextInt());
         newController.setX(playerScanner.nextInt());
         newController.setY(playerScanner.nextInt());
+        newController.setCurrentPlayer(playerScanner.nextBoolean());
 
         int[] cardValues = new int[4];
         for (int i = 0; i < cardValues.length; i++) {
@@ -222,8 +246,8 @@ public class FileManager {
         return floorCardCount;
     }
 
-    public static Board loadBoard(int boardNum) throws FileNotFoundException {
-        File boardFile = new File(getSaveFileDirectory() + "board" + boardNum + ".txt");
+    public static Board loadBoard(String boardName, ArrayList<PlayerProfile> playerProfiles) throws FileNotFoundException {
+        File boardFile = new File(getSaveFileDirectory() + boardName + ".txt");
         Scanner scanner = new Scanner(boardFile);
 
         int width = scanner.nextInt();
@@ -256,7 +280,11 @@ public class FileManager {
         SilkBag silkBag = new SilkBag(silkBagCards.size());
         silkBag.setListOfCards(silkBagCards);
 
-        return new Board(width, height, spawnPoints, fixed, silkBag);
+        ArrayList<PlayerController> players = new ArrayList<>();
+        for (int i = 0; i < playerProfiles.size(); i++) {
+            players.add(new PlayerController(playerProfiles.get(i), i));
+        }
+        return new Board(width, height, spawnPoints, fixed, silkBag, players);
     }
 
     private static void createFloorCards(int num, String type, ArrayList<Card> cards) {

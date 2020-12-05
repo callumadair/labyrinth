@@ -7,6 +7,7 @@ import java.util.Random;
 
 /**
  * This class represents the different floor tiles of the game.
+ * @author
  */
 public class FloorCard extends Card {
 
@@ -29,9 +30,10 @@ public class FloorCard extends Card {
     private String goalTileImagePath = "resources/ROAD_goal.png";
     private String onFireImagePath = "resources/ROAD-Fireeffect.png";
     private String onIceImagePath = "resources/ROAD-Iceeffect.png";
+    private String fixedTileImagePath = "resources/ROAD-nomove.png";
 
     /**
-     * The enum Direction
+     * The enum Direction.
      */
     public enum Direction {
         RIGHT, LEFT, UP, DOWN;
@@ -54,7 +56,7 @@ public class FloorCard extends Card {
     /**
      * Instantiates a new Floor card.
      *
-     * @param type - the floor tile type
+     * @param type - the floor tile type.
      */
     public FloorCard(String type) {
         switch (type) {
@@ -82,17 +84,21 @@ public class FloorCard extends Card {
     /**
      * Instantiates a new Floor card.
      *
-     * @param type     - the floor tile type
-     * @param rotation - the rotation of the tile
+     * @param type the floor tile type.
+     * @param rotation the rotation of the tile.
      */
     public FloorCard(String type, int x, int y, int rotation) {
         this(type);
         this.x = x;
         this.y = y;
         setRotation(rotation);
-        this.isFixed = true;
     }
 
+    /**
+     * Checks if the state is fire.
+     *
+     * @return true if the state is fire.
+     */
     public boolean isOnFire() {
         if (state == FloorTileState.FIRE) {
             return true;
@@ -104,12 +110,17 @@ public class FloorCard extends Card {
     /**
      * Get type of floor.
      *
-     * @return floor type
+     * @return floor type.
      */
     public FloorType getType() {
         return type;
     }
 
+    /**
+     * Sets a fixed tile.
+     *
+     * @param fixed boolean.
+     */
     public void setFixed(boolean fixed){
         this.isFixed = fixed;
     }
@@ -130,14 +141,27 @@ public class FloorCard extends Card {
         this.state = FloorTileState.FROZEN;
     }
 
+
+    public FloorTileState getState(){
+        return state;
+    }
+
+    /**
+     * Decrements the effect timer.
+     */
     public void decrementEffectTimer(){
         effectTimer--;
-        if(effectTimer <= 0){
+        if (effectTimer <= 0) {
             this.setStateToNormal();
             effectTimer = 0;
         }
     }
 
+    /**
+     * Checks if the effect is active.
+     *
+     * @return true if effect is active.
+     */
     public boolean isEffectActive(){
         if(effectTimer > 0){
             return true;
@@ -146,12 +170,21 @@ public class FloorCard extends Card {
         }
     }
 
+    /**
+     * Sets the effect timer.
+     *
+     * @param effectTimer the effect timer.
+     */
     public void setEffectTimer(int effectTimer){
         if(effectTimer < 0){
             this.effectTimer = 0;
         } else {
             this.effectTimer = effectTimer;
         }
+    }
+
+    public int getEffectTimer() {
+        return effectTimer;
     }
 
     /**
@@ -164,7 +197,7 @@ public class FloorCard extends Card {
     /**
      * Sets x coordinate.
      *
-     * @param x
+     * @param x the new x coordinate.
      */
     public void setX(int x) {
         this.x = x;
@@ -173,7 +206,7 @@ public class FloorCard extends Card {
     /**
      * Sets y coordinate.
      *
-     * @param y
+     * @param y the new y coordinate.
      */
     public void setY(int y) {
         this.y = y;
@@ -225,7 +258,7 @@ public class FloorCard extends Card {
     /**
      * Check goal boolean to see if the goal have been reached.
      *
-     * @return the boolean
+     * @return the boolean.
      */
     public boolean checkGoal() {
         return type == FloorType.GOAL;
@@ -234,7 +267,7 @@ public class FloorCard extends Card {
     /**
      * Is fixed boolean to indicate if some floor tiles are fixed.
      *
-     * @return the boolean
+     * @return true if the tile is fixed.
      */
     public boolean isFixed() {
         return isFixed;
@@ -298,7 +331,7 @@ public class FloorCard extends Card {
     /**
      * Set rotation of the tile.
      *
-     * @param rotation
+     * @param rotation of the tile.
      */
     public void setRotation(int rotation) {
         if (rotation == 90) {
@@ -316,10 +349,13 @@ public class FloorCard extends Card {
         }
     }
 
+    /**
+     * Set a random rotation of the tile.
+     */
     public void setRandomRotation(){
         Random random = new Random();
         int randomRotation = random.nextInt(4);
-        switch (randomRotation){
+        switch (randomRotation) {
             case 0:
                 setRotation(90);
                 break;
@@ -338,7 +374,7 @@ public class FloorCard extends Card {
     /**
      * Get x coordinate.
      *
-     * @return the X coordinate
+     * @return the X coordinate.
      */
     public int getX() {
         return x;
@@ -347,7 +383,7 @@ public class FloorCard extends Card {
     /**
      * Get y coordinate.
      *
-     * @return the Y coordinate
+     * @return the Y coordinate.
      */
     public int getY() {
         return y;
@@ -356,8 +392,8 @@ public class FloorCard extends Card {
     /**
      * Get opening at certain direction.
      *
-     * @param dir
-     * @return true if possible paths otherwise return false
+     * @param dir direction.
+     * @return true if possible paths otherwise return false.
      */
     public boolean getOpeningAt(Direction dir) {
         switch (dir) {
@@ -377,9 +413,9 @@ public class FloorCard extends Card {
     /**
      * Check to see if there is a path in the direction the player wants to go.
      *
-     * @param compare
-     * @param dir
-     * @return true if path has opening in certain direction, otherwise false
+     * @param compare a floorCard.
+     * @param dir direction.
+     * @return true if path has opening in certain direction, otherwise false.
      */
     public boolean checkPath(FloorCard compare, Direction dir) {
         if (compare.isOnFire()) {
@@ -410,6 +446,9 @@ public class FloorCard extends Card {
         return false;
     }
 
+    /**
+     * Set image with rotation.
+     */
     private void setImageWithRotation() {
         switch (type) {
             case STRAIGHT:
@@ -427,13 +466,27 @@ public class FloorCard extends Card {
         }
     }
 
+    /**
+     * Draws a tile.
+     *
+     * @param gc
+     * @param x
+     * @param y
+     */
     public void drawTile(GraphicsContext gc, int x, int y) {
         gc.drawImage(this.getImage(), x * TILE_SIZE, y * TILE_SIZE);
+        if(isFixed){
+            gc.drawImage(new Image(fixedTileImagePath), x * TILE_SIZE, y * TILE_SIZE);
+        }
         if (state != FloorTileState.NORMAL) {
             gc.drawImage(getTileEffectImage(), x * TILE_SIZE, y * TILE_SIZE);
         }
     }
 
+    /**
+     * Gets the Tile Effect Image.
+     * @return Image the image.
+     */
     private Image getTileEffectImage() {
         switch (state) {
             case FIRE:
