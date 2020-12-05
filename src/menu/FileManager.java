@@ -154,6 +154,11 @@ public class FileManager {
         for (int[] arr : player.getLastThree()) {
             lastThree.append(arr[0]).append(" ").append(arr[1]).append(" ");
         }
+        int lastThreeSize = player.getLastThree().size();
+        while (lastThreeSize < 3) {
+            lastThree.append(0).append(" ").append(0).append(" ");
+            lastThreeSize++;
+        }
 
         return player.getProfile().getPlayerName() + " " + player.getProfile().getVictories() + " "
                 + player.getProfile().getLosses() + " " + player.getProfile().getPlayerID() + " "
