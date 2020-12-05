@@ -182,6 +182,7 @@ public class MenuController extends Application {
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
+        System.exit(100);
     }
 
 

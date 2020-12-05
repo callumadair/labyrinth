@@ -34,7 +34,8 @@ public class FileManager {
             for (int l = 0; l < board.getHeight(); l++) {
                 FloorCard curTile = board.getTile(k, l);
                 fileWriter.write(curTile.getType().toString() + " " + k + " " + l + " " + curTile.getRotation()
-                        + " " + curTile.isFixed() + "\n");
+                        + " " + curTile.isFixed() + " " + curTile.getState().toString() + " "
+                        + curTile.getEffectTimer() + "\n");
             }
         }
         fileWriter.write("\n");
@@ -119,7 +120,8 @@ public class FileManager {
         }
         return player.getProfile().getPlayerName() + " " + player.getProfile().getVictories() + " "
                 + player.getProfile().getLosses() + " " + player.getProfile().getPlayerID() + " "
-                + player.getPlayerIndex() + " " + player.getX() + " " + player.getY() + " " + vals.toString();
+                + player.getPlayerIndex() + " " + player.getX() + " " + player.getY() + " " + player.isCurrentPlayer()
+                + " " + vals.toString();
     }
 
     public static Board loadGame(String gameName) throws FileNotFoundException {
@@ -146,6 +148,7 @@ public class FileManager {
                 newFloorCard.setY(scanner.nextInt());
                 newFloorCard.setRotation(scanner.nextInt());
                 newFloorCard.setFixed(scanner.nextBoolean());
+                setEffect(newFloorCard, scanner.next(), scanner.nextInt());
 
                 if (newFloorCard.isFixed()) {
                     fixedCount++;
@@ -162,7 +165,6 @@ public class FileManager {
                 index++;
             }
         }
-        insertedCards.removeIf(FloorCard::isFixed);
 
         ArrayList<Card> silkBagCards = new ArrayList<>();
         loadSilkBagCards(silkBagCards, scanner);
@@ -177,6 +179,17 @@ public class FileManager {
         return new Board(width, height, spawnPoints, fixed, silkBag, players, insertedCards);
     }
 
+    private static void setEffect(FloorCard floorCard, String effect, int time) {
+        switch (effect) {
+            case "FIRE":
+                floorCard.setOnFire(time);
+                break;
+            case "ICE":
+                floorCard.setOnIce(time);
+                break;
+        }
+    }
+
     private static PlayerController createPlayerController(String info) {
         Scanner playerScanner = new Scanner(info);
         PlayerProfile newProfile = new PlayerProfile(playerScanner.next(), playerScanner.nextInt(),
@@ -185,6 +198,7 @@ public class FileManager {
         PlayerController newController = new PlayerController(newProfile, playerScanner.nextInt());
         newController.setX(playerScanner.nextInt());
         newController.setY(playerScanner.nextInt());
+        newController.setCurrentPlayer(playerScanner.nextBoolean());
 
         int[] cardValues = new int[4];
         for (int i = 0; i < cardValues.length; i++) {

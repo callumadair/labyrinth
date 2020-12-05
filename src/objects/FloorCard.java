@@ -110,7 +110,7 @@ public class FloorCard extends Card {
         return type;
     }
 
-    public void setFixed(boolean fixed){
+    public void setFixed(boolean fixed) {
         this.isFixed = fixed;
     }
 
@@ -130,28 +130,36 @@ public class FloorCard extends Card {
         this.state = FloorTileState.FROZEN;
     }
 
-    public void decrementEffectTimer(){
+    public FloorTileState getState() {
+        return this.state;
+    }
+
+    public void decrementEffectTimer() {
         effectTimer--;
-        if(effectTimer <= 0){
+        if (effectTimer <= 0) {
             this.setStateToNormal();
             effectTimer = 0;
         }
     }
 
-    public boolean isEffectActive(){
-        if(effectTimer > 0){
+    public boolean isEffectActive() {
+        if (effectTimer > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public void setEffectTimer(int effectTimer){
-        if(effectTimer < 0){
+    public void setEffectTimer(int effectTimer) {
+        if (effectTimer < 0) {
             this.effectTimer = 0;
         } else {
             this.effectTimer = effectTimer;
         }
+    }
+
+    public int getEffectTimer() {
+        return effectTimer;
     }
 
     /**
@@ -316,10 +324,10 @@ public class FloorCard extends Card {
         }
     }
 
-    public void setRandomRotation(){
+    public void setRandomRotation() {
         Random random = new Random();
         int randomRotation = random.nextInt(4);
-        switch (randomRotation){
+        switch (randomRotation) {
             case 0:
                 setRotation(90);
                 break;
