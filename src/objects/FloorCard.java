@@ -183,6 +183,11 @@ public class FloorCard extends Card {
         }
     }
 
+    /**
+     * Get effect timer.
+     *
+     * @return int the timer
+     */
     public int getEffectTimer() {
         return effectTimer;
     }
@@ -283,7 +288,7 @@ public class FloorCard extends Card {
     }
 
     /**
-     * Change path for tile.
+     * Change paths.
      */
     private void changePaths() {
         boolean temp = possiblePaths[3];

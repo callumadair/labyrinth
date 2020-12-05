@@ -370,7 +370,7 @@ public class Controller {
     }
 
     /**
-     *
+     * Clears the cache of selected items.
      */
     private void clearSelection() {
         setPlayingCard(null);

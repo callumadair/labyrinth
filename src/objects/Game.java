@@ -286,7 +286,7 @@ public class Game {
     }
     /**
      * Selects an action card.
-     * @param y
+     * @param y on the right pane.
      */
     private void selectActionCard(double y) {
         if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {

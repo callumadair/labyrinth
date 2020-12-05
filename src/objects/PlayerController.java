@@ -130,9 +130,9 @@ public class PlayerController {
     }
 
     /**
+     * Set current player.
      *
-     *
-     * @param flag -
+     * @param flag boolean.
      */
     public void setCurrentPlayer(boolean flag){
         isCurrentPlayer = flag;
