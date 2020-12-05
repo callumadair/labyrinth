@@ -247,6 +247,10 @@ public class MenuController extends Application implements Initializable {
         players.add(new PlayerProfile("Luke", 3, 1, 2));
 
         board = FileManager.loadBoard(boardName, players);
+        startGame();
+    }
+
+    private void startGame() {
         game = new Game(board);
         gameFinishedListener();
 
@@ -272,14 +276,7 @@ public class MenuController extends Application implements Initializable {
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
         board = FileManager.loadGame(fileName);
-        game = new Game(board);
-        gameFinishedListener();
-
-        BorderPane gamePane = game.getPane();
-        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
-        gameStage = new Stage();
-        gameStage.setScene(scene);
-        gameStage.show();
+        startGame();
     }
 
     /**
