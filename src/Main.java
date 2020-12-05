@@ -2,7 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import menu.FileManager;
+import menu.*;
 import objects.*;
 
 import java.util.ArrayList;

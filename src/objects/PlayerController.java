@@ -58,9 +58,9 @@ public class PlayerController {
     }
 
     /**
-     * Check double move boolean.
+     * Check double move.
      *
-     * @return boolean
+     * @return boolean.
      */
     public boolean checkDoubleMove() {
         return doubleMove;
@@ -69,7 +69,7 @@ public class PlayerController {
     /**
      * Sets double move.
      *
-     * @param value - the value
+     * @param value - the value.
      */
     public void setDoubleMove(boolean value) {
         this.doubleMove = value;
@@ -78,7 +78,7 @@ public class PlayerController {
     /**
      * Is backtracked true.
      *
-     * @return true if the player's been backtracked
+     * @return true if the player's been backtracked.
      */
     public boolean isBackTracked() {
         return isBackTracked;
@@ -87,7 +87,7 @@ public class PlayerController {
     /**
      * Sets backtracked.
      *
-     * @param backTracked - the backtracked boolean
+     * @param backTracked - the backtracked boolean.
      */
     public void setBackTracked(boolean backTracked) {
         isBackTracked = backTracked;
@@ -96,7 +96,7 @@ public class PlayerController {
     /**
      * Gets x coordinate of player.
      *
-     * @return the x coordinate
+     * @return the x coordinate.
      */
     public int getX() {
         return x;
@@ -105,7 +105,7 @@ public class PlayerController {
     /**
      * Sets x coordinate of player.
      *
-     * @param x - the x coordinate
+     * @param x - the x coordinate.
      */
     public void setX(int x) {
         this.x = x;
@@ -114,7 +114,7 @@ public class PlayerController {
     /**
      * Gets y coordinate of player.
      *
-     * @return the y coordinate
+     * @return the y coordinate.
      */
     public int getY() {
         return y;
@@ -123,14 +123,14 @@ public class PlayerController {
     /**
      * Sets y coordinate of player.
      *
-     * @param y - the y coordinate
+     * @param y - the y coordinate.
      */
     public void setY(int y) {
         this.y = y;
     }
 
     /**
-     * Sets current player if .
+     *
      *
      * @param flag -
      */
@@ -141,7 +141,7 @@ public class PlayerController {
     /**
      * Checks if a player is the current player in the game.
      *
-     * @return true if the player is the current player
+     * @return true if the player is the current player.
      */
     public boolean isCurrentPlayer(){
         return isCurrentPlayer;
@@ -150,7 +150,7 @@ public class PlayerController {
     /**
      * Adds a card into the player's held cards.
      *
-     * @param card - the card to be added
+     * @param card - the card to be added.
      */
     public void addInCardsHeld(ActionCard card){
         cardsHeld.add(card);
@@ -159,7 +159,7 @@ public class PlayerController {
     /**
      * Gets last three moves made by the player.
      *
-     * @return the last three moves
+     * @return the last three moves.
      */
     public LinkedList<int[]> getLastThree() {
         return lastThree;
@@ -168,17 +168,17 @@ public class PlayerController {
     /**
      * Sets last three moves made by the player.
      *
-     * @param cards - the cards
+     * @param cards - the cards.
      */
     public void setLastThree(LinkedList<int[]> cards) {
         this.lastThree = lastThree;
     }
 
     /**
-     * stores position of the player
+     * Stores position of the player.
      *
-     * @param x - the x coordinate
-     * @param y - the y coordinate
+     * @param x - the x coordinate.
+     * @param y - the y coordinate.
      */
     public void storePosition(int x, int y) {
         int pos[] = {x, y};
@@ -195,8 +195,8 @@ public class PlayerController {
     /**
      * Move player.
      *
-     * @param x - the x coordinate
-     * @param y - the y coordinate
+     * @param x - the x coordinate.
+     * @param y - the y coordinate.
      */
     public void movePlayer(int x, int y) {
         if (!isBackTracked) {
@@ -209,7 +209,7 @@ public class PlayerController {
     /**
      * Gets player index.
      *
-     * @return the player index
+     * @return the player index.
      */
     public int getPlayerIndex() {
         return playerIndex;
@@ -227,8 +227,8 @@ public class PlayerController {
     /**
      * Determine legal moves array list.
      *
-     * @param board the board
-     * @return the array list of Floor Cards
+     * @param board the board.
+     * @return the array list of Floor Cards.
      */
     public ArrayList<FloorCard> determineLegalMoves(Board board) {
         ArrayList<FloorCard> legalMoves = new ArrayList<>();
@@ -270,7 +270,7 @@ public class PlayerController {
     /**
      * Gets the player's cards held.
      *
-     * @return list of cards held
+     * @return list of cards held.
      */
     public ArrayList<ActionCard> getCardsHeld() {
         return this.cardsHeld;
@@ -279,7 +279,7 @@ public class PlayerController {
     /**
      * Draw player.
      *
-     * @param gc the gc
+     * @param gc the gc.
      */
     public void drawPlayer(GraphicsContext gc) {
         gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);

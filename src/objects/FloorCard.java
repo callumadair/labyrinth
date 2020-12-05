@@ -258,7 +258,7 @@ public class FloorCard extends Card {
     /**
      * Check goal boolean to see if the goal have been reached.
      *
-     * @return the boolean.
+     * @return true if the floor type is GOAL.
      */
     public boolean checkGoal() {
         return type == FloorType.GOAL;
@@ -276,7 +276,7 @@ public class FloorCard extends Card {
     /**
      * Gets rotation.
      *
-     * @return the rotation
+     * @return the rotation.
      */
     public int getRotation() {
         return rotation;

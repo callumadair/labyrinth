@@ -302,16 +302,26 @@ public class Game {
     /**
      * Gets the pane.
      *
-     * @return the pane
+     * @return the pane.
      */
     public BorderPane getPane() {
         return pane;
     }
 
+    /**
+     * Get is game finished.
+     *
+     * @return true if the game is finished.
+     */
     public BooleanProperty getIsGameFinished(){
         return isGameFinished;
     }
 
+    /**
+     * Get canvas.
+     *
+     * @return Canvas.
+     */
     public Canvas getCanvas(){
         return controller.getCanvas();
     }

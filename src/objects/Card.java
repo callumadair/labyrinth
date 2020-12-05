@@ -24,7 +24,7 @@ public abstract class Card {
     /**
      * Get the image of the card.
      *
-     * @return the image
+     * @return the image.
      */
     public Image getImage(){
         return this.image;

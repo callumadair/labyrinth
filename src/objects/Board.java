@@ -95,7 +95,7 @@ public class Board {
     }
 
     /**
-     *Setup the board.
+     * Setup .
      */
     private void setupInProgressGame(ArrayList<FloorCard> floorCards) {
         map = new FloorCard[width][height];
@@ -319,9 +319,9 @@ public class Board {
     }
 
     /**
-     * Gets silkbag.
+     * Get silkbag.
      *
-     * @return the silkbag
+     * @return the silkbag.
      */
     public SilkBag getSilkBag() {
         return silkBag;
@@ -403,7 +403,7 @@ public class Board {
     /**
      * Gets players.
      *
-     * @return the players
+     * @return the players.
      */
     public ArrayList<PlayerController> getPlayers() {
         return players;
@@ -428,7 +428,7 @@ public class Board {
     /**
      * Gets frozen tiles.
      *
-     * @return the frozen tiles
+     * @return the frozen tiles.
      */
     public ArrayList<FloorCard> getFrozenTiles() {
         return frozenTiles;
@@ -437,7 +437,7 @@ public class Board {
     /**
      * Sets players.
      *
-     * @param players the players
+     * @param players the players.
      */
     public void setPlayers(ArrayList<PlayerController> players) {
         this.players = players;
