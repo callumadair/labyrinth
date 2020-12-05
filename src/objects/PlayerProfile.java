@@ -64,12 +64,14 @@ public class PlayerProfile {
         this.victories = victories;
     }
 
-    public void incrementVictories(){
+    public void incrementVictories() {
         victories++;
+        setGamesPlayed();
     }
 
-    public void incrementLoses(){
+    public void incrementLoses() {
         losses++;
+        setGamesPlayed();
     }
 
     /**
