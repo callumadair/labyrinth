@@ -38,7 +38,9 @@ public class Leaderboard {
         return root;
     }
 
-
+    /**
+     * Creates a new player database and adds columns
+     */
     @FXML
     private static void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase(getDatabaseName());
