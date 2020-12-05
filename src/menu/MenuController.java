@@ -125,6 +125,7 @@ public class MenuController extends Application {
         }
         setBackgroundEffects();
         addLeaderboards();
+        System.out.println(databases.size());
 
         Scene primaryScene = new Scene(root, 1125, 650);
         stage.setScene(primaryScene);
@@ -306,6 +307,7 @@ public class MenuController extends Application {
      */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
+        System.out.println(databases.size());
         borderPane.setCenter(Profiles.getAllProfiles(databases));
     }
 
@@ -316,6 +318,9 @@ public class MenuController extends Application {
                 if (game.getIsGameFinished().getValue()) {
                     PlayerDatabase curDatabase = new PlayerDatabase(boardName);
                     curDatabase.start(boardName);
+                    for (PlayerController playerController : board.getPlayers()) {
+                        curDatabase.updatePlayer(playerController.getProfile());
+                    }
                 }
             }
         });
