@@ -22,134 +22,138 @@
 
 <StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
    <children>
-      <ImageView fx:id="imageView" cache="true" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/testImage.jpg" />
-         </image>
-         <effect>
-            <GaussianBlur radius="5.0" />
-         </effect>
-         <viewport>
-            <Rectangle2D />
-         </viewport>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ImageView>
-      <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="1200.0">
-         <center>
-            <StackPane fx:id="mainView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox alignment="BOTTOM_CENTER" spacing="20.0">
-                     <children>
-                            <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handlePlayButtonAction" prefWidth="200.0" text="Play" textFill="#191640">
-                                <font>
-                                    <Font name="Quicksand Medium" size="14.0" />
-                                </font>
-                            </Button>
-                            <Button fx:id="quitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleQuitButtonAction" prefWidth="200.0" text="Quit" textFill="#191640">
-                                <font>
-                                    <Font name="Quicksand Medium" size="14.0" />
-                                </font>
-                            </Button>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                     <padding>
-                        <Insets bottom="80.0" />
-                     </padding>
-                  </VBox>
-               </children>
+      <StackPane fx:id="root">
+         <children>
+            <ImageView fx:id="imageView" cache="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/testImage.jpg" />
+               </image>
+               <effect>
+                  <GaussianBlur radius="5.0" />
+               </effect>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </StackPane>
-         </center>
-         <bottom>
-            <HBox alignment="BOTTOM_CENTER" maxHeight="50.0" BorderPane.alignment="CENTER">
-               <children>
-                      <Label fx:id="textLabelID" alignment="BOTTOM_CENTER" contentDisplay="CENTER" snapToPixel="false" textFill="#ebebeb" textOverrun="CLIP">
-                          <font>
-                              <Font name="Quicksand Medium" size="16.0" />
-                          </font>
-                     <padding>
-                        <Insets bottom="20.0" />
-                     </padding>
-                      </Label>
-               </children>
-            </HBox>
-         </bottom>
-         <top>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="musicOnOffButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#musicOnOffButtonClick" prefHeight="30.0" text="Music On" textAlignment="CENTER" textFill="#191640">
-                     <font>
-                        <Font name="Quicksand Medium" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="40.0" right="15.0" top="15.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="30.0" text="Menu" textAlignment="CENTER" textFill="#191640">
-                     <HBox.margin>
-                        <Insets left="5.0" right="10.0" top="15.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#getAllProfiles" prefHeight="30.0" text="Profiles" textAlignment="CENTER" textFill="#191640">
-                     <font>
-                        <Font name="Quicksand Medium" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="5.0" right="10.0" top="15.0" />
-                     </HBox.margin>
-                  </Button>
-                  <MenuButton mnemonicParsing="false" text="Select Leaderboard" textFill="#191640">
-                    <items>
-                      <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board1" />
-                           </graphic>
-                        </MenuItem>
-                      <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board2" />
-                           </graphic>
-                        </MenuItem>
-                        <MenuItem mnemonicParsing="false">
-                           <graphic>
-                              <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board3" />
-                           </graphic>
-                        </MenuItem>
-                    </items>
-                     <HBox.margin>
-                        <Insets left="5.0" right="10.0" top="15.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Quicksand Medium" size="14.0" />
-                     </font>
-                  </MenuButton>
-                  <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="257.0" text="Night Crawlers" textAlignment="CENTER" textFill="#191640">
-                     <font>
-                        <Font name="Chiller" size="36.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-         </top>
-      </BorderPane>
+            </ImageView>
+            <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="1200.0">
+               <center>
+                  <StackPane fx:id="mainView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox alignment="BOTTOM_CENTER" spacing="20.0">
+                           <children>
+                                  <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handlePlayButtonAction" prefWidth="200.0" text="Play" textFill="#191640">
+                                      <font>
+                                          <Font name="Quicksand Medium" size="14.0" />
+                                      </font>
+                                  </Button>
+                                  <Button fx:id="quitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleQuitButtonAction" prefWidth="200.0" text="Quit" textFill="#191640">
+                                      <font>
+                                          <Font name="Quicksand Medium" size="14.0" />
+                                      </font>
+                                  </Button>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                           <padding>
+                              <Insets bottom="80.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </StackPane>
+               </center>
+               <bottom>
+                  <HBox alignment="BOTTOM_CENTER" maxHeight="50.0" BorderPane.alignment="CENTER">
+                     <children>
+                            <Label fx:id="textLabelID" alignment="BOTTOM_CENTER" contentDisplay="CENTER" snapToPixel="false" textFill="#ebebeb" textOverrun="CLIP">
+                                <font>
+                                    <Font name="Quicksand Medium" size="16.0" />
+                                </font>
+                           <padding>
+                              <Insets bottom="20.0" />
+                           </padding>
+                            </Label>
+                     </children>
+                  </HBox>
+               </bottom>
+               <top>
+                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="musicOnOffButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#musicOnOffButtonClick" prefHeight="30.0" text="Music On" textAlignment="CENTER" textFill="#191640">
+                           <font>
+                              <Font name="Quicksand Medium" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="40.0" right="15.0" top="15.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="30.0" text="Menu" textAlignment="CENTER" textFill="#191640">
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" top="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#getAllProfiles" prefHeight="30.0" text="Profiles" textAlignment="CENTER" textFill="#191640">
+                           <font>
+                              <Font name="Quicksand Medium" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" top="15.0" />
+                           </HBox.margin>
+                        </Button>
+                        <MenuButton mnemonicParsing="false" text="Select Leaderboard" textFill="#191640">
+                          <items>
+                            <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board1" />
+                                 </graphic>
+                              </MenuItem>
+                            <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board2" />
+                                 </graphic>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board3" />
+                                 </graphic>
+                              </MenuItem>
+                          </items>
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" top="15.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Quicksand Medium" size="14.0" />
+                           </font>
+                        </MenuButton>
+                        <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="257.0" text="Night Crawlers" textAlignment="CENTER" textFill="#191640">
+                           <font>
+                              <Font name="Chiller" size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </top>
+            </BorderPane>
+         </children>
+      </StackPane>
       <BorderPane>
          <center>
             <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0">
