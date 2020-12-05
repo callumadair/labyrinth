@@ -40,11 +40,11 @@ public class Controller {
     /**
      * Instantiates a new Controller.
      *
-     * @param b the board.
+     * @param board the board.
      */
-    public Controller(Board b) {
-        board = b;
-        this.players = b.getPlayers();
+    public Controller(Board board) {
+        this.board = board;
+        this.players = board.getPlayers();
 
         canvas = new Canvas(board.getWidth() * FloorCard.TILE_SIZE,
                 board.getHeight() * FloorCard.TILE_SIZE);

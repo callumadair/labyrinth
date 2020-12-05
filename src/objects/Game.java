@@ -75,6 +75,7 @@ public class Game {
 
         Label playersListLabel = new Label("Players:");
         playersListLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        playersListLabel.setStyle("-fx-font-weight: bold");
         playersListLabel.setTextFill(Color.GREEN);
         left.getChildren().add(playersListLabel);
 
@@ -86,6 +87,7 @@ public class Game {
         }
 
         Label actionStateLabel = new Label("Action:");
+        actionStateLabel.setStyle("-fx-font-weight: bold");
         actionStateLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
         actionStateLabel.setTextFill(Color.GREEN);
         left.getChildren().add(actionStateLabel);

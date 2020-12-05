@@ -44,27 +44,8 @@ public class Board {
         setup();
     }
 
-
     /**
-     * Instantiates a new Board.
-     *
-     * @param width       the width of the board.
-     * @param height      the height of the board.
-     * @param spawnPoints the spawn points
-     * @param silkBag     the silk bag
-     * @param players     the players
-     */
-     //Testing
-    public Board(int width, int height, int[][] spawnPoints, SilkBag silkBag, ArrayList<PlayerController> players) {
-        this.width = width;
-        this.height = height;
-        this.spawnPoints = spawnPoints;
-        this.silkBag = silkBag;
-        this.players = players;
-    }
-
-    /**
-     * Instantiates a new Board.
+     * Instantiates a Board in progress.
      *
      * @param width              the width of the board.
      * @param height             the height of the board.
@@ -74,9 +55,6 @@ public class Board {
      * @param players            the players
      * @param existingFloorCards the existing floor cards
      */
-
-    //for loading board in progress
-
     public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
                  SilkBag silkBag, ArrayList<PlayerController> players, ArrayList<FloorCard> existingFloorCards) {
         this.width = width;
@@ -88,30 +66,9 @@ public class Board {
         setup();
     }
 
-
-    /**
-     * Instantiates a new Board.
-     *
-     * @param width       the width of the board.
-     * @param height      the height of the board.
-     * @param spawnPoints the spawn points
-     * @param fixedTiles  the fixed tiles
-     * @param silkBag     the silk bag
-     */
-     //testing only
-    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles, SilkBag silkBag) {
-        this.width = width;
-        this.height = height;
-        this.spawnPoints = spawnPoints;
-        this.silkBag = silkBag;
-        this.fixedTiles = fixedTiles;
-        setup();
-    }
-
     /**
      *Setup the board.
      */
-
     private void setup() {
         map = new FloorCard[width][height];
         for (FloorCard fixed : fixedTiles) {
