@@ -222,6 +222,11 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * Creates a new game for a board
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
         if (gameStage != null) {
@@ -247,6 +252,11 @@ public class MenuController extends Application {
         gameStage.show();
     }
 
+    /**
+     * This will handle the button to load a saved game.
+     * @param actionEvent
+     * @throws FileNotFoundException
+     */
     @FXML
     private void handleLoadGame(ActionEvent actionEvent) throws FileNotFoundException {
         if (gameStage != null) {
@@ -266,6 +276,11 @@ public class MenuController extends Application {
         gameStage.show();
     }
 
+    /**
+     * This will handle the button to save the game.
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void handleSaveGame(ActionEvent actionEvent) throws IOException {
         System.out.println(board);
