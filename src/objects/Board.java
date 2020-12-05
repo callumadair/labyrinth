@@ -95,7 +95,7 @@ public class Board {
     }
 
     /**
-     * Setup .
+     * Setup in progress game.
      */
     private void setupInProgressGame(ArrayList<FloorCard> floorCards) {
         map = new FloorCard[width][height];
