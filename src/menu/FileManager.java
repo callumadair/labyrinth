@@ -5,17 +5,37 @@ import objects.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The type File manager.
+ */
 public class FileManager {
     private static String saveFileDirectory = "src/resources/";
 
+    /**
+     * Sets the save file directory.
+     *
+     * @param saveFileDirectory the save file directory
+     */
     public static void setSaveFileDirectory(String saveFileDirectory) {
         FileManager.saveFileDirectory = saveFileDirectory;
     }
 
+    /**
+     * Gets the save file directory.
+     *
+     * @return the save file directory
+     */
     public static String getSaveFileDirectory() {
         return saveFileDirectory;
     }
 
+    /**
+     * Save the game in it's current state
+     *
+     * @param board    the board
+     * @param gameName the game name
+     * @throws IOException the io exception
+     */
     public static void saveGame(Board board, String gameName) throws IOException {
         File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
         FileWriter fileWriter = new FileWriter(gameFile);
@@ -57,6 +77,11 @@ public class FileManager {
         fileWriter.close();
     }
 
+    /**
+     * Counts the number of each type of card in the silk bag
+     * @param cardsInBag
+     * @return
+     */
     private static int[] countSilkBagCards(ArrayList<Card> cardsInBag) {
         int[] values = new int[7];
         for (Card curCard : cardsInBag) {
@@ -92,6 +117,11 @@ public class FileManager {
         return values;
     }
 
+    /**
+     * Gets the player's details
+     * @param player
+     * @return
+     */
     private static String getPlayerDetails(PlayerController player) {
         int[] cardValues = new int[4];
         for (Card curCard : player.getCardsHeld()) {
@@ -124,6 +154,13 @@ public class FileManager {
                 + " " + vals.toString();
     }
 
+    /**
+     * Loads the game board.
+     *
+     * @param gameName the game name
+     * @return the board
+     * @throws FileNotFoundException the file not found exception
+     */
     public static Board loadGame(String gameName) throws FileNotFoundException {
         File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
         Scanner scanner = new Scanner(gameFile);
@@ -180,6 +217,12 @@ public class FileManager {
         return new Board(width, height, spawnPoints, fixed, silkBag, players, insertedCards);
     }
 
+    /**
+     * Allows the fire and Ice action cards to have an effect
+     * @param floorCard
+     * @param effect
+     * @param time
+     */
     private static void setEffect(FloorCard floorCard, String effect, int time) {
         switch (effect) {
             case "FIRE":
@@ -191,6 +234,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Method to control the player around the board
+     * @param info
+     * @return
+     */
     private static PlayerController createPlayerController(String info) {
         Scanner playerScanner = new Scanner(info);
         PlayerProfile newProfile = new PlayerProfile(playerScanner.next(), playerScanner.nextInt(),
@@ -227,6 +275,12 @@ public class FileManager {
         return newController;
     }
 
+    /**
+     * Load the cards so that they are in the silk bag
+     * @param silkBagCards
+     * @param scanner
+     * @return
+     */
     private static int loadSilkBagCards(ArrayList<Card> silkBagCards, Scanner scanner) {
         int straightCount = scanner.nextInt();
         createFloorCards(straightCount, "STRAIGHT", silkBagCards);
@@ -246,6 +300,14 @@ public class FileManager {
         return floorCardCount;
     }
 
+    /**
+     * Loads a board
+     *
+     * @param boardName      the board name
+     * @param playerProfiles the player profiles
+     * @return the board
+     * @throws FileNotFoundException the file not found exception
+     */
     public static Board loadBoard(String boardName, ArrayList<PlayerProfile> playerProfiles) throws FileNotFoundException {
         File boardFile = new File(getSaveFileDirectory() + boardName + ".txt");
         Scanner scanner = new Scanner(boardFile);
@@ -287,12 +349,24 @@ public class FileManager {
         return new Board(width, height, spawnPoints, fixed, silkBag, players);
     }
 
+    /**
+     * Creates the floor cards
+     * @param num
+     * @param type
+     * @param cards
+     */
     private static void createFloorCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new FloorCard(type));
         }
     }
 
+    /**
+     * Creates the action cards
+     * @param num
+     * @param type
+     * @param cards
+     */
     private static void createActionCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new ActionCard(type));

@@ -19,6 +19,12 @@ public class Leaderboard {
     private static TableView<PlayerProfile> tableView;
     private static String databaseName;
 
+    /**
+     * Gets leaderboard.
+     *
+     * @param databaseName the database name
+     * @return the leaderboard
+     */
     public static BorderPane getLeaderboard(String databaseName) {
         Leaderboard.databaseName = databaseName;
         BorderPane root = null;
@@ -32,7 +38,9 @@ public class Leaderboard {
         return root;
     }
 
-
+    /**
+     * Creates a new player database and adds columns
+     */
     @FXML
     private static void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase(getDatabaseName());
@@ -46,6 +54,11 @@ public class Leaderboard {
     }
 
 
+    /**
+     * Gets database name.
+     *
+     * @return the database name
+     */
     public static String getDatabaseName() {
         return databaseName;
     }

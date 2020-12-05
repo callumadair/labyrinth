@@ -18,6 +18,7 @@ import javafx.util.*;
 import objects.*;
 
 import java.io.*;
+import java.net.*;
 import java.util.*;
 
 /**
@@ -27,7 +28,7 @@ import java.util.*;
  * @author Callum Adair
  * @author Jeffrey
  */
-public class MenuController extends Application {
+public class MenuController extends Application implements Initializable {
 
     private Stage stage;
     private Stage gameStage;
@@ -36,6 +37,8 @@ public class MenuController extends Application {
     private String boardName;
     private Board board;
     private ArrayList<PlayerProfile> players;
+    private FXMLLoader menuLoader;
+    private FXMLLoader playLoader;
     @FXML
     private StackPane root;
     @FXML
@@ -72,18 +75,44 @@ public class MenuController extends Application {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        playLoader = new FXMLLoader(getClass().getResource("AnotherPlay.fxml"));
+    }
+
     /**
-     * Make fade out.
+     * Creates the Stage for the scenes and loads the MainMenu
      *
-     * @param fadeOut the fade out
+     * @param primaryStage
      */
-    private void fadeOut(Pane fadeOut) {
-        TranslateTransition windowTransition = new TranslateTransition();
-        windowTransition.setDuration(Duration.millis(500));
-        windowTransition.setNode(fadeOut);
-        windowTransition.setFromX(700);
-        windowTransition.setToX(0);
-        windowTransition.play();
+    @FXML
+    @Override
+    public void start(Stage primaryStage) {
+        // playMusic("src\\resources\\MenuMusic.wav");
+
+        stage = primaryStage;
+        root = null;
+        menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        try {
+            root = menuLoader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        borderPane = (BorderPane) root.getChildren().get(1);
+        Label message = (Label) ((HBox) borderPane.getBottom()).getChildren().get(0);
+        try {
+            message.setText(MessageOfTheDay.finalMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setBackgroundEffects();
+        addDatabases();
+
+        Scene primaryScene = new Scene(root, 1125, 650);
+        stage.setScene(primaryScene);
+        stage.show();
     }
 
     /**
@@ -97,41 +126,6 @@ public class MenuController extends Application {
         menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
         menuMusic.play();
     }
-
-    /**
-     * Creates the Stage for the scenes and loads the MainMenu
-     *
-     * @param primaryStage
-     */
-    @FXML
-    @Override
-    public void start(Stage primaryStage) {
-        playMusic("src\\resources\\MenuMusic.wav");
-
-        stage = primaryStage;
-        root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        borderPane = (BorderPane) root.getChildren().get(1);
-        Label message = (Label) ((HBox) borderPane.getBottom()).getChildren().get(0);
-        try {
-            message.setText(MessageOfTheDay.finalMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        setBackgroundEffects();
-        addLeaderboards();
-        System.out.println(databases.size());
-
-        Scene primaryScene = new Scene(root, 1125, 650);
-        stage.setScene(primaryScene);
-        stage.show();
-    }
-
 
     /**
      * Button for turning the music on or off
@@ -168,7 +162,21 @@ public class MenuController extends Application {
 
     }
 
-    private void addLeaderboards() {
+    /**
+     * Make fade out.
+     *
+     * @param fadeOut the fade out
+     */
+    private void fadeOut(Pane fadeOut) {
+        TranslateTransition windowTransition = new TranslateTransition();
+        windowTransition.setDuration(Duration.millis(500));
+        windowTransition.setNode(fadeOut);
+        windowTransition.setFromX(700);
+        windowTransition.setToX(0);
+        windowTransition.play();
+    }
+
+    private void addDatabases() {
         databases.add(new PlayerDatabase("board1"));
         databases.add(new PlayerDatabase("board2"));
         databases.add(new PlayerDatabase("board3"));
@@ -183,7 +191,7 @@ public class MenuController extends Application {
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            mainView = FXMLLoader.load(MenuController.class.getResource("/menu/AnotherPlay.fxml"));
+            mainView = playLoader.load();
             fadeOut(mainView);
             borderPane.setCenter(mainView);
 
@@ -216,8 +224,8 @@ public class MenuController extends Application {
     private void handleMenuButton(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            StackPane menu = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            mainView = (Pane) ((BorderPane) menu.getChildren().get(1)).getChildren().get(0);
+            root = menuLoader.load();
+            mainView = (Pane) ((BorderPane) root.getChildren().get(1)).getChildren().get(0);
             fadeOut(mainView);
             borderPane.setCenter(mainView);
 
@@ -231,14 +239,18 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * Creates a new game for a board
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
         if (gameStage != null) {
             gameStage.close();
         }
-        boardName = ((TextField) ((HBox) ((Button)
-                actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
-
+        boardName = ((Button) actionEvent.getSource()).getText();
 
         //TESTING
         players = new ArrayList<>();
@@ -246,6 +258,10 @@ public class MenuController extends Application {
         players.add(new PlayerProfile("Luke", 3, 1, 2));
 
         board = FileManager.loadBoard(boardName, players);
+        startGame();
+    }
+
+    private void startGame() {
         game = new Game(board);
         gameFinishedListener();
 
@@ -256,6 +272,12 @@ public class MenuController extends Application {
         gameStage.show();
     }
 
+    /**
+     * Handle button to load game
+     *
+     * @param actionEvent
+     * @throws FileNotFoundException
+     */
     @FXML
     private void handleLoadGame(ActionEvent actionEvent) throws FileNotFoundException {
         if (gameStage != null) {
@@ -265,16 +287,15 @@ public class MenuController extends Application {
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
         board = FileManager.loadGame(fileName);
-        game = new Game(board);
-        gameFinishedListener();
-
-        BorderPane gamePane = game.getPane();
-        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
-        gameStage = new Stage();
-        gameStage.setScene(scene);
-        gameStage.show();
+        startGame();
     }
 
+    /**
+     * Button to save the game
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void handleSaveGame(ActionEvent actionEvent) throws IOException {
         System.out.println(board);
@@ -285,7 +306,7 @@ public class MenuController extends Application {
     }
 
     /**
-     * Will open up the leaderboard after this button is pressed
+     * Opens up leaderboard
      *
      * @param actionEvent
      */
@@ -293,23 +314,26 @@ public class MenuController extends Application {
     private void openLeaderboard(ActionEvent actionEvent) {
         if (leaderboardStage == null) {
             leaderboardStage = new Stage();
-            BorderPane leaderboardPane = Leaderboard.getLeaderboard(boardName);
-            Scene leaderboard = new Scene(leaderboardPane, 350, 450);
-            leaderboardStage.setScene(leaderboard);
-            leaderboardStage.show();
+        } else {
+            leaderboardStage.close();
         }
+        BorderPane leaderboardPane = Leaderboard.getLeaderboard(boardName);
+        Scene leaderboard = new Scene(leaderboardPane, 350, 450);
+        leaderboardStage.setScene(leaderboard);
+        leaderboardStage.show();
     }
 
     /**
-     * Will return all player profiles
+     * Returns all player profiles
      *
      * @param actionEvent
      */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
-        System.out.println(databases.size());
+        addDatabases();
         borderPane.setCenter(Profiles.getAllProfiles(databases));
     }
+
 
     private void gameFinishedListener() {
         game.getIsGameFinished().addListener(new ChangeListener<Boolean>() {
@@ -317,7 +341,7 @@ public class MenuController extends Application {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (game.getIsGameFinished().getValue()) {
                     PlayerDatabase curDatabase = new PlayerDatabase(boardName);
-                    curDatabase.start(boardName);
+                    curDatabase.start();
                     for (PlayerController playerController : board.getPlayers()) {
                         curDatabase.updatePlayer(playerController.getProfile());
                     }
