@@ -5,8 +5,15 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class MessageOfTheDay {
-	
-		public static String readWebPage() throws IOException {
+
+
+	/**
+	 * Read web page string.
+	 *
+	 * @return the string
+	 * @throws IOException the io exception
+	 */
+	public static String readWebPage() throws IOException {
 			// Instantiating the URL class
 			URL url = new URL("http://cswebcat.swansea.ac.uk/puzzle");
 			// Retrieving the contents of the specified page
@@ -19,7 +26,12 @@ public class MessageOfTheDay {
 			String result = buffer.toString();
 			return result;
 		}
-	
+
+	/**
+	 * Decodes the scrambled message from the website
+	 * @return
+	 * @throws IOException
+	 */
 		public static String encode() throws IOException {
 			String puzzle = MessageOfTheDay.readWebPage();
 			String prefix = "CS-230";
@@ -46,6 +58,11 @@ public class MessageOfTheDay {
 			return (prefix + finalString + (prefix.length() + counter));
 		}
 
+	/**
+	 * Solves an ASCII puzzle
+	 * @param ascii
+	 * @return
+	 */
 		public static int solvePuzzleASCII(int ascii) {
 			char start = 'A';
 			char end = 'Z';
@@ -57,7 +74,12 @@ public class MessageOfTheDay {
 			}
 			return ascii;
 		}
-		
+
+	/**
+	 * Returns the final daily message
+	 * @return
+	 * @throws IOException
+	 */
 		public static String finalMessage() throws IOException {
 			String solvedCode = MessageOfTheDay.encode();
 			String requestURL = "http://cswebcat.swansea.ac.uk/message?solution=";
