@@ -286,7 +286,7 @@ public class PlayerController {
 
     @Override
     public String toString() {
-        return getPlayerColor(); // add players name from profile as well
+        return getPlayerColor() + ": " + getProfile().getPlayerName(); // add players name from profile as well
     }
 
 }

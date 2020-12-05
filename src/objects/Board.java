@@ -31,15 +31,6 @@ public class Board {
         setup();
     }
 
-    //Testing
-    public Board(int width, int height, int[][] spawnPoints, SilkBag silkBag, ArrayList<PlayerController> players) {
-        this.width = width;
-        this.height = height;
-        this.spawnPoints = spawnPoints;
-        this.silkBag = silkBag;
-        this.players = players;
-    }
-
     //for loading board in progress
     public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
                  SilkBag silkBag, ArrayList<PlayerController> players, ArrayList<FloorCard> existingFloorCards) {
@@ -49,16 +40,6 @@ public class Board {
         this.silkBag = silkBag;
         this.fixedTiles = fixedTiles;
         this.players = players;
-        setup();
-    }
-
-    //testing only
-    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles, SilkBag silkBag) {
-        this.width = width;
-        this.height = height;
-        this.spawnPoints = spawnPoints;
-        this.silkBag = silkBag;
-        this.fixedTiles = fixedTiles;
         setup();
     }
 
@@ -78,9 +59,9 @@ public class Board {
             }
         }
 
-//        for(int i = 0; i < players.size(); i++){
-//            players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
-//        }
+        for(int i = 0; i < players.size(); i++){
+            players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
+        }
         assignInsertPositions();
     }
 
