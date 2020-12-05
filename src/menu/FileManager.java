@@ -155,7 +155,7 @@ public class FileManager {
     }
 
     /**
-     * Load game board.
+     * Loads the game board.
      *
      * @param gameName the game name
      * @return the board
@@ -217,6 +217,12 @@ public class FileManager {
         return new Board(width, height, spawnPoints, fixed, silkBag, players, insertedCards);
     }
 
+    /**
+     * Allows the fire and Ice action cards to have an effect
+     * @param floorCard
+     * @param effect
+     * @param time
+     */
     private static void setEffect(FloorCard floorCard, String effect, int time) {
         switch (effect) {
             case "FIRE":
@@ -229,7 +235,7 @@ public class FileManager {
     }
 
     /**
-     *
+     * Method to control the player
      * @param info
      * @return
      */
@@ -269,6 +275,12 @@ public class FileManager {
         return newController;
     }
 
+    /**
+     * Will load the cards so that they are in the silk bag
+     * @param silkBagCards
+     * @param scanner
+     * @return
+     */
     private static int loadSilkBagCards(ArrayList<Card> silkBagCards, Scanner scanner) {
         int straightCount = scanner.nextInt();
         createFloorCards(straightCount, "STRAIGHT", silkBagCards);
@@ -289,7 +301,7 @@ public class FileManager {
     }
 
     /**
-     * Load board board.
+     * Loads a board
      *
      * @param boardName      the board name
      * @param playerProfiles the player profiles
