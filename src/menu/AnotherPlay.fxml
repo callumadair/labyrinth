@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuController">
    <center>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0">
@@ -61,11 +60,6 @@
             <HBox alignment="CENTER">
                <children>
                   <Button contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleSaveGame" text="Save Game" />
-                  <TextField text="Save Name">
-                     <font>
-                        <Font name="Quicksand Medium" size="12.0" />
-                     </font>
-                  </TextField>
                </children>
             </HBox>
          </children>

@@ -35,8 +35,8 @@ public class Leaderboard {
 
     @FXML
     private static void addColumns() {
-        PlayerDatabase playerDatabase = new PlayerDatabase();
-        playerDatabase.start(getDatabaseName());
+        PlayerDatabase playerDatabase = new PlayerDatabase(getDatabaseName());
+        playerDatabase.start();
         ObservableList<PlayerProfile> data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
 
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));

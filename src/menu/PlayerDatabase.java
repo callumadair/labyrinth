@@ -13,6 +13,10 @@ import java.util.*;
 public class PlayerDatabase {
     private String url;
 
+    PlayerDatabase(String boardName) {
+        this.url = "jdbc:sqlite:src/resources/" + boardName + ".db";
+    }
+
     public void start() {
         try (Connection conn = connect()) {
             if (conn != null) {
