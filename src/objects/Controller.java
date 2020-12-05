@@ -76,6 +76,7 @@ public class Controller {
                 this.playerIndex = player.getPlayerIndex();
             }
         }
+        currentPlayer = players.get(playerIndex);
         currentPlayerIndex = new SimpleIntegerProperty(playerIndex);
         cardSelectionFlag = new SimpleBooleanProperty(false);
         stateChangeFlag = new SimpleBooleanProperty(false);
