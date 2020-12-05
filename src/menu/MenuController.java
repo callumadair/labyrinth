@@ -2,6 +2,8 @@ package menu;
 
 import javafx.animation.*;
 import javafx.application.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -289,5 +291,14 @@ public class MenuController extends Application {
 
     }
 
-
+    private void gameFinishedListener(){
+        game.getIsGameFinished().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(game.getIsGameFinished().getValue()){
+                    
+                }
+            }
+        });
+    }
 }

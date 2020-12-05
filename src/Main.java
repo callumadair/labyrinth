@@ -24,14 +24,7 @@ public class Main extends Application {
         ArrayList<PlayerProfile> players = new ArrayList<>(); // testing only
         players.add(new PlayerProfile("Cal", 1, 3, 1));
         players.add(new PlayerProfile("Luke", 3, 1, 2));
-        /*players.add(new PlayerController(null, 0)); // testing only
-        players.add(new PlayerController(null, 1)); // testing only
-        players.add(new PlayerController(null, 2)); // testing only
-        players.get(0).setX(5);
-        players.get(0).setY(6);
-        players.get(1).setX(5);
-        players.get(1).setY(0);*/
-        Board board = FileManager.loadBoard("board2", players);
+        Board board = FileManager.loadBoard("board3", players);
 
         Game game = new Game(board);
         Scene scene = new Scene(game.getPane(), 800, 600, Color.WHITE);
