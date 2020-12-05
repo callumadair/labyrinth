@@ -72,7 +72,7 @@ public class MenuController extends Application {
     @FXML
     @Override
     public void start(Stage primaryStage) {
-        // playMusic("src\\resources\\MenuMusic.wav");
+        playMusic("src\\resources\\MenuMusic.wav");
 
         stage = primaryStage;
         root = null;
@@ -209,7 +209,6 @@ public class MenuController extends Application {
         try {
             root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             mainView = (Pane) ((BorderPane) root.getChildren().get(1)).getChildren().get(0);
-            fadeOut(mainView);
             borderPane.setCenter(mainView);
 
             playButton = (Button) ((VBox) mainView.getChildren().get(0)).getChildren().get(0);
@@ -235,11 +234,12 @@ public class MenuController extends Application {
         }
         boardName = ((Button) actionEvent.getSource()).getText();
 
-        //TESTING
+        Stage profileSelectionStage = new Stage();
+        BorderPane start = FXMLLoader.load(getClass().getResource("Load.fxml"))
 
         players = new ArrayList<>();
-        players.add(new PlayerProfile("Cal", 1, 3, 1));
-        players.add(new PlayerProfile("Luke", 3, 1, 2));
+        players.add(new PlayerProfile("Player 1", 1, 3, 1));
+        players.add(new PlayerProfile("Player 2", 3, 1, 2));
 
         board = FileManager.loadBoard(boardName, players);
         startGame();
@@ -250,7 +250,7 @@ public class MenuController extends Application {
         gameFinishedListener();
 
         BorderPane gamePane = game.getPane();
-        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
+        Scene scene = new Scene(gamePane, 800, 600, Color.BLACK);
         gameStage = new Stage();
         gameStage.setScene(scene);
         gameStage.show();
