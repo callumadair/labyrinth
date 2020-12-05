@@ -12,13 +12,24 @@ import java.util.*;
  */
 public class PlayerDatabase {
     private String url;
+
+    public void start() {
+        try (Connection conn = connect()) {
+            if (conn != null) {
+                System.out.println("Connection successful.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * Create new database.
      *
      * @param boardName the database name
      */
     public void start(String boardName) {
-        url = "jdbc:sqlite:src/resources/" + boardName;
+        url = "jdbc:sqlite:src/resources/" + boardName + ".db";
         try (Connection conn = connect()) {
             if (conn != null) {
                 System.out.println("Connection successful.");

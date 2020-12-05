@@ -30,6 +30,7 @@ public class FloorCard extends Card {
     private String goalTileImagePath = "resources/ROAD_goal.png";
     private String onFireImagePath = "resources/ROAD-Fireeffect.png";
     private String onIceImagePath = "resources/ROAD-Iceeffect.png";
+    private String fixedTileImagePath = "resources/ROAD-nomove.png";
 
     /**
      * The enum Direction.
@@ -466,6 +467,9 @@ public class FloorCard extends Card {
      */
     public void drawTile(GraphicsContext gc, int x, int y) {
         gc.drawImage(this.getImage(), x * TILE_SIZE, y * TILE_SIZE);
+        if(isFixed){
+            gc.drawImage(new Image(fixedTileImagePath), x * TILE_SIZE, y * TILE_SIZE);
+        }
         if (state != FloorTileState.NORMAL) {
             gc.drawImage(getTileEffectImage(), x * TILE_SIZE, y * TILE_SIZE);
         }

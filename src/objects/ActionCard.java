@@ -159,18 +159,29 @@ public class ActionCard extends Card {
         } else {
             int[] temp = player.getLastThree().getFirst();
             player.getLastThree().removeFirst();
-            if(board.getTile(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]).isOnFire()){
+            if(board.getTile(player.getLastThree().getLast()[0], player.getLastThree().getLast()[1]).isOnFire()){
                 player.getLastThree().addFirst(temp);
                 return false;
             } else {
-                if(board.getTile(temp[0], temp[1]).isOnFire()){
+                if(board.getTile(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]).isOnFire() &&
+                        !board.checkPlayerPosition(player.getLastThree().getLast()[0], player.getLastThree().getLast()[1])){
                     player.setBackTracked(true);
-                    player.movePlayer(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
+                    player.movePlayer(player.getLastThree().getLast()[0], player.getLastThree().getLast()[1]);
                     return true;
                 } else {
-                    player.setBackTracked(true);
-                    player.movePlayer(temp[0], temp[1]);
-                    return true;
+                    if(board.checkPlayerPosition(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]) &&
+                            !board.checkPlayerPosition(player.getLastThree().getLast()[0], player.getLastThree().getLast()[1])){
+                        player.setBackTracked(true);
+                        player.movePlayer(player.getLastThree().getLast()[0], player.getLastThree().getLast()[1]);
+                        return true;
+                    } else if (!board.checkPlayerPosition(player.getLastThree().getLast()[0], player.getLastThree().getLast()[1])){
+                        player.setBackTracked(true);
+                        player.movePlayer(player.getLastThree().getFirst()[0], player.getLastThree().getFirst()[1]);
+                        return true;
+                    } else {
+                        player.getLastThree().addFirst(temp);
+                        return false;
+                    }
                 }
             }
         }

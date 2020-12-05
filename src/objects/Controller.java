@@ -35,7 +35,7 @@ public class Controller {
     private PlayerController currentPlayer;
     private ArrayList<FloorCard> tilesToCompare;
 
-    private String tileHighlightImagePath = "markup.png";
+    private String tileHighlightImagePath = "resources/markup.png";
 
     /**
      * Instantiates a new Controller.

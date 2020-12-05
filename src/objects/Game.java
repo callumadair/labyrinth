@@ -32,7 +32,7 @@ public class Game {
     //Left
     private ArrayList<Label> playerTags;
     private Label highlightedPlayer;
-    private Button skipActionState;
+    private Label actionLabel;
 
     //Bottom
     private HBox bottom;
@@ -42,6 +42,7 @@ public class Game {
     //Right
     private VBox right;
     private ArrayList<ImageView> cardsDisplayed;
+    private Button skipActionState;
 
     /**
      * Instantiates a new Game.
@@ -71,12 +72,29 @@ public class Game {
     private void createLeftPane() {
         playerTags = new ArrayList<>();
         VBox left = new VBox();
+
+        Label playersListLabel = new Label("Players:");
+        playersListLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        playersListLabel.setTextFill(Color.GREEN);
+        left.getChildren().add(playersListLabel);
+
         for (int i = 0; i < controller.getPlayers().size(); i++) {
             playerTags.add(new Label(controller.getPlayers().get(i).toString()));
             playerTags.get(i).setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
             playerTags.get(i).setTextFill(Color.BLACK);
             left.getChildren().add(playerTags.get(i));
         }
+
+        Label actionStateLabel = new Label("Action:");
+        actionStateLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        actionStateLabel.setTextFill(Color.GREEN);
+        left.getChildren().add(actionStateLabel);
+
+        actionLabel = new Label(controller.getCurrentState().toString());
+        actionLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        actionLabel.setAlignment(Pos.BOTTOM_CENTER);
+        left.getChildren().add(actionLabel);
+
         pane.setLeft(left);
         highlightPlayer();
     }
@@ -205,14 +223,15 @@ public class Game {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (controller.getCurrentState() == Controller.GameState.DRAWING) {
                     label.setText("Card Drawn:");
-                }
-                if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
+                } else if (controller.getCurrentState() == Controller.GameState.INSERTING) {
+                    actionLabel.setText(controller.getCurrentState().toString());
+                } else if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
+                    actionLabel.setText(controller.getCurrentState().toString());
                     showPlayersActionCard();
-                }
-                if (controller.getCurrentState() == Controller.GameState.MOVING) {
+                } else if (controller.getCurrentState() == Controller.GameState.MOVING) {
+                    actionLabel.setText(controller.getCurrentState().toString());
                     clearDisplayedCards();
-                }
-                if (controller.getCurrentState() == Controller.GameState.VICTORY) {
+                } else if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     //end game
                     //display the winners name
                     //change the leaderboard for the given board

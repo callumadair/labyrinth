@@ -44,6 +44,7 @@ public class Board {
         setup();
     }
 
+
     /**
      * Instantiates a new Board.
      *
@@ -73,7 +74,9 @@ public class Board {
      * @param players            the players
      * @param existingFloorCards the existing floor cards
      */
-     //for loading board in progress
+
+    //for loading board in progress
+
     public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
                  SilkBag silkBag, ArrayList<PlayerController> players, ArrayList<FloorCard> existingFloorCards) {
         this.width = width;
@@ -84,6 +87,7 @@ public class Board {
         this.players = players;
         setup();
     }
+
 
     /**
      * Instantiates a new Board.
@@ -107,6 +111,7 @@ public class Board {
     /**
      *Setup the board.
      */
+
     private void setup() {
         map = new FloorCard[width][height];
         for (FloorCard fixed : fixedTiles) {
@@ -123,9 +128,9 @@ public class Board {
             }
         }
 
-//        for(int i = 0; i < players.size(); i++){
-//            players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
-//        }
+        for(int i = 0; i < players.size(); i++){
+            players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
+        }
         assignInsertPositions();
     }
 
