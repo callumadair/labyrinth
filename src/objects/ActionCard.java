@@ -3,13 +3,11 @@ package objects;
 import java.util.ArrayList;
 
 /**
- * The type Action card.
+ * This class represents the Action Card.
+ * @author 
  */
 public class ActionCard extends Card {
 
-    /**
-     * The constant CARD_SIZE.
-     */
     public static final int CARD_SIZE = 54;
 
     private ActionCardType type;
@@ -34,7 +32,7 @@ public class ActionCard extends Card {
     /**
      * Instantiates a new Action card.
      *
-     * @param type the type
+     * @param type the type of the card.
      */
     public ActionCard(String type) {
         switch (type) {
@@ -56,7 +54,13 @@ public class ActionCard extends Card {
                 break;
         }
     }
-
+    /**
+     * Use the card.
+     *
+     * @param board the board.
+     * @param x the x coordinate of the tile.
+     * @param y the y coordinate of the tile.
+     */
     public boolean useCard(Board board, int x, int y) {
         if(this.canBeUsed()){
             switch (type) {
@@ -76,7 +80,15 @@ public class ActionCard extends Card {
         }
     }
 
-
+    /**
+     * Use fire card.
+     *
+     * @param board the board.
+     * @param x the x coordinate of the tile.
+     * @param y the y coordinate of the tile.
+     *
+     * @return true if the card can be used on that position, false otherwise.
+     */
     private boolean useFireCard(Board board, int x, int y) {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
@@ -99,7 +111,15 @@ public class ActionCard extends Card {
         return true;
     }
 
-
+    /**
+     * Use ice card.
+     *
+     * @param board the board.
+     * @param x the x coordinate of the tile.
+     * @param y the y coordinate of the tile.
+     *
+     * @return true if the card can be used on that position, false otherwise.
+     */
     private boolean useIceCard(Board board, int x, int y) {
         ArrayList<FloorCard> tiles = getAreaOfEffect(board, x, y);
 
@@ -110,6 +130,15 @@ public class ActionCard extends Card {
         return true;
     }
 
+    /**
+     * Use fire card.
+     *
+     * @param board the board.
+     * @param x the x coordinate of the tile.
+     * @param y the y coordinate of the tile.
+     *
+     * @return true if the card can be used.
+     */
     private boolean useBackTrackCard(Board board, int x, int y) {
         if (!board.checkPlayerPosition(x, y)) {
             return false;
@@ -146,7 +175,15 @@ public class ActionCard extends Card {
             }
         }
     }
-
+    /**
+     * Use fire card.
+     *
+     * @param board the board.
+     * @param x the x coordinate of the tile.
+     * @param y the y coordinate of the tile.
+     *
+     * @return true if the card can be used.
+     */
     private boolean useDoubleMove(Board board, int x, int y) {
         if (!board.checkPlayerPosition(x, y)) {
             return false;
@@ -162,6 +199,15 @@ public class ActionCard extends Card {
         return true;
     }
 
+    /**
+     * Gets the area of effect.
+     *
+     * @param board the board.
+     * @param x the x coordinate of the tile.
+     * @param y the y coordinate of the tile.
+     *
+     * @return the FloorCards inside the area of effect.
+     */
     private ArrayList<FloorCard> getAreaOfEffect(Board board, int x, int y) {
         ArrayList<FloorCard> area = new ArrayList<>();
 
@@ -195,30 +241,44 @@ public class ActionCard extends Card {
         return area;
     }
 
+    /**
+     * Sets the fire effect timer.
+     *
+     * @return
+     */
     private int fireEffectTimer(Board board){
         return (board.getPlayers().size() * 2);
     }
 
+    /**
+     * Sets the ice effect timer.
+     *
+     * @return
+     */
     private int iceEffectTimer(Board board){
         return board.getPlayers().size();
     }
 
     /**
-     * Can be used boolean.
+     * Checks if a card can be used.
      *
-     * @return the boolean
+     * @return true if the card can be used.
      */
     public boolean canBeUsed() {
         return this.canBeUsed;
     }
 
     /**
-     * Sets can be used.
+     * Sets a card to be used to true.
      */
     public void setCanBeUsed() {
         this.canBeUsed = true;
     }
 
+    /**
+     * Gets the type of the card.
+     * @return the type of the card.
+     */
     public ActionCardType getType() {
         return type;
     }

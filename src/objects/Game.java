@@ -19,6 +19,11 @@ import javafx.scene.text.FontPosture;
 
 import java.util.ArrayList;
 
+/**
+ * The type Game.
+ *
+ * @author
+ */
 public class Game {
 
     private Controller controller;
@@ -38,6 +43,11 @@ public class Game {
     private VBox right;
     private ArrayList<ImageView> cardsDisplayed;
 
+    /**
+     * Instantiates a new Game.
+     *
+     * @param board the board
+     */
     public Game(Board board) {
         this.controller = new Controller(board);
 
@@ -55,6 +65,9 @@ public class Game {
         this.enableRotatingInsertionTile();
     }
 
+    /**
+     * Creates the left pane.
+     */
     private void createLeftPane() {
         playerTags = new ArrayList<>();
         VBox left = new VBox();
@@ -68,6 +81,9 @@ public class Game {
         highlightPlayer();
     }
 
+    /**
+     * Highlights the current player.
+     */
     private void highlightPlayer() {
         if (highlightedPlayer != null) {
             highlightedPlayer.setTextFill(Color.BLACK);
@@ -76,6 +92,9 @@ public class Game {
         highlightedPlayer.setTextFill(Color.DEEPPINK);
     }
 
+    /**
+     * Creates the right pane.
+     */
     private void createRightPane() {
         right = new VBox();
         right.setAlignment(Pos.TOP_CENTER);
@@ -97,6 +116,9 @@ public class Game {
         pane.setRight(rightPane);
     }
 
+    /**
+     * Displays the player's actions cards.
+     */
     private void showPlayersActionCard() {
         clearDisplayedCards();
 
@@ -111,6 +133,9 @@ public class Game {
         }
     }
 
+    /**
+     * Clears the displayed cards.
+     */
     private void clearDisplayedCards() {
         if (!cardsDisplayed.isEmpty()) {
             for (ImageView imageView : cardsDisplayed) {
@@ -120,6 +145,9 @@ public class Game {
         }
     }
 
+    /**
+     * Creates the bottom pane.
+     */
     private void createBottomPane() {
         bottom = new HBox();
         bottom.setAlignment(Pos.CENTER);
@@ -140,6 +168,9 @@ public class Game {
         pane.setBottom(bottom);
     }
 
+    /**
+     * Listens for player's change.
+     */
     private void listenForPlayerChange() {
         controller.getCurrentPlayerIndex().addListener(new ChangeListener<Number>() {
             @Override
@@ -149,6 +180,9 @@ public class Game {
         });
     }
 
+    /**
+     * Listens for card's change.
+     */
     private void listenForCardChange() {
         controller.getCardSelectionFlag().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -162,7 +196,9 @@ public class Game {
         });
     }
 
-
+    /**
+     * Listens for state's change.
+     */
     private void listenForStateChange() {
         controller.getStateChangeFlag().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -186,7 +222,9 @@ public class Game {
         });
     }
 
-
+    /**
+     * Enables action card selection.
+     */
     private void enableActionCardSelection() {
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -198,6 +236,9 @@ public class Game {
         });
     }
 
+    /**
+     * Enables rotating the insertion tile.
+     */
     private void enableRotatingInsertionTile() {
         playingCardImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -207,6 +248,9 @@ public class Game {
         });
     }
 
+    /**
+     * Rotates the current tile.
+     */
     private void rotateCurrentTile() {
         if (controller.getCurrentState() == Controller.GameState.INSERTING) {
             FloorCard card = (FloorCard) controller.getPlayingCard();
@@ -214,7 +258,10 @@ public class Game {
             playingCardImage.setImage(controller.getPlayingCard().getImage());
         }
     }
-
+    /**
+     * Selects an action card.
+     * @param y
+     */
     private void selectActionCard(double y) {
         if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
             int cordY = (int) (y / ActionCard.CARD_SIZE);
@@ -226,6 +273,11 @@ public class Game {
         }
     }
 
+    /**
+     * Gets the pane.
+     *
+     * @return the pane
+     */
     public BorderPane getPane() {
         return pane;
     }

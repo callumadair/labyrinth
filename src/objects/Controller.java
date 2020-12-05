@@ -12,6 +12,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the Controller.
+ * @author
+ */
 public class Controller {
 
     private IntegerProperty currentPlayerIndex;
@@ -33,6 +37,11 @@ public class Controller {
 
     private String tileHighlightImagePath = "markup.png";
 
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param b the board.
+     */
     public Controller(Board b) {
         board = b;
         this.players = b.getPlayers();
@@ -45,10 +54,21 @@ public class Controller {
         startGame();
     }
 
+    /**
+     * The enum Game state.
+     */
     enum GameState {
-        DRAWING, INSERTING, ACTION_CARD, MOVING, END_TURN, VICTORY;
+        DRAWING,
+        INSERTING,
+        ACTION_CARD,
+        MOVING,
+        END_TURN,
+        VICTORY;
     }
 
+    /**
+     * Start game.
+     */
     public void startGame() {
         numOfPlayers = players.size() - 1;
         currentPlayer = players.get(playerIndex);
@@ -58,12 +78,22 @@ public class Controller {
         changeState(GameState.DRAWING);
     }
 
+    /**
+     * Change state.
+     *
+     * @param state the state.
+     */
     public void changeState(GameState state) {
         currentState = state;
         getStateChangeFlag().set(!getStateChangeFlag().getValue());
         startState(currentState);
     }
 
+    /**
+     * Start a state.
+     *
+     * @param state the state.
+     */
     private void startState(GameState state) {
         switch (state) {
             case DRAWING:
@@ -87,6 +117,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Play a state.
+     */
     private void playState() {
         switch (currentState) {
             case INSERTING:
@@ -101,6 +134,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Draws a card from SilkBag.
+     */
     private void drawCard() {
         setPlayingCard(board.getSilkBag().drawACard());
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
@@ -137,6 +173,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Gets insertion list.
+     */
     private void getInsertionList() {
         tilesToCompare = board.getInsertionPoints();
 
@@ -148,6 +187,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Inserts a tile.
+     */
     private void insert() {
         if (tilesToCompare.contains(selectedTile)) {
             playingCard.useCard(board, selectedTile.getX(), selectedTile.getY());
@@ -159,6 +201,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Play action card.
+     */
     public void playActionCard() {
         if (playingCard != null && selectedTile != null) {
             if (playingCard.useCard(board, selectedTile.getX(), selectedTile.getY())) {
@@ -172,6 +217,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Shows action cards.
+     */
     private void showActionCards() {
         ArrayList<ActionCard> cardHeldByCurrentPlayer = currentPlayer.getCardsHeld();
 
@@ -190,6 +238,9 @@ public class Controller {
 
     }
 
+    /**
+     * Gets the legal moves.
+     */
     private void getLegalMoves() {
         tilesToCompare = currentPlayer.determineLegalMoves(board);
         if (tilesToCompare.isEmpty()) {
@@ -198,7 +249,9 @@ public class Controller {
             highlightTiles();
         }
     }
-
+    /**
+     * Moves the player.
+     */
     private void movePlayer() {
         if (tilesToCompare.contains(selectedTile)) {
             if (selectedTile.checkGoal()) {
@@ -223,6 +276,9 @@ public class Controller {
 
     }
 
+    /**
+     * Highlights the tiles.
+     */
     private void highlightTiles() {
         for (FloorCard f : tilesToCompare) {
             canvas.getGraphicsContext2D().drawImage(new Image(tileHighlightImagePath),
@@ -230,6 +286,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Ends the turn.
+     */
     private void endTurn() {
         clearSelection();
         if (playerIndex == numOfPlayers) {
@@ -243,6 +302,9 @@ public class Controller {
         changeState(GameState.DRAWING);
     }
 
+    /**
+     * Ends the game.
+     */
     private void endGame() {
         for (PlayerController player : players) {
             if (player.equals(currentPlayer)) {
@@ -253,6 +315,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Enables the retrieving of tiles.
+     */
     private void enableRetrievingTilesFromCanvas() {
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -272,49 +337,100 @@ public class Controller {
         });
     }
 
+    /**
+     * Gets canvas.
+     *
+     * @return the canvas
+     */
     public Canvas getCanvas() {
         return canvas;
     }
 
+    /**
+     * Gets playing card.
+     *
+     * @return the playing card
+     */
     public Card getPlayingCard() {
         return playingCard;
     }
 
+    /**
+     * Sets playing card.
+     *
+     * @param card the card
+     */
     public void setPlayingCard(Card card) {
         playingCard = card;
         getCardSelectionFlag().set(!getCardSelectionFlag().getValue());
     }
 
+    /**
+     *
+     */
     private void clearSelection() {
         setPlayingCard(null);
         selectedTile = null;
         tilesToCompare.clear();
     }
 
+    /**
+     * Draws a board.
+     */
     public void draw() {
         board.drawBoard(canvas.getGraphicsContext2D());
     }
 
+    /**
+     * Gets players.
+     *
+     * @return the players
+     */
     public ArrayList<PlayerController> getPlayers() {
         return players;
     }
 
+    /**
+     * Gets current state.
+     *
+     * @return the current state
+     */
     public GameState getCurrentState() {
         return currentState;
     }
 
+    /**
+     * Gets current player.
+     *
+     * @return the current player
+     */
     public PlayerController getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Gets current player index.
+     *
+     * @return the current player index
+     */
     public IntegerProperty getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
+    /**
+     * Gets card selection flag.
+     *
+     * @return the card selection flag.
+     */
     public BooleanProperty getCardSelectionFlag() {
         return cardSelectionFlag;
     }
 
+    /**
+     * Gets state change flag.
+     *
+     * @return the state change flag.
+     */
     public BooleanProperty getStateChangeFlag() {
         return stateChangeFlag;
     }
