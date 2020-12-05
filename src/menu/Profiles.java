@@ -1,11 +1,13 @@
 package menu;
 
+import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
+import javafx.util.*;
 import objects.*;
 
 import java.io.*;
@@ -41,11 +43,9 @@ public class Profiles {
         tableView = (TableView<PlayerProfile>) root.getCenter();
 
         HashMap<Integer, PlayerProfile> allProfiles = new HashMap<>();
-        System.out.println(newDatabases.size());
         for (PlayerDatabase database : newDatabases) {
             database.start();
             for (PlayerProfile profile : database.getAllData()) {
-                System.out.println(profile);
                 if (allProfiles.get(profile.getPlayerID()) == null) {
                     allProfiles.put(profile.getPlayerID(), profile);
                 } else {
@@ -73,18 +73,16 @@ public class Profiles {
         tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
 
         deleteCol = (TableColumn<PlayerProfile, Void>) tableView.getColumns().get(3);
-        /*
-        deleteCol.setCellValueFactory(col -> new TableCell<PlayerProfile, Void>() {
-            private final Button button;
 
-            {
-                button = new Button("Delete");
-                button.setOnAction(event -> {
-                    PlayerProfile profile = (PlayerProfile) getTableRow().getItem();
-                });
-            }
-        });
-        */
+        deleteCol.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<PlayerProfile, Void>, ObservableValue<Void>>() {
+                    @Override
+                    public ObservableValue<Void> call(TableColumn.CellDataFeatures<PlayerProfile, Void> param) {
+                        return null;
+                    }
+                }
+        );
+
         
 
         tableView.setItems(profiles);

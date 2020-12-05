@@ -80,24 +80,25 @@ public class Game {
         Label playersListLabel = new Label("Players:");
         playersListLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
         playersListLabel.setStyle("-fx-font-weight: bold");
-        playersListLabel.setTextFill(Color.GREEN);
+        playersListLabel.setTextFill(Color.LIGHTGREEN);
         left.getChildren().add(playersListLabel);
 
         for (int i = 0; i < controller.getPlayers().size(); i++) {
             playerTags.add(new Label(controller.getPlayers().get(i).toString()));
             playerTags.get(i).setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
-            playerTags.get(i).setTextFill(Color.BLACK);
+            playerTags.get(i).setTextFill(Color.WHITE);
             left.getChildren().add(playerTags.get(i));
         }
 
         Label actionStateLabel = new Label("Action:");
         actionStateLabel.setStyle("-fx-font-weight: bold");
         actionStateLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
-        actionStateLabel.setTextFill(Color.GREEN);
+        actionStateLabel.setTextFill(Color.LIGHTGREEN);
         left.getChildren().add(actionStateLabel);
 
         actionLabel = new Label(controller.getCurrentState().toString());
         actionLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        actionLabel.setTextFill(Color.WHITE);
         actionLabel.setAlignment(Pos.BOTTOM_CENTER);
         left.getChildren().add(actionLabel);
 
@@ -110,7 +111,7 @@ public class Game {
      */
     private void highlightPlayer() {
         if (highlightedPlayer != null) {
-            highlightedPlayer.setTextFill(Color.BLACK);
+            highlightedPlayer.setTextFill(Color.WHITE);
         }
         highlightedPlayer = playerTags.get(controller.getCurrentPlayerIndex().getValue());
         highlightedPlayer.setTextFill(Color.DEEPPINK);
@@ -180,6 +181,7 @@ public class Game {
         glow.setLevel(0.9);
 
         label = new Label("Drawn Card:");
+        label.setTextFill(Color.WHITE);
         bottom.getChildren().add(label);
         label.setVisible(true);
 
@@ -241,8 +243,7 @@ public class Game {
                     isGameFinished.setValue(true);
                     //end game
                     //display the winners name
-                    //change the leaderboard for the given board
-                    //display two buttons on screen 'go back to menu' and 'quit game'
+
                 }
             }
         });
