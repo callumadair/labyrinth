@@ -141,6 +141,7 @@ public class FloorCard extends Card {
         this.state = FloorTileState.FROZEN;
     }
 
+
     public FloorTileState getState(){
         return state;
     }
@@ -150,7 +151,7 @@ public class FloorCard extends Card {
      */
     public void decrementEffectTimer(){
         effectTimer--;
-        if(effectTimer <= 0){
+        if (effectTimer <= 0) {
             this.setStateToNormal();
             effectTimer = 0;
         }
@@ -180,6 +181,10 @@ public class FloorCard extends Card {
         } else {
             this.effectTimer = effectTimer;
         }
+    }
+
+    public int getEffectTimer() {
+        return effectTimer;
     }
 
     /**
@@ -350,7 +355,7 @@ public class FloorCard extends Card {
     public void setRandomRotation(){
         Random random = new Random();
         int randomRotation = random.nextInt(4);
-        switch (randomRotation){
+        switch (randomRotation) {
             case 0:
                 setRotation(90);
                 break;

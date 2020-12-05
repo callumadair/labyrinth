@@ -82,7 +82,7 @@ public class MenuController extends Application {
     /**
      * Will play the music on the main menu screen
      *
-     * @param filepath
+     * @param filepath the filepath
      */
     public static void playMusic(String filepath) {
         Media music = new Media(new File(filepath).toURI().toString());
@@ -137,6 +137,9 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * Sets background effects.
+     */
     private void setBackgroundEffects() {
         imageView = (ImageView) root.getChildren().get(0);
         imageView.fitWidthProperty().bind(root.widthProperty().multiply(1.1));
@@ -184,6 +187,7 @@ public class MenuController extends Application {
     private void handleQuitButtonAction(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
+        System.exit(100);
     }
 
 
