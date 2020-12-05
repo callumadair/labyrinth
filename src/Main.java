@@ -24,7 +24,7 @@ public class Main extends Application {
         ArrayList<PlayerProfile> players = new ArrayList<>(); // testing only
         players.add(new PlayerProfile("Cal", 1, 3, 1));
         players.add(new PlayerProfile("Luke", 3, 1, 2));
-        Board board = FileManager.loadBoard("board2", players);
+        Board board = FileManager.loadBoard("board3", players);
 
         Game game = new Game(board);
         Scene scene = new Scene(game.getPane(), 800, 600, Color.WHITE);
