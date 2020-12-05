@@ -3,6 +3,7 @@ package menu;
 import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
 import objects.*;
 
@@ -49,11 +50,11 @@ public class Profiles {
     }
 
 
-    /*private static void addColumns(ObservableList<PlayerProfile> profiles) {
+    private static void addColumns(ObservableList<PlayerProfile> profiles) {
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("playerID"));
         tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
-        tableView.getColumns().get(3).setCellValueFactory(param -> new TableCell<PlayerProfile, PlayerProfile>() {
+        /*tableView.getColumns().get(3).setCellValueFactory(param -> new TableCell<PlayerProfile, PlayerProfile>() {
 
             final Button deleteButton = new Button("Delete");
 
@@ -69,8 +70,8 @@ public class Profiles {
                     deleteButton.setOnAction(event -> profiles.remove(profile));
                 }
             }
-        });
-    }*/
+        });*/
+    }
 
     @FXML
     private static void addPlayer(ActionEvent actionEvent) {
