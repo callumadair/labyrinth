@@ -20,7 +20,7 @@
                   <Font name="Quicksand Medium" size="20.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="580.0">
+            <HBox alignment="CENTER">
                <children>
                   <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="NewGame">
                     <items>
@@ -53,8 +53,23 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" text="Leaderboard" />
-            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="580.0">
+            <HBox alignment="CENTER">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openLeaderboard" text="Leaderboard" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveGame" text="Save Game" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#handleLoadGame" text="Load Game">
                      <font>
@@ -70,16 +85,6 @@
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER">
-               <children>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveGame" text="Save Game" />
-                  <TextField text="Save Name">
-                     <font>
-                        <Font name="Quicksand Medium" size="12.0" />
-                     </font>
-                  </TextField>
-               </children>
             </HBox>
          </children>
       </VBox>
