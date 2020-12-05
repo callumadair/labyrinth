@@ -20,7 +20,6 @@ public class Profiles {
     private static ArrayList<PlayerDatabase> databases;
 
     public static BorderPane getAllProfiles(ArrayList<PlayerDatabase> newDatabases) {
-        System.out.println(newDatabases.size());
         Profiles.databases = newDatabases;
         BorderPane root = null;
         try {

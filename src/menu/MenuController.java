@@ -64,32 +64,6 @@ public class MenuController extends Application {
 
 
     /**
-     * Make fade out.
-     *
-     * @param fadeOut the fade out
-     */
-    private void fadeOut(Pane fadeOut) {
-        TranslateTransition windowTransition = new TranslateTransition();
-        windowTransition.setDuration(Duration.millis(500));
-        windowTransition.setNode(fadeOut);
-        windowTransition.setFromX(700);
-        windowTransition.setToX(0);
-        windowTransition.play();
-    }
-
-    /**
-     * Will play the music on the main menu screen
-     *
-     * @param filepath the filepath
-     */
-    public static void playMusic(String filepath) {
-        Media music = new Media(new File(filepath).toURI().toString());
-        menuMusic = new MediaPlayer(music);
-        menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
-        menuMusic.play();
-    }
-
-    /**
      * Creates the Stage for the scenes and loads the MainMenu
      *
      * @param primaryStage
@@ -116,13 +90,23 @@ public class MenuController extends Application {
         }
         setBackgroundEffects();
         addLeaderboards();
-        System.out.println(databases.size());
 
         Scene primaryScene = new Scene(root, 1125, 650);
         stage.setScene(primaryScene);
         stage.show();
     }
 
+    /**
+     * Will play the music on the main menu screen
+     *
+     * @param filepath the filepath
+     */
+    public static void playMusic(String filepath) {
+        Media music = new Media(new File(filepath).toURI().toString());
+        menuMusic = new MediaPlayer(music);
+        menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
+        menuMusic.play();
+    }
 
     /**
      * Button for turning the music on or off
@@ -157,6 +141,20 @@ public class MenuController extends Application {
         backgroundMove.setCycleCount(Animation.INDEFINITE);
         backgroundMove.play();
 
+    }
+
+    /**
+     * Make fade out.
+     *
+     * @param fadeOut the fade out
+     */
+    private void fadeOut(Pane fadeOut) {
+        TranslateTransition windowTransition = new TranslateTransition();
+        windowTransition.setDuration(Duration.millis(500));
+        windowTransition.setNode(fadeOut);
+        windowTransition.setFromX(700);
+        windowTransition.setToX(0);
+        windowTransition.play();
     }
 
     private void addLeaderboards() {
@@ -284,11 +282,13 @@ public class MenuController extends Application {
     private void openLeaderboard(ActionEvent actionEvent) {
         if (leaderboardStage == null) {
             leaderboardStage = new Stage();
-            BorderPane leaderboardPane = Leaderboard.getLeaderboard(boardName);
-            Scene leaderboard = new Scene(leaderboardPane, 350, 450);
-            leaderboardStage.setScene(leaderboard);
-            leaderboardStage.show();
+        } else {
+            leaderboardStage.close();
         }
+        BorderPane leaderboardPane = Leaderboard.getLeaderboard(boardName);
+        Scene leaderboard = new Scene(leaderboardPane, 350, 450);
+        leaderboardStage.setScene(leaderboard);
+        leaderboardStage.show();
     }
 
     /**
@@ -298,7 +298,7 @@ public class MenuController extends Application {
      */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
-        System.out.println(databases.size());
+        addLeaderboards();
         borderPane.setCenter(Profiles.getAllProfiles(databases));
     }
 
