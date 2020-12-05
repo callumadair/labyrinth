@@ -62,6 +62,15 @@ public class MenuController extends Application {
         launch(args);
     }
 
+    @FXML
+    public void initialize() {
+
+    }
+
+    @Override
+    public void init(){
+
+    }
 
     /**
      * Make fade out.

@@ -88,6 +88,9 @@ public class Board {
         for(int i = 0; i < players.size(); i++){
             players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
         }
+
+        players.get(0).setCurrentPlayer(true);
+
         assignInsertPositions();
     }
 

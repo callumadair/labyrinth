@@ -71,7 +71,11 @@ public class Controller {
      */
     public void startGame() {
         numOfPlayers = players.size() - 1;
-        currentPlayer = players.get(playerIndex);
+        for(PlayerController player : players){
+            if(player.isCurrentPlayer()){
+                this.playerIndex = player.getPlayerIndex();
+            }
+        }
         currentPlayerIndex = new SimpleIntegerProperty(playerIndex);
         cardSelectionFlag = new SimpleBooleanProperty(false);
         stateChangeFlag = new SimpleBooleanProperty(false);
