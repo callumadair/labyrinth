@@ -19,8 +19,9 @@ public class Profiles {
     private static TableView<PlayerProfile> tableView = new TableView<>();
     private static ArrayList<PlayerDatabase> databases;
 
-    public static BorderPane getAllProfiles(ArrayList<PlayerDatabase> databases) {
-        Profiles.databases = databases;
+    public static BorderPane getAllProfiles(ArrayList<PlayerDatabase> newDatabases) {
+        System.out.println(newDatabases.size());
+        Profiles.databases = newDatabases;
         BorderPane root = null;
         try {
             root = FXMLLoader.load(Profiles.class.getResource("Profiles.fxml"));
@@ -30,9 +31,11 @@ public class Profiles {
         tableView = (TableView<PlayerProfile>) root.getCenter();
 
         HashMap<Integer, PlayerProfile> allProfiles = new HashMap<>();
-        for (PlayerDatabase database : databases) {
+        System.out.println(newDatabases.size());
+        for (PlayerDatabase database : newDatabases) {
             database.start();
             for (PlayerProfile profile : database.getAllData()) {
+                System.out.println(profile);
                 if (allProfiles.get(profile.getPlayerID()) == null) {
                     allProfiles.put(profile.getPlayerID(), profile);
                 } else {
@@ -44,7 +47,7 @@ public class Profiles {
         }
         ObservableList<PlayerProfile> profiles = FXCollections.observableArrayList(
                 new ArrayList<>(allProfiles.values()));
-        //addColumns(profiles);
+        addColumns(profiles);
 
         return root;
     }
@@ -71,6 +74,7 @@ public class Profiles {
                 }
             }
         });*/
+        tableView.setItems(profiles);
     }
 
     @FXML
