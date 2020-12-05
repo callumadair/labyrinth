@@ -79,6 +79,7 @@ public class FileManager {
 
     /**
      * Counts the number of each type of card in the silk bag
+     *
      * @param cardsInBag
      * @return
      */
@@ -119,6 +120,7 @@ public class FileManager {
 
     /**
      * Gets the player's details
+     *
      * @param player
      * @return
      */
@@ -151,7 +153,7 @@ public class FileManager {
         return player.getProfile().getPlayerName() + " " + player.getProfile().getVictories() + " "
                 + player.getProfile().getLosses() + " " + player.getProfile().getPlayerID() + " "
                 + player.getPlayerIndex() + " " + player.getX() + " " + player.getY() + " " + player.isCurrentPlayer()
-                + " " + vals.toString();
+                + " " + player.isBackTracked() + " " + vals.toString();
     }
 
     /**
@@ -219,6 +221,7 @@ public class FileManager {
 
     /**
      * Allows the fire and Ice action cards to have an effect
+     *
      * @param floorCard
      * @param effect
      * @param time
@@ -236,6 +239,7 @@ public class FileManager {
 
     /**
      * Method to control the player around the board
+     *
      * @param info
      * @return
      */
@@ -248,6 +252,7 @@ public class FileManager {
         newController.setX(playerScanner.nextInt());
         newController.setY(playerScanner.nextInt());
         newController.setCurrentPlayer(playerScanner.nextBoolean());
+        newController.setBackTracked(playerScanner.nextBoolean());
 
         int[] cardValues = new int[4];
         for (int i = 0; i < cardValues.length; i++) {
@@ -277,6 +282,7 @@ public class FileManager {
 
     /**
      * Load the cards so that they are in the silk bag
+     *
      * @param silkBagCards
      * @param scanner
      * @return
@@ -351,6 +357,7 @@ public class FileManager {
 
     /**
      * Creates the floor cards
+     *
      * @param num
      * @param type
      * @param cards
@@ -363,6 +370,7 @@ public class FileManager {
 
     /**
      * Creates the action cards
+     *
      * @param num
      * @param type
      * @param cards
