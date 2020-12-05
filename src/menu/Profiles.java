@@ -89,8 +89,6 @@ public class Profiles {
     @FXML
     private void setDeleteButton(ActionEvent actionEvent) {
         PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
-        System.out.println(profile);
-        System.out.println("Delete");
         tableView.getItems().remove(profile);
         for (PlayerDatabase database : databases) {
             database.deletePlayer(profile);
