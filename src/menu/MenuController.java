@@ -253,7 +253,7 @@ public class MenuController extends Application {
     }
 
     /**
-     * This will handle the button to load a saved game.
+     * Handle button to load game
      * @param actionEvent
      * @throws FileNotFoundException
      */
@@ -277,7 +277,7 @@ public class MenuController extends Application {
     }
 
     /**
-     * This will handle the button to save the game.
+     * Button to save the game
      * @param actionEvent
      * @throws IOException
      */
@@ -291,7 +291,7 @@ public class MenuController extends Application {
     }
 
     /**
-     * Will open up the leaderboard after this button is pressed
+     * Opens up leaderboard
      *
      * @param actionEvent
      */
@@ -307,7 +307,7 @@ public class MenuController extends Application {
     }
 
     /**
-     * Will return all player profiles
+     * Returns all player profiles
      *
      * @param actionEvent
      */

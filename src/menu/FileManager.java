@@ -276,7 +276,7 @@ public class FileManager {
     }
 
     /**
-     * Will load the cards so that they are in the silk bag
+     * Load the cards so that they are in the silk bag
      * @param silkBagCards
      * @param scanner
      * @return
