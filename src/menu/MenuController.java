@@ -43,8 +43,6 @@ public class MenuController extends Application {
     @FXML
     private Pane mainView;
     @FXML
-    private Label textLabelID;
-    @FXML
     private ImageView imageView;
     @FXML
     private Button musicOnOffButton;
@@ -231,6 +229,8 @@ public class MenuController extends Application {
         boardName = ((TextField) ((HBox) ((Button)
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
+
+        //TESTING
         players = new ArrayList<>();
         players.add(new PlayerProfile("Cal", 1, 3, 1));
         players.add(new PlayerProfile("Luke", 3, 1, 2));
@@ -298,7 +298,6 @@ public class MenuController extends Application {
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
         borderPane.setCenter(Profiles.getAllProfiles(databases));
-
     }
 
     private void gameFinishedListener() {
