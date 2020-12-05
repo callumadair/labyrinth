@@ -245,6 +245,7 @@ public class MenuController extends Application {
         boardName = ((Button) actionEvent.getSource()).getText();
 
         //TESTING
+
         players = new ArrayList<>();
         players.add(new PlayerProfile("Cal", 1, 3, 1));
         players.add(new PlayerProfile("Luke", 3, 1, 2));
@@ -309,6 +310,8 @@ public class MenuController extends Application {
         } else {
             leaderboardStage.close();
         }
+
+        boardName = ((Button) actionEvent.getSource()).getText();
         BorderPane leaderboardPane = Leaderboard.getLeaderboard(boardName);
         Scene leaderboard = new Scene(leaderboardPane, 350, 450);
         leaderboardStage.setScene(leaderboard);
