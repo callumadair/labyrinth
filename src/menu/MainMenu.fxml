@@ -5,6 +5,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -87,7 +89,7 @@
                         <Font name="Quicksand Medium" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="50.0" right="15.0" top="15.0" />
+                        <Insets left="40.0" right="15.0" top="15.0" />
                      </HBox.margin>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="30.0" text="Menu" textAlignment="CENTER" textFill="#191640">
@@ -106,7 +108,30 @@
                         <Insets left="5.0" right="10.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="500.0" text="Labyrinth" textAlignment="CENTER" textFill="#191640">
+                  <MenuButton mnemonicParsing="false" text="Select Leaderboard" textFill="#191640">
+                    <items>
+                      <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board1" />
+                           </graphic></MenuItem>
+                      <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board2" />
+                           </graphic></MenuItem>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" onAction="#openLeaderboard" text="board3" />
+                           </graphic>
+                        </MenuItem>
+                    </items>
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Quicksand Medium" size="14.0" />
+                     </font>
+                  </MenuButton>
+                  <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="140.0" text="Labyrinth" textAlignment="CENTER" textFill="#191640">
                      <font>
                         <Font name="Quicksand Medium" size="24.0" />
                      </font>
