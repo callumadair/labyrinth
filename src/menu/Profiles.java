@@ -1,13 +1,13 @@
 package menu;
 
 import javafx.collections.*;
+import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
 import objects.*;
 
-import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
@@ -21,6 +21,7 @@ public class Profiles {
     @FXML
     private static TableView<PlayerProfile> tableView = new TableView<>();
     private static ArrayList<PlayerDatabase> databases;
+    private static TableColumn<PlayerProfile, Void> deleteCol;
 
     /**
      * Gets all profiles.
@@ -32,7 +33,8 @@ public class Profiles {
         Profiles.databases = newDatabases;
         BorderPane root = null;
         try {
-            root = FXMLLoader.load(Profiles.class.getResource("Profiles.fxml"));
+            FXMLLoader profileLoader = new FXMLLoader(Profiles.class.getResource("Profiles.fxml"));
+            root = profileLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,46 +64,43 @@ public class Profiles {
 
     /**
      * Fill out the columns with data from the databases
+     *
      * @param profiles
      */
     private static void addColumns(ObservableList<PlayerProfile> profiles) {
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("playerID"));
         tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
-        /*tableView.getColumns().get(3).setCellValueFactory(param -> new TableCell<PlayerProfile, PlayerProfile>() {
 
-            final Button deleteButton = new Button("Delete");
+        deleteCol = (TableColumn<PlayerProfile, Void>) tableView.getColumns().get(3);
+        /*
+        deleteCol.setCellValueFactory(col -> new TableCell<PlayerProfile, Void>() {
+            private final Button button;
 
-            @Override
-            protected void updateItem(PlayerProfile profile, boolean empty) {
-                super.updateItem(profile, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    return;
-                } else {
-                    setGraphic(deleteButton);
-                    deleteButton.setOnAction(event -> profiles.remove(profile));
-                }
+            {
+                button = new Button("Delete");
+                button.setOnAction(event -> {
+                    PlayerProfile profile = (PlayerProfile) getTableRow().getItem();
+                });
             }
-        });*/
+        });
+        */
+        
+
         tableView.setItems(profiles);
     }
 
-    /**
-     * Adds another playerProfile
-     * @param actionEvent
-     */
     @FXML
-    private static void addPlayer(ActionEvent actionEvent) {
-        String name = ((TextField) ((HBox) ((Button) actionEvent.getSource()).getParent())
-                .getChildren().get(1)).getText();
-        int id = Integer.parseInt(((TextField) ((HBox) ((Button) actionEvent.getSource()).getParent())
-                .getChildren().get(2)).getText());
+    private void addPlayer(ActionEvent actionEvent) {
+        String name = ((TextField)
+                ((Button) actionEvent.getSource()).getParent().getChildrenUnmodifiable().get(1)).getText();
+        int id = Integer.parseInt(((TextField)
+                ((Button) actionEvent.getSource()).getParent().getChildrenUnmodifiable().get(2)).getText());
 
-        PlayerProfile newPlayer = new PlayerProfile(name, 0, 0, id);
-        System.out.println(newPlayer);
-
-        System.out.println(actionEvent.getSource());
+        PlayerProfile newProfile = new PlayerProfile(name, 0, 0, id);
+        for (PlayerDatabase database : databases) {
+            database.storePlayer(newProfile);
+        }
     }
 }
+

@@ -25,7 +25,7 @@ public class PlayerDatabase {
             String sql = "create table if not exists PLAYER (" +
                     "PLAYER_NAME varchar(50), " +
                     "VICTORIES int, " +
-                    "LOSSES int" +
+                    "LOSSES int," +
                     "ID int);";
             executeSQL(sql);
         } catch (SQLException e) {

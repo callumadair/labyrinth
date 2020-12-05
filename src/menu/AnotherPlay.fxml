@@ -26,7 +26,7 @@
                     <items>
                       <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Button defaultButton="true" mnemonicParsing="false" onAction="#handleNewGame" text="board1">
+                              <Button mnemonicParsing="false" onAction="#handleNewGame" text="board1">
                                  <font>
                                     <Font name="Quicksand Medium" size="12.0" />
                                  </font>
@@ -38,7 +38,7 @@
                               <Button mnemonicParsing="false" onAction="#handleNewGame" text="board2" />
                            </graphic>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Unspecified Action">
+                        <MenuItem mnemonicParsing="false">
                            <graphic>
                               <Button mnemonicParsing="false" onAction="#handleNewGame" text="board3" />
                            </graphic>

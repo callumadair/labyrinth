@@ -37,7 +37,8 @@ public class MenuController extends Application implements Initializable {
     private String boardName;
     private Board board;
     private ArrayList<PlayerProfile> players;
-    private FXMLLoader loader;
+    private FXMLLoader menuLoader;
+    private FXMLLoader playLoader;
     @FXML
     private StackPane root;
     @FXML
@@ -67,7 +68,8 @@ public class MenuController extends Application implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        playLoader = new FXMLLoader(getClass().getResource("AnotherPlay.fxml"));
     }
 
     /**
@@ -82,9 +84,9 @@ public class MenuController extends Application implements Initializable {
 
         stage = primaryStage;
         root = null;
-        loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
         try {
-            root = loader.load();
+            root = menuLoader.load();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,7 +99,7 @@ public class MenuController extends Application implements Initializable {
             e.printStackTrace();
         }
         setBackgroundEffects();
-        addLeaderboards();
+        addDatabases();
 
         Scene primaryScene = new Scene(root, 1125, 650);
         stage.setScene(primaryScene);
@@ -165,7 +167,7 @@ public class MenuController extends Application implements Initializable {
         windowTransition.play();
     }
 
-    private void addLeaderboards() {
+    private void addDatabases() {
         databases.add(new PlayerDatabase("board1"));
         databases.add(new PlayerDatabase("board2"));
         databases.add(new PlayerDatabase("board3"));
@@ -180,7 +182,7 @@ public class MenuController extends Application implements Initializable {
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            mainView = FXMLLoader.load(MenuController.class.getResource("/menu/AnotherPlay.fxml"));
+            mainView = playLoader.load();
             fadeOut(mainView);
             borderPane.setCenter(mainView);
 
@@ -213,8 +215,8 @@ public class MenuController extends Application implements Initializable {
     private void handleMenuButton(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            StackPane menu = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            mainView = (Pane) ((BorderPane) menu.getChildren().get(1)).getChildren().get(0);
+            root = menuLoader.load();
+            mainView = (Pane) ((BorderPane) root.getChildren().get(1)).getChildren().get(0);
             fadeOut(mainView);
             borderPane.setCenter(mainView);
 
@@ -319,14 +321,10 @@ public class MenuController extends Application implements Initializable {
      */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
-        addLeaderboards();
+        addDatabases();
         borderPane.setCenter(Profiles.getAllProfiles(databases));
     }
 
-    @FXML
-    private void addPlayer(ActionEvent actionEvent) {
-
-    }
 
     private void gameFinishedListener() {
         game.getIsGameFinished().addListener(new ChangeListener<Boolean>() {
@@ -334,7 +332,7 @@ public class MenuController extends Application implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (game.getIsGameFinished().getValue()) {
                     PlayerDatabase curDatabase = new PlayerDatabase(boardName);
-                    curDatabase.start(boardName);
+                    curDatabase.start();
                     for (PlayerController playerController : board.getPlayers()) {
                         curDatabase.updatePlayer(playerController.getProfile());
                     }
