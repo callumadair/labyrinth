@@ -1,5 +1,7 @@
 package objects;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -28,6 +30,7 @@ public class Game {
 
     private Controller controller;
     private BorderPane pane;
+    private BooleanProperty isGameFinished = new SimpleBooleanProperty(false);
 
     //Left
     private ArrayList<Label> playerTags;
@@ -234,6 +237,7 @@ public class Game {
                     actionLabel.setText(controller.getCurrentState().toString());
                     clearDisplayedCards();
                 } else if (controller.getCurrentState() == Controller.GameState.VICTORY) {
+                    isGameFinished.setValue(true);
                     //end game
                     //display the winners name
                     //change the leaderboard for the given board
@@ -301,6 +305,10 @@ public class Game {
      */
     public BorderPane getPane() {
         return pane;
+    }
+
+    public BooleanProperty getIsGameFinished(){
+        return isGameFinished;
     }
 }
 

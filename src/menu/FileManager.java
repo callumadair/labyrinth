@@ -162,11 +162,11 @@ public class FileManager {
                 index++;
             }
         }
-        insertedCards.removeIf(FloorCard::isFixed);
 
         ArrayList<Card> silkBagCards = new ArrayList<>();
         loadSilkBagCards(silkBagCards, scanner);
         SilkBag silkBag = new SilkBag(silkBagCards.size());
+        silkBag.setListOfCards(silkBagCards);
         scanner.nextLine();
 
         ArrayList<PlayerController> players = new ArrayList<>();

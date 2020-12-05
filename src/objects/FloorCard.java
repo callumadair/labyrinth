@@ -92,7 +92,6 @@ public class FloorCard extends Card {
         this.x = x;
         this.y = y;
         setRotation(rotation);
-        this.isFixed = true;
     }
 
     /**
@@ -140,6 +139,10 @@ public class FloorCard extends Card {
     public void setOnIce(int effectTimer) {
         setEffectTimer(effectTimer);
         this.state = FloorTileState.FROZEN;
+    }
+
+    public FloorTileState getState(){
+        return state;
     }
 
     /**

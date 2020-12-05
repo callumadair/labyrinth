@@ -63,7 +63,7 @@ public class Board {
         this.silkBag = silkBag;
         this.fixedTiles = fixedTiles;
         this.players = players;
-        setup();
+        setupInProgressGame(existingFloorCards);
     }
 
     /**
@@ -88,6 +88,25 @@ public class Board {
         for(int i = 0; i < players.size(); i++){
             players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
         }
+        assignInsertPositions();
+    }
+
+    /**
+     *Setup the board.
+     */
+    private void setupInProgressGame(ArrayList<FloorCard> floorCards) {
+        map = new FloorCard[width][height];
+
+        for (FloorCard card : floorCards) {
+            if(card.getState() == FloorCard.FloorTileState.FROZEN){
+                frozenTiles.add(card);
+            } else if(card.getState() == FloorCard.FloorTileState.FIRE){
+                tilesOnFire.add(card);
+            }
+
+            map[card.getX()][card.getY()] = card;
+        }
+
         assignInsertPositions();
     }
 
