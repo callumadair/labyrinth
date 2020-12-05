@@ -11,6 +11,9 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The type Profiles.
+ */
 public class Profiles {
 
     @FXML
@@ -19,6 +22,12 @@ public class Profiles {
     private static TableView<PlayerProfile> tableView = new TableView<>();
     private static ArrayList<PlayerDatabase> databases;
 
+    /**
+     * Gets all profiles.
+     *
+     * @param newDatabases the new databases
+     * @return the all profiles
+     */
     public static BorderPane getAllProfiles(ArrayList<PlayerDatabase> newDatabases) {
         Profiles.databases = newDatabases;
         BorderPane root = null;
@@ -51,7 +60,10 @@ public class Profiles {
         return root;
     }
 
-
+    /**
+     * Fill out the columns with data from the databases
+     * @param profiles
+     */
     private static void addColumns(ObservableList<PlayerProfile> profiles) {
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("playerID"));
@@ -76,6 +88,10 @@ public class Profiles {
         tableView.setItems(profiles);
     }
 
+    /**
+     * Adds another playerProfile
+     * @param actionEvent
+     */
     @FXML
     private static void addPlayer(ActionEvent actionEvent) {
         String name = ((TextField) ((HBox) ((Button) actionEvent.getSource()).getParent())

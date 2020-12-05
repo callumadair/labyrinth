@@ -220,6 +220,11 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * Creates a new game for a board
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
         if (gameStage != null) {
@@ -245,6 +250,11 @@ public class MenuController extends Application {
         gameStage.show();
     }
 
+    /**
+     * Handle button to load game
+     * @param actionEvent
+     * @throws FileNotFoundException
+     */
     @FXML
     private void handleLoadGame(ActionEvent actionEvent) throws FileNotFoundException {
         if (gameStage != null) {
@@ -264,6 +274,11 @@ public class MenuController extends Application {
         gameStage.show();
     }
 
+    /**
+     * Button to save the game
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void handleSaveGame(ActionEvent actionEvent) throws IOException {
         System.out.println(board);
@@ -274,7 +289,7 @@ public class MenuController extends Application {
     }
 
     /**
-     * Will open up the leaderboard after this button is pressed
+     * Opens up leaderboard
      *
      * @param actionEvent
      */
@@ -292,7 +307,7 @@ public class MenuController extends Application {
     }
 
     /**
-     * Will return all player profiles
+     * Returns all player profiles
      *
      * @param actionEvent
      */

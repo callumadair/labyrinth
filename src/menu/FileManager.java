@@ -235,7 +235,7 @@ public class FileManager {
     }
 
     /**
-     * Method to control the player
+     * Method to control the player around the board
      * @param info
      * @return
      */
@@ -276,7 +276,7 @@ public class FileManager {
     }
 
     /**
-     * Will load the cards so that they are in the silk bag
+     * Load the cards so that they are in the silk bag
      * @param silkBagCards
      * @param scanner
      * @return
@@ -349,12 +349,24 @@ public class FileManager {
         return new Board(width, height, spawnPoints, fixed, silkBag, players);
     }
 
+    /**
+     * Creates the floor cards
+     * @param num
+     * @param type
+     * @param cards
+     */
     private static void createFloorCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new FloorCard(type));
         }
     }
 
+    /**
+     * Creates the action cards
+     * @param num
+     * @param type
+     * @param cards
+     */
     private static void createActionCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new ActionCard(type));
