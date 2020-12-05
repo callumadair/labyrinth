@@ -1,13 +1,11 @@
 package menu;
 
-import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
-import javafx.util.*;
 import objects.*;
 
 import java.io.*;
@@ -19,11 +17,10 @@ import java.util.*;
 public class Profiles {
 
     @FXML
-    private final Button deleteButton = new Button("Delete");
+    private static final Button deleteButton = new Button("Delete");
     @FXML
     private static TableView<PlayerProfile> tableView = new TableView<>();
     private static ArrayList<PlayerDatabase> databases;
-    private static TableColumn<PlayerProfile, Void> deleteCol;
 
     /**
      * Gets all profiles.
@@ -72,20 +69,8 @@ public class Profiles {
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("playerID"));
         tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
 
-        deleteCol = (TableColumn<PlayerProfile, Void>) tableView.getColumns().get(3);
-
-        deleteCol.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<PlayerProfile, Void>, ObservableValue<Void>>() {
-                    @Override
-                    public ObservableValue<Void> call(TableColumn.CellDataFeatures<PlayerProfile, Void> param) {
-                        return null;
-                    }
-                }
-        );
-
-        
-
         tableView.setItems(profiles);
+
     }
 
     @FXML
@@ -98,6 +83,17 @@ public class Profiles {
         PlayerProfile newProfile = new PlayerProfile(name, 0, 0, id);
         for (PlayerDatabase database : databases) {
             database.storePlayer(newProfile);
+        }
+    }
+
+    @FXML
+    private void setDeleteButton(ActionEvent actionEvent) {
+        PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
+        System.out.println(profile);
+        System.out.println("Delete");
+        tableView.getItems().remove(profile);
+        for (PlayerDatabase database : databases) {
+            database.deletePlayer(profile);
         }
     }
 }

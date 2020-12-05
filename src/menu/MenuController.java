@@ -2,8 +2,7 @@ package menu;
 
 import javafx.animation.*;
 import javafx.application.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.value.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -18,7 +17,6 @@ import javafx.util.*;
 import objects.*;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 /**
@@ -28,7 +26,7 @@ import java.util.*;
  * @author Callum Adair
  * @author Jeffrey
  */
-public class MenuController extends Application implements Initializable {
+public class MenuController extends Application {
 
     private Stage stage;
     private Stage gameStage;
@@ -65,12 +63,6 @@ public class MenuController extends Application implements Initializable {
         launch(args);
     }
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
-        playLoader = new FXMLLoader(getClass().getResource("AnotherPlay.fxml"));
-    }
 
     /**
      * Creates the Stage for the scenes and loads the MainMenu
@@ -182,7 +174,7 @@ public class MenuController extends Application implements Initializable {
     private void handlePlayButtonAction(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            mainView = playLoader.load();
+            mainView = FXMLLoader.load(getClass().getResource("AnotherPLay.fxml"));
             fadeOut(mainView);
             borderPane.setCenter(mainView);
 
@@ -215,7 +207,7 @@ public class MenuController extends Application implements Initializable {
     private void handleMenuButton(ActionEvent actionEvent) {
         borderPane.getChildren().remove(mainView);
         try {
-            root = menuLoader.load();
+            root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             mainView = (Pane) ((BorderPane) root.getChildren().get(1)).getChildren().get(0);
             fadeOut(mainView);
             borderPane.setCenter(mainView);
