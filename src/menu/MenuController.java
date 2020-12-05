@@ -43,8 +43,6 @@ public class MenuController extends Application {
     @FXML
     private Pane mainView;
     @FXML
-    private Label textLabelID;
-    @FXML
     private ImageView imageView;
     @FXML
     private Button musicOnOffButton;
@@ -64,6 +62,15 @@ public class MenuController extends Application {
         launch(args);
     }
 
+    @FXML
+    public void initialize() {
+
+    }
+
+    @Override
+    public void init(){
+
+    }
 
     /**
      * Make fade out.
@@ -117,11 +124,14 @@ public class MenuController extends Application {
             e.printStackTrace();
         }
         setBackgroundEffects();
+        addLeaderboards();
+        System.out.println(databases.size());
 
         Scene primaryScene = new Scene(root, 1125, 650);
         stage.setScene(primaryScene);
         stage.show();
     }
+
 
     /**
      * Button for turning the music on or off
@@ -156,6 +166,12 @@ public class MenuController extends Application {
         backgroundMove.setCycleCount(Animation.INDEFINITE);
         backgroundMove.play();
 
+    }
+
+    private void addLeaderboards() {
+        databases.add(new PlayerDatabase("board1"));
+        databases.add(new PlayerDatabase("board2"));
+        databases.add(new PlayerDatabase("board3"));
     }
 
     /**
@@ -223,12 +239,15 @@ public class MenuController extends Application {
         boardName = ((TextField) ((HBox) ((Button)
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
+
+        //TESTING
         players = new ArrayList<>();
         players.add(new PlayerProfile("Cal", 1, 3, 1));
         players.add(new PlayerProfile("Luke", 3, 1, 2));
 
         board = FileManager.loadBoard(boardName, players);
         game = new Game(board);
+        gameFinishedListener();
 
         BorderPane gamePane = game.getPane();
         Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
@@ -247,6 +266,7 @@ public class MenuController extends Application {
 
         board = FileManager.loadGame(fileName);
         game = new Game(board);
+        gameFinishedListener();
 
         BorderPane gamePane = game.getPane();
         Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
@@ -260,8 +280,8 @@ public class MenuController extends Application {
         System.out.println(board);
         System.out.println(board.getHeight());
         System.out.println(board.getWidth());
-        FileManager.saveGame(board, ((TextField) ((HBox) ((Button)
-                actionEvent.getSource()).getParent()).getChildren().get(1)).getText());
+
+        FileManager.saveGame(board, boardName + "save");
     }
 
     /**
@@ -287,16 +307,20 @@ public class MenuController extends Application {
      */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
+        System.out.println(databases.size());
         borderPane.setCenter(Profiles.getAllProfiles(databases));
-
     }
 
-    private void gameFinishedListener(){
+    private void gameFinishedListener() {
         game.getIsGameFinished().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(game.getIsGameFinished().getValue()){
-                    
+                if (game.getIsGameFinished().getValue()) {
+                    PlayerDatabase curDatabase = new PlayerDatabase(boardName);
+                    curDatabase.start(boardName);
+                    for (PlayerController playerController : board.getPlayers()) {
+                        curDatabase.updatePlayer(playerController.getProfile());
+                    }
                 }
             }
         });

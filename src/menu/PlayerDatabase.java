@@ -13,11 +13,21 @@ import java.util.*;
 public class PlayerDatabase {
     private String url;
 
+    PlayerDatabase(String boardName) {
+        this.url = "jdbc:sqlite:src/resources/" + boardName + ".db";
+    }
+
     public void start() {
         try (Connection conn = connect()) {
             if (conn != null) {
                 System.out.println("Connection successful.");
             }
+            String sql = "create table if not exists PLAYER (" +
+                    "PLAYER_NAME varchar(50), " +
+                    "VICTORIES int, " +
+                    "LOSSES int" +
+                    "ID int);";
+            executeSQL(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -30,13 +40,7 @@ public class PlayerDatabase {
      */
     public void start(String boardName) {
         url = "jdbc:sqlite:src/resources/" + boardName + ".db";
-        try (Connection conn = connect()) {
-            if (conn != null) {
-                System.out.println("Connection successful.");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        start();
     }
 
     private Connection connect() {
