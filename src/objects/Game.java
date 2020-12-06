@@ -241,6 +241,16 @@ public class Game {
                     clearDisplayedCards();
                 } else if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     isGameFinished.setValue(true);
+                    Label victoryText = new Label("Player: " +
+                            controller.getCurrentPlayer().getProfile().getPlayerName() + " Won!");
+                    victoryText.setTextFill(Color.GOLD);
+                    victoryText.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+                    victoryText.setStyle("-fx-font-weight: bold");
+                    victoryText.setAlignment(Pos.CENTER);
+                    VBox box = new VBox();
+                    box.setAlignment(Pos.CENTER);
+                    box.getChildren().add(victoryText);
+                    pane.setTop(box);
                 }
             }
         });

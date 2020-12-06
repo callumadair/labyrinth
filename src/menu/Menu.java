@@ -126,6 +126,7 @@ public class Menu extends Application {
 
         Scene primaryScene = new Scene(root, 1125, 700);
         stage.setScene(primaryScene);
+        stage.setTitle("Night Crawlers");
         stage.show();
     }
 
