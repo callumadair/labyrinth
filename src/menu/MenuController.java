@@ -30,7 +30,7 @@ import java.util.*;
  * @author Jeffrey
  * @author Kacper L
  */
-public class Menu extends Application {
+public class MenuController extends Application {
 
     private final ArrayList<PlayerDatabase> databases = new ArrayList<>();
 

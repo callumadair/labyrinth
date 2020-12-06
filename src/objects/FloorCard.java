@@ -257,6 +257,11 @@ public class FloorCard extends Card {
 
     /**
      * Use card.
+     *
+     * @param board the board
+     * @param x     the x
+     * @param y     the y
+     * @return the boolean
      */
     @Override
     public boolean useCard(Board board, int x, int y) {

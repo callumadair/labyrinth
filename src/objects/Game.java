@@ -76,28 +76,34 @@ public class Game {
     private void createLeftPane() {
         playerTags = new ArrayList<>();
         VBox left = new VBox();
+        final int FONT_SIZE = 20;
 
         Label playersListLabel = new Label("Players:");
-        playersListLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        playersListLabel.setFont(Font.font("QuickSand medium",
+                FontPosture.REGULAR, FONT_SIZE));
         playersListLabel.setStyle("-fx-font-weight: bold");
         playersListLabel.setTextFill(Color.LIGHTGREEN);
         left.getChildren().add(playersListLabel);
 
         for (int i = 0; i < controller.getPlayers().size(); i++) {
             playerTags.add(new Label(controller.getPlayers().get(i).toString()));
-            playerTags.get(i).setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+            playerTags.get(i).setFont(Font.font("QuickSand medium",
+                    FontPosture.REGULAR, 20));
             playerTags.get(i).setTextFill(Color.WHITE);
             left.getChildren().add(playerTags.get(i));
         }
 
         Label actionStateLabel = new Label("Action:");
         actionStateLabel.setStyle("-fx-font-weight: bold");
-        actionStateLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        actionStateLabel.setFont(Font.font("QuickSand medium",
+                FontPosture.REGULAR, 20));
         actionStateLabel.setTextFill(Color.LIGHTGREEN);
         left.getChildren().add(actionStateLabel);
 
         actionLabel = new Label(controller.getCurrentState().toString());
-        actionLabel.setFont(Font.font("QuickSand medium", FontPosture.REGULAR, 20));
+        actionLabel.setFont(Font.font("QuickSand medium",
+                FontPosture.REGULAR
+                , 20));
         actionLabel.setTextFill(Color.WHITE);
         actionLabel.setAlignment(Pos.BOTTOM_CENTER);
         left.getChildren().add(actionLabel);
@@ -113,7 +119,8 @@ public class Game {
         if (highlightedPlayer != null) {
             highlightedPlayer.setTextFill(Color.WHITE);
         }
-        highlightedPlayer = playerTags.get(controller.getCurrentPlayerIndex().getValue());
+        highlightedPlayer =
+                playerTags.get(controller.getCurrentPlayerIndex().getValue());
         highlightedPlayer.setTextFill(Color.DEEPPINK);
     }
 
@@ -200,7 +207,8 @@ public class Game {
     private void listenForPlayerChange() {
         controller.getCurrentPlayerIndex().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            public void changed(ObservableValue<? extends Number> observable,
+                                Number oldValue, Number newValue) {
                 highlightPlayer();
             }
         });
@@ -212,7 +220,8 @@ public class Game {
     private void listenForCardChange() {
         controller.getCardSelectionFlag().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            public void changed(ObservableValue<? extends Boolean> observable
+                    , Boolean oldValue, Boolean newValue) {
                 if (controller.getPlayingCard() != null) {
                     playingCardImage.setImage(controller.getPlayingCard().getImage());
                 } else {
@@ -228,7 +237,8 @@ public class Game {
     private void listenForStateChange() {
         controller.getStateChangeFlag().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            public void changed(ObservableValue<? extends Boolean> observable
+                    , Boolean oldValue, Boolean newValue) {
                 if (controller.getCurrentState() == Controller.GameState.DRAWING) {
                     label.setText("Card Drawn:");
                 } else if (controller.getCurrentState() == Controller.GameState.INSERTING) {
@@ -320,12 +330,17 @@ public class Game {
     /**
      * Get canvas.
      *
-     * @return Canvas.
+     * @return Canvas. canvas
      */
     public Canvas getCanvas() {
         return controller.getCanvas();
     }
 
+    /**
+     * Gets controller.
+     *
+     * @return the controller
+     */
     public Controller getController() {
         return controller;
     }

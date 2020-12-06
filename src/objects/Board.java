@@ -103,6 +103,8 @@ public class Board {
 
     /**
      * Setup in progress game.
+     *
+     * @param floorCards the floor cards
      */
     private void setupInProgressGame(ArrayList<FloorCard> floorCards) {
         map = new FloorCard[width][height];
@@ -352,7 +354,7 @@ public class Board {
      * @param x      the x new position.
      * @param y      the y new position.
      */
-    //use only when loading a board from a save file
+//use only when loading a board from a save file
     public void setPlayerPosition(PlayerController player, int x, int y) {
         player.setX(x);
         player.setY(y);

@@ -266,7 +266,8 @@ public class ActionCard extends Card {
     /**
      * Sets the fire effect timer.
      *
-     * @return
+     * @param board the board
+     * @return int
      */
     private int fireEffectTimer(Board board) {
         return (board.getPlayers().size() * 2);
@@ -275,7 +276,8 @@ public class ActionCard extends Card {
     /**
      * Sets the ice effect timer.
      *
-     * @return
+     * @param board the board
+     * @return int
      */
     private int iceEffectTimer(Board board) {
         return board.getPlayers().size();
