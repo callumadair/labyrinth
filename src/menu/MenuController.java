@@ -69,11 +69,19 @@ public class MenuController extends Application {
         launch(args);
     }
 
+    /**
+     * The enum Menu window.
+     */
     public enum MenuWindow {
         MAIN(0), PLAY(1), PROFILES(2);
 
         public final int index;
 
+        /**
+         * Instantiates a new Menu window.
+         *
+         * @param index the index
+         */
         private MenuWindow(int index){
             this.index = index;
         }
@@ -163,6 +171,9 @@ public class MenuController extends Application {
         backgroundMove.play();
     }
 
+    /**
+     * Add databases.
+     */
     private void addDatabases() {
         databases.add(new PlayerDatabase("board1"));
         databases.add(new PlayerDatabase("board2"));
@@ -236,8 +247,8 @@ public class MenuController extends Application {
     /**
      * Creates a new game for a board
      *
-     * @param actionEvent
-     * @throws IOException
+     * @param actionEvent the action event
+     * @throws IOException the io exception
      */
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
@@ -246,6 +257,12 @@ public class MenuController extends Application {
 
     }
 
+    /**
+     * On start game.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     @FXML
     public void onStartGame(ActionEvent actionEvent) throws IOException {
         if(!players.isEmpty() && players.size() <= 4 && players.size() >= 2 && boardName != null){
@@ -260,8 +277,8 @@ public class MenuController extends Application {
     /**
      * Handle button to load game
      *
-     * @param actionEvent
-     * @throws FileNotFoundException
+     * @param actionEvent the action event
+     * @throws FileNotFoundException the file not found exception
      */
     @FXML
     private void handleLoadGame(ActionEvent actionEvent) throws FileNotFoundException {
@@ -275,6 +292,9 @@ public class MenuController extends Application {
         mainView.getChildren().add(game.getPane());
     }
 
+    /**
+     * Disable visibility.
+     */
     @FXML
     private void disableVisibility(){
         for(MenuWindow menuWindow : MenuWindow.values()){
@@ -282,6 +302,11 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * Disable visibility.
+     *
+     * @param window the window
+     */
     @FXML
     private void disableVisibility(MenuWindow window){
         for(MenuWindow menuWindow : MenuWindow.values()){
@@ -296,8 +321,8 @@ public class MenuController extends Application {
     /**
      * Button to save the game
      *
-     * @param actionEvent
-     * @throws IOException
+     * @param actionEvent the action event
+     * @throws IOException the io exception
      */
     @FXML
     private void handleSaveGame(ActionEvent actionEvent) throws IOException {
@@ -316,7 +341,7 @@ public class MenuController extends Application {
     /**
      * Opens up leaderboard
      *
-     * @param actionEvent
+     * @param actionEvent the action event
      */
     @FXML
     private void openLeaderboard(ActionEvent actionEvent) {
@@ -336,7 +361,7 @@ public class MenuController extends Application {
     /**
      * Returns all player profiles
      *
-     * @param actionEvent
+     * @param actionEvent the action event
      */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
@@ -345,6 +370,9 @@ public class MenuController extends Application {
     }
 
 
+    /**
+     * Game finished listener.
+     */
     private void gameFinishedListener() {
         game.getIsGameFinished().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -361,6 +389,11 @@ public class MenuController extends Application {
         });
     }
 
+    /**
+     * Add player.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void addPlayer(ActionEvent actionEvent) {
         String name = ((TextField)
@@ -374,6 +407,11 @@ public class MenuController extends Application {
         }
     }
 
+    /**
+     * Sets delete button.
+     *
+     * @param actionEvent the action event
+     */
     @FXML
     private void setDeleteButton(ActionEvent actionEvent) {
         PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
@@ -414,7 +452,7 @@ public class MenuController extends Application {
     /**
      * Fill out the columns with data from the databases
      *
-     * @param profiles
+     * @param profiles the profiles
      */
     private void addColumns(ObservableList<PlayerProfile> profiles) {
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));

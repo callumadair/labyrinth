@@ -82,8 +82,8 @@ public class FileManager {
     /**
      * Counts the number of each type of card in the silk bag
      *
-     * @param cardsInBag
-     * @return
+     * @param cardsInBag the cards in bag
+     * @return int [ ]
      */
     private static int[] countSilkBagCards(ArrayList<Card> cardsInBag) {
         int[] values = new int[7];
@@ -123,8 +123,8 @@ public class FileManager {
     /**
      * Gets the player's details
      *
-     * @param player
-     * @return
+     * @param player the player
+     * @return player details
      */
     private static String getPlayerDetails(PlayerController player) {
         int[] cardValues = new int[4];
@@ -234,9 +234,9 @@ public class FileManager {
     /**
      * Allows the fire and Ice action cards to have an effect
      *
-     * @param floorCard
-     * @param effect
-     * @param time
+     * @param floorCard the floor card
+     * @param effect    the effect
+     * @param time      the time
      */
     private static void setEffect(FloorCard floorCard, String effect, int time) {
         switch (effect) {
@@ -252,8 +252,8 @@ public class FileManager {
     /**
      * Method to control the player around the board
      *
-     * @param info
-     * @return
+     * @param info the info
+     * @return player controller
      */
     private static PlayerController createPlayerController(String info) {
         Scanner playerScanner = new Scanner(info);
@@ -304,9 +304,9 @@ public class FileManager {
     /**
      * Load the cards so that they are in the silk bag
      *
-     * @param silkBagCards
-     * @param scanner
-     * @return
+     * @param silkBagCards the silk bag cards
+     * @param scanner      the scanner
+     * @return int
      */
     private static int loadSilkBagCards(ArrayList<Card> silkBagCards, Scanner scanner) {
         int straightCount = scanner.nextInt();
@@ -379,9 +379,9 @@ public class FileManager {
     /**
      * Creates the floor cards
      *
-     * @param num
-     * @param type
-     * @param cards
+     * @param num   the num
+     * @param type  the type
+     * @param cards the cards
      */
     private static void createFloorCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
@@ -392,9 +392,9 @@ public class FileManager {
     /**
      * Creates the action cards
      *
-     * @param num
-     * @param type
-     * @param cards
+     * @param num   the num
+     * @param type  the type
+     * @param cards the cards
      */
     private static void createActionCards(int num, String type, ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {

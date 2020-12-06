@@ -13,10 +13,18 @@ import java.util.*;
 public class PlayerDatabase {
     private String url;
 
+    /**
+     * Instantiates a new Player database.
+     *
+     * @param boardName the board name
+     */
     protected PlayerDatabase(String boardName) {
         this.url = "jdbc:sqlite:src/resources/" + boardName + ".db";
     }
 
+    /**
+     * Start.
+     */
     public void start() {
         try (Connection conn = connect()) {
             if (conn != null) {
@@ -43,6 +51,11 @@ public class PlayerDatabase {
         start();
     }
 
+    /**
+     * Connect connection.
+     *
+     * @return the connection
+     */
     private Connection connect() {
         Connection conn = null;
         try {
