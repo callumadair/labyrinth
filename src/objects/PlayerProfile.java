@@ -6,6 +6,7 @@ package objects;
  * @author Callum Adair
  */
 public class PlayerProfile {
+
     private String playerName;
     private int victories;
     private int losses;
@@ -107,6 +108,13 @@ public class PlayerProfile {
     }
 
     /**
+     * @return number of games played
+     */
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    /**
      * Gets player id.
      *
      * @return the player id
@@ -136,5 +144,4 @@ public class PlayerProfile {
                 ", losses: " + losses +
                 ", player ID: " + playerID + "\n";
     }
-
 }
