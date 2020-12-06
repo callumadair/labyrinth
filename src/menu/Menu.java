@@ -397,9 +397,9 @@ public class Menu extends Application {
                     curDatabase.start();
                     for (PlayerController playerController : board.getPlayers()) {
                         if (playerController.equals(game.getController().getCurrentPlayer())) {
-                            curDatabase.incrementVictories(playerController.getProfile().getPlayerID());
+                            curDatabase.incrementVictories(playerController.getProfile());
                         } else {
-                            curDatabase.incrementLosses(playerController.getProfile().getPlayerID());
+                            curDatabase.incrementLosses(playerController.getProfile());
                         }
                     }
                 }
@@ -408,7 +408,7 @@ public class Menu extends Application {
     }
 
     /**
-     * Add player.
+     * Adds a new player profile.
      *
      * @param actionEvent the action event
      */

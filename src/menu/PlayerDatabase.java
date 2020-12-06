@@ -132,15 +132,19 @@ public class PlayerDatabase {
      *
      * @param id the id
      */
-    public void incrementVictories(int id) {
-        String sql = "update PLAYER set VICTORIES = VICTORIES + 1 where ID = ?;";
-        try {
-            PreparedStatement preparedStatement = connect().prepareStatement(sql);
-            preparedStatement.setInt(1, id);
+    public void incrementVictories(PlayerProfile playerProfile) {
+        if (getProfileByID(playerProfile.getPlayerID()) != null) {
+            String sql = "update PLAYER set VICTORIES = VICTORIES + 1 where ID = ? and ID is not null;";
+            try {
+                PreparedStatement preparedStatement = connect().prepareStatement(sql);
+                preparedStatement.setInt(1, playerProfile.getPlayerID());
 
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+                preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else {
+            storePlayer(playerProfile.getPlayerName(), 1, 0, playerProfile.getPlayerID());
         }
     }
 
@@ -149,16 +153,45 @@ public class PlayerDatabase {
      *
      * @param id the id
      */
-    public void incrementLosses(int id) {
-        String sql = "update PLAYER set LOSSES = LOSSES + 1 where ID = ?;";
-        try {
-            PreparedStatement preparedStatement = connect().prepareStatement(sql);
-            preparedStatement.setInt(1, id);
+    public void incrementLosses(PlayerProfile playerProfile) {
+        if (getProfileByID(playerProfile.getPlayerID()) != null) {
+            String sql = "update PLAYER set LOSSES = LOSSES + 1 where ID = ?;";
+            try {
+                PreparedStatement preparedStatement = connect().prepareStatement(sql);
+                preparedStatement.setInt(1, playerProfile.getPlayerID());
 
-            preparedStatement.executeUpdate();
+                preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } else {
+            storePlayer(playerProfile.getPlayerName(), 0, 1, playerProfile.getPlayerID());
+        }
+    }
+
+    /**
+     * Gets the specified player profile by its id.
+     *
+     * @param id the id
+     * @return the player by id
+     */
+    public PlayerProfile getProfileByID(int id) {
+        PlayerProfile playerProfile = null;
+        try {
+            Statement statement = connect().createStatement();
+            String sql = "select * from PLAYER where ID =" + id;
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                String name = rs.getString("PLAYER_NAME");
+                int victories = rs.getInt("VICTORIES");
+                int losses = rs.getInt("LOSSES");
+                playerProfile = new PlayerProfile(name, victories, losses, id);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return playerProfile;
     }
 
     /**
