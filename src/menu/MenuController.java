@@ -30,6 +30,11 @@ import java.util.*;
  */
 public class MenuController extends Application {
 
+    private final ArrayList<PlayerDatabase> databases = new ArrayList<>();
+
+    @FXML
+    private static TableView<PlayerProfile> tableView = new TableView<>();
+    private static MediaPlayer menuMusic;
 
     private Stage stage;
     private Stage leaderboardStage;
@@ -37,9 +42,6 @@ public class MenuController extends Application {
     private String boardName;
     private Board board;
     private ArrayList<PlayerProfile> players;
-    private FXMLLoader menuLoader;
-    @FXML
-    private static TableView<PlayerProfile> tableView = new TableView<>();
     @FXML
     private StackPane root;
     @FXML
@@ -53,12 +55,10 @@ public class MenuController extends Application {
     @FXML
     private BorderPane profileView;
     @FXML
-    public ListView playerProfilesList;
+    public ListView<PlayerProfile> playerProfilesList;
     @FXML
     public Label boardSelectionLabel;
 
-    private static MediaPlayer menuMusic;
-    private ArrayList<PlayerDatabase> databases = new ArrayList<>();
 
     /**
      * The entry point of application.
@@ -99,7 +99,7 @@ public class MenuController extends Application {
 
         stage = primaryStage;
         root = null;
-        menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
         try {
             root = menuLoader.load();
         } catch (Exception e) {
@@ -155,17 +155,23 @@ public class MenuController extends Application {
      * Sets background effects.
      */
     private void setBackgroundEffects() {
+        final double MULTIPLICATION_FACTOR = 1.1;
+
+
         imageView = (ImageView) root.getChildren().get(0);
-        imageView.fitWidthProperty().bind(root.widthProperty().multiply(1.1));
-        imageView.fitHeightProperty().bind(root.heightProperty().multiply(1.1));
+        imageView.fitWidthProperty().bind(root.widthProperty().multiply(MULTIPLICATION_FACTOR));
+        imageView.fitHeightProperty().bind(root.heightProperty().multiply(MULTIPLICATION_FACTOR));
         imageView.setPreserveRatio(false);
 
         TranslateTransition backgroundMove = new TranslateTransition();
+        final int DURATION = 5000;
+        final int FIRST_X = 0;
+        final int LAST_X = 30;
 
-        backgroundMove.setDuration(Duration.millis(5000));
+        backgroundMove.setDuration(Duration.millis(DURATION));
         backgroundMove.setNode(imageView);
-        backgroundMove.setFromX(0);
-        backgroundMove.setToX(30);
+        backgroundMove.setFromX(FIRST_X);
+        backgroundMove.setToX(LAST_X);
         backgroundMove.setAutoReverse(true);
         backgroundMove.setCycleCount(Animation.INDEFINITE);
         backgroundMove.play();
@@ -201,7 +207,8 @@ public class MenuController extends Application {
 
         selectionModel.selectedItemProperty().addListener(new ChangeListener<PlayerProfile>() {
             @Override
-            public void changed(ObservableValue<? extends PlayerProfile> observable, PlayerProfile oldValue, PlayerProfile newValue) {
+            public void changed(ObservableValue<? extends PlayerProfile> observable, PlayerProfile oldValue,
+                                PlayerProfile newValue) {
                 for (PlayerProfile playerProfile : selectionModel.getSelectedItems()) {
                     if (!players.contains(playerProfile)) {
                         players.add(playerProfile);
@@ -220,9 +227,10 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleQuitButtonAction(ActionEvent actionEvent) {
+        final int GOOD_EXIT = 200;
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
-        System.exit(100);
+        System.exit(GOOD_EXIT);
     }
 
 
@@ -254,7 +262,6 @@ public class MenuController extends Application {
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
         boardName = ((Button) actionEvent.getSource()).getText();
         boardSelectionLabel.setText(boardName);
-
     }
 
     /**
@@ -265,7 +272,10 @@ public class MenuController extends Application {
      */
     @FXML
     public void onStartGame(ActionEvent actionEvent) throws IOException {
-        if (!players.isEmpty() && players.size() <= 4 && players.size() >= 2 && boardName != null) {
+        final int MIN_PLAYERS = 2;
+        final int MAX_PLAYERS = 4;
+
+        if (!players.isEmpty() && players.size() <= MAX_PLAYERS && players.size() >= MIN_PLAYERS && boardName != null) {
             board = FileManager.loadBoard(boardName, players);
             game = new Game(board);
             gameFinishedListener();
@@ -353,7 +363,10 @@ public class MenuController extends Application {
 
         boardName = ((Button) actionEvent.getSource()).getText();
         BorderPane leaderboardPane = Leaderboard.getLeaderboard(boardName);
-        Scene leaderboard = new Scene(leaderboardPane, 350, 450);
+        final int LEADERBOARD_WIDTH = 350;
+        final int LEADERBOARD_HEIGHT = 450;
+
+        Scene leaderboard = new Scene(leaderboardPane, LEADERBOARD_WIDTH, LEADERBOARD_HEIGHT);
         leaderboardStage.setScene(leaderboard);
         leaderboardStage.show();
     }
