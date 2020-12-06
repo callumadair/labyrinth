@@ -312,9 +312,9 @@
                             </font>
                         </MenuButton>
                         <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0"
-                               prefWidth="140.0" text="Labyrinth" textAlignment="CENTER" textFill="#191640">
+                               prefWidth="200.0" text="Night Crawlers" textAlignment="CENTER" textFill="DARKBLUE">
                             <font>
-                                <Font name="Quicksand Medium" size="24.0"/>
+                                <Font name="Quicksand Medium" size="22.0"/>
                             </font>
                             <HBox.margin>
                                 <Insets left="50.0"/>
