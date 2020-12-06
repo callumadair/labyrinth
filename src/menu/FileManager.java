@@ -14,15 +14,6 @@ public class FileManager {
     private static String saveFileDirectory = "src/resources/";
 
     /**
-     * Sets the save file directory.
-     *
-     * @param saveFileDirectory the save file directory
-     */
-    public static void setSaveFileDirectory(String saveFileDirectory) {
-        FileManager.saveFileDirectory = saveFileDirectory;
-    }
-
-    /**
      * Gets the save file directory.
      *
      * @return the save file directory
