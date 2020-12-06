@@ -67,7 +67,7 @@ public class PlayerDatabase {
             Statement stmt = connect().createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println("Invalid SQL");
         }
     }
 

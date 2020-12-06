@@ -438,20 +438,27 @@ public class MenuController extends Application {
      */
     @FXML
     private void addPlayer(ActionEvent actionEvent) {
-        String name = ((TextField)
-                ((Button) actionEvent.getSource())
-                        .getParent()
-                        .getChildrenUnmodifiable()
-                        .get(1))
-                .getText();
-        int id = Integer.parseInt(((TextField)
-                ((Button) actionEvent.getSource())
-                        .getParent()
-                        .getChildrenUnmodifiable()
-                        .get(2))
-                .getText());
+        String name = null;
+        int id = 0;
+        try {
+            name = ((TextField)
+                    ((Button) actionEvent.getSource())
+                            .getParent()
+                            .getChildrenUnmodifiable()
+                            .get(1))
+                    .getText();
+            id = Integer.parseInt(((TextField)
+                    ((Button) actionEvent.getSource())
+                            .getParent()
+                            .getChildrenUnmodifiable()
+                            .get(2))
+                    .getText());
+        } catch (Exception e) {
+            System.out.println("Invalid Input");
+        }
 
         PlayerProfile newProfile = new PlayerProfile(name, 0, 0, id);
+
         for (PlayerDatabase database : databases) {
             database.storePlayer(newProfile);
         }
@@ -462,10 +469,14 @@ public class MenuController extends Application {
      */
     @FXML
     private void setDeleteButton() {
-        PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
-        tableView.getItems().remove(profile);
-        for (PlayerDatabase database : databases) {
-            database.deletePlayer(profile);
+        try {
+            PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
+            tableView.getItems().remove(profile);
+            for (PlayerDatabase database : databases) {
+                database.deletePlayer(profile);
+            }
+        } catch (Exception e) {
+            System.out.println("No profile Selected");
         }
     }
 
