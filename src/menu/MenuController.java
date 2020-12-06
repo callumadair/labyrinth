@@ -223,9 +223,9 @@ public class MenuController extends Application {
     @FXML
     private void handleMenuButton(ActionEvent actionEvent) {
         if(game != null){
+            mainView.getChildren().remove(game.getPane());
             game = null;
             boardName = null;
-            mainView.getChildren().remove(game.getPane());
         }
         if(!players.isEmpty()){
             players.clear();
