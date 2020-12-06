@@ -10,6 +10,7 @@ public class PlayerProfile {
     private int victories;
     private int losses;
     private int playerID;
+    private int gamesPlayed;
 
     /**
      * Instantiates a new Player profile.
@@ -102,7 +103,7 @@ public class PlayerProfile {
      * Sets the games played from the sum of wins and loses
      */
     private void setGamesPlayed() {
-        int gamesPlayed = victories + losses;
+        this.gamesPlayed = victories + losses;
     }
 
     /**
