@@ -76,7 +76,8 @@ public class PlayerDatabase {
      * @param playerProfile the player profile
      */
     public void storePlayer(PlayerProfile playerProfile) {
-        storePlayer(playerProfile.getPlayerName(), playerProfile.getVictories(), playerProfile.getLosses(),
+        storePlayer(playerProfile.getPlayerName(),
+                playerProfile.getVictories(), playerProfile.getLosses(),
                 playerProfile.getPlayerID());
     }
 
@@ -88,8 +89,10 @@ public class PlayerDatabase {
      * @param losses     the losses
      * @param id         the id
      */
-    public void storePlayer(String playerName, int victories, int losses, int id) {
-        String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID) " +
+    public void storePlayer(String playerName, int victories, int losses,
+                            int id) {
+        String sql = "insert into PLAYER (PLAYER_NAME, VICTORIES, LOSSES, ID)" +
+                " " +
                 "values ('" + playerName + "', " + victories + ", " + losses + ", " + id + ")";
         executeSQL(sql);
     }
@@ -100,7 +103,8 @@ public class PlayerDatabase {
      * @param playerProfile the player profile
      */
     public void updatePlayer(PlayerProfile playerProfile) {
-        updatePlayer(playerProfile.getPlayerName(), playerProfile.getVictories(), playerProfile.getLosses(),
+        updatePlayer(playerProfile.getPlayerName(),
+                playerProfile.getVictories(), playerProfile.getLosses(),
                 playerProfile.getPlayerID());
     }
 
@@ -112,10 +116,13 @@ public class PlayerDatabase {
      * @param losses     the losses
      * @param id         the id
      */
-    public void updatePlayer(String playerName, int victories, int losses, int id) {
-        String sql = "update PLAYER set PLAYER_NAME = ? , VICTORIES = ? , LOSSES = ? where ID = ?";
+    public void updatePlayer(String playerName, int victories, int losses,
+                             int id) {
+        String sql = "update PLAYER set PLAYER_NAME = ? , VICTORIES = ? , " +
+                "LOSSES = ? where ID = ?";
         try {
-            PreparedStatement preparedStatement = connect().prepareStatement(sql);
+            PreparedStatement preparedStatement =
+                    connect().prepareStatement(sql);
             preparedStatement.setString(1, playerName);
             preparedStatement.setInt(2, victories);
             preparedStatement.setInt(3, losses);
@@ -134,9 +141,11 @@ public class PlayerDatabase {
      */
     public void incrementVictories(PlayerProfile playerProfile) {
         if (getProfileByID(playerProfile.getPlayerID()) != null) {
-            String sql = "update PLAYER set VICTORIES = VICTORIES + 1 where ID = ? and ID is not null;";
+            String sql = "update PLAYER set VICTORIES = VICTORIES + 1 where " +
+                    "ID = ? and ID is not null;";
             try {
-                PreparedStatement preparedStatement = connect().prepareStatement(sql);
+                PreparedStatement preparedStatement =
+                        connect().prepareStatement(sql);
                 preparedStatement.setInt(1, playerProfile.getPlayerID());
 
                 preparedStatement.executeUpdate();
@@ -144,7 +153,8 @@ public class PlayerDatabase {
                 throwables.printStackTrace();
             }
         } else {
-            storePlayer(playerProfile.getPlayerName(), 1, 0, playerProfile.getPlayerID());
+            storePlayer(playerProfile.getPlayerName(), 1, 0,
+                    playerProfile.getPlayerID());
         }
     }
 
@@ -157,7 +167,8 @@ public class PlayerDatabase {
         if (getProfileByID(playerProfile.getPlayerID()) != null) {
             String sql = "update PLAYER set LOSSES = LOSSES + 1 where ID = ?;";
             try {
-                PreparedStatement preparedStatement = connect().prepareStatement(sql);
+                PreparedStatement preparedStatement =
+                        connect().prepareStatement(sql);
                 preparedStatement.setInt(1, playerProfile.getPlayerID());
 
                 preparedStatement.executeUpdate();
@@ -165,7 +176,8 @@ public class PlayerDatabase {
                 throwables.printStackTrace();
             }
         } else {
-            storePlayer(playerProfile.getPlayerName(), 0, 1, playerProfile.getPlayerID());
+            storePlayer(playerProfile.getPlayerName(), 0, 1,
+                    playerProfile.getPlayerID());
         }
     }
 
@@ -231,7 +243,8 @@ public class PlayerDatabase {
                 int victories = rs.getInt("VICTORIES");
                 int losses = rs.getInt("LOSSES");
                 int id = rs.getInt("ID");
-                storedProfiles.add(new PlayerProfile(name, victories, losses, id));
+                storedProfiles.add(new PlayerProfile(name, victories, losses,
+                        id));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
