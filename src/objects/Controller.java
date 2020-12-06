@@ -71,17 +71,12 @@ public class Controller {
      */
     public void startGame() {
         numOfPlayers = players.size() - 1;
-        boolean currentPlayerSet = false;
         for(PlayerController player : players){
             if(player.isCurrentPlayer()){
                 this.playerIndex = player.getPlayerIndex();
-                currentPlayerSet = true;
             }
         }
         currentPlayer = players.get(playerIndex);
-        if(!currentPlayerSet){
-            currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
-        }
         currentPlayerIndex = new SimpleIntegerProperty(playerIndex);
         cardSelectionFlag = new SimpleBooleanProperty(false);
         stateChangeFlag = new SimpleBooleanProperty(false);
@@ -150,6 +145,7 @@ public class Controller {
     private void drawCard() {
         setPlayingCard(board.getSilkBag().drawACard());
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
+        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
 
         if(!board.getFrozenTiles().isEmpty()){
             ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
@@ -308,7 +304,6 @@ public class Controller {
         currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
 
         currentPlayer = players.get(playerIndex);
-        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
         changeState(GameState.DRAWING);
     }
 
@@ -337,15 +332,11 @@ public class Controller {
                 selectedTile = board.getTileFromCanvas(x, y);
                 System.out.println("x: " + selectedTile.getX() + " y: " + selectedTile.getY() +
                         " | " + selectedTile.getType() + " | " + currentState);
+                System.out.println(currentPlayer.getPlayerIndex());
                 System.out.println("Left: " + selectedTile.getOpeningAt(FloorCard.Direction.LEFT) +
                         " Up: " + selectedTile.getOpeningAt(FloorCard.Direction.UP) +
                         " Right: " + selectedTile.getOpeningAt(FloorCard.Direction.RIGHT) +
                         " Down: " + selectedTile.getOpeningAt(FloorCard.Direction.DOWN));
-                for(PlayerController playerController : players){
-                    if(playerController.isCurrentPlayer()){
-                        System.out.println(playerController.getPlayerIndex());
-                    }
-                }
                 playState();
             }
         });
