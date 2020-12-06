@@ -9,6 +9,7 @@ public class PlayerProfile {
     private String playerName;
     private int victories;
     private int losses;
+    private int gamesPlayed;
     private int playerID;
 
     /**
@@ -102,7 +103,7 @@ public class PlayerProfile {
      * Sets the games played from the sum of wins and loses
      */
     private void setGamesPlayed() {
-        int gamesPlayed = victories + losses;
+        gamesPlayed = victories + losses;
     }
 
     /**
