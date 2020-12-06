@@ -13,6 +13,7 @@ import java.util.*;
  */
 public class FileManager {
     private final static String saveFileDirectory = "src/resources/";
+    private final static int MAX_PLAYERS = 4;
 
     /**
      * Gets the save file directory.
@@ -85,7 +86,8 @@ public class FileManager {
      * @return int [ ]
      */
     private static int[] countSilkBagCards(ArrayList<Card> cardsInBag) {
-        int[] values = new int[7];
+        final int NUM_CARD_TYPES = 7;
+        int[] values = new int[NUM_CARD_TYPES];
         for (Card curCard : cardsInBag) {
             if (curCard.getClass().getSimpleName().equals("FloorCard")) {
                 switch (((FloorCard) curCard).getType().toString()) {
@@ -126,7 +128,8 @@ public class FileManager {
      * @return player details
      */
     private static String getPlayerDetails(PlayerController player) {
-        int[] cardValues = new int[4];
+        final int NUM_ACTION_TYPES = 4;
+        int[] cardValues = new int[NUM_ACTION_TYPES];
         for (Card curCard : player.getCardsHeld()) {
             switch (((ActionCard) curCard).getType().toString()) {
                 case "FIRE":
@@ -189,7 +192,7 @@ public class FileManager {
         int height = scanner.nextInt();
         scanner.nextLine();
 
-        int[][] spawnPoints = new int[4][2];
+        int[][] spawnPoints = new int[MAX_PLAYERS][2];
         for (int i = 0; i < spawnPoints.length; i++) {
             for (int j = 0; j < spawnPoints[i].length; j++) {
                 spawnPoints[i][j] = scanner.nextInt();
@@ -285,7 +288,8 @@ public class FileManager {
         }
         newController.setLastThree(lastThree);
 
-        int[] cardValues = new int[4];
+        final int NUM_ACTION_TYPES = 4;
+        int[] cardValues = new int[NUM_ACTION_TYPES];
         for (int i = 0; i < cardValues.length; i++) {
             cardValues[i] = playerScanner.nextInt();
             String type = "";
@@ -358,7 +362,7 @@ public class FileManager {
         int height = scanner.nextInt();
         scanner.nextLine();
 
-        int[][] spawnPoints = new int[4][2];
+        int[][] spawnPoints = new int[MAX_PLAYERS][2];
         for (int i = 0; i < spawnPoints.length; i++) {
             for (int j = 0; j < spawnPoints[i].length; j++) {
                 spawnPoints[i][j] = scanner.nextInt();
