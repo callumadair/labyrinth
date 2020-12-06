@@ -85,7 +85,7 @@ public class MenuController extends Application {
          *
          * @param index the index
          */
-        private MenuWindow(int index) {
+        MenuWindow(int index) {
             this.index = index;
         }
     }
@@ -200,10 +200,9 @@ public class MenuController extends Application {
      * This will create a second window that you will be taken to when you
      * click the play button
      *
-     * @param actionEvent the action event
      */
     @FXML
-    private void handlePlayButtonAction(ActionEvent actionEvent) {
+    private void handlePlayButtonAction() {
         disableVisibility(MenuWindow.PLAY);
         players = new ArrayList<>();
 
@@ -254,10 +253,9 @@ public class MenuController extends Application {
     /**
      * Handle menu button action.
      *
-     * @param actionEvent the action event
      */
     @FXML
-    private void handleMenuButton(ActionEvent actionEvent) {
+    private void handleMenuButton() {
         if (game != null) {
             mainView.getChildren().remove(game.getPane());
             game = null;
@@ -273,10 +271,9 @@ public class MenuController extends Application {
      * Creates a new game for a board
      *
      * @param actionEvent the action event
-     * @throws IOException the io exception
      */
     @FXML
-    private void handleNewGame(ActionEvent actionEvent) throws IOException {
+    private void handleNewGame(ActionEvent actionEvent) {
         boardName = ((Button) actionEvent.getSource()).getText();
         boardSelectionLabel.setText(boardName);
     }
@@ -284,11 +281,10 @@ public class MenuController extends Application {
     /**
      * On start game.
      *
-     * @param actionEvent the action event
      * @throws IOException the io exception
      */
     @FXML
-    public void onStartGame(ActionEvent actionEvent) throws IOException {
+    public void onStartGame() throws IOException {
         final int MIN_PLAYERS = 2;
         final int MAX_PLAYERS = 4;
 
@@ -354,11 +350,10 @@ public class MenuController extends Application {
     /**
      * Button to save the game
      *
-     * @param actionEvent the action event
      * @throws IOException the io exception
      */
     @FXML
-    private void handleSaveGame(ActionEvent actionEvent) throws IOException {
+    private void handleSaveGame() throws IOException {
         if (game != null) {
             System.out.println(board);
             System.out.println(board.getHeight());
@@ -398,10 +393,9 @@ public class MenuController extends Application {
     /**
      * Returns all player profiles
      *
-     * @param actionEvent the action event
      */
     @FXML
-    private void getAllProfiles(ActionEvent actionEvent) {
+    private void getAllProfiles() {
         getProfiles();
         disableVisibility(MenuWindow.PROFILES);
     }
@@ -464,10 +458,9 @@ public class MenuController extends Application {
     /**
      * Sets delete button.
      *
-     * @param actionEvent the action event
      */
     @FXML
-    private void setDeleteButton(ActionEvent actionEvent) {
+    private void setDeleteButton() {
         PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
         tableView.getItems().remove(profile);
         for (PlayerDatabase database : databases) {
