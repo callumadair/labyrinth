@@ -71,8 +71,9 @@ public class Board {
      */
     private void setup() {
         map = new FloorCard[width][height];
-        for (FloorCard fixed : fixedTiles) {
-            map[fixed.getX()][fixed.getY()] = fixed;
+
+        for(FloorCard card : fixedTiles){
+            map[card.getX()][card.getY()] = card;
         }
 
         for (int i = 0; i < height; i++) {

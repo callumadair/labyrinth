@@ -245,7 +245,7 @@ public class MenuController extends Application {
     }
 
     @FXML
-    private void startGame() throws IOException {
+    public void onStartGame(ActionEvent actionEvent) throws IOException {
         if(!players.isEmpty() && players.size() <= 4 && players.size() >= 2 && boardName != null){
             board = FileManager.loadBoard(boardName, players);
             game = new Game(board);
@@ -253,11 +253,6 @@ public class MenuController extends Application {
             disableVisibility();
             mainView.getChildren().add(game.getPane());
         }
-    }
-
-    @FXML
-    public void onStartGame(ActionEvent actionEvent) throws IOException {
-        startGame();
     }
 
     /**
@@ -272,7 +267,10 @@ public class MenuController extends Application {
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
         board = FileManager.loadGame(fileName);
-        //startGame();
+        game = new Game(board);
+        gameFinishedListener();
+        disableVisibility();
+        mainView.getChildren().add(game.getPane());
     }
 
     @FXML

@@ -91,6 +91,7 @@ public class FloorCard extends Card {
         this(type);
         this.x = x;
         this.y = y;
+        this.isFixed = true;
         setRotation(rotation);
     }
 
@@ -480,7 +481,7 @@ public class FloorCard extends Card {
      */
     public void drawTile(GraphicsContext gc, int x, int y) {
         gc.drawImage(this.getImage(), x * TILE_SIZE, y * TILE_SIZE);
-        if(isFixed){
+        if(this.isFixed()){
             gc.drawImage(new Image(fixedTileImagePath), x * TILE_SIZE, y * TILE_SIZE);
         }
         if (state != FloorTileState.NORMAL) {

@@ -138,7 +138,7 @@
                                                 <ListView id="playerListView" fx:id="playerProfilesList" prefHeight="200.0" prefWidth="600.0" />
                                             </children>
                                         </HBox>
-                                        <Button fx:id="startGame" mnemonicParsing="false" onAction="#onStartGame" text="Start Game">
+                                        <Button mnemonicParsing="false" onAction="#onStartGame" text="Start Game">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>
