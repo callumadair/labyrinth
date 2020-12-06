@@ -99,46 +99,9 @@ public class PlayerDatabase {
     }
 
     /**
-     * Updates the details of the specified player profile.
-     *
-     * @param playerProfile the player profile
-     */
-    public void updatePlayer(PlayerProfile playerProfile) {
-        updatePlayer(playerProfile.getPlayerName(),
-                playerProfile.getVictories(), playerProfile.getLosses(),
-                playerProfile.getPlayerID());
-    }
-
-    /**
-     * Updates the specified player profile by its attributes.
-     *
-     * @param playerName the player name
-     * @param victories  the victories
-     * @param losses     the losses
-     * @param id         the id
-     */
-    public void updatePlayer(String playerName, int victories, int losses,
-                             int id) {
-        String sql = "update PLAYER set PLAYER_NAME = ? , VICTORIES = ? , " +
-                "LOSSES = ? where ID = ?";
-        try {
-            PreparedStatement preparedStatement =
-                    connect().prepareStatement(sql);
-            preparedStatement.setString(1, playerName);
-            preparedStatement.setInt(2, victories);
-            preparedStatement.setInt(3, losses);
-            preparedStatement.setInt(4, id);
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    /**
      * Increments victories of the specified player profile.
      *
-     * @param id the id
+     * @param playerProfile the player profile
      */
     public void incrementVictories(PlayerProfile playerProfile) {
         if (getProfileByID(playerProfile.getPlayerID()) != null) {
@@ -162,7 +125,7 @@ public class PlayerDatabase {
     /**
      * Increments losses of the specified player profile.
      *
-     * @param id the id
+     * @param playerProfile the player profile
      */
     public void incrementLosses(PlayerProfile playerProfile) {
         if (getProfileByID(playerProfile.getPlayerID()) != null) {

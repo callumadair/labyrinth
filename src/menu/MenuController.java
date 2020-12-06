@@ -208,6 +208,8 @@ public class MenuController extends Application {
         disableVisibility(MenuWindow.PLAY);
         players = new ArrayList<>();
 
+        boardSelectionLabel.setText("Board");
+
         ObservableList<PlayerProfile> profilesList =
                 FXCollections.observableArrayList(getProfiles());
 
