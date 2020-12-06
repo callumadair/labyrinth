@@ -9,8 +9,8 @@ public class PlayerProfile {
     private String playerName;
     private int victories;
     private int losses;
-    private int gamesPlayed;
     private int playerID;
+    private int gamesPlayed;
 
     /**
      * Instantiates a new Player profile.
