@@ -6,17 +6,18 @@ import java.util.*;
 
 /**
  * This class represents the board.
- * @author Kacper L
  *
+ * @author Kacper L
  */
 public class Board {
 
-    private int width;
-    private int height;
-    private int[][] spawnPoints;
-    private SilkBag silkBag;
+    private final int width;
+    private final int height;
+    private final int[][] spawnPoints;
+    private final SilkBag silkBag;
+    private final FloorCard[] fixedTiles;
+
     private FloorCard[][] map;
-    private FloorCard[] fixedTiles;
     private ArrayList<PlayerController> players;
 
     private ArrayList<FloorCard> frozenTiles = new ArrayList<>();
@@ -35,7 +36,8 @@ public class Board {
      * @param silkBag     the silk bag
      * @param players     the players
      */
-    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
+    public Board(int width, int height, int[][] spawnPoints,
+                 FloorCard[] fixedTiles,
                  SilkBag silkBag, ArrayList<PlayerController> players) {
         this.width = width;
         this.height = height;
@@ -57,8 +59,10 @@ public class Board {
      * @param players            the players
      * @param existingFloorCards the existing floor cards
      */
-    public Board(int width, int height, int[][] spawnPoints, FloorCard[] fixedTiles,
-                 SilkBag silkBag, ArrayList<PlayerController> players, ArrayList<FloorCard> existingFloorCards) {
+    public Board(int width, int height, int[][] spawnPoints,
+                 FloorCard[] fixedTiles,
+                 SilkBag silkBag, ArrayList<PlayerController> players,
+                 ArrayList<FloorCard> existingFloorCards) {
         this.width = width;
         this.height = height;
         this.spawnPoints = spawnPoints;
@@ -69,12 +73,12 @@ public class Board {
     }
 
     /**
-     *Setup the board.
+     * Setup the board.
      */
     private void setup() {
         map = new FloorCard[width][height];
 
-        for(FloorCard card : fixedTiles){
+        for (FloorCard card : fixedTiles) {
             map[card.getX()][card.getY()] = card;
         }
 
@@ -88,7 +92,7 @@ public class Board {
             }
         }
 
-        for(int i = 0; i < players.size(); i++){
+        for (int i = 0; i < players.size(); i++) {
             players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
         }
 
@@ -104,9 +108,9 @@ public class Board {
         map = new FloorCard[width][height];
 
         for (FloorCard card : floorCards) {
-            if(card.getState() == FloorCard.FloorTileState.FROZEN){
+            if (card.getState() == FloorCard.FloorTileState.FROZEN) {
                 frozenTiles.add(card);
-            } else if(card.getState() == FloorCard.FloorTileState.FIRE){
+            } else if (card.getState() == FloorCard.FloorTileState.FIRE) {
                 tilesOnFire.add(card);
             }
 
@@ -149,34 +153,34 @@ public class Board {
             frozenColumns.add(tile.getX());
         }
 
-        for (int i = 0; i < rowsToPlace.size(); i++) {
+        for (Integer value : rowsToPlace) {
             if (!frozenRows.isEmpty()) {
-                if (!frozenRows.contains(rowsToPlace.get(i))) {
-                    insertionTiles.add(map[0][rowsToPlace.get(i)]);
-                    insertionTiles.add(map[width - 1][rowsToPlace.get(i)]);
+                if (!frozenRows.contains(value)) {
+                    insertionTiles.add(map[0][value]);
+                    insertionTiles.add(map[width - 1][value]);
                 }
             } else {
-                insertionTiles.add(map[0][rowsToPlace.get(i)]);
-                insertionTiles.add(map[width - 1][rowsToPlace.get(i)]);
+                insertionTiles.add(map[0][value]);
+                insertionTiles.add(map[width - 1][value]);
             }
         }
 
-        for (int i = 0; i < columnsToPlace.size(); i++) {
+        for (Integer integer : columnsToPlace) {
             if (!frozenColumns.isEmpty()) {
-                if (!frozenColumns.contains(columnsToPlace.get(i))) {
-                    if (!insertionTiles.contains(map[columnsToPlace.get(i)][0])) {
-                        insertionTiles.add(map[columnsToPlace.get(i)][0]);
+                if (!frozenColumns.contains(integer)) {
+                    if (!insertionTiles.contains(map[integer][0])) {
+                        insertionTiles.add(map[integer][0]);
                     }
-                    if (!insertionTiles.contains(map[columnsToPlace.get(i)][height - 1])) {
-                        insertionTiles.add(map[columnsToPlace.get(i)][height - 1]);
+                    if (!insertionTiles.contains(map[integer][height - 1])) {
+                        insertionTiles.add(map[integer][height - 1]);
                     }
                 }
             } else {
-                if (!insertionTiles.contains(map[columnsToPlace.get(i)][0])) {
-                    insertionTiles.add(map[columnsToPlace.get(i)][0]);
+                if (!insertionTiles.contains(map[integer][0])) {
+                    insertionTiles.add(map[integer][0]);
                 }
-                if (!insertionTiles.contains(map[columnsToPlace.get(i)][height - 1])) {
-                    insertionTiles.add(map[columnsToPlace.get(i)][height - 1]);
+                if (!insertionTiles.contains(map[integer][height - 1])) {
+                    insertionTiles.add(map[integer][height - 1]);
                 }
             }
         }
@@ -378,11 +382,7 @@ public class Board {
      * @return true if it's in boundary, false otherwise.
      */
     public boolean checkBoardBoundary(int x, int y) {
-        if (x < 0 || x >= width || y < 0 || y >= height) {
-            return false;
-        } else {
-            return true;
-        }
+        return x >= 0 && x < width && y >= 0 && y < height;
     }
 
     /**
