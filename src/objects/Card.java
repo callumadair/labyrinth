@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 /**
  * This class represents the Card.
- * @author
+ * @author Kacper L
  */
 public abstract class Card {
 

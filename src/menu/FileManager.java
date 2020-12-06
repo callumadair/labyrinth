@@ -7,6 +7,8 @@ import java.util.*;
 
 /**
  * The type File manager.
+ *
+ * @author Callum Adair
  */
 public class FileManager {
     private static String saveFileDirectory = "src/resources/";

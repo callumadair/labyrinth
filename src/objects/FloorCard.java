@@ -7,7 +7,8 @@ import java.util.Random;
 
 /**
  * This class represents the different floor tiles of the game.
- * @author
+ * @author Kacper L
+ * @author Maha Malik
  */
 public class FloorCard extends Card {
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  * This class represents the Controller.
- * @author
+ * @author Kacper L
  */
 public class Controller {
 
