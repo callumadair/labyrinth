@@ -157,7 +157,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Delete all player.
+     * Delete all players from the database.
      */
     public void deleteAllPlayer() {
         for (PlayerProfile playerProfile : getAllData()) {
@@ -193,7 +193,7 @@ public class PlayerDatabase {
     /**
      * Gets all data in the table.
      *
-     * @return the all data
+     * @return all the data
      */
     public ArrayList<PlayerProfile> getAllData() {
         ArrayList<PlayerProfile> storedProfiles = null;
@@ -219,7 +219,7 @@ public class PlayerDatabase {
     /**
      * Gets all active profiles.
      *
-     * @return the all active profiles
+     * @return all profiles with more than 1 game played.
      */
     public ArrayList<PlayerProfile> getAllActiveProfiles() {
         ArrayList<PlayerProfile> activePlayers = new ArrayList<>();
