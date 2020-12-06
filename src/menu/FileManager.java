@@ -161,10 +161,16 @@ public class FileManager {
             lastThreeSize++;
         }
 
-        return player.getProfile().getPlayerName() + " " + player.getProfile().getVictories() + " "
-                + player.getProfile().getLosses() + " " + player.getProfile().getPlayerID() + " "
-                + player.getPlayerIndex() + " " + player.getX() + " " + player.getY() + " " + player.isCurrentPlayer()
-                + " " + player.isBackTracked() + " " + lastThree.toString() + vals.toString();
+        return player.getProfile().getPlayerName() + " "
+                + player.getProfile().getVictories() + " "
+                + player.getProfile().getLosses() + " "
+                + player.getProfile().getPlayerID() + " "
+                + player.getPlayerIndex() + " "
+                + player.getX() + " " + player.getY() + " "
+                + player.isCurrentPlayer() + " "
+                + player.isBackTracked() + " "
+                + lastThree.toString()
+                + vals.toString();
     }
 
     /**
@@ -175,7 +181,8 @@ public class FileManager {
      * @throws FileNotFoundException the file not found exception
      */
     public static Board loadGame(String gameName) throws FileNotFoundException {
-        File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
+        File gameFile = new File(getSaveFileDirectory()
+                + gameName + ".txt");
         Scanner scanner = new Scanner(gameFile);
 
         int width = scanner.nextInt();
