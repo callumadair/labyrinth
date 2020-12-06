@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * The type Game.
  *
- * @author Kacper L
+ * @author Kacper Lisikiewicz
  */
 public class Game {
 

@@ -28,7 +28,7 @@ import java.util.*;
  * @author Luke Young
  * @author Callum Adair
  * @author Jeffrey
- * @author Kacper L
+ * @author Kacper Lisikiewicz
  */
 public class MenuController extends Application {
 

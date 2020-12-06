@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * This class represents the Action Card.
  *
- * @author Stefani D
- * @author Kacper L
+ * @author Stefani Dimitrova
+ * @author Kacper Lisikiewicz
  */
 public class ActionCard extends Card {
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * This class represents the SilkBag in the Game.
  *
- * @author Stefani
+ * @author Stefani Dimitrova
  */
 public class SilkBag {
 

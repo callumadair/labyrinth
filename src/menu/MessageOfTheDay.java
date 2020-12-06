@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * Fetches, and decodes a string from a webpage.
+ * Fetches and decodes a string from the CS-230 webpage.
  *
  * @author Jeffrey
  */

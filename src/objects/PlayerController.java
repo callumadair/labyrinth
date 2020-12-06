@@ -9,9 +9,9 @@ import java.util.LinkedList;
 /**
  * This class represents the Player controller.
  *
- * @author Maha
- * @author Kacper
- * @author Stefani
+ * @author Maha Malik
+ * @author Kacper Lisikiewicz
+ * @author Stefani Dimitrova
  */
 public class PlayerController {
 
