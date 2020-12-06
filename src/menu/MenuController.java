@@ -93,7 +93,7 @@ public class MenuController extends Application {
     /**
      * Creates the Stage for the scenes and loads the MainMenu
      *
-     * @param primaryStage
+     * @param primaryStage the primary stage
      */
     @FXML
     @Override
