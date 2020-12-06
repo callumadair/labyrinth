@@ -11,14 +11,12 @@ import java.util.ArrayList;
 public class ActionCard extends Card {
 
     public static final int CARD_SIZE = 54;
+    private final String fireImagePath = "resources/ROAD-Cardfire.png";
+    private final String iceImagePath = "resources/ROAD-CardIce.png";
+    private final String backtrackImagePath = "resources/ROAD-CardReverse.png";
+    private final String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
 
     private ActionCardType type;
-
-    private String fireImagePath = "resources/ROAD-Cardfire.png";
-    private String iceImagePath = "resources/ROAD-CardIce.png";
-    private String backtrackImagePath = "resources/ROAD-CardReverse.png";
-    private String doubleMoveImagePath = "resources/ROAD-CardDouble.png";
-
     private boolean canBeUsed = false;
 
     /**
