@@ -6,12 +6,13 @@ import java.io.*;
 import java.util.*;
 
 /**
- * The type File manager.
+ * Manages the loading of new boards, saving of in-progress games and the
+ * loading of in-progress games.
  *
  * @author Callum Adair
  */
 public class FileManager {
-    private static String saveFileDirectory = "src/resources/";
+    private final static String saveFileDirectory = "src/resources/";
 
     /**
      * Gets the save file directory.
@@ -29,11 +30,14 @@ public class FileManager {
      * @param gameName the game name
      * @throws IOException the io exception
      */
-    public static void saveGame(Board board, String gameName) throws IOException {
-        File gameFile = new File(getSaveFileDirectory() + gameName + ".txt");
+    public static void saveGame(Board board, String gameName)
+            throws IOException {
+        File gameFile = new File(getSaveFileDirectory()
+                + gameName + ".txt");
         FileWriter fileWriter = new FileWriter(gameFile);
 
-        fileWriter.write(board.getWidth() + " " + board.getHeight() + "\n");
+        fileWriter.write(board.getWidth() + " " + board.getHeight()
+                + "\n");
 
         for (int i = 0; i < board.getSpawnPoints().length; i++) {
             for (int j = 0; j < board.getSpawnPoints()[i].length; j++) {
@@ -46,9 +50,13 @@ public class FileManager {
         for (int k = 0; k < board.getWidth(); k++) {
             for (int l = 0; l < board.getHeight(); l++) {
                 FloorCard curTile = board.getTile(k, l);
-                fileWriter.write(curTile.getType().toString() + " " + k + " " + l + " " + curTile.getRotation()
-                        + " " + curTile.isFixed() + " " + curTile.getState().toString() + " "
-                        + curTile.getEffectTimer() + "\n");
+                fileWriter.write(
+                        curTile.getType().toString() + " "
+                                + k + " " + l + " "
+                                + curTile.getRotation() + " "
+                                + curTile.isFixed() + " "
+                                + curTile.getState().toString() + " "
+                                + curTile.getEffectTimer() + "\n");
             }
         }
         fileWriter.write("\n");
@@ -219,7 +227,8 @@ public class FileManager {
             players.add(createPlayerController(scanner.nextLine()));
         }
 
-        return new Board(width, height, spawnPoints, fixed, silkBag, players, insertedCards);
+        return new Board(width, height, spawnPoints, fixed, silkBag, players,
+                insertedCards);
     }
 
     /**
@@ -229,7 +238,8 @@ public class FileManager {
      * @param effect    the effect
      * @param time      the time
      */
-    private static void setEffect(FloorCard floorCard, String effect, int time) {
+    private static void setEffect(FloorCard floorCard, String effect,
+                                  int time) {
         switch (effect) {
             case "FIRE":
                 floorCard.setOnFire(time);
@@ -248,10 +258,12 @@ public class FileManager {
      */
     private static PlayerController createPlayerController(String info) {
         Scanner playerScanner = new Scanner(info);
-        PlayerProfile newProfile = new PlayerProfile(playerScanner.next(), playerScanner.nextInt(),
+        PlayerProfile newProfile = new PlayerProfile(playerScanner.next(),
+                playerScanner.nextInt(),
                 playerScanner.nextInt(), playerScanner.nextInt());
 
-        PlayerController newController = new PlayerController(newProfile, playerScanner.nextInt());
+        PlayerController newController = new PlayerController(newProfile,
+                playerScanner.nextInt());
         newController.setX(playerScanner.nextInt());
         newController.setY(playerScanner.nextInt());
         newController.setCurrentPlayer(playerScanner.nextBoolean());
@@ -297,9 +309,10 @@ public class FileManager {
      *
      * @param silkBagCards the silk bag cards
      * @param scanner      the scanner
-     * @return int
+     * @return int int
      */
-    private static int loadSilkBagCards(ArrayList<Card> silkBagCards, Scanner scanner) {
+    private static int loadSilkBagCards(ArrayList<Card> silkBagCards,
+                                        Scanner scanner) {
         int straightCount = scanner.nextInt();
         createFloorCards(straightCount, "STRAIGHT", silkBagCards);
         int cornerCunt = scanner.nextInt();
@@ -326,8 +339,12 @@ public class FileManager {
      * @return the board
      * @throws FileNotFoundException the file not found exception
      */
-    public static Board loadBoard(String boardName, ArrayList<PlayerProfile> playerProfiles) throws FileNotFoundException {
-        File boardFile = new File(getSaveFileDirectory() + boardName + ".txt");
+    public static Board loadBoard(String boardName,
+                                  ArrayList<PlayerProfile> playerProfiles)
+            throws FileNotFoundException {
+
+        File boardFile = new File(getSaveFileDirectory()
+                + boardName + ".txt");
         Scanner scanner = new Scanner(boardFile);
 
         int width = scanner.nextInt();
@@ -354,7 +371,8 @@ public class FileManager {
         int floorCardCount = loadSilkBagCards(silkBagCards, scanner);
 
         if ((width * height) - numFixed >= floorCardCount) {
-            throw new IllegalArgumentException("Not enough floor cards in this file, please try again with more than "
+            throw new IllegalArgumentException("Not enough floor cards in " +
+                    "this file, please try again with more than "
                     + width * height + " floor cards.");
         }
         SilkBag silkBag = new SilkBag(silkBagCards.size());
@@ -374,7 +392,8 @@ public class FileManager {
      * @param type  the type
      * @param cards the cards
      */
-    private static void createFloorCards(int num, String type, ArrayList<Card> cards) {
+    private static void createFloorCards(int num, String type,
+                                         ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new FloorCard(type));
         }
@@ -387,7 +406,8 @@ public class FileManager {
      * @param type  the type
      * @param cards the cards
      */
-    private static void createActionCards(int num, String type, ArrayList<Card> cards) {
+    private static void createActionCards(int num, String type,
+                                          ArrayList<Card> cards) {
         for (int i = 0; i < num; i++) {
             cards.add(new ActionCard(type));
         }
