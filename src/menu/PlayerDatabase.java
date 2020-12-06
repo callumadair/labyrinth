@@ -124,28 +124,6 @@ public class PlayerDatabase {
         }
     }
 
-    public void incrementWins(int id) {
-        String sql = "update PLAYER set VICTORIES = VICTORIES + 1 where ID = ?;";
-        try {
-            PreparedStatement preparedStatement = connect().prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void incrementLosses(int id) {
-        String sql = "update PLAYER set LOSSES = LOSSES + 1 where ID = ?;";
-        try {
-            PreparedStatement preparedStatement = connect().prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
     /**
      * Delete player.
      *

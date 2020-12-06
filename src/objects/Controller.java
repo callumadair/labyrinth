@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 /**
  * This class represents the Controller.
- *
  * @author
  */
 public class Controller {
@@ -152,22 +151,22 @@ public class Controller {
         setPlayingCard(board.getSilkBag().drawACard());
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
 
-        if (!board.getFrozenTiles().isEmpty()) {
+        if(!board.getFrozenTiles().isEmpty()){
             ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
-            for (FloorCard card : board.getFrozenTiles()) {
+            for(FloorCard card : board.getFrozenTiles()){
                 card.decrementEffectTimer();
-                if (!card.isEffectActive()) {
+                if(!card.isEffectActive()){
                     frozenTilesToRemove.add(card);
                 }
             }
             board.getFrozenTiles().removeAll(frozenTilesToRemove);
         }
 
-        if (!board.getTilesOnFire().isEmpty()) {
+        if(!board.getTilesOnFire().isEmpty()){
             ArrayList<FloorCard> tilesOnFireToRemove = new ArrayList<>();
-            for (FloorCard card : board.getTilesOnFire()) {
+            for(FloorCard card : board.getTilesOnFire()){
                 card.decrementEffectTimer();
-                if (!card.isEffectActive()) {
+                if(!card.isEffectActive()){
                     tilesOnFireToRemove.add(card);
                 }
             }
@@ -189,7 +188,7 @@ public class Controller {
     private void getInsertionList() {
         tilesToCompare = board.getInsertionPoints();
 
-        if (tilesToCompare.isEmpty()) {
+        if(tilesToCompare.isEmpty()){
             playingCard = null;
             changeState(GameState.ACTION_CARD);
         } else {
@@ -259,7 +258,6 @@ public class Controller {
             highlightTiles();
         }
     }
-
     /**
      * Moves the player.
      */
@@ -325,7 +323,6 @@ public class Controller {
                 player.getProfile().incrementLoses();
             }
         }
-        players.add(new PlayerController(null, 0));
     }
 
     /**
