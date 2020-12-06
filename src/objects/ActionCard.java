@@ -26,7 +26,7 @@ public class ActionCard extends Card {
         FIRE,
         ICE,
         BACKTRACK,
-        DOUBLE_MOVE;
+        DOUBLE_MOVE
     }
 
     /**
@@ -100,7 +100,7 @@ public class ActionCard extends Card {
             }
         }
 
-        if (playerIsInRange == true) {
+        if (playerIsInRange) {
             return false;
         } else {
             for (FloorCard tile : tiles) {
@@ -153,7 +153,7 @@ public class ActionCard extends Card {
             return false;
         }
 
-        if (player.isBackTracked() == true) {
+        if (player.isBackTracked()) {
             return false;
         } else {
             int[] temp = player.getLastThree().getFirst();
