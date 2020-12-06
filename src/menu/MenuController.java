@@ -382,7 +382,8 @@ public class MenuController extends Application {
                     System.out.println("Game finished");
                     PlayerDatabase curDatabase = new PlayerDatabase(boardName);
                     curDatabase.start();
-                    for (PlayerController playerController : board.getPlayers()) {
+
+                    for (PlayerController playerController : game.getController().getPlayers()) {
                         curDatabase.updatePlayer(playerController.getProfile());
                     }
                 }
