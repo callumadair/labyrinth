@@ -64,11 +64,17 @@ public class PlayerProfile {
         this.victories = victories;
     }
 
+    /**
+     * increment player's victories
+     */
     public void incrementVictories() {
         victories++;
         setGamesPlayed();
     }
 
+    /**
+     * increment player's loses
+     */
     public void incrementLoses() {
         losses++;
         setGamesPlayed();
@@ -92,10 +98,9 @@ public class PlayerProfile {
         this.losses = losses;
     }
 
-    public int getGamesPlayed() {
-        return gamesPlayed;
-    }
-
+    /**
+     * set the games played from the sum of wins and loses
+     */
     private void setGamesPlayed() {
         this.gamesPlayed = victories + losses;
     }
@@ -118,6 +123,9 @@ public class PlayerProfile {
         this.playerID = playerID;
     }
 
+    /**
+     * returns the details of the player as a string
+     */
     @Override
     public String toString() {
         return "Player name: '" + playerName + '\'' +

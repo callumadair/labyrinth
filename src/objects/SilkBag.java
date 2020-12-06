@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * This class represents the SilkBag in the Game.
  *
- * @author
+ * @author Stefani
  */
 public class SilkBag {
 
@@ -21,24 +21,6 @@ public class SilkBag {
     public SilkBag(int numOfCards) {
         this.numOfCards = numOfCards;
         listOfCards = new ArrayList<>();
-    }
-
-    /**
-     * Gets the number of cards.
-     *
-     * @return the number of cards.
-     */
-    public int getNumOfCards() {
-        return numOfCards;
-    }
-
-    /**
-     * Sets the number of cards.
-     *
-     * @param numOfCards the number of cards.
-     */
-    public void setNumOfCards(int numOfCards) {
-        this.numOfCards = numOfCards;
     }
 
     /**
@@ -81,7 +63,7 @@ public class SilkBag {
     }
 
     /**
-     * Draw floor card from the bag.
+     * Draw floor card from the bag for the board with random rotation.
      *
      * @return the floor card.
      */
