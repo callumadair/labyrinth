@@ -103,7 +103,7 @@ public class PlayerProfile {
      * Sets the games played from the sum of wins and loses
      */
     private void setGamesPlayed() {
-        gamesPlayed = victories + losses;
+        this.gamesPlayed = victories + losses;
     }
 
     /**
