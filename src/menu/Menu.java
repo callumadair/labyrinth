@@ -22,13 +22,14 @@ import java.io.*;
 import java.util.*;
 
 /**
- * The type Menu controller.
+ * The type Menu controller allows the running of the game, night crawlers, and the associated admin functionality.
  *
  * @author Luke Young
  * @author Callum Adair
  * @author Jeffrey
+ * @author Kacper L
  */
-public class MenuController extends Application {
+public class Menu extends Application {
 
     private final ArrayList<PlayerDatabase> databases = new ArrayList<>();
 

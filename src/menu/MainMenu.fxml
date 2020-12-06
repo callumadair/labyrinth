@@ -21,7 +21,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.ListView?>
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="menu.MenuController">
+           fx:controller="menu.Menu">
     <children>
         <ImageView fx:id="imageView" cache="true" pickOnBounds="true" preserveRatio="true">
             <image>
