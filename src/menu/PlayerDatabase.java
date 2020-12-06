@@ -11,7 +11,7 @@ import java.util.*;
  * @author Callum Adair
  */
 public class PlayerDatabase {
-    private String url;
+    private final String url;
 
     /**
      * Instantiates a new Player database.
@@ -39,16 +39,6 @@ public class PlayerDatabase {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    /**
-     * Create new database.
-     *
-     * @param boardName the database name
-     */
-    public void start(String boardName) {
-        url = "jdbc:sqlite:src/resources/" + boardName + ".db";
-        start();
     }
 
     /**
@@ -137,6 +127,18 @@ public class PlayerDatabase {
         }
     }
 
+    public void incrementVictories(int id) {
+        String sql = "update PLAYER set VICTORIES = VICTORIES + 1 where ID = ?;";
+        try {
+            PreparedStatement preparedStatement = connect().prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     /**
      * Delete player.
      *
@@ -154,40 +156,6 @@ public class PlayerDatabase {
     public void deletePlayer(int id) {
         String sql = "delete from PLAYER where ID =" + id + ";";
         executeSQL(sql);
-    }
-
-    /**
-     * Delete all players from the database.
-     */
-    public void deleteAllPlayer() {
-        for (PlayerProfile playerProfile : getAllData()) {
-            deletePlayer(playerProfile.getPlayerID());
-        }
-    }
-
-    /**
-     * Gets player by id.
-     *
-     * @param id the id
-     * @return the player by id
-     */
-    public PlayerProfile getProfileByID(int id) {
-        PlayerProfile playerProfile = null;
-        try {
-            Statement statement = connect().createStatement();
-            String sql = "select * from PLAYER where ID =" + id;
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                String name = rs.getString("PLAYER_NAME");
-                int victories = rs.getInt("VICTORIES");
-                int losses = rs.getInt("LOSSES");
-                playerProfile = new PlayerProfile(name, victories, losses, id);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return playerProfile;
     }
 
     /**
