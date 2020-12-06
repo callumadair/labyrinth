@@ -1,0 +1,9 @@
+<width> <height>
+--player insertion points
+<x1> <y1> <x2> <y2> <x3> <y3> <x4> <y4>
+<n : Number of fixed tiles>
+<type> <x> <y> <rotation>
+--numbers of floor cards in silkbag
+<straight> <corner> <t-shaped>
+--numbers of action cards in silkbag
+<fire> <ice> <back-track> <double-move>
