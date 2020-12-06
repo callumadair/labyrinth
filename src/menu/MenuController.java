@@ -29,6 +29,7 @@ import java.util.*;
  * @author Callum Adair
  * @author Jeffrey
  * @author Kacper Lisikiewicz
+ * @version 78.6
  */
 public class MenuController extends Application {
 
@@ -199,7 +200,6 @@ public class MenuController extends Application {
     /**
      * This will create a second window that you will be taken to when you
      * click the play button
-     *
      */
     @FXML
     private void handlePlayButtonAction() {
@@ -252,7 +252,6 @@ public class MenuController extends Application {
 
     /**
      * Handle menu button action.
-     *
      */
     @FXML
     private void handleMenuButton() {
@@ -392,7 +391,6 @@ public class MenuController extends Application {
 
     /**
      * Returns all player profiles
-     *
      */
     @FXML
     private void getAllProfiles() {
@@ -457,7 +455,6 @@ public class MenuController extends Application {
 
     /**
      * Sets delete button.
-     *
      */
     @FXML
     private void setDeleteButton() {
