@@ -6,7 +6,8 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Manages the loading of new boards, saving of in-progress games and the
+ * The File Manager manages the loading of new boards, saving of in-progress
+ * games and the
  * loading of in-progress games.
  *
  * @author Callum Adair

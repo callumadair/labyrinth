@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 /**
- * This class represents the SilkBag in the Game.
+ * This class represents the SilkBag item in a Night Crawlers' game.
  *
  * @author Stefani Dimitrova
  */

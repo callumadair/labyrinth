@@ -3,7 +3,8 @@ package objects;
 import javafx.scene.image.Image;
 
 /**
- * This class represents the Card.
+ * The Card class represents the abstract card type.
+ *
  * @author Kacper Lisikiewicz
  */
 public abstract class Card {
@@ -26,7 +27,7 @@ public abstract class Card {
      *
      * @return the image.
      */
-    public Image getImage(){
+    public Image getImage() {
         return this.image;
     }
 
@@ -35,7 +36,7 @@ public abstract class Card {
      *
      * @param imagePath the image path.
      */
-    public void setImage(String imagePath){
+    public void setImage(String imagePath) {
         this.image = new Image(imagePath);
     }
 
@@ -45,7 +46,7 @@ public abstract class Card {
      * @param imagePath the image path.
      * @param rotation  the rotation of the image.
      */
-    public void setImage(String imagePath, int rotation){
+    public void setImage(String imagePath, int rotation) {
         this.image = new Image(imagePath + rotation + png);
     }
 }

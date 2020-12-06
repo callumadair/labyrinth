@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * This class represents the Player controller.
+ * This class represents the Player controller operating on the board during
+ * a game.
  *
  * @author Maha Malik
  * @author Kacper Lisikiewicz

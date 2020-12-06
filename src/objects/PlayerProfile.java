@@ -1,7 +1,7 @@
 package objects;
 
 /**
- * The type Player profile.
+ * The type Player profile stores data about a specific player profile.
  *
  * @author Callum Adair
  */

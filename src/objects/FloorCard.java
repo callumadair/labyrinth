@@ -6,7 +6,8 @@ import javafx.scene.image.Image;
 import java.util.Random;
 
 /**
- * This class represents the different floor tiles of the game.
+ * This class represents the Floor Card, allowing it to be used on in a game
+ * and enabling the features associated with each type.
  *
  * @author Kacper Lisikiewicz
  * @author Maha Malik

@@ -10,7 +10,8 @@ import objects.*;
 import java.io.*;
 
 /**
- * The type Leaderboard app.
+ * Used to create a Leaderboard pane filled with the relevant data for a
+ * specified game board.
  *
  * @author Callum Adair
  */

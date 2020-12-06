@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * Fetches and decodes a string from the CS-230 webpage.
+ * Message Of The Day fetches and decodes a string from the CS-230 webpage.
  *
  * @author Jeffrey
  */
@@ -31,7 +31,7 @@ public class MessageOfTheDay {
     /**
      * Decodes the scrambled message from the website
      *
-     * @return string string
+     * @return returns the decoded string.
      * @throws IOException the io exception
      */
     public static String decode() throws IOException {

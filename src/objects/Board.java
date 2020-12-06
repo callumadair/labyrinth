@@ -5,7 +5,7 @@ import javafx.scene.canvas.*;
 import java.util.*;
 
 /**
- * This class represents the board.
+ * The Board class represents a Night Crawlers' game board.
  *
  * @author Kacper Lisikiewicz
  */

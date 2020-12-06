@@ -3,7 +3,8 @@ package objects;
 import java.util.ArrayList;
 
 /**
- * This class represents the Action Card.
+ * This class represents the Action Card, allowing it to be used on a game
+ * board and enabling the features associated with each type.
  *
  * @author Stefani Dimitrova
  * @author Kacper Lisikiewicz

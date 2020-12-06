@@ -13,7 +13,8 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 
 /**
- * This class represents the Controller.
+ * The Controller class represents the game controller, enabling much of the
+ * functionality of running the game itself.
  *
  * @author Kacper Lisikiewicz
  */

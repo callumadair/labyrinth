@@ -22,8 +22,9 @@ import java.io.*;
 import java.util.*;
 
 /**
- * The type Menu controller allows the running of the game, night crawlers,
- * and the associated admin functionality.
+ * The class Menu controller allows the running of the game, night crawlers,
+ * and the associated admin functionality, including adding and deleting
+ * profiles, saving and loading games, exiting the program.
  *
  * @author Luke Young
  * @author Callum Adair
