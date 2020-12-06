@@ -311,6 +311,19 @@ public class Game {
     public BooleanProperty getIsGameFinished(){
         return isGameFinished;
     }
+
+    /**
+     * Get canvas.
+     *
+     * @return Canvas.
+     */
+    public Canvas getCanvas(){
+        return controller.getCanvas();
+    }
+
+    public Controller getController() {
+        return controller;
+    }
 }
 
 
