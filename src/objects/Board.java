@@ -6,6 +6,8 @@ import java.util.*;
 
 /**
  * This class represents the board.
+ * @author Kacper L
+ *
  */
 public class Board {
 
