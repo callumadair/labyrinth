@@ -4,16 +4,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
+/**
+ * The type Message of the day.
+ * @author Jeffrey
+ */
 public class MessageOfTheDay {
 
 
-	/**
-	 * Read web page string.
-	 *
-	 * @return the string
-	 * @throws IOException the io exception
-	 */
-	public static String readWebPage() throws IOException {
+    /**
+     * Read web page string.
+     *
+     * @return the string
+     * @throws IOException the io exception
+     */
+    public static String readWebPage() throws IOException {
 			// Instantiating the URL class
 			URL url = new URL("http://cswebcat.swansea.ac.uk/puzzle");
 			// Retrieving the contents of the specified page
@@ -27,12 +31,13 @@ public class MessageOfTheDay {
 			return result;
 		}
 
-	/**
-	 * Decodes the scrambled message from the website
-	 * @return
-	 * @throws IOException
-	 */
-		public static String encode() throws IOException {
+    /**
+     * Decodes the scrambled message from the website
+     *
+     * @return string
+     * @throws IOException the io exception
+     */
+    public static String encode() throws IOException {
 			String puzzle = MessageOfTheDay.readWebPage();
 			String prefix = "CS-230";
 			Boolean pointer = false;
@@ -58,12 +63,13 @@ public class MessageOfTheDay {
 			return (prefix + finalString + (prefix.length() + counter));
 		}
 
-	/**
-	 * Solves an ASCII puzzle
-	 * @param ascii
-	 * @return
-	 */
-		public static int solvePuzzleASCII(int ascii) {
+    /**
+     * Solves an ASCII puzzle
+     *
+     * @param ascii the ascii
+     * @return int
+     */
+    public static int solvePuzzleASCII(int ascii) {
 			char start = 'A';
 			char end = 'Z';
 
@@ -75,12 +81,13 @@ public class MessageOfTheDay {
 			return ascii;
 		}
 
-	/**
-	 * Returns the final daily message
-	 * @return
-	 * @throws IOException
-	 */
-		public static String finalMessage() throws IOException {
+    /**
+     * Returns the final daily message
+     *
+     * @return string
+     * @throws IOException the io exception
+     */
+    public static String finalMessage() throws IOException {
 			String solvedCode = MessageOfTheDay.encode();
 			String requestURL = "http://cswebcat.swansea.ac.uk/message?solution=";
 

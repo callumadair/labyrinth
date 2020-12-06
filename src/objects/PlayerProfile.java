@@ -3,7 +3,7 @@ package objects;
 /**
  * The type Player profile.
  *
- * @author Cal
+ * @author Callum Adair
  */
 public class PlayerProfile {
     private String playerName;

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  * This class represents the Action Card.
- * @author 
+ * @author Stefani D
+ * @author Kacper L
  */
 public class ActionCard extends Card {
 
