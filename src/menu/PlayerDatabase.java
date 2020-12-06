@@ -23,7 +23,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Start.
+     * Start the appropriate database
      */
     public void start() {
         try (Connection conn = connect()) {
@@ -42,7 +42,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Connect connection.
+     * Connects to the database.
      *
      * @return the connection
      */
@@ -57,7 +57,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Execute sql operation.
+     * Executes the specified sql operation.
      *
      * @param sql the sql
      */
@@ -71,7 +71,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Store player.
+     * Stores a new player profile.
      *
      * @param playerProfile the player profile
      */
@@ -81,7 +81,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Stores a player profile.
+     * Stores a player profile, using its attributes.
      *
      * @param playerName the player name
      * @param victories  the victories
@@ -95,7 +95,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Update player.
+     * Updates the details of the specified player profile.
      *
      * @param playerProfile the player profile
      */
@@ -105,7 +105,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Update player.
+     * Updates the specified player profile by its attributes.
      *
      * @param playerName the player name
      * @param victories  the victories
@@ -127,6 +127,11 @@ public class PlayerDatabase {
         }
     }
 
+    /**
+     * Increments victories of the specified player profile.
+     *
+     * @param id the id
+     */
     public void incrementVictories(int id) {
         String sql = "update PLAYER set VICTORIES = VICTORIES + 1 where ID = ?;";
         try {
@@ -139,6 +144,11 @@ public class PlayerDatabase {
         }
     }
 
+    /**
+     * Increments losses of the specified player profile.
+     *
+     * @param id the id
+     */
     public void incrementLosses(int id) {
         String sql = "update PLAYER set LOSSES = LOSSES + 1 where ID = ?;";
         try {
@@ -152,7 +162,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Delete player.
+     * Deletes the specified player profile from the database.
      *
      * @param playerProfile the player profile
      */
@@ -161,7 +171,7 @@ public class PlayerDatabase {
     }
 
     /**
-     * Delete player.
+     * Deletes the specified player profile by its id from the database.
      *
      * @param id the id
      */
@@ -173,7 +183,7 @@ public class PlayerDatabase {
     /**
      * Gets all data in the table.
      *
-     * @return all the data
+     * @return all the player profiles held by this database.
      */
     public ArrayList<PlayerProfile> getAllData() {
         ArrayList<PlayerProfile> storedProfiles = null;
