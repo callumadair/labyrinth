@@ -91,6 +91,7 @@ public class FloorCard extends Card {
         this(type);
         this.x = x;
         this.y = y;
+        this.isFixed = true;
         setRotation(rotation);
     }
 
@@ -183,6 +184,11 @@ public class FloorCard extends Card {
         }
     }
 
+    /**
+     * Get effect timer.
+     *
+     * @return int the timer
+     */
     public int getEffectTimer() {
         return effectTimer;
     }
@@ -258,7 +264,7 @@ public class FloorCard extends Card {
     /**
      * Check goal boolean to see if the goal have been reached.
      *
-     * @return the boolean.
+     * @return true if the floor type is GOAL.
      */
     public boolean checkGoal() {
         return type == FloorType.GOAL;
@@ -276,14 +282,14 @@ public class FloorCard extends Card {
     /**
      * Gets rotation.
      *
-     * @return the rotation
+     * @return the rotation.
      */
     public int getRotation() {
         return rotation;
     }
 
     /**
-     * Change path for tile.
+     * Change paths.
      */
     private void changePaths() {
         boolean temp = possiblePaths[3];
@@ -475,7 +481,7 @@ public class FloorCard extends Card {
      */
     public void drawTile(GraphicsContext gc, int x, int y) {
         gc.drawImage(this.getImage(), x * TILE_SIZE, y * TILE_SIZE);
-        if(isFixed){
+        if(this.isFixed()){
             gc.drawImage(new Image(fixedTileImagePath), x * TILE_SIZE, y * TILE_SIZE);
         }
         if (state != FloorTileState.NORMAL) {

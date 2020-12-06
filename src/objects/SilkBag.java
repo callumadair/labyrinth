@@ -26,7 +26,7 @@ public class SilkBag {
     /**
      * Gets the number of cards.
      *
-     * @return the number of cards
+     * @return the number of cards.
      */
     public int getNumOfCards() {
         return numOfCards;
@@ -35,7 +35,7 @@ public class SilkBag {
     /**
      * Sets the number of cards.
      *
-     * @param numOfCards the number of cards
+     * @param numOfCards the number of cards.
      */
     public void setNumOfCards(int numOfCards) {
         this.numOfCards = numOfCards;
@@ -44,7 +44,7 @@ public class SilkBag {
     /**
      * Gets list of cards.
      *
-     * @return the list of cards
+     * @return the list of cards.
      */
     public ArrayList<Card> getListOfCards() {
         return listOfCards;
@@ -53,7 +53,7 @@ public class SilkBag {
     /**
      * Sets list of cards.
      *
-     * @param listOfCards the list of cards
+     * @param listOfCards the list of cards.
      */
     public void setListOfCards(ArrayList<Card> listOfCards) {
         this.listOfCards = listOfCards;
@@ -62,7 +62,7 @@ public class SilkBag {
     /**
      * Add a card.
      *
-     * @param card the card
+     * @param card the card.
      */
     public void addACard(Card card) {
         listOfCards.add(card);
@@ -71,7 +71,7 @@ public class SilkBag {
     /**
      * Draw a card from the bag.
      *
-     * @return the card
+     * @return the card.
      */
     public Card drawACard() {
         int card = randomGenerator.nextInt(listOfCards.size());
@@ -83,7 +83,7 @@ public class SilkBag {
     /**
      * Draw floor card from the bag.
      *
-     * @return the floor card
+     * @return the floor card.
      */
     public FloorCard drawFloorCard() {
         int card = randomGenerator.nextInt(listOfCards.size());

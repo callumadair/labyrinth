@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
@@ -50,7 +51,7 @@ public class Game {
     /**
      * Instantiates a new Game.
      *
-     * @param board the board
+     * @param board the board.
      */
     public Game(Board board) {
         this.controller = new Controller(board);
@@ -286,7 +287,7 @@ public class Game {
     }
     /**
      * Selects an action card.
-     * @param y
+     * @param y on the right pane.
      */
     private void selectActionCard(double y) {
         if (controller.getCurrentState() == Controller.GameState.ACTION_CARD) {
@@ -302,12 +303,17 @@ public class Game {
     /**
      * Gets the pane.
      *
-     * @return the pane
+     * @return the pane.
      */
     public BorderPane getPane() {
         return pane;
     }
 
+    /**
+     * Get is game finished.
+     *
+     * @return true if the game is finished.
+     */
     public BooleanProperty getIsGameFinished(){
         return isGameFinished;
     }
@@ -319,10 +325,6 @@ public class Game {
      */
     public Canvas getCanvas(){
         return controller.getCanvas();
-    }
-
-    public Controller getController() {
-        return controller;
     }
 }
 

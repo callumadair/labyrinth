@@ -288,6 +288,7 @@ public class ActionCard extends Card {
 
     /**
      * Gets the type of the card.
+     *
      * @return the type of the card.
      */
     public ActionCardType getType() {

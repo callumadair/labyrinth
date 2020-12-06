@@ -71,6 +71,11 @@ public class Controller {
      */
     public void startGame() {
         numOfPlayers = players.size() - 1;
+        for(PlayerController player : players){
+            if(player.isCurrentPlayer()){
+                this.playerIndex = player.getPlayerIndex();
+            }
+        }
         currentPlayer = players.get(playerIndex);
         currentPlayerIndex = new SimpleIntegerProperty(playerIndex);
         cardSelectionFlag = new SimpleBooleanProperty(false);
@@ -340,7 +345,7 @@ public class Controller {
     /**
      * Gets canvas.
      *
-     * @return the canvas
+     * @return the canvas.
      */
     public Canvas getCanvas() {
         return canvas;
@@ -349,7 +354,7 @@ public class Controller {
     /**
      * Gets playing card.
      *
-     * @return the playing card
+     * @return the playing card.
      */
     public Card getPlayingCard() {
         return playingCard;
@@ -358,7 +363,7 @@ public class Controller {
     /**
      * Sets playing card.
      *
-     * @param card the card
+     * @param card the card.
      */
     public void setPlayingCard(Card card) {
         playingCard = card;
@@ -366,7 +371,7 @@ public class Controller {
     }
 
     /**
-     *
+     * Clears the cache of selected items.
      */
     private void clearSelection() {
         setPlayingCard(null);
@@ -384,7 +389,7 @@ public class Controller {
     /**
      * Gets players.
      *
-     * @return the players
+     * @return the players.
      */
     public ArrayList<PlayerController> getPlayers() {
         return players;
@@ -393,7 +398,7 @@ public class Controller {
     /**
      * Gets current state.
      *
-     * @return the current state
+     * @return the current state.
      */
     public GameState getCurrentState() {
         return currentState;
@@ -402,7 +407,7 @@ public class Controller {
     /**
      * Gets current player.
      *
-     * @return the current player
+     * @return the current player.
      */
     public PlayerController getCurrentPlayer() {
         return currentPlayer;
@@ -411,7 +416,7 @@ public class Controller {
     /**
      * Gets current player index.
      *
-     * @return the current player index
+     * @return the current player index.
      */
     public IntegerProperty getCurrentPlayerIndex() {
         return currentPlayerIndex;

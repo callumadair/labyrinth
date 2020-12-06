@@ -3,17 +3,19 @@ package menu;
 import javafx.animation.*;
 import javafx.application.*;
 import javafx.beans.value.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.*;
 import javafx.scene.media.MediaPlayer.*;
-import javafx.scene.paint.*;
 import javafx.stage.*;
-import javafx.util.*;
+import javafx.util.Duration;
 import objects.*;
 
 import java.io.*;
@@ -28,15 +30,16 @@ import java.util.*;
  */
 public class MenuController extends Application {
 
+
     private Stage stage;
-    private Stage gameStage;
     private Stage leaderboardStage;
     private Game game;
     private String boardName;
     private Board board;
     private ArrayList<PlayerProfile> players;
     private FXMLLoader menuLoader;
-    private FXMLLoader playLoader;
+    @FXML
+    private static TableView<PlayerProfile> tableView = new TableView<>();
     @FXML
     private StackPane root;
     @FXML
@@ -48,9 +51,12 @@ public class MenuController extends Application {
     @FXML
     private Button musicOnOffButton;
     @FXML
-    private Button playButton;
+    private BorderPane profileView;
     @FXML
-    private Button quitButton;
+    public ListView playerProfilesList;
+    @FXML
+    public Label boardSelectionLabel;
+
     private static MediaPlayer menuMusic;
     private ArrayList<PlayerDatabase> databases = new ArrayList<>();
 
@@ -63,6 +69,15 @@ public class MenuController extends Application {
         launch(args);
     }
 
+    public enum MenuWindow {
+        MAIN(0), PLAY(1), PROFILES(2);
+
+        public final int index;
+
+        private MenuWindow(int index){
+            this.index = index;
+        }
+    }
 
     /**
      * Creates the Stage for the scenes and loads the MainMenu
@@ -72,7 +87,7 @@ public class MenuController extends Application {
     @FXML
     @Override
     public void start(Stage primaryStage) {
-        // playMusic("src\\resources\\MenuMusic.wav");
+        playMusic("src\\resources\\MenuMusic.wav");
 
         stage = primaryStage;
         root = null;
@@ -84,6 +99,10 @@ public class MenuController extends Application {
         }
 
         borderPane = (BorderPane) root.getChildren().get(1);
+        mainView = (StackPane) borderPane.getCenter();
+        profileView = (BorderPane) mainView.getChildren().get(2);
+        tableView = (TableView<PlayerProfile>) profileView.getCenter();
+        disableVisibility(MenuWindow.MAIN);
         Label message = (Label) ((HBox) borderPane.getBottom()).getChildren().get(0);
         try {
             message.setText(MessageOfTheDay.finalMessage());
@@ -93,7 +112,7 @@ public class MenuController extends Application {
         setBackgroundEffects();
         addDatabases();
 
-        Scene primaryScene = new Scene(root, 1125, 650);
+        Scene primaryScene = new Scene(root, 1125, 700);
         stage.setScene(primaryScene);
         stage.show();
     }
@@ -142,21 +161,6 @@ public class MenuController extends Application {
         backgroundMove.setAutoReverse(true);
         backgroundMove.setCycleCount(Animation.INDEFINITE);
         backgroundMove.play();
-
-    }
-
-    /**
-     * Make fade out.
-     *
-     * @param fadeOut the fade out
-     */
-    private void fadeOut(Pane fadeOut) {
-        TranslateTransition windowTransition = new TranslateTransition();
-        windowTransition.setDuration(Duration.millis(500));
-        windowTransition.setNode(fadeOut);
-        windowTransition.setFromX(700);
-        windowTransition.setToX(0);
-        windowTransition.play();
     }
 
     private void addDatabases() {
@@ -172,16 +176,29 @@ public class MenuController extends Application {
      */
     @FXML
     private void handlePlayButtonAction(ActionEvent actionEvent) {
-        borderPane.getChildren().remove(mainView);
-        try {
-            mainView = FXMLLoader.load(getClass().getResource("AnotherPLay.fxml"));
-            fadeOut(mainView);
-            borderPane.setCenter(mainView);
+        disableVisibility(MenuWindow.PLAY);
+        players = new ArrayList<>();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ObservableList<PlayerProfile> profilesList =
+                FXCollections.observableArrayList(getProfiles());
 
+        playerProfilesList.setItems(profilesList);
+
+        MultipleSelectionModel<PlayerProfile> selectionModel = playerProfilesList.getSelectionModel();
+
+        selectionModel.setSelectionMode(SelectionMode.MULTIPLE);
+
+        selectionModel.selectedItemProperty().addListener(new ChangeListener<PlayerProfile>() {
+            @Override
+            public void changed(ObservableValue<? extends PlayerProfile> observable, PlayerProfile oldValue, PlayerProfile newValue) {
+                for(PlayerProfile playerProfile : selectionModel.getSelectedItems()){
+                    if(!players.contains(playerProfile)){
+                        players.add(playerProfile);
+                    }
+                }
+                players.retainAll(selectionModel.getSelectedItems());
+            }
+        });
     }
 
 
@@ -205,21 +222,13 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleMenuButton(ActionEvent actionEvent) {
-        borderPane.getChildren().remove(mainView);
-        try {
-            root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-            mainView = (Pane) ((BorderPane) root.getChildren().get(1)).getChildren().get(0);
-            fadeOut(mainView);
-            borderPane.setCenter(mainView);
-
-            playButton = (Button) ((VBox) mainView.getChildren().get(0)).getChildren().get(0);
-            playButton.setOnAction(this::handlePlayButtonAction);
-
-            quitButton = (Button) ((VBox) mainView.getChildren().get(0)).getChildren().get(1);
-            quitButton.setOnAction(this::handleQuitButtonAction);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(game != null){
+            mainView.getChildren().remove(game.getPane());
         }
+        if(!players.isEmpty()){
+            players.clear();
+        }
+        disableVisibility(MenuWindow.MAIN);
     }
 
     /**
@@ -230,30 +239,20 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleNewGame(ActionEvent actionEvent) throws IOException {
-        if (gameStage != null) {
-            gameStage.close();
-        }
         boardName = ((Button) actionEvent.getSource()).getText();
+        boardSelectionLabel.setText(boardName);
 
-        //TESTING
-
-        players = new ArrayList<>();
-        players.add(new PlayerProfile("Cal", 1, 3, 1));
-        players.add(new PlayerProfile("Luke", 3, 1, 2));
-
-        board = FileManager.loadBoard(boardName, players);
-        startGame();
     }
 
-    private void startGame() {
-        game = new Game(board);
-        gameFinishedListener();
-
-        BorderPane gamePane = game.getPane();
-        Scene scene = new Scene(gamePane, 800, 600, Color.WHITE);
-        gameStage = new Stage();
-        gameStage.setScene(scene);
-        gameStage.show();
+    @FXML
+    public void onStartGame(ActionEvent actionEvent) throws IOException {
+        if(!players.isEmpty() && players.size() <= 4 && players.size() >= 2 && boardName != null){
+            board = FileManager.loadBoard(boardName, players);
+            game = new Game(board);
+            gameFinishedListener();
+            disableVisibility();
+            mainView.getChildren().add(game.getPane());
+        }
     }
 
     /**
@@ -264,14 +263,32 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleLoadGame(ActionEvent actionEvent) throws FileNotFoundException {
-        if (gameStage != null) {
-            gameStage.close();
-        }
         String fileName = ((TextField) ((HBox) ((Button)
                 actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
 
         board = FileManager.loadGame(fileName);
-        startGame();
+        game = new Game(board);
+        gameFinishedListener();
+        disableVisibility();
+        mainView.getChildren().add(game.getPane());
+    }
+
+    @FXML
+    private void disableVisibility(){
+        for(MenuWindow menuWindow : MenuWindow.values()){
+            mainView.getChildren().get(menuWindow.index).setVisible(false);
+        }
+    }
+
+    @FXML
+    private void disableVisibility(MenuWindow window){
+        for(MenuWindow menuWindow : MenuWindow.values()){
+            if(menuWindow == window){
+                mainView.getChildren().get(menuWindow.index).setVisible(true);
+            } else {
+                mainView.getChildren().get(menuWindow.index).setVisible(false);
+            }
+        }
     }
 
     /**
@@ -282,11 +299,16 @@ public class MenuController extends Application {
      */
     @FXML
     private void handleSaveGame(ActionEvent actionEvent) throws IOException {
-        System.out.println(board);
-        System.out.println(board.getHeight());
-        System.out.println(board.getWidth());
+        if(game != null){
+            System.out.println(board);
+            System.out.println(board.getHeight());
+            System.out.println(board.getWidth());
 
-        FileManager.saveGame(board, boardName + "save");
+            FileManager.saveGame(board, boardName + "save");
+        } else {
+            System.out.println("No game");
+        }
+
     }
 
     /**
@@ -316,8 +338,8 @@ public class MenuController extends Application {
      */
     @FXML
     private void getAllProfiles(ActionEvent actionEvent) {
-        addDatabases();
-        borderPane.setCenter(Profiles.getAllProfiles(databases));
+        getProfiles();
+        disableVisibility(MenuWindow.PROFILES);
     }
 
 
@@ -326,6 +348,7 @@ public class MenuController extends Application {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (game.getIsGameFinished().getValue()) {
+                    System.out.println("Game finished");
                     PlayerDatabase curDatabase = new PlayerDatabase(boardName);
                     curDatabase.start();
                     for (PlayerController playerController : board.getPlayers()) {
@@ -335,4 +358,68 @@ public class MenuController extends Application {
             }
         });
     }
+
+    @FXML
+    private void addPlayer(ActionEvent actionEvent) {
+        String name = ((TextField)
+                ((Button) actionEvent.getSource()).getParent().getChildrenUnmodifiable().get(1)).getText();
+        int id = Integer.parseInt(((TextField)
+                ((Button) actionEvent.getSource()).getParent().getChildrenUnmodifiable().get(2)).getText());
+
+        PlayerProfile newProfile = new PlayerProfile(name, 0, 0, id);
+        for (PlayerDatabase database : databases) {
+            database.storePlayer(newProfile);
+        }
+    }
+
+    @FXML
+    private void setDeleteButton(ActionEvent actionEvent) {
+        PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
+        tableView.getItems().remove(profile);
+        for (PlayerDatabase database : databases) {
+            database.deletePlayer(profile);
+        }
+    }
+
+    /**
+     * Gets all profiles.
+     *
+     * @return the all profiles
+     */
+    public ObservableList<PlayerProfile> getProfiles() {
+        addDatabases();
+
+        HashMap<Integer, PlayerProfile> allProfiles = new HashMap<>();
+        for (PlayerDatabase database : databases) {
+            database.start();
+            for (PlayerProfile profile : database.getAllData()) {
+                if (allProfiles.get(profile.getPlayerID()) == null) {
+                    allProfiles.put(profile.getPlayerID(), profile);
+                } else {
+                    PlayerProfile curProfile = allProfiles.get(profile.getPlayerID());
+                    profile.setVictories(profile.getVictories() + curProfile.getVictories());
+                    profile.setLosses(profile.getLosses() + curProfile.getLosses());
+                }
+            }
+        }
+        ObservableList<PlayerProfile> profiles = FXCollections.observableArrayList(
+                new ArrayList<>(allProfiles.values()));
+        addColumns(profiles);
+
+        return profiles;
+    }
+
+    /**
+     * Fill out the columns with data from the databases
+     *
+     * @param profiles
+     */
+    private void addColumns(ObservableList<PlayerProfile> profiles) {
+        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
+        tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("playerID"));
+        tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
+
+        tableView.setItems(profiles);
+    }
+
 }

@@ -71,8 +71,9 @@ public class Board {
      */
     private void setup() {
         map = new FloorCard[width][height];
-        for (FloorCard fixed : fixedTiles) {
-            map[fixed.getX()][fixed.getY()] = fixed;
+
+        for(FloorCard card : fixedTiles){
+            map[card.getX()][card.getY()] = card;
         }
 
         for (int i = 0; i < height; i++) {
@@ -88,11 +89,14 @@ public class Board {
         for(int i = 0; i < players.size(); i++){
             players.get(i).movePlayer(spawnPoints[i][0], spawnPoints[i][1]);
         }
+
+        players.get(0).setCurrentPlayer(true);
+
         assignInsertPositions();
     }
 
     /**
-     *Setup the board.
+     * Setup in progress game.
      */
     private void setupInProgressGame(ArrayList<FloorCard> floorCards) {
         map = new FloorCard[width][height];
@@ -316,9 +320,9 @@ public class Board {
     }
 
     /**
-     * Gets silkbag.
+     * Get silkbag.
      *
-     * @return the silkbag
+     * @return the silkbag.
      */
     public SilkBag getSilkBag() {
         return silkBag;
@@ -400,7 +404,7 @@ public class Board {
     /**
      * Gets players.
      *
-     * @return the players
+     * @return the players.
      */
     public ArrayList<PlayerController> getPlayers() {
         return players;
@@ -425,7 +429,7 @@ public class Board {
     /**
      * Gets frozen tiles.
      *
-     * @return the frozen tiles
+     * @return the frozen tiles.
      */
     public ArrayList<FloorCard> getFrozenTiles() {
         return frozenTiles;
@@ -434,7 +438,7 @@ public class Board {
     /**
      * Sets players.
      *
-     * @param players the players
+     * @param players the players.
      */
     public void setPlayers(ArrayList<PlayerController> players) {
         this.players = players;
