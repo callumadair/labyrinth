@@ -224,6 +224,8 @@ public class MenuController extends Application {
     private void handleMenuButton(ActionEvent actionEvent) {
         if(game != null){
             mainView.getChildren().remove(game.getPane());
+            game = null;
+            boardName = null;
         }
         if(!players.isEmpty()){
             players.clear();
