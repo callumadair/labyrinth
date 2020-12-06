@@ -33,6 +33,7 @@ import java.util.*;
 public class MenuController extends Application {
 
     private final ArrayList<PlayerDatabase> databases = new ArrayList<>();
+    private final String MUSIC_URL = "src\\resources\\MenuMusic.wav";
 
     @FXML
     private static TableView<PlayerProfile> tableView = new TableView<>();
@@ -97,7 +98,7 @@ public class MenuController extends Application {
     @FXML
     @Override
     public void start(Stage primaryStage) {
-        playMusic("src\\resources\\MenuMusic.wav");
+        playMusic(MUSIC_URL);
 
         stage = primaryStage;
         root = null;
@@ -124,7 +125,10 @@ public class MenuController extends Application {
         setBackgroundEffects();
         addDatabases();
 
-        Scene primaryScene = new Scene(root, 1125, 700);
+        final int WINDOW_WIDTH = 1125;
+        final int WINDOW_HEIGHT = 700;
+
+        Scene primaryScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         stage.setScene(primaryScene);
         stage.show();
     }
