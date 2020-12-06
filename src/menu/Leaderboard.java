@@ -29,7 +29,8 @@ public class Leaderboard {
         Leaderboard.databaseName = databaseName;
         BorderPane root = null;
         try {
-            root = FXMLLoader.load(Leaderboard.class.getResource("Leaderboard.fxml"));
+            root = FXMLLoader.load(
+                    Leaderboard.class.getResource("Leaderboard.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,11 +46,16 @@ public class Leaderboard {
     private static void addColumns() {
         PlayerDatabase playerDatabase = new PlayerDatabase(getDatabaseName());
         playerDatabase.start();
-        ObservableList<PlayerProfile> data = FXCollections.observableArrayList(playerDatabase.getAllActiveProfiles());
+        ObservableList<PlayerProfile> data =
+                FXCollections.observableArrayList(
+                        playerDatabase.getAllActiveProfiles());
 
-        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
-        tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("victories"));
-        tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("losses"));
+        tableView.getColumns().get(0).setCellValueFactory(
+                new PropertyValueFactory<>("playerName"));
+        tableView.getColumns().get(1).setCellValueFactory(
+                new PropertyValueFactory<>("victories"));
+        tableView.getColumns().get(2).setCellValueFactory(
+                new PropertyValueFactory<>("losses"));
         tableView.setItems(data);
     }
 

@@ -22,7 +22,8 @@ import java.io.*;
 import java.util.*;
 
 /**
- * The type Menu controller allows the running of the game, night crawlers, and the associated admin functionality.
+ * The type Menu controller allows the running of the game, night crawlers,
+ * and the associated admin functionality.
  *
  * @author Luke Young
  * @author Callum Adair
@@ -100,7 +101,8 @@ public class Menu extends Application {
 
         stage = primaryStage;
         root = null;
-        FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+        FXMLLoader menuLoader = new FXMLLoader(getClass().getResource(
+                "MainMenu.fxml"));
         try {
             root = menuLoader.load();
         } catch (Exception e) {
@@ -112,7 +114,8 @@ public class Menu extends Application {
         profileView = (BorderPane) mainView.getChildren().get(2);
         tableView = (TableView<PlayerProfile>) profileView.getCenter();
         disableVisibility(MenuWindow.MAIN);
-        Label message = (Label) ((HBox) borderPane.getBottom()).getChildren().get(0);
+        Label message =
+                (Label) ((HBox) borderPane.getBottom()).getChildren().get(0);
         try {
             message.setText(MessageOfTheDay.finalMessage());
         } catch (IOException e) {
@@ -160,8 +163,10 @@ public class Menu extends Application {
 
 
         imageView = (ImageView) root.getChildren().get(0);
-        imageView.fitWidthProperty().bind(root.widthProperty().multiply(MULTIPLICATION_FACTOR));
-        imageView.fitHeightProperty().bind(root.heightProperty().multiply(MULTIPLICATION_FACTOR));
+        imageView.fitWidthProperty().bind(root.widthProperty().multiply(
+                MULTIPLICATION_FACTOR));
+        imageView.fitHeightProperty().bind(root.heightProperty().multiply(
+                MULTIPLICATION_FACTOR));
         imageView.setPreserveRatio(false);
 
         TranslateTransition backgroundMove = new TranslateTransition();
@@ -188,7 +193,8 @@ public class Menu extends Application {
     }
 
     /**
-     * This will create a second window that you will be taken to when you click the play button
+     * This will create a second window that you will be taken to when you
+     * click the play button
      *
      * @param actionEvent the action event
      */
@@ -202,22 +208,28 @@ public class Menu extends Application {
 
         playerProfilesList.setItems(profilesList);
 
-        MultipleSelectionModel<PlayerProfile> selectionModel = playerProfilesList.getSelectionModel();
+        MultipleSelectionModel<PlayerProfile> selectionModel =
+                playerProfilesList.getSelectionModel();
 
         selectionModel.setSelectionMode(SelectionMode.MULTIPLE);
 
-        selectionModel.selectedItemProperty().addListener(new ChangeListener<PlayerProfile>() {
-            @Override
-            public void changed(ObservableValue<? extends PlayerProfile> observable, PlayerProfile oldValue,
-                                PlayerProfile newValue) {
-                for (PlayerProfile playerProfile : selectionModel.getSelectedItems()) {
-                    if (!players.contains(playerProfile)) {
-                        players.add(playerProfile);
+        selectionModel.selectedItemProperty().addListener(
+                new ChangeListener<PlayerProfile>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends PlayerProfile> observable,
+                            PlayerProfile oldValue,
+                            PlayerProfile newValue) {
+
+                        for (PlayerProfile playerProfile :
+                                selectionModel.getSelectedItems()) {
+                            if (!players.contains(playerProfile)) {
+                                players.add(playerProfile);
+                            }
+                        }
+                        players.retainAll(selectionModel.getSelectedItems());
                     }
-                }
-                players.retainAll(selectionModel.getSelectedItems());
-            }
-        });
+                });
     }
 
 
@@ -276,7 +288,8 @@ public class Menu extends Application {
         final int MIN_PLAYERS = 2;
         final int MAX_PLAYERS = 4;
 
-        if (!players.isEmpty() && players.size() <= MAX_PLAYERS && players.size() >= MIN_PLAYERS && boardName != null) {
+        if (!players.isEmpty() && players.size() <= MAX_PLAYERS
+                && players.size() >= MIN_PLAYERS && boardName != null) {
             board = FileManager.loadBoard(boardName, players);
             game = new Game(board);
             gameFinishedListener();
@@ -292,9 +305,14 @@ public class Menu extends Application {
      * @throws FileNotFoundException the file not found exception
      */
     @FXML
-    private void handleLoadGame(ActionEvent actionEvent) throws FileNotFoundException {
+    private void handleLoadGame(ActionEvent actionEvent)
+            throws FileNotFoundException {
         String fileName = ((TextField) ((HBox) ((Button)
-                actionEvent.getSource()).getParent()).getChildren().get(1)).getText();
+                actionEvent.getSource())
+                .getParent())
+                .getChildren()
+                .get(1))
+                .getText();
 
         board = FileManager.loadGame(fileName);
         game = new Game(board);
@@ -367,7 +385,8 @@ public class Menu extends Application {
         final int LEADERBOARD_WIDTH = 350;
         final int LEADERBOARD_HEIGHT = 450;
 
-        Scene leaderboard = new Scene(leaderboardPane, LEADERBOARD_WIDTH, LEADERBOARD_HEIGHT);
+        Scene leaderboard = new Scene(leaderboardPane, LEADERBOARD_WIDTH,
+                LEADERBOARD_HEIGHT);
         leaderboardStage.setScene(leaderboard);
         leaderboardStage.show();
     }
@@ -390,16 +409,21 @@ public class Menu extends Application {
     private void gameFinishedListener() {
         game.getIsGameFinished().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            public void changed(ObservableValue<? extends Boolean> observable
+                    , Boolean oldValue, Boolean newValue) {
                 if (game.getIsGameFinished().getValue()) {
                     System.out.println("Game finished");
                     PlayerDatabase curDatabase = new PlayerDatabase(boardName);
                     curDatabase.start();
-                    for (PlayerController playerController : board.getPlayers()) {
-                        if (playerController.equals(game.getController().getCurrentPlayer())) {
-                            curDatabase.incrementVictories(playerController.getProfile());
+                    for (PlayerController playerController :
+                            board.getPlayers()) {
+                        if (playerController.equals(
+                                game.getController().getCurrentPlayer())) {
+                            curDatabase.incrementVictories(
+                                    playerController.getProfile());
                         } else {
-                            curDatabase.incrementLosses(playerController.getProfile());
+                            curDatabase.incrementLosses(
+                                    playerController.getProfile());
                         }
                     }
                 }
@@ -415,9 +439,17 @@ public class Menu extends Application {
     @FXML
     private void addPlayer(ActionEvent actionEvent) {
         String name = ((TextField)
-                ((Button) actionEvent.getSource()).getParent().getChildrenUnmodifiable().get(1)).getText();
+                ((Button) actionEvent.getSource())
+                        .getParent()
+                        .getChildrenUnmodifiable()
+                        .get(1))
+                .getText();
         int id = Integer.parseInt(((TextField)
-                ((Button) actionEvent.getSource()).getParent().getChildrenUnmodifiable().get(2)).getText());
+                ((Button) actionEvent.getSource())
+                        .getParent()
+                        .getChildrenUnmodifiable()
+                        .get(2))
+                .getText());
 
         PlayerProfile newProfile = new PlayerProfile(name, 0, 0, id);
         for (PlayerDatabase database : databases) {
@@ -454,14 +486,18 @@ public class Menu extends Application {
                 if (allProfiles.get(profile.getPlayerID()) == null) {
                     allProfiles.put(profile.getPlayerID(), profile);
                 } else {
-                    PlayerProfile curProfile = allProfiles.get(profile.getPlayerID());
-                    profile.setVictories(profile.getVictories() + curProfile.getVictories());
-                    profile.setLosses(profile.getLosses() + curProfile.getLosses());
+                    PlayerProfile curProfile =
+                            allProfiles.get(profile.getPlayerID());
+                    profile.setVictories(profile.getVictories()
+                            + curProfile.getVictories());
+                    profile.setLosses(profile.getLosses()
+                            + curProfile.getLosses());
                 }
             }
         }
-        ObservableList<PlayerProfile> profiles = FXCollections.observableArrayList(
-                new ArrayList<>(allProfiles.values()));
+        ObservableList<PlayerProfile> profiles =
+                FXCollections.observableArrayList(
+                        new ArrayList<>(allProfiles.values()));
         addColumns(profiles);
 
         return profiles;
@@ -473,9 +509,12 @@ public class Menu extends Application {
      * @param profiles the profiles
      */
     private void addColumns(ObservableList<PlayerProfile> profiles) {
-        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("playerName"));
-        tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("playerID"));
-        tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
+        tableView.getColumns().get(0).setCellValueFactory(
+                new PropertyValueFactory<>("playerName"));
+        tableView.getColumns().get(1).setCellValueFactory(
+                new PropertyValueFactory<>("playerID"));
+        tableView.getColumns().get(2).setCellValueFactory(
+                new PropertyValueFactory<>("gamesPlayed"));
 
         tableView.setItems(profiles);
     }
