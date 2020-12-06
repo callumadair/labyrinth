@@ -1,7 +1,7 @@
 package objects;
 
 /**
- * The type Player profile.
+ * The type Player profile stores data about a specific player profile.
  *
  * @author Callum Adair
  */
@@ -9,7 +9,6 @@ public class PlayerProfile {
     private String playerName;
     private int victories;
     private int losses;
-    private int gamesPlayed;
     private int playerID;
 
     /**
@@ -20,7 +19,8 @@ public class PlayerProfile {
      * @param losses     the losses
      * @param playerID   the player id
      */
-    public PlayerProfile(String playerName, int victories, int losses, int playerID) {
+    public PlayerProfile(String playerName, int victories, int losses,
+                         int playerID) {
         setPlayerName(playerName);
         setVictories(victories);
         setLosses(losses);
@@ -99,10 +99,10 @@ public class PlayerProfile {
     }
 
     /**
-     * set the games played from the sum of wins and loses
+     * Sets the games played from the sum of wins and loses
      */
     private void setGamesPlayed() {
-        this.gamesPlayed = victories + losses;
+        int gamesPlayed = victories + losses;
     }
 
     /**
@@ -124,6 +124,8 @@ public class PlayerProfile {
     }
 
     /**
+     * To string string.
+     *
      * @return the details of the player as a string
      */
     @Override

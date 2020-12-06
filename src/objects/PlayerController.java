@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * This class represents the Player controller.
+ * This class represents the Player controller operating on the board during
+ * a game.
  *
- * @author Maha
- * @author Kacper
- * @author Stefani
+ * @author Maha Malik
+ * @author Kacper Lisikiewicz
+ * @author Stefani Dimitrova
  */
 public class PlayerController {
 
@@ -260,7 +261,8 @@ public class PlayerController {
         }
         if (bottom != null) {
             if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)
-                    && !board.checkPlayerPosition(bottom.getX(), bottom.getY())) {
+                    && !board.checkPlayerPosition(bottom.getX(),
+                    bottom.getY())) {
                 legalMoves.add(bottom);
             }
         }
@@ -284,7 +286,8 @@ public class PlayerController {
      * @param gc the gc.
      */
     public void drawPlayer(GraphicsContext gc) {
-        gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
+        gc.drawImage(image, x * FloorCard.TILE_SIZE,
+                y * FloorCard.TILE_SIZE);
     }
 
     /**
@@ -310,7 +313,8 @@ public class PlayerController {
      */
     @Override
     public String toString() {
-        return getPlayerColor() + ": " + getProfile().getPlayerName(); // add players name from profile as well
+        return getPlayerColor() + ": " + getProfile().getPlayerName(); // add
+        // players name from profile as well
     }
 
 }

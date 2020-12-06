@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * The type Message of the day.
+ * Message Of The Day fetches and decodes a string from the CS-230 webpage.
  *
  * @author Jeffrey
  */
@@ -13,37 +13,33 @@ public class MessageOfTheDay {
 
 
     /**
-     * Read web page string.
+     * Read scrambled string from the web page.
      *
      * @return the string
      * @throws IOException the io exception
      */
     public static String readWebPage() throws IOException {
-        // Instantiating the URL class
         URL url = new URL("http://cswebcat.swansea.ac.uk/puzzle");
-        // Retrieving the contents of the specified page
-        Scanner scanWeb = new Scanner(url.openStream());
-        // Instantiating the StringBuffer class to hold the result
-        StringBuffer buffer = new StringBuffer();
-        while (scanWeb.hasNext()) {
-            buffer.append(scanWeb.next());
+        Scanner scanner = new Scanner(url.openStream());
+        StringBuilder buffer = new StringBuilder();
+        while (scanner.hasNext()) {
+            buffer.append(scanner.next());
         }
-        String result = buffer.toString();
-        return result;
+        return buffer.toString();
     }
 
     /**
      * Decodes the scrambled message from the website
      *
-     * @return string string
+     * @return returns the decoded string.
      * @throws IOException the io exception
      */
-    public static String encode() throws IOException {
-        String puzzle = MessageOfTheDay.readWebPage();
+    public static String decode() throws IOException {
+        String puzzle = readWebPage();
         String prefix = "CS-230";
-        Boolean pointer = false;
+        boolean pointer = false;
         int counter = 0;
-        String finalString = "";
+        StringBuilder finalString = new StringBuilder();
         char current;
 
         for (int i = 0; i < puzzle.length(); i++) {
@@ -51,13 +47,13 @@ public class MessageOfTheDay {
             current = puzzle.charAt(i);
             int ascii = 0;
 
-            if (pointer == true) {
+            if (pointer) {
                 ascii = current + counter;
             } else {
                 ascii = current - counter;
             }
 
-            finalString += (char) solvePuzzleASCII(ascii);
+            finalString.append((char) solvePuzzleASCII(ascii));
             pointer = !pointer;
 
         }
@@ -89,16 +85,15 @@ public class MessageOfTheDay {
      * @throws IOException the io exception
      */
     public static String finalMessage() throws IOException {
-        String solvedCode = MessageOfTheDay.encode();
+        String solvedCode = decode();
         String requestURL = "http://cswebcat.swansea.ac.uk/message?solution=";
 
         URL url = new URL(requestURL + solvedCode);
         Scanner scanWeb = new Scanner(url.openStream());
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         while (scanWeb.hasNext()) {
-            buffer.append(scanWeb.next() + " ");
+            buffer.append(scanWeb.next()).append(" ");
         }
-        String result = buffer.toString();
-        return result;
+        return buffer.toString();
     }
 }

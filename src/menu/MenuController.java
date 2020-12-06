@@ -22,17 +22,20 @@ import java.io.*;
 import java.util.*;
 
 /**
- * The type Menu controller allows the running of the game, night crawlers,
- * and the associated admin functionality.
+ * The class Menu controller allows the running of the game, night crawlers,
+ * and the associated admin functionality, including adding and deleting
+ * profiles, saving and loading games, exiting the program.
  *
  * @author Luke Young
  * @author Callum Adair
  * @author Jeffrey
- * @author Kacper L
+ * @author Kacper Lisikiewicz
+ * @version 78.6
  */
-public class Menu extends Application {
+public class MenuController extends Application {
 
     private final ArrayList<PlayerDatabase> databases = new ArrayList<>();
+    private final String MUSIC_URL = "src\\resources\\MenuMusic.wav";
 
     @FXML
     private static TableView<PlayerProfile> tableView = new TableView<>();
@@ -84,7 +87,7 @@ public class Menu extends Application {
          *
          * @param index the index
          */
-        private MenuWindow(int index) {
+        MenuWindow(int index) {
             this.index = index;
         }
     }
@@ -92,12 +95,12 @@ public class Menu extends Application {
     /**
      * Creates the Stage for the scenes and loads the MainMenu
      *
-     * @param primaryStage
+     * @param primaryStage the primary stage
      */
     @FXML
     @Override
     public void start(Stage primaryStage) {
-        playMusic("src\\resources\\MenuMusic.wav");
+        playMusic(MUSIC_URL);
 
         stage = primaryStage;
         root = null;
@@ -124,7 +127,10 @@ public class Menu extends Application {
         setBackgroundEffects();
         addDatabases();
 
-        Scene primaryScene = new Scene(root, 1125, 700);
+        final int WINDOW_WIDTH = 1125;
+        final int WINDOW_HEIGHT = 700;
+
+        Scene primaryScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         stage.setScene(primaryScene);
         stage.setTitle("Night Crawlers");
         stage.show();
@@ -196,11 +202,9 @@ public class Menu extends Application {
     /**
      * This will create a second window that you will be taken to when you
      * click the play button
-     *
-     * @param actionEvent the action event
      */
     @FXML
-    private void handlePlayButtonAction(ActionEvent actionEvent) {
+    private void handlePlayButtonAction() {
         disableVisibility(MenuWindow.PLAY);
         players = new ArrayList<>();
 
@@ -250,11 +254,9 @@ public class Menu extends Application {
 
     /**
      * Handle menu button action.
-     *
-     * @param actionEvent the action event
      */
     @FXML
-    private void handleMenuButton(ActionEvent actionEvent) {
+    private void handleMenuButton() {
         if (game != null) {
             mainView.getChildren().remove(game.getPane());
             game = null;
@@ -270,10 +272,9 @@ public class Menu extends Application {
      * Creates a new game for a board
      *
      * @param actionEvent the action event
-     * @throws IOException the io exception
      */
     @FXML
-    private void handleNewGame(ActionEvent actionEvent) throws IOException {
+    private void handleNewGame(ActionEvent actionEvent) {
         boardName = ((Button) actionEvent.getSource()).getText();
         boardSelectionLabel.setText(boardName);
     }
@@ -281,11 +282,10 @@ public class Menu extends Application {
     /**
      * On start game.
      *
-     * @param actionEvent the action event
      * @throws IOException the io exception
      */
     @FXML
-    public void onStartGame(ActionEvent actionEvent) throws IOException {
+    public void onStartGame() throws IOException {
         final int MIN_PLAYERS = 2;
         final int MAX_PLAYERS = 4;
 
@@ -351,11 +351,10 @@ public class Menu extends Application {
     /**
      * Button to save the game
      *
-     * @param actionEvent the action event
      * @throws IOException the io exception
      */
     @FXML
-    private void handleSaveGame(ActionEvent actionEvent) throws IOException {
+    private void handleSaveGame() throws IOException {
         if (game != null) {
             System.out.println(board);
             System.out.println(board.getHeight());
@@ -394,11 +393,9 @@ public class Menu extends Application {
 
     /**
      * Returns all player profiles
-     *
-     * @param actionEvent the action event
      */
     @FXML
-    private void getAllProfiles(ActionEvent actionEvent) {
+    private void getAllProfiles() {
         getProfiles();
         disableVisibility(MenuWindow.PROFILES);
     }
@@ -460,11 +457,9 @@ public class Menu extends Application {
 
     /**
      * Sets delete button.
-     *
-     * @param actionEvent the action event
      */
     @FXML
-    private void setDeleteButton(ActionEvent actionEvent) {
+    private void setDeleteButton() {
         PlayerProfile profile = tableView.getSelectionModel().getSelectedItem();
         tableView.getItems().remove(profile);
         for (PlayerDatabase database : databases) {

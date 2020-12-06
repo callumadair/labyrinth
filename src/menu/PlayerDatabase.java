@@ -6,7 +6,8 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * The type Database.
+ * The Player Database class handles the database and associated operations
+ * for a game board, storing the profiles of players and their scores.
  *
  * @author Callum Adair
  */

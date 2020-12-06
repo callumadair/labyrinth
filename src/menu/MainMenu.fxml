@@ -21,7 +21,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.ListView?>
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="menu.Menu">
+           fx:controller="menu.MenuController">
     <children>
         <ImageView fx:id="imageView" cache="true" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -311,8 +311,9 @@
                                 <Font name="Quicksand Medium" size="14.0"/>
                             </font>
                         </MenuButton>
+
                         <Label alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0"
-                               prefWidth="200.0" text="Night Crawlers" textAlignment="CENTER" textFill="DARKBLUE">
+                               prefWidth="200.0" text="Night Crawlers" textAlignment="CENTER_LEFT" textFill="DARKBLUE">
                             <font>
                                 <Font name="Quicksand Medium" size="24.0"/>
                             </font>

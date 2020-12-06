@@ -6,15 +6,23 @@ import javafx.scene.image.Image;
 import java.util.Random;
 
 /**
- * This class represents the different floor tiles of the game.
+ * This class represents the Floor Card, allowing it to be used on in a game
+ * and enabling the features associated with each type.
  *
- * @author Kacper L
+ * @author Kacper Lisikiewicz
  * @author Maha Malik
  */
 public class FloorCard extends Card {
 
 
     public static final int TILE_SIZE = 54;
+    private final String straightTileImagePath = "resources/ROAD_straight";
+    private final String cornerTileImagePath = "resources/ROAD_curved";
+    private final String tshapedTileImagePath = "resources/ROAD_Tshaped";
+    private final String goalTileImagePath = "resources/ROAD_goal.png";
+    private final String onFireImagePath = "resources/ROAD-Fireeffect.png";
+    private final String onIceImagePath = "resources/ROAD-Iceeffect.png";
+    private final String fixedTileImagePath = "resources/ROAD-nomove.png";
 
     private int x;
     private int y;
@@ -26,13 +34,6 @@ public class FloorCard extends Card {
 
     private int effectTimer = 0;
 
-    private String straightTileImagePath = "resources/ROAD_straight";
-    private String cornerTileImagePath = "resources/ROAD_curved";
-    private String tshapedTileImagePath = "resources/ROAD_Tshaped";
-    private String goalTileImagePath = "resources/ROAD_goal.png";
-    private String onFireImagePath = "resources/ROAD-Fireeffect.png";
-    private String onIceImagePath = "resources/ROAD-Iceeffect.png";
-    private String fixedTileImagePath = "resources/ROAD-nomove.png";
 
     /**
      * The enum Direction.
@@ -87,6 +88,8 @@ public class FloorCard extends Card {
      * Instantiates a new Floor card.
      *
      * @param type     the floor tile type.
+     * @param x        the x
+     * @param y        the y
      * @param rotation the rotation of the tile.
      */
     public FloorCard(String type, int x, int y, int rotation) {
@@ -103,11 +106,7 @@ public class FloorCard extends Card {
      * @return true if the state is fire.
      */
     public boolean isOnFire() {
-        if (state == FloorTileState.FIRE) {
-            return true;
-        } else {
-            return false;
-        }
+        return state == FloorTileState.FIRE;
     }
 
     /**
@@ -130,6 +129,8 @@ public class FloorCard extends Card {
 
     /**
      * Sets on fire.
+     *
+     * @param effectTimer the effect timer
      */
     public void setOnFire(int effectTimer) {
         setEffectTimer(effectTimer);
@@ -138,6 +139,8 @@ public class FloorCard extends Card {
 
     /**
      * Sets on ice.
+     *
+     * @param effectTimer the effect timer
      */
     public void setOnIce(int effectTimer) {
         setEffectTimer(effectTimer);
@@ -145,6 +148,11 @@ public class FloorCard extends Card {
     }
 
 
+    /**
+     * Gets state.
+     *
+     * @return the state
+     */
     public FloorTileState getState() {
         return state;
     }
@@ -166,11 +174,7 @@ public class FloorCard extends Card {
      * @return true if effect is active.
      */
     public boolean isEffectActive() {
-        if (effectTimer > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return effectTimer > 0;
     }
 
     /**
@@ -254,6 +258,11 @@ public class FloorCard extends Card {
 
     /**
      * Use card.
+     *
+     * @param board the board
+     * @param x     the x
+     * @param y     the y
+     * @return the boolean
      */
     @Override
     public boolean useCard(Board board, int x, int y) {
@@ -304,7 +313,7 @@ public class FloorCard extends Card {
     /**
      * Change path for tile.
      *
-     * @param times
+     * @param times the times
      */
     private void changePaths(int times) {
         while (times > 0) {
@@ -431,22 +440,26 @@ public class FloorCard extends Card {
         }
         switch (dir) {
             case LEFT:
-                if (compare.getOpeningAt(Direction.RIGHT) && this.getOpeningAt(Direction.LEFT)) {
+                if (compare.getOpeningAt(Direction.RIGHT)
+                        && this.getOpeningAt(Direction.LEFT)) {
                     return true;
                 }
                 break;
             case UP:
-                if (compare.getOpeningAt(Direction.DOWN) && this.getOpeningAt(Direction.UP)) {
+                if (compare.getOpeningAt(Direction.DOWN)
+                        && this.getOpeningAt(Direction.UP)) {
                     return true;
                 }
                 break;
             case RIGHT:
-                if (compare.getOpeningAt(Direction.LEFT) && this.getOpeningAt(Direction.RIGHT)) {
+                if (compare.getOpeningAt(Direction.LEFT)
+                        && this.getOpeningAt(Direction.RIGHT)) {
                     return true;
                 }
                 break;
             case DOWN:
-                if (compare.getOpeningAt(Direction.UP) && this.getOpeningAt(Direction.DOWN)) {
+                if (compare.getOpeningAt(Direction.UP)
+                        && this.getOpeningAt(Direction.DOWN)) {
                     return true;
                 }
                 break;
@@ -478,16 +491,18 @@ public class FloorCard extends Card {
      * Draws a tile.
      *
      * @param gc graphic context of the canvas
-     * @param x
-     * @param y
+     * @param x  the x
+     * @param y  the y
      */
     public void drawTile(GraphicsContext gc, int x, int y) {
         gc.drawImage(this.getImage(), x * TILE_SIZE, y * TILE_SIZE);
         if (this.isFixed()) {
-            gc.drawImage(new Image(fixedTileImagePath), x * TILE_SIZE, y * TILE_SIZE);
+            gc.drawImage(new Image(fixedTileImagePath), x * TILE_SIZE,
+                    y * TILE_SIZE);
         }
         if (state != FloorTileState.NORMAL) {
-            gc.drawImage(getTileEffectImage(), x * TILE_SIZE, y * TILE_SIZE);
+            gc.drawImage(getTileEffectImage(),
+                    x * TILE_SIZE, y * TILE_SIZE);
         }
     }
 
