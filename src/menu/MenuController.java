@@ -384,6 +384,7 @@ public class MenuController extends Application {
                     curDatabase.start();
 
                     for (PlayerController playerController : game.getController().getPlayers()) {
+                        System.out.println(playerController.getProfile());
                         curDatabase.updatePlayer(playerController.getProfile());
                     }
                 }
