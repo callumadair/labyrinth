@@ -227,7 +227,7 @@ public class MenuController extends Application {
             game = null;
             boardName = null;
         }
-        if(!players.isEmpty()){
+        if(players != null && !players.isEmpty()){
             players.clear();
         }
         disableVisibility(MenuWindow.MAIN);
