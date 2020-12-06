@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * The type Message of the day.
+ *
  * @author Jeffrey
  */
 public class MessageOfTheDay {
@@ -34,7 +35,7 @@ public class MessageOfTheDay {
     /**
      * Decodes the scrambled message from the website
      *
-     * @return string
+     * @return string string
      * @throws IOException the io exception
      */
     public static String encode() throws IOException {
@@ -67,7 +68,7 @@ public class MessageOfTheDay {
      * Solves an ASCII puzzle
      *
      * @param ascii the ascii
-     * @return int
+     * @return int int
      */
     public static int solvePuzzleASCII(int ascii) {
 			char start = 'A';
@@ -84,7 +85,7 @@ public class MessageOfTheDay {
     /**
      * Returns the final daily message
      *
-     * @return string
+     * @return string string
      * @throws IOException the io exception
      */
     public static String finalMessage() throws IOException {
