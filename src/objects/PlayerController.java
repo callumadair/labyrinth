@@ -260,7 +260,8 @@ public class PlayerController {
         }
         if (bottom != null) {
             if (currentTile.checkPath(bottom, FloorCard.Direction.DOWN)
-                    && !board.checkPlayerPosition(bottom.getX(), bottom.getY())) {
+                    && !board.checkPlayerPosition(bottom.getX(),
+                    bottom.getY())) {
                 legalMoves.add(bottom);
             }
         }
@@ -284,7 +285,8 @@ public class PlayerController {
      * @param gc the gc.
      */
     public void drawPlayer(GraphicsContext gc) {
-        gc.drawImage(image, x * FloorCard.TILE_SIZE, y * FloorCard.TILE_SIZE);
+        gc.drawImage(image, x * FloorCard.TILE_SIZE,
+                y * FloorCard.TILE_SIZE);
     }
 
     /**
@@ -310,7 +312,8 @@ public class PlayerController {
      */
     @Override
     public String toString() {
-        return getPlayerColor() + ": " + getProfile().getPlayerName(); // add players name from profile as well
+        return getPlayerColor() + ": " + getProfile().getPlayerName(); // add
+        // players name from profile as well
     }
 
 }

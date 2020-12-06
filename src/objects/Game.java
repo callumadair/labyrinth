@@ -88,7 +88,7 @@ public class Game {
         for (int i = 0; i < controller.getPlayers().size(); i++) {
             playerTags.add(new Label(controller.getPlayers().get(i).toString()));
             playerTags.get(i).setFont(Font.font("QuickSand medium",
-                    FontPosture.REGULAR, 20));
+                    FontPosture.REGULAR, FONT_SIZE));
             playerTags.get(i).setTextFill(Color.WHITE);
             left.getChildren().add(playerTags.get(i));
         }
@@ -96,7 +96,7 @@ public class Game {
         Label actionStateLabel = new Label("Action:");
         actionStateLabel.setStyle("-fx-font-weight: bold");
         actionStateLabel.setFont(Font.font("QuickSand medium",
-                FontPosture.REGULAR, 20));
+                FontPosture.REGULAR, FONT_SIZE));
         actionStateLabel.setTextFill(Color.LIGHTGREEN);
         left.getChildren().add(actionStateLabel);
 
