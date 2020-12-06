@@ -241,9 +241,6 @@ public class Game {
                     clearDisplayedCards();
                 } else if (controller.getCurrentState() == Controller.GameState.VICTORY) {
                     isGameFinished.setValue(true);
-                    //end game
-                    //display the winners name
-
                 }
             }
         });
@@ -285,8 +282,10 @@ public class Game {
             playingCardImage.setImage(controller.getPlayingCard().getImage());
         }
     }
+
     /**
      * Selects an action card.
+     *
      * @param y on the right pane.
      */
     private void selectActionCard(double y) {
@@ -314,7 +313,7 @@ public class Game {
      *
      * @return true if the game is finished.
      */
-    public BooleanProperty getIsGameFinished(){
+    public BooleanProperty getIsGameFinished() {
         return isGameFinished;
     }
 
@@ -323,7 +322,7 @@ public class Game {
      *
      * @return Canvas.
      */
-    public Canvas getCanvas(){
+    public Canvas getCanvas() {
         return controller.getCanvas();
     }
 }

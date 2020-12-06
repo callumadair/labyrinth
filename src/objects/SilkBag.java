@@ -2,6 +2,7 @@ package objects;
 
 import java.util.Random;
 import java.util.ArrayList;
+
 /**
  * This class represents the SilkBag in the Game.
  *

@@ -7,6 +7,7 @@ import java.util.Random;
 
 /**
  * This class represents the different floor tiles of the game.
+ *
  * @author Kacper L
  * @author Maha Malik
  */
@@ -85,7 +86,7 @@ public class FloorCard extends Card {
     /**
      * Instantiates a new Floor card.
      *
-     * @param type the floor tile type.
+     * @param type     the floor tile type.
      * @param rotation the rotation of the tile.
      */
     public FloorCard(String type, int x, int y, int rotation) {
@@ -123,7 +124,7 @@ public class FloorCard extends Card {
      *
      * @param fixed boolean.
      */
-    public void setFixed(boolean fixed){
+    public void setFixed(boolean fixed) {
         this.isFixed = fixed;
     }
 
@@ -144,14 +145,14 @@ public class FloorCard extends Card {
     }
 
 
-    public FloorTileState getState(){
+    public FloorTileState getState() {
         return state;
     }
 
     /**
      * Decrements the effect timer.
      */
-    public void decrementEffectTimer(){
+    public void decrementEffectTimer() {
         effectTimer--;
         if (effectTimer <= 0) {
             this.setStateToNormal();
@@ -164,8 +165,8 @@ public class FloorCard extends Card {
      *
      * @return true if effect is active.
      */
-    public boolean isEffectActive(){
-        if(effectTimer > 0){
+    public boolean isEffectActive() {
+        if (effectTimer > 0) {
             return true;
         } else {
             return false;
@@ -177,8 +178,8 @@ public class FloorCard extends Card {
      *
      * @param effectTimer the effect timer.
      */
-    public void setEffectTimer(int effectTimer){
-        if(effectTimer < 0){
+    public void setEffectTimer(int effectTimer) {
+        if (effectTimer < 0) {
             this.effectTimer = 0;
         } else {
             this.effectTimer = effectTimer;
@@ -359,7 +360,7 @@ public class FloorCard extends Card {
     /**
      * Set a random rotation of the tile.
      */
-    public void setRandomRotation(){
+    public void setRandomRotation() {
         Random random = new Random();
         int randomRotation = random.nextInt(4);
         switch (randomRotation) {
@@ -421,7 +422,7 @@ public class FloorCard extends Card {
      * Check to see if there is a path in the direction the player wants to go.
      *
      * @param compare a floorCard.
-     * @param dir direction.
+     * @param dir     direction.
      * @return true if path has opening in certain direction, otherwise false.
      */
     public boolean checkPath(FloorCard compare, Direction dir) {
@@ -476,13 +477,13 @@ public class FloorCard extends Card {
     /**
      * Draws a tile.
      *
-     * @param gc
+     * @param gc graphic context of the canvas
      * @param x
      * @param y
      */
     public void drawTile(GraphicsContext gc, int x, int y) {
         gc.drawImage(this.getImage(), x * TILE_SIZE, y * TILE_SIZE);
-        if(this.isFixed()){
+        if (this.isFixed()) {
             gc.drawImage(new Image(fixedTileImagePath), x * TILE_SIZE, y * TILE_SIZE);
         }
         if (state != FloorTileState.NORMAL) {
@@ -492,6 +493,7 @@ public class FloorCard extends Card {
 
     /**
      * Gets the Tile Effect Image.
+     *
      * @return Image the image.
      */
     private Image getTileEffectImage() {

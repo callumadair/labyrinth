@@ -9,7 +9,9 @@ import java.util.LinkedList;
 /**
  * This class represents the Player controller.
  *
- * @author
+ * @author Maha
+ * @author Kacper
+ * @author Stefani
  */
 public class PlayerController {
 
@@ -134,7 +136,7 @@ public class PlayerController {
      *
      * @param flag boolean.
      */
-    public void setCurrentPlayer(boolean flag){
+    public void setCurrentPlayer(boolean flag) {
         isCurrentPlayer = flag;
     }
 
@@ -143,7 +145,7 @@ public class PlayerController {
      *
      * @return true if the player is the current player.
      */
-    public boolean isCurrentPlayer(){
+    public boolean isCurrentPlayer() {
         return isCurrentPlayer;
     }
 
@@ -152,7 +154,7 @@ public class PlayerController {
      *
      * @param card - the card to be added.
      */
-    public void addInCardsHeld(ActionCard card){
+    public void addInCardsHeld(ActionCard card) {
         cardsHeld.add(card);
     }
 
@@ -286,8 +288,8 @@ public class PlayerController {
     }
 
     /**
-    * Gets player's color.
-    */
+     * Gets player's color.
+     */
     private String getPlayerColor() {
         switch (playerIndex) {
             case 0:
@@ -303,6 +305,9 @@ public class PlayerController {
         }
     }
 
+    /**
+     * @return the players name and the color of his figure as a string
+     */
     @Override
     public String toString() {
         return getPlayerColor() + ": " + getProfile().getPlayerName(); // add players name from profile as well

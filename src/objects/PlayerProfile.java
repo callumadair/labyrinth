@@ -124,7 +124,7 @@ public class PlayerProfile {
     }
 
     /**
-     * returns the details of the player as a string
+     * @return the details of the player as a string
      */
     @Override
     public String toString() {
