@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 /**
  * This class represents the Controller.
+ *
  * @author Kacper L
  */
 public class Controller {
@@ -71,8 +72,8 @@ public class Controller {
      */
     public void startGame() {
         numOfPlayers = players.size() - 1;
-        for(PlayerController player : players){
-            if(player.isCurrentPlayer()){
+        for (PlayerController player : players) {
+            if (player.isCurrentPlayer()) {
                 this.playerIndex = player.getPlayerIndex();
             }
         }
@@ -147,22 +148,22 @@ public class Controller {
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
         currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
 
-        if(!board.getFrozenTiles().isEmpty()){
+        if (!board.getFrozenTiles().isEmpty()) {
             ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
-            for(FloorCard card : board.getFrozenTiles()){
+            for (FloorCard card : board.getFrozenTiles()) {
                 card.decrementEffectTimer();
-                if(!card.isEffectActive()){
+                if (!card.isEffectActive()) {
                     frozenTilesToRemove.add(card);
                 }
             }
             board.getFrozenTiles().removeAll(frozenTilesToRemove);
         }
 
-        if(!board.getTilesOnFire().isEmpty()){
+        if (!board.getTilesOnFire().isEmpty()) {
             ArrayList<FloorCard> tilesOnFireToRemove = new ArrayList<>();
-            for(FloorCard card : board.getTilesOnFire()){
+            for (FloorCard card : board.getTilesOnFire()) {
                 card.decrementEffectTimer();
-                if(!card.isEffectActive()){
+                if (!card.isEffectActive()) {
                     tilesOnFireToRemove.add(card);
                 }
             }
@@ -184,7 +185,7 @@ public class Controller {
     private void getInsertionList() {
         tilesToCompare = board.getInsertionPoints();
 
-        if(tilesToCompare.isEmpty()){
+        if (tilesToCompare.isEmpty()) {
             playingCard = null;
             changeState(GameState.ACTION_CARD);
         } else {
@@ -197,7 +198,8 @@ public class Controller {
      */
     private void insert() {
         if (tilesToCompare.contains(selectedTile)) {
-            playingCard.useCard(board, selectedTile.getX(), selectedTile.getY());
+            playingCard.useCard(board, selectedTile.getX(),
+                    selectedTile.getY());
             clearSelection();
             draw();
             changeState(GameState.ACTION_CARD);
@@ -211,7 +213,8 @@ public class Controller {
      */
     public void playActionCard() {
         if (playingCard != null && selectedTile != null) {
-            if (playingCard.useCard(board, selectedTile.getX(), selectedTile.getY())) {
+            if (playingCard.useCard(board, selectedTile.getX(),
+                    selectedTile.getY())) {
                 currentPlayer.getCardsHeld().remove((ActionCard) playingCard);
                 clearSelection();
                 draw();
@@ -226,7 +229,8 @@ public class Controller {
      * Shows action cards.
      */
     private void showActionCards() {
-        ArrayList<ActionCard> cardHeldByCurrentPlayer = currentPlayer.getCardsHeld();
+        ArrayList<ActionCard> cardHeldByCurrentPlayer =
+                currentPlayer.getCardsHeld();
 
         /*
         set the last drawn card by a player so that it can be used this turn
@@ -254,18 +258,21 @@ public class Controller {
             highlightTiles();
         }
     }
+
     /**
      * Moves the player.
      */
     private void movePlayer() {
         if (tilesToCompare.contains(selectedTile)) {
             if (selectedTile.checkGoal()) {
-                board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
+                board.changePlayerPosition(currentPlayer, selectedTile.getX()
+                        , selectedTile.getY());
                 draw();
                 clearSelection();
                 changeState(GameState.VICTORY);
             } else {
-                board.changePlayerPosition(currentPlayer, selectedTile.getX(), selectedTile.getY());
+                board.changePlayerPosition(currentPlayer, selectedTile.getX()
+                        , selectedTile.getY());
                 draw();
                 clearSelection();
                 if (currentPlayer.checkDoubleMove()) {
@@ -286,8 +293,10 @@ public class Controller {
      */
     private void highlightTiles() {
         for (FloorCard f : tilesToCompare) {
-            canvas.getGraphicsContext2D().drawImage(new Image(tileHighlightImagePath),
-                    f.getX() * FloorCard.TILE_SIZE, f.getY() * FloorCard.TILE_SIZE);
+            canvas.getGraphicsContext2D().drawImage(
+                    new Image(tileHighlightImagePath),
+                    f.getX() * FloorCard.TILE_SIZE,
+                    f.getY() * FloorCard.TILE_SIZE);
         }
     }
 
@@ -330,13 +339,19 @@ public class Controller {
                 double x = event.getX();
                 double y = event.getY();
                 selectedTile = board.getTileFromCanvas(x, y);
-                System.out.println("x: " + selectedTile.getX() + " y: " + selectedTile.getY() +
+                System.out.println("x: " + selectedTile.getX()
+                        + " y: " + selectedTile.getY() +
                         " | " + selectedTile.getType() + " | " + currentState);
                 System.out.println(currentPlayer.getPlayerIndex());
-                System.out.println("Left: " + selectedTile.getOpeningAt(FloorCard.Direction.LEFT) +
-                        " Up: " + selectedTile.getOpeningAt(FloorCard.Direction.UP) +
-                        " Right: " + selectedTile.getOpeningAt(FloorCard.Direction.RIGHT) +
-                        " Down: " + selectedTile.getOpeningAt(FloorCard.Direction.DOWN));
+                System.out.println(
+                        "Left: " + selectedTile.getOpeningAt(
+                                FloorCard.Direction.LEFT) +
+                                " Up: " + selectedTile.getOpeningAt(
+                                FloorCard.Direction.UP) +
+                                " Right: " + selectedTile.getOpeningAt(
+                                FloorCard.Direction.RIGHT) +
+                                " Down: " + selectedTile.getOpeningAt(
+                                FloorCard.Direction.DOWN));
                 playState();
             }
         });
