@@ -313,7 +313,7 @@
                         </MenuButton>
 
                         <Label alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0"
-                               prefWidth="200.0" text="Night Crawlers" textAlignment="CENTER_LEFT" textFill="DARKBLUE">
+                               prefWidth="200.0" text="Night Crawlers" textAlignment="CENTER" textFill="DARKBLUE">
                             <font>
                                 <Font name="Quicksand Medium" size="24.0"/>
                             </font>

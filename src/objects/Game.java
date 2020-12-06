@@ -26,6 +26,8 @@ import java.util.ArrayList;
  * The type Game.
  *
  * @author Kacper Lisikiewicz
+ * @author Stefani Dimitrova
+ * @author Maha Malik
  */
 public class Game {
 
@@ -103,7 +105,7 @@ public class Game {
         actionLabel = new Label(controller.getCurrentState().toString());
         actionLabel.setFont(Font.font("QuickSand medium",
                 FontPosture.REGULAR
-                , 20));
+                , FONT_SIZE));
         actionLabel.setTextFill(Color.WHITE);
         actionLabel.setAlignment(Pos.BOTTOM_CENTER);
         left.getChildren().add(actionLabel);
@@ -335,15 +337,6 @@ public class Game {
      */
     public BooleanProperty getIsGameFinished() {
         return isGameFinished;
-    }
-
-    /**
-     * Get canvas.
-     *
-     * @return Canvas. canvas
-     */
-    public Canvas getCanvas() {
-        return controller.getCanvas();
     }
 
     /**

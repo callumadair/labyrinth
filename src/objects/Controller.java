@@ -149,6 +149,7 @@ public class Controller {
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
         currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
 
+        //Change the effect timer on frozen tiles
         if (!board.getFrozenTiles().isEmpty()) {
             ArrayList<FloorCard> frozenTilesToRemove = new ArrayList<>();
             for (FloorCard card : board.getFrozenTiles()) {
@@ -160,6 +161,7 @@ public class Controller {
             board.getFrozenTiles().removeAll(frozenTilesToRemove);
         }
 
+        //Change the effect timer on fire tiles
         if (!board.getTilesOnFire().isEmpty()) {
             ArrayList<FloorCard> tilesOnFireToRemove = new ArrayList<>();
             for (FloorCard card : board.getTilesOnFire()) {
@@ -233,9 +235,7 @@ public class Controller {
         ArrayList<ActionCard> cardHeldByCurrentPlayer =
                 currentPlayer.getCardsHeld();
 
-        /*
-        set the last drawn card by a player so that it can be used this turn
-         */
+        //set the last drawn card by a player so that it can be used this turn
         if (!cardHeldByCurrentPlayer.isEmpty()) {
             cardHeldByCurrentPlayer.get(cardHeldByCurrentPlayer.size() - 1).setCanBeUsed();
         }
@@ -286,7 +286,6 @@ public class Controller {
         } else {
             selectedTile = null;
         }
-
     }
 
     /**

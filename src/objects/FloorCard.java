@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class FloorCard extends Card {
 
-
     public static final int TILE_SIZE = 54;
+
     private final String straightTileImagePath = "resources/ROAD_straight";
     private final String cornerTileImagePath = "resources/ROAD_curved";
     private final String tshapedTileImagePath = "resources/ROAD_Tshaped";
@@ -33,7 +33,6 @@ public class FloorCard extends Card {
     private int rotation = 0;
 
     private int effectTimer = 0;
-
 
     /**
      * The enum Direction.

@@ -186,6 +186,7 @@ public class PlayerController {
     public void storePosition(int x, int y) {
         int pos[] = {x, y};
 
+        //Last is the previous position
         if (lastThree.size() == 3) {
             lastThree.addLast(pos);
             lastThree.removeFirst();
@@ -313,8 +314,7 @@ public class PlayerController {
      */
     @Override
     public String toString() {
-        return getPlayerColor() + ": " + getProfile().getPlayerName(); // add
-        // players name from profile as well
+        return getPlayerColor() + ": " + getProfile().getPlayerName();
     }
 
 }

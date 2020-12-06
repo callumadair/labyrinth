@@ -126,7 +126,6 @@ public class Board {
      * Assigns the insert positions.
      */
     private void assignInsertPositions() {
-
         for (int i = 0; i < height; i++) {
             rowsToPlace.add(i);
         }
@@ -348,19 +347,6 @@ public class Board {
     }
 
     /**
-     * Sets player position.
-     *
-     * @param player the player.
-     * @param x      the x new position.
-     * @param y      the y new position.
-     */
-//use only when loading a board from a save file
-    public void setPlayerPosition(PlayerController player, int x, int y) {
-        player.setX(x);
-        player.setY(y);
-    }
-
-    /**
      * Check player position.
      *
      * @param x the x position.
@@ -385,24 +371,6 @@ public class Board {
      */
     public boolean checkBoardBoundary(int x, int y) {
         return x >= 0 && x < width && y >= 0 && y < height;
-    }
-
-    /**
-     * Gets the number of fixed tiles.
-     *
-     * @return the fixed tiles number.
-     */
-    public int getFixedTilesNum() {
-        return this.fixedTiles.length;
-    }
-
-    /**
-     * Get fixed tiles.
-     *
-     * @return the fixed tiles.
-     */
-    public FloorCard[] getFixedTiles() {
-        return this.fixedTiles;
     }
 
     /**
@@ -437,15 +405,6 @@ public class Board {
      */
     public ArrayList<FloorCard> getFrozenTiles() {
         return frozenTiles;
-    }
-
-    /**
-     * Sets players.
-     *
-     * @param players the players.
-     */
-    public void setPlayers(ArrayList<PlayerController> players) {
-        this.players = players;
     }
 
     /**
