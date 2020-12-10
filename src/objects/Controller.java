@@ -147,7 +147,6 @@ public class Controller {
     private void drawCard() {
         setPlayingCard(board.getSilkBag().drawACard());
         currentPlayerIndex.set(currentPlayer.getPlayerIndex());
-        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
 
         //Change the effect timer on frozen tiles
         if (!board.getFrozenTiles().isEmpty()) {
@@ -313,6 +312,7 @@ public class Controller {
         currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
 
         currentPlayer = players.get(playerIndex);
+        currentPlayer.setCurrentPlayer(!currentPlayer.isCurrentPlayer());
         changeState(GameState.DRAWING);
     }
 
@@ -352,6 +352,9 @@ public class Controller {
                                 FloorCard.Direction.RIGHT) +
                                 " Down: " + selectedTile.getOpeningAt(
                                 FloorCard.Direction.DOWN));
+                for(PlayerController p : players){
+                    System.out.println(p.isCurrentPlayer());
+                }
                 playState();
             }
         });

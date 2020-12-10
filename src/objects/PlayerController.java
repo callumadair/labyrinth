@@ -171,9 +171,9 @@ public class PlayerController {
     /**
      * Sets last three moves made by the player.
      *
-     * @param cards - the cards.
+     * @param lastThree - the cards.
      */
-    public void setLastThree(LinkedList<int[]> cards) {
+    public void setLastThree(LinkedList<int[]> lastThree) {
         this.lastThree = lastThree;
     }
 
