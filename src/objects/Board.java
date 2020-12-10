@@ -201,6 +201,7 @@ public class Board {
      * @param y    the y position.
      */
     public void insertTile(FloorCard tile, int x, int y) {
+        boolean playerMoved = false;
         if (x == 0 || x == width - 1) {
             if (x == 0) {
                 map[width - 1][y].setStateToNormal();
@@ -210,9 +211,10 @@ public class Board {
                     map[i - 1][y].setX(i);
                     if (checkPlayerPosition(i - 1, y)) {
                         getPlayer(i - 1, y).movePlayer(i, y);
+                        playerMoved = true;
                     }
                 }
-                if (this.checkPlayerPosition(width - 1, y)) {
+                if (this.checkPlayerPosition(width - 1, y) && !playerMoved) {
                     getPlayer(width - 1, y).movePlayer(0, y);
                 }
                 map[0][y] = tile;
@@ -224,9 +226,10 @@ public class Board {
                     map[i + 1][y].setX(i);
                     if (checkPlayerPosition(i + 1, y)) {
                         getPlayer(i + 1, y).movePlayer(i, y);
+                        playerMoved = true;
                     }
                 }
-                if (this.checkPlayerPosition(0, y)) {
+                if (this.checkPlayerPosition(0, y) && !playerMoved) {
                     getPlayer(0, y).movePlayer(width - 1, y);
                 }
                 map[width - 1][y] = tile;
@@ -240,9 +243,10 @@ public class Board {
                     map[x][i - 1].setY(i);
                     if (checkPlayerPosition(x, i - 1)) {
                         getPlayer(x, i - 1).movePlayer(x, i);
+                        playerMoved = true;
                     }
                 }
-                if (this.checkPlayerPosition(x, height - 1)) {
+                if (this.checkPlayerPosition(x, height - 1) && !playerMoved) {
                     getPlayer(x, height - 1).movePlayer(x, 0);
                 }
                 map[x][0] = tile;
@@ -254,9 +258,10 @@ public class Board {
                     map[x][i + 1].setY(i);
                     if (checkPlayerPosition(x, i + 1)) {
                         getPlayer(x, i + 1).movePlayer(x, i);
+                        playerMoved = true;
                     }
                 }
-                if (this.checkPlayerPosition(x, 0)) {
+                if (this.checkPlayerPosition(x, 0) && !playerMoved) {
                     getPlayer(x, 0).movePlayer(x, height - 1);
                 }
                 map[x][height - 1] = tile;
